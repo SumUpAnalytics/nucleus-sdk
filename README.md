@@ -16,8 +16,8 @@ The starting point of all command sequence is the root of the repository.
     ```
     cd swagger
     wget http://central.maven.org/maven2/io/swagger/swagger-codegen-cli/2.3.1/swagger-codegen-cli-2.3.1.jar -O swagger-codegen-cli.jar
-   cd ..
-   ```
+    cd ..
+    ```
 
 2. Run Swagger Code Generator to generate Nucleus client Python module
   * MacOS:  
