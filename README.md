@@ -19,11 +19,14 @@ cd sdk
 python3 setup.py install
 ```
 
-4. Test Nucleus API with an example
-  * Go to the examples directory `cd ../../examples`
-  * Open analyze-trump-tweets.py in a text editor and update the lines below with provided host name and API key  
+## Python SDK Documentation
+The documentation on all available APIs can be found in swagger/sdk/README.md and swagger/sdk/docs
+
+## Example using Nucleus APIs
+1. Go to the examples directory `cd ../../examples`
+2. Open analyze-trump-tweets.py in a text editor and update the lines below with provided host name and API key  
     ```
     configuration.host = 'API_HOST_HERE'
     configuration.api_key['x-api-key'] = 'API_KEY_HERE'
     ```
-  * Execute the example: 'python3 analyze-trump-tweets.py' 
+3. Execute the example: 'python3 analyze-trump-tweets.py' 
