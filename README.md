@@ -16,7 +16,7 @@ Those APIs enable end-users to perform the following tasks:
 The core task, topic modeling, has been benchmarked against Scikit-Learn, Gensim and AWS Comprehend topic models and delivers 100x speed-up with 2x accuracy. More details can be found at www.sumup.ai in Nucleus Solution Brief (https://www.sumup.ai/SumUp%20Real-Time%20Text%20Analytics%20Solution%20Brief.pdf)
 
 ## Prerequisites
-1. Python 3.5 or newer is set up in a virtual environment. More details: https://docs.python.org/3/tutorial/venv.html
+1. Python 3.5 or 3.6 is set up in a virtual environment. More details: https://docs.python.org/3/tutorial/venv.html
 2. Java 7 or 8 is installed. More details: https://www.oracle.com/technetwork/java/index.html 
 
 ## Python SDK Generation
