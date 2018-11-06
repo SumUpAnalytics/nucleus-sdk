@@ -5,11 +5,17 @@ Nucleus SDK with instructions and examples on how to use Nucleus APIs
 Nucleus SDK is a suite of high-performance text-analytics APIs developed by SumUp Analytics, Inc and subject to Terms of Services available at www.sumup.ai
 
 Those APIs enable end-users to perform the following tasks:
+1. Analytics
 * Topic modeling
-* Summarization
-* Sentiment analysis
-* Consensus analysis
-* Content recommendation
+* Summarization at the Topic and Document level
+* Sentiment analysis at the Topic level
+* Consensus analysis at the Topic level
+* Content recommendation at the Topic level
+
+2. Dataset Management
+* Retrieval of documents metadata
+* Document display
+* Selective documents deletion
 
 10 languages are currently supported by those APIs: English, Mandarin, Japanese, Portuguese, Spanish, German, Russian, Italian, French, Farsi.
 
