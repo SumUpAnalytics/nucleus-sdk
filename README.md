@@ -62,7 +62,8 @@ cd ../..
 ```
 
 ## Python SDK Documentation
-The documentation on all available APIs can be found in swagger/sdk/README.md and swagger/sdk/docs
+The documentation on all available APIs can be found in swagger/sdk/README.md and swagger/sdk/docs after Swagger
+Code Generator has been run.
 
 ## Example using Nucleus APIs
 1. Go to the examples directory `cd examples`
