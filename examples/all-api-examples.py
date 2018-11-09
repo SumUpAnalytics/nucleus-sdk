@@ -18,7 +18,7 @@ from pprint import pprint
 
 
 configuration = nucleus_client.Configuration()
-configuration.host = 'UPDATE-WITH-API-HOST'
+configuration.host = 'https://7h4tcw9nej.execute-api.us-west-2.amazonaws.com/beta'
 configuration.api_key['x-api-key'] = 'UPDATE-WITH-API-KEY'
 
 
@@ -32,9 +32,42 @@ configuration.api_key['x-api-key'] = 'UPDATE-WITH-API-KEY'
 api_instance = nucleus_client.DatasetsApi(nucleus_client.ApiClient(configuration))
 
 
-# ## Append json from csv to dataset
+# ## Append file from local drive to dataset
 
 # In[4]:
+
+
+file = 'quarles20181109a.pdf' # file | 
+dataset = 'dataset_from_file' # str | Destination dataset where the file will be inserted.
+
+try:
+    api_instance.post_upload_file(file, dataset)
+except ApiException as e:
+    print("Exception when calling DatasetsApi->post_upload_file: %s\n" % e)
+
+
+# ## Append file from URL to dataset
+
+# In[5]:
+
+
+dataset = 'dataset_from_url'
+file_url = 'https://www.federalreserve.gov/newsevents/speech/files/quarles20181109a.pdf'
+payload = nucleus_client.UploadURLModel(
+                dataset=dataset,
+                file_url=file_url
+            ) # UploadURLModel | 
+
+try:
+    api_response = api_instance.post_upload_url(payload)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DatasetsApi->post_upload_url: %s\n" % e)
+
+
+# ## Append json from csv to dataset
+
+# In[6]:
 
 
 # add documents to dataset
@@ -60,39 +93,6 @@ with open(csv_file, encoding='utf-8-sig') as csvfile:
                 print("Exception when calling DatasetsApi->post_append_json_to_dataset: %s\n" % e)
         
         doc_cnt = doc_cnt + 1
-
-
-# ## Append file from local drive to dataset
-
-# In[5]:
-
-
-file = 'quarles20181109a.pdf' # file | 
-dataset = 'dataset_from_file' # str | Destination dataset where the file will be inserted.
-
-try:
-    api_instance.post_upload_file(file, dataset)
-except ApiException as e:
-    print("Exception when calling DatasetsApi->post_upload_file: %s\n" % e)
-
-
-# ## Append file from URL to dataset
-
-# In[6]:
-
-
-dataset = 'dataset_from_url'
-file_url = 'https://www.federalreserve.gov/newsevents/speech/files/quarles20181109a.pdf'
-payload = nucleus_client.UploadURLModel(
-                dataset=dataset,
-                file_url=file_url
-            ) # UploadURLModel | 
-
-try:
-    api_response = api_instance.post_upload_url(payload)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling DatasetsApi->post_upload_url: %s\n" % e)
 
 
 # ## List available datasets
@@ -132,6 +132,7 @@ except ApiException as e:
 # In[9]:
 
 
+dataset = 'dataset_from_json'
 payload = nucleus_client.Deletedocumentmodel(dataset=dataset,
                                              docid='2') # Deletedocumentmodel | 
 
@@ -147,6 +148,7 @@ except ApiException as e:
 # In[10]:
 
 
+dataset = 'dataset_from_json' 
 payload = nucleus_client.Deletedatasetmodel(dataset=dataset) # Deletedatasetmodel | 
 
 try:
