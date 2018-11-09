@@ -32,14 +32,14 @@ configuration.api_key['x-api-key'] = 'UPDATE-WITH-API-KEY'
 api_instance = nucleus_client.DatasetsApi(nucleus_client.ApiClient(configuration))
 
 
-# ## Create a small dataset with 10 documents
+# ## Append json from csv to dataset
 
 # In[4]:
 
 
 # add documents to dataset
 csv_file = 'trump_tweets.csv'
-dataset = 'dataset_test_delete'   
+dataset = 'dataset_from_json'   
 
 api_instance = nucleus_client.DatasetsApi(nucleus_client.ApiClient(configuration))
 doc_cnt = 0
@@ -62,9 +62,42 @@ with open(csv_file, encoding='utf-8-sig') as csvfile:
         doc_cnt = doc_cnt + 1
 
 
-# ## List available datasets
+# ## Append file from local drive to dataset
 
 # In[5]:
+
+
+file = 'quarles20181109a.pdf' # file | 
+dataset = 'dataset_from_file' # str | Destination dataset where the file will be inserted.
+
+try:
+    api_instance.post_upload_file(file, dataset)
+except ApiException as e:
+    print("Exception when calling DatasetsApi->post_upload_file: %s\n" % e)
+
+
+# ## Append file from URL to dataset
+
+# In[6]:
+
+
+dataset = 'dataset_from_url'
+file_url = 'https://www.federalreserve.gov/newsevents/speech/files/quarles20181109a.pdf'
+payload = nucleus_client.UploadURLModel(
+                dataset=dataset,
+                file_url=file_url
+            ) # UploadURLModel | 
+
+try:
+    api_response = api_instance.post_upload_url(payload)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DatasetsApi->post_upload_url: %s\n" % e)
+
+
+# ## List available datasets
+
+# In[7]:
 
 
 try:
@@ -76,10 +109,10 @@ except ApiException as e:
 
 # ## Get dataset information
 
-# In[6]:
+# In[8]:
 
 
-dataset = dataset # str | Dataset name.
+dataset = 'dataset_from_file' # str | Dataset name.
 query = '' # str | Fulltext query, using mysql MATCH boolean query format. (optional)
 metadata_selection = '' # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
 time_period = '' # str | Time period selection (optional)
@@ -96,7 +129,7 @@ except ApiException as e:
 
 # ## Delete a document
 
-# In[7]:
+# In[9]:
 
 
 payload = nucleus_client.Deletedocumentmodel(dataset=dataset,
@@ -111,7 +144,7 @@ except ApiException as e:
 
 # ## Delete the dataset
 
-# In[8]:
+# In[10]:
 
 
 payload = nucleus_client.Deletedatasetmodel(dataset=dataset) # Deletedatasetmodel | 
@@ -132,7 +165,7 @@ except ApiException as e:
 
 # ## Create a full dataset for testing other APIs
 
-# In[9]:
+# In[11]:
 
 
 # add documents to dataset
@@ -161,7 +194,7 @@ with open(csv_file, encoding='utf-8-sig') as csvfile:
 
 # ## Create API Instance
 
-# In[10]:
+# In[12]:
 
 
 api_instance = nucleus_client.TopicsApi(nucleus_client.ApiClient(configuration))
@@ -169,11 +202,12 @@ api_instance = nucleus_client.TopicsApi(nucleus_client.ApiClient(configuration))
 
 # ## Get list of topics from dataset
 
-# In[11]:
+# In[13]:
 
 
 dataset = dataset
-query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
+#query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
+query = ''
 custom_stop_words = ["real","hillary"] # ERRORUNKNOWN | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
 metadata_selection ="" # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
@@ -193,11 +227,12 @@ except ApiException as e:
 
 # ## Get topic summary
 
-# In[12]:
+# In[14]:
 
 
 dataset = dataset # str | Dataset name.
-query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
+#query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
+query = ''
 custom_stop_words = ["real","hillary"] # ERRORUNKNOWN | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
 num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
@@ -222,11 +257,12 @@ except ApiException as e:
 
 # ## Get topic sentiment
 
-# In[13]:
+# In[15]:
 
 
 dataset = dataset # str | Dataset name.
-query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
+#query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
+query = ''
 custom_stop_words = ["real","hillary"] # ERRORUNKNOWN | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
 num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
@@ -245,7 +281,7 @@ except ApiException as e:
 
 # ## Get topic consensus
 
-# In[14]:
+# In[16]:
 
 
 dataset = dataset # str | Dataset name.
@@ -270,7 +306,7 @@ except ApiException as e:
 
 # ## Create API instance
 
-# In[15]:
+# In[17]:
 
 
 api_instance = nucleus_client.DocumentsApi(nucleus_client.ApiClient(configuration))
@@ -278,7 +314,7 @@ api_instance = nucleus_client.DocumentsApi(nucleus_client.ApiClient(configuratio
 
 # ## Get document information without content
 
-# In[16]:
+# In[18]:
 
 
 dataset = dataset # str | Dataset name.
@@ -294,7 +330,7 @@ except ApiException as e:
 
 # ## Display document details
 
-# In[17]:
+# In[19]:
 
 
 dataset = dataset # str | Dataset name.
@@ -310,7 +346,7 @@ except ApiException as e:
 
 # ## Get document recommendation
 
-# In[18]:
+# In[20]:
 
 
 dataset = dataset # str | Dataset name.
@@ -333,7 +369,7 @@ except ApiException as e:
 
 # ## Get document summary
 
-# In[19]:
+# In[21]:
 
 
 dataset = dataset # str | Dataset name.
