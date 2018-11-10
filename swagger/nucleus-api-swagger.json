@@ -1,515 +1,24 @@
 {
-    "definitions": {
-        "user": {
-            "type": "object",
-            "required": [
-                "password",
-                "user_email"
-            ],
-            "properties": {
-                "password": {
-                    "type": "string",
-                    "description": "Password of the user to register."
-                },
-                "country": {
-                    "type": "string",
-                    "description": "Country of origin."
-                },
-                "company": {
-                    "type": "string",
-                    "description": "Name of the Company of the user."
-                },
-                "first_name": {
-                    "type": "string",
-                    "description": "First name of the user to register.'"
-                },
-                "user_email": {
-                    "type": "string",
-                    "description": "Email of the user to register."
-                },
-                "title": {
-                    "type": "string",
-                    "description": "Job title."
-                },
-                "last_name": {
-                    "type": "string",
-                    "description": "Last name of the user to register."
-                },
-                "phone": {
-                    "type": "integer",
-                    "description": "Phone number (int) of the user to register."
-                }
-            }
-        },
-        "deletedocumentmodel": {
-            "type": "object",
-            "required": [
-                "dataset",
-                "docid"
-            ],
-            "properties": {
-                "docid": {
-                    "type": "string",
-                    "description": "ID of the document to be deleted."
-                },
-                "dataset": {
-                    "type": "string",
-                    "description": "Name of the dataset."
-                }
-            }
-        },
-        "deletepostModel": {
-            "type": "object",
-            "properties": {
-                "success": {
-                    "type": "string",
-                    "description": "Dataset deleted"
-                }
-            }
-        },
-        "getDatasetInfoModel": {
-            "type": "object",
-            "properties": {
-                "num_documents": {
-                    "type": "string",
-                    "description": "Number of documents in the dataset"
-                },
-                "metadata": {
-                    "type": "string",
-                    "description": "Metadata information"
-                },
-                "time_range": {
-                    "type": "string",
-                    "description": "Time range of the dataset"
-                },
-                "detected_language": {
-                    "type": "string",
-                    "description": "Language of the dataset"
-                },
-                "dataset": {
-                    "type": "string",
-                    "description": "Dataset name"
-                }
-            }
-        },
-        "topicConsensusModel": {
-            "type": "object",
-            "properties": {
-                "results": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/NestedTopicConsensusModel"
-                    }
-                }
-            }
-        },
-        "topicSentimentModel": {
-            "type": "object",
-            "properties": {
-                "results": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/NestedTopicSentimentModel"
-                    }
-                }
-            }
-        },
-        "documentRecommendModel": {
-            "type": "object",
-            "properties": {
-                "results": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/documentRecommendModel1"
-                    }
-                }
-            }
-        },
-        "NestedTopicSentimentModel": {
-            "type": "object",
-            "properties": {
-                "sentiment": {
-                    "type": "string",
-                    "description": "Topic sentiment"
-                },
-                "document_sentiments": {
-                    "type": "string",
-                    "description": "Document sentiments"
-                },
-                "document_scores": {
-                    "type": "string",
-                    "description": "Document scores"
-                },
-                "topic": {
-                    "type": "string",
-                    "description": "Topic keywords"
-                },
-                "strength": {
-                    "type": "string",
-                    "description": "Topic strength"
-                }
-            }
-        },
-        "topicSummaryModel": {
-            "type": "object",
-            "properties": {
-                "results": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/NestedTopicSummaryModel"
-                    }
-                }
-            }
-        },
-        "docInfoModel": {
-            "type": "object",
-            "properties": {
-                "results": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/nestedDocInfoModel"
-                    }
-                }
-            }
-        },
-        "docDispModel": {
-            "type": "object",
-            "properties": {
-                "results": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/nestedDocDispModel"
-                    }
-                }
-            }
-        },
-        "NestedTopicModel": {
-            "type": "object",
-            "properties": {
-                "doc_topic_exposure": {
-                    "type": "string",
-                    "description": "Exposure of each doc of the dataset to each topic"
-                },
-                "topic": {
-                    "type": "string",
-                    "description": "Topic"
-                },
-                "keywords_weight": {
-                    "type": "string",
-                    "description": "Weight of keywords in each topic"
-                },
-                "strength": {
-                    "type": "string",
-                    "description": "Prevalence of each topic in the dataset"
-                }
-            }
-        },
-        "NestedDocumentSummaryModel": {
-            "type": "object",
-            "properties": {
-                "sourceid": {
-                    "type": "string",
-                    "description": "The ID of the document the sentence comes from"
-                },
-                "sentences": {
-                    "type": "string",
-                    "description": "Sentences belonging to the summary"
-                }
-            }
-        },
-        "nestedDocRecModel": {
-            "type": "object",
-            "properties": {
-                "sourceid": {
-                    "type": "string",
-                    "description": "Document ID"
-                },
-                "attribute": {
-                    "$ref": "#/definitions/DocAttributeModel"
-                },
-                "title": {
-                    "type": "string",
-                    "description": "Document title"
-                }
-            }
-        },
-        "uploadURLModel": {
-            "type": "object",
-            "required": [
-                "dataset",
-                "file_url"
-            ],
-            "properties": {
-                "filename": {
-                    "type": "string",
-                    "description": "Specify the filename if different from the url (nucleus guesses the file type from the extension at the end of the url or file name)"
-                },
-                "metadata": {
-                    "$ref": "#/definitions/MetaData"
-                },
-                "file_url": {
-                    "type": "string",
-                    "description": "Public url pointing to the file (pdf/txt/docx...)"
-                },
-                "dataset": {
-                    "type": "string",
-                    "description": "Name of the dataset."
-                }
-            }
-        },
-        "documentRecommendModel1": {
-            "type": "object",
-            "properties": {
-                "topic": {
-                    "type": "string",
-                    "description": "Topic keywords"
-                },
-                "recommendations": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/nestedDocRecModel"
-                    }
-                }
-            }
-        },
-        "topicModel": {
-            "type": "object",
-            "properties": {
-                "results": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/NestedTopicModel"
-                    }
-                }
-            }
-        },
-        "nestedDocInfoModel": {
-            "type": "object",
-            "properties": {
-                "sourceid": {
-                    "type": "string",
-                    "description": "Document ID"
-                },
-                "attribute": {
-                    "$ref": "#/definitions/DocAttributeModel"
-                },
-                "title": {
-                    "type": "string",
-                    "description": "Document title"
-                }
-            }
-        },
-        "NestedTopicSummaryModel": {
-            "type": "object",
-            "properties": {
-                "topic": {
-                    "type": "string",
-                    "description": "Topic keywords"
-                },
-                "summary": {
-                    "type": "string",
-                    "description": "Topic summary"
-                }
-            }
-        },
-        "deletedocumentpostModel": {
-            "type": "object",
-            "properties": {
-                "success": {
-                    "type": "string",
-                    "description": "Document deleted from dataset"
-                }
-            }
-        },
-        "deletedatasetmodel": {
-            "type": "object",
-            "required": [
-                "dataset"
-            ],
-            "properties": {
-                "dataset": {
-                    "type": "string",
-                    "description": "Name of the dataset."
-                }
-            }
-        },
-        "NestedTopicConsensusModel": {
-            "type": "object",
-            "properties": {
-                "topic": {
-                    "type": "string",
-                    "description": "Topic keywords"
-                },
-                "consensus": {
-                    "type": "string",
-                    "description": "Topic consensus"
-                },
-                "strength": {
-                    "type": "string",
-                    "description": "Topic strength"
-                }
-            }
-        },
-        "appendjsonparams": {
-            "type": "object",
-            "required": [
-                "dataset"
-            ],
-            "properties": {
-                "document": {
-                    "$ref": "#/definitions/document"
-                },
-                "language": {
-                    "type": "string",
-                    "description": "If you want to override language detection."
-                },
-                "dataset": {
-                    "type": "string",
-                    "description": "Name of the dataset."
-                }
-            }
-        },
-        "nestedDocDispModel": {
-            "type": "object",
-            "properties": {
-                "sourceid": {
-                    "type": "string",
-                    "description": "Document ID"
-                },
-                "attribute": {
-                    "$ref": "#/definitions/DocAttributeModel"
-                },
-                "title": {
-                    "type": "string",
-                    "description": "Document title"
-                },
-                "content": {
-                    "type": "string",
-                    "description": "Document content"
-                }
-            }
-        },
-        "appendjsonpostModel": {
-            "type": "object",
-            "properties": {
-                "success": {
-                    "type": "string",
-                    "description": "Number of documents in the dataset"
-                }
-            }
-        },
-        "documentSummaryModel": {
-            "type": "object",
-            "properties": {
-                "doc_title": {
-                    "type": "string",
-                    "description": "Document title"
-                },
-                "summary": {
-                    "$ref": "#/definitions/NestedDocumentSummaryModel"
-                }
-            }
-        },
-        "MetaData": {
-            "type": "object",
-            "properties": {
-                "author": {
-                    "type": "string",
-                    "description": "Author of the publication."
-                }
-            }
-        },
-        "document": {
-            "type": "object",
-            "required": [
-                "content",
-                "time",
-                "title"
-            ],
-            "properties": {
-                "title": {
-                    "type": "string",
-                    "description": "Title of the document."
-                },
-                "time": {
-                    "type": "string",
-                    "description": "Time of publication."
-                },
-                "content": {
-                    "type": "string",
-                    "description": "Plaintext content of the document."
-                }
-            }
-        },
-        "uploadurlpostModel": {
-            "type": "object",
-            "properties": {
-                "success": {
-                    "type": "string",
-                    "description": "File uploaded from url to the dataset."
-                }
-            }
-        },
-        "DocAttributeModel": {
-            "type": "object",
-            "properties": {
-                "source": {
-                    "type": "string",
-                    "description": "Document source"
-                },
-                "time": {
-                    "type": "string",
-                    "description": "Document published ime"
-                },
-                "author": {
-                    "type": "string",
-                    "description": "Document author"
-                }
-            }
-        },
-        "userDatasetModel": {
-            "type": "object",
-            "properties": {
-                "list_datasets": {
-                    "type": "string",
-                    "description": "List of user datasets"
-                }
-            }
-        }
-    },
+    "swagger": "2.0",
     "basePath": "/",
-    "responses": {
-        "MaskError": {
-            "description": "When any error occurs on mask"
-        },
-        "ParseError": {
-            "description": "When a mask can't be parsed"
-        }
-    },
-    "info": {
-        "version": "0.1",
-        "title": "Nucleus API",
-        "description": "BETA version of the nucleus text analytics API."
-    },
     "paths": {
         "/datasets": {
             "get": {
-                "x-amazon-apigateway-integration": {
-                    "httpMethod": "GET",
-                    "responses": {
-                        "default": {
-                            "statusCode": "200"
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/userDatasetModel"
                         }
-                    },
-                    "uri": "http://api.sumup.ai:5000/datasets",
-                    "type": "http_proxy",
-                    "passthroughBehavior": "when_no_match"
+                    }
                 },
+                "description": "List the datasets owned by the user.",
+                "operationId": "get_list_datasets",
                 "parameters": [
                     {
+                        "in": "textHtml",
                         "name": "consumes",
-                        "type": "string",
-                        "in": "textHtml"
+                        "type": "string"
                     }
                 ],
                 "security": [
@@ -520,42 +29,34 @@
                 "consumes": [
                     "text/html"
                 ],
-                "operationId": "get_list_datasets",
                 "tags": [
                     "datasets"
-                ],
-                "responses": {
-                    "200": {
-                        "schema": {
-                            "$ref": "#/definitions/userDatasetModel"
-                        },
-                        "description": "Success"
-                    }
-                },
-                "description": "List the datasets owned by the user."
+                ]
             }
         },
         "/datasets/append_json_to_dataset": {
             "post": {
-                "x-amazon-apigateway-integration": {
-                    "httpMethod": "POST",
-                    "responses": {
-                        "default": {
-                            "statusCode": "200"
-                        }
+                "responses": {
+                    "400": {
+                        "description": "Failed"
                     },
-                    "passthroughBehavior": "when_no_match",
-                    "uri": "http://api.sumup.ai:5000/datasets/append_json_to_dataset",
-                    "type": "http_proxy"
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/appendjsonpostModel"
+                        }
+                    }
                 },
+                "description": "Add a document to a dataset, in JSON form.",
+                "operationId": "post_append_json_to_dataset",
                 "parameters": [
                     {
                         "name": "payload",
+                        "required": true,
+                        "in": "body",
                         "schema": {
                             "$ref": "#/definitions/appendjsonparams"
-                        },
-                        "required": true,
-                        "in": "body"
+                        }
                     }
                 ],
                 "security": [
@@ -563,59 +64,51 @@
                         "apikey": []
                     }
                 ],
+                "tags": [
+                    "datasets"
+                ]
+            }
+        },
+        "/datasets/dataset_info": {
+            "get": {
                 "responses": {
                     "400": {
                         "description": "Failed"
                     },
                     "200": {
+                        "description": "Success",
                         "schema": {
-                            "$ref": "#/definitions/appendjsonpostModel"
-                        },
-                        "description": "Success"
+                            "$ref": "#/definitions/getDatasetInfoModel"
+                        }
                     }
                 },
-                "tags": [
-                    "datasets"
-                ],
-                "description": "Add a document to a dataset, in JSON form.",
-                "operationId": "post_append_json_to_dataset"
-            }
-        },
-        "/datasets/dataset_info": {
-            "get": {
-                "x-amazon-apigateway-integration": {
-                    "httpMethod": "GET",
-                    "responses": {
-                        "default": {
-                            "statusCode": "200"
-                        }
-                    },
-                    "passthroughBehavior": "when_no_match",
-                    "uri": "http://api.sumup.ai:5000/datasets/dataset_info",
-                    "type": "http_proxy"
-                },
+                "description": "Get information about a dataset.",
+                "operationId": "get_dataset_info",
                 "parameters": [
                     {
                         "name": "dataset",
-                        "type": "string",
                         "in": "query",
+                        "type": "string",
                         "required": true,
                         "description": "Dataset name."
                     },
                     {
                         "name": "query",
-                        "type": "string",
                         "in": "query",
+                        "type": "string",
                         "description": "Fulltext query, using mysql MATCH boolean query format."
                     },
                     {
                         "name": "metadata_selection",
-                        "type": "string",
                         "in": "query",
+                        "type": "string",
                         "description": "json object of {\"metadata_field\":[\"selected_values\"]}"
                     },
                     {
-                        "collectionFormat": "multi",
+                        "name": "time_period",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Time period selection",
                         "enum": [
                             "1M",
                             "3M",
@@ -625,15 +118,12 @@
                             "5Y",
                             ""
                         ],
-                        "name": "time_period",
-                        "type": "string",
-                        "in": "query",
-                        "description": "Time period selection"
+                        "collectionFormat": "multi"
                     },
                     {
+                        "in": "textHtml",
                         "name": "consumes",
-                        "type": "string",
-                        "in": "textHtml"
+                        "type": "string"
                     }
                 ],
                 "security": [
@@ -644,45 +134,34 @@
                 "consumes": [
                     "text/html"
                 ],
-                "operationId": "get_dataset_info",
                 "tags": [
                     "datasets"
-                ],
-                "responses": {
-                    "400": {
-                        "description": "Failed"
-                    },
-                    "200": {
-                        "schema": {
-                            "$ref": "#/definitions/getDatasetInfoModel"
-                        },
-                        "description": "Success"
-                    }
-                },
-                "description": "Get information about a dataset."
+                ]
             }
         },
         "/datasets/delete_dataset": {
             "post": {
-                "x-amazon-apigateway-integration": {
-                    "httpMethod": "POST",
-                    "responses": {
-                        "default": {
-                            "statusCode": "200"
-                        }
+                "responses": {
+                    "400": {
+                        "description": "Failed"
                     },
-                    "passthroughBehavior": "when_no_match",
-                    "uri": "http://api.sumup.ai:5000/datasets/delete_dataset",
-                    "type": "http_proxy"
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/deletepostModel"
+                        }
+                    }
                 },
+                "description": "Delete an existing dataset from the user storage.",
+                "operationId": "post_delete_dataset",
                 "parameters": [
                     {
                         "name": "payload",
+                        "required": true,
+                        "in": "body",
                         "schema": {
                             "$ref": "#/definitions/deletedatasetmodel"
-                        },
-                        "required": true,
-                        "in": "body"
+                        }
                     }
                 ],
                 "security": [
@@ -690,45 +169,34 @@
                         "apikey": []
                     }
                 ],
-                "responses": {
-                    "400": {
-                        "description": "Failed"
-                    },
-                    "200": {
-                        "schema": {
-                            "$ref": "#/definitions/deletepostModel"
-                        },
-                        "description": "Success"
-                    }
-                },
                 "tags": [
                     "datasets"
-                ],
-                "description": "Delete an existing dataset from the user storage.",
-                "operationId": "post_delete_dataset"
+                ]
             }
         },
         "/datasets/delete_document": {
             "post": {
-                "x-amazon-apigateway-integration": {
-                    "httpMethod": "POST",
-                    "responses": {
-                        "default": {
-                            "statusCode": "200"
-                        }
+                "responses": {
+                    "400": {
+                        "description": "Failed"
                     },
-                    "passthroughBehavior": "when_no_match",
-                    "uri": "http://api.sumup.ai:5000/datasets/delete_document",
-                    "type": "http_proxy"
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/deletedocumentpostModel"
+                        }
+                    }
                 },
+                "description": "Delete a document from a dataset.",
+                "operationId": "post_delete_document",
                 "parameters": [
                     {
                         "name": "payload",
+                        "required": true,
+                        "in": "body",
                         "schema": {
                             "$ref": "#/definitions/deletedocumentmodel"
-                        },
-                        "required": true,
-                        "in": "body"
+                        }
                     }
                 ],
                 "security": [
@@ -736,45 +204,33 @@
                         "apikey": []
                     }
                 ],
-                "responses": {
-                    "400": {
-                        "description": "Failed"
-                    },
-                    "200": {
-                        "schema": {
-                            "$ref": "#/definitions/deletedocumentpostModel"
-                        },
-                        "description": "Success"
-                    }
-                },
                 "tags": [
                     "datasets"
-                ],
-                "description": "Delete a document from a dataset.",
-                "operationId": "post_delete_document"
+                ]
             }
         },
         "/datasets/import_file_from_url": {
             "post": {
-                "x-amazon-apigateway-integration": {
-                    "httpMethod": "POST",
-                    "responses": {
-                        "default": {
-                            "statusCode": "200"
-                        }
+                "responses": {
+                    "400": {
+                        "description": "Failed"
                     },
-                    "uri": "http://api.sumup.ai:5000/datasets/import_file_from_url",
-                    "type": "http_proxy",
-                    "passthroughBehavior": "when_no_match"
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/uploadurlpostModel"
+                        }
+                    }
                 },
+                "operationId": "post_upload_url",
                 "parameters": [
                     {
                         "name": "payload",
+                        "required": true,
+                        "in": "body",
                         "schema": {
                             "$ref": "#/definitions/uploadURLModel"
-                        },
-                        "required": true,
-                        "in": "body"
+                        }
                     }
                 ],
                 "security": [
@@ -782,47 +238,30 @@
                         "apikey": []
                     }
                 ],
-                "responses": {
-                    "400": {
-                        "description": "Failed"
-                    },
-                    "200": {
-                        "schema": {
-                            "$ref": "#/definitions/uploadurlpostModel"
-                        },
-                        "description": "Success"
-                    }
-                },
                 "tags": [
                     "datasets"
-                ],
-                "operationId": "post_upload_url"
+                ]
             }
         },
         "/datasets/upload_file": {
             "post": {
-                "x-amazon-apigateway-integration": {
-                    "httpMethod": "POST",
-                    "responses": {
-                        "default": {
-                            "statusCode": "200"
-                        }
-                    },
-                    "passthroughBehavior": "when_no_match",
-                    "uri": "http://api.sumup.ai:5000/datasets/upload_file",
-                    "type": "http_proxy"
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
                 },
+                "operationId": "post_upload_file",
                 "parameters": [
                     {
                         "name": "file",
-                        "type": "file",
                         "in": "formData",
+                        "type": "file",
                         "required": true
                     },
                     {
                         "name": "dataset",
-                        "type": "string",
                         "in": "query",
+                        "type": "string",
                         "required": true,
                         "description": "Destination dataset where the file will be inserted."
                     }
@@ -837,54 +276,50 @@
                 ],
                 "tags": [
                     "datasets"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    }
-                },
-                "operationId": "post_upload_file"
+                ]
             }
         },
         "/documents/document_display": {
             "get": {
-                "x-amazon-apigateway-integration": {
-                    "httpMethod": "GET",
-                    "responses": {
-                        "default": {
-                            "statusCode": "200"
-                        }
+                "responses": {
+                    "400": {
+                        "description": "Failed"
                     },
-                    "passthroughBehavior": "when_no_match",
-                    "uri": "http://api.sumup.ai:5000/documents/document_display",
-                    "type": "http_proxy"
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/docDispModel"
+                        }
+                    }
                 },
+                "description": "Document display.",
+                "operationId": "get_doc_display",
                 "parameters": [
                     {
                         "name": "dataset",
-                        "type": "string",
                         "in": "query",
+                        "type": "string",
                         "required": true,
                         "description": "Dataset name."
                     },
                     {
                         "name": "doc_titles",
-                        "type": "custom list",
                         "in": "query",
+                        "type": "custom list",
                         "format": "list of strings",
                         "description": "The title of the documents on which info is requested. Example: [ \"title 1\", \"title 2\" ] "
                     },
                     {
                         "name": "doc_ids",
-                        "type": "custom list",
                         "in": "query",
+                        "type": "custom list",
                         "format": "list of strings",
                         "description": "The docid of the documents on which info is requested. Example:[ \"docid1, docid2\" ]"
                     },
                     {
+                        "in": "textHtml",
                         "name": "consumes",
-                        "type": "string",
-                        "in": "textHtml"
+                        "type": "string"
                     }
                 ],
                 "security": [
@@ -895,63 +330,52 @@
                 "consumes": [
                     "text/html"
                 ],
-                "operationId": "get_doc_display",
                 "tags": [
                     "documents"
-                ],
-                "responses": {
-                    "400": {
-                        "description": "Failed"
-                    },
-                    "200": {
-                        "schema": {
-                            "$ref": "#/definitions/docDispModel"
-                        },
-                        "description": "Success"
-                    }
-                },
-                "description": "Document display."
+                ]
             }
         },
         "/documents/document_info": {
             "get": {
-                "x-amazon-apigateway-integration": {
-                    "httpMethod": "GET",
-                    "responses": {
-                        "default": {
-                            "statusCode": "200"
-                        }
+                "responses": {
+                    "400": {
+                        "description": "Failed"
                     },
-                    "passthroughBehavior": "when_no_match",
-                    "uri": "http://api.sumup.ai:5000/documents/document_info",
-                    "type": "http_proxy"
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/docInfoModel"
+                        }
+                    }
                 },
+                "description": "Document metadata retrieval.",
+                "operationId": "get_doc_info",
                 "parameters": [
                     {
                         "name": "dataset",
-                        "type": "string",
                         "in": "query",
+                        "type": "string",
                         "required": true,
                         "description": "Dataset name."
                     },
                     {
                         "name": "doc_titles",
-                        "type": "custom list",
                         "in": "query",
+                        "type": "custom list",
                         "format": "list of strings",
                         "description": "The title of the documents on which info is requested. Example: [ \"title 1\", \"title 2\" ] "
                     },
                     {
                         "name": "doc_ids",
-                        "type": "custom list",
                         "in": "query",
+                        "type": "custom list",
                         "format": "list of strings",
                         "description": "The docid of the documents on which info is requested. Example:[ \"docid1, docid2\" ]"
                     },
                     {
+                        "in": "textHtml",
                         "name": "consumes",
-                        "type": "string",
-                        "in": "textHtml"
+                        "type": "string"
                     }
                 ],
                 "security": [
@@ -962,90 +386,79 @@
                 "consumes": [
                     "text/html"
                 ],
-                "operationId": "get_doc_info",
                 "tags": [
                     "documents"
-                ],
+                ]
+            }
+        },
+        "/documents/document_recommend": {
+            "get": {
                 "responses": {
                     "400": {
                         "description": "Failed"
                     },
                     "200": {
+                        "description": "Success",
                         "schema": {
-                            "$ref": "#/definitions/docInfoModel"
-                        },
-                        "description": "Success"
+                            "$ref": "#/definitions/documentRecommendModel"
+                        }
                     }
                 },
-                "description": "Document metadata retrieval."
-            }
-        },
-        "/documents/document_recommend": {
-            "get": {
-                "x-amazon-apigateway-integration": {
-                    "httpMethod": "GET",
-                    "responses": {
-                        "default": {
-                            "statusCode": "200"
-                        }
-                    },
-                    "passthroughBehavior": "when_no_match",
-                    "uri": "http://api.sumup.ai:5000/documents/document_recommend",
-                    "type": "http_proxy"
-                },
+                "description": "Recommendation of documents on given topics that have been extracted from a given dataset.",
+                "operationId": "get_doc_recommend_api",
                 "parameters": [
                     {
                         "name": "dataset",
-                        "type": "string",
                         "in": "query",
+                        "type": "string",
                         "required": true,
                         "description": "Dataset name."
                     },
                     {
                         "name": "query",
-                        "type": "string",
                         "in": "query",
+                        "type": "string",
                         "description": "Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\")"
                     },
                     {
                         "name": "custom_stop_words",
-                        "type": "custom list",
                         "in": "query",
+                        "type": "custom list",
                         "format": "list of strings",
                         "description": "List of stop words."
                     },
                     {
                         "name": "num_topics",
-                        "type": "integer",
                         "in": "query",
-                        "default": 8,
-                        "description": "Number of topics to be extracted from the dataset."
+                        "type": "integer",
+                        "description": "Number of topics to be extracted from the dataset.",
+                        "default": 8
                     },
                     {
                         "name": "num_keywords",
-                        "type": "integer",
                         "in": "query",
-                        "default": 8,
-                        "description": "Number of keywords per topic that is extracted from the dataset."
+                        "type": "integer",
+                        "description": "Number of keywords per topic that is extracted from the dataset.",
+                        "default": 8
                     },
                     {
                         "name": "num_docs",
-                        "type": "integer",
                         "in": "query",
-                        "default": 20,
-                        "description": "Number of desired recommended docs per topic."
+                        "type": "integer",
+                        "description": "Number of desired recommended docs per topic.",
+                        "default": 20
                     },
                     {
                         "name": "excluded_docs",
-                        "type": "custom list",
                         "in": "query",
+                        "type": "custom list",
                         "format": "list of strings",
                         "description": "List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\" "
                     },
                     {
+                        "in": "textHtml",
                         "name": "consumes",
-                        "type": "string",
-                        "in": "textHtml"
+                        "type": "string"
                     }
                 ],
                 "security": [
@@ -1056,77 +469,66 @@
                 "consumes": [
                     "text/html"
                 ],
-                "operationId": "get_doc_recommend_api",
                 "tags": [
                     "documents"
-                ],
+                ]
+            }
+        },
+        "/documents/document_summary": {
+            "get": {
                 "responses": {
                     "400": {
                         "description": "Failed"
                     },
                     "200": {
+                        "description": "Success",
                         "schema": {
-                            "$ref": "#/definitions/documentRecommendModel"
-                        },
-                        "description": "Success"
+                            "$ref": "#/definitions/documentSummaryModel"
+                        }
                     }
                 },
-                "description": "Recommendation of documents on given topics that have been extracted from a given dataset."
-            }
-        },
-        "/documents/document_summary": {
-            "get": {
-                "x-amazon-apigateway-integration": {
-                    "httpMethod": "GET",
-                    "responses": {
-                        "default": {
-                            "statusCode": "200"
-                        }
-                    },
-                    "passthroughBehavior": "when_no_match",
-                    "uri": "http://api.sumup.ai:5000/documents/document_summary",
-                    "type": "http_proxy"
-                },
+                "description": "Document summarization.",
+                "operationId": "get_doc_summary_api",
                 "parameters": [
                     {
                         "name": "dataset",
-                        "type": "string",
                         "in": "query",
+                        "type": "string",
                         "required": true,
                         "description": "Dataset name."
                     },
                     {
                         "name": "custom_stop_words",
-                        "type": "custom list",
                         "in": "query",
+                        "type": "custom list",
                         "format": "list of strings",
                         "description": "List of stop words"
                     },
                     {
                         "name": "doc_title",
-                        "type": "string",
                         "in": "query",
+                        "type": "string",
                         "required": true,
                         "description": "The title of the document to be summarized."
                     },
                     {
                         "name": "summary_length",
-                        "type": "integer",
                         "in": "query",
-                        "default": 6,
-                        "description": "The maximum number of bullet points a user wants to see in the document summary."
+                        "type": "integer",
+                        "description": "The maximum number of bullet points a user wants to see in the document summary.",
+                        "default": 6
                     },
                     {
                         "name": "context_amount",
-                        "type": "integer",
                         "in": "query",
-                        "default": 0,
-                        "description": "The number of sentences surrounding key summary sentences in the documents that they come from."
+                        "type": "integer",
+                        "description": "The number of sentences surrounding key summary sentences in the documents that they come from.",
+                        "default": 0
                     },
                     {
+                        "in": "textHtml",
                         "name": "consumes",
-                        "type": "string",
-                        "in": "textHtml"
+                        "type": "string"
                     }
                 ],
                 "security": [
@@ -1137,83 +539,72 @@
                 "consumes": [
                     "text/html"
                 ],
-                "operationId": "get_doc_summary_api",
                 "tags": [
                     "documents"
-                ],
-                "responses": {
-                    "400": {
-                        "description": "Failed"
-                    },
-                    "200": {
-                        "schema": {
-                            "$ref": "#/definitions/documentSummaryModel"
-                        },
-                        "description": "Success"
-                    }
-                },
-                "description": "Document summarization."
+                ]
             }
         },
         "/topics/topic_consensus": {
             "get": {
-                "x-amazon-apigateway-integration": {
-                    "httpMethod": "GET",
-                    "responses": {
-                        "default": {
-                            "statusCode": "200"
-                        }
+                "responses": {
+                    "400": {
+                        "description": "Failed"
                     },
-                    "passthroughBehavior": "when_no_match",
-                    "uri": "http://api.sumup.ai:5000/topics/topic_consensus",
-                    "type": "http_proxy"
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/topicConsensusModel"
+                        }
+                    }
                 },
+                "description": "Get topic consensus for topics extracted from a given dataset.",
+                "operationId": "get_topic_consensus_api",
                 "parameters": [
                     {
                         "name": "dataset",
-                        "type": "string",
                         "in": "query",
+                        "type": "string",
                         "required": true,
                         "description": "Dataset name."
                     },
                     {
                         "name": "query",
-                        "type": "string",
                         "in": "query",
+                        "type": "string",
                         "description": "Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\")"
                     },
                     {
                         "name": "custom_stop_words",
-                        "type": "custom list",
                         "in": "query",
+                        "type": "custom list",
                         "format": "list of strings",
                         "description": "List of stop words"
                     },
                     {
                         "name": "num_topics",
-                        "type": "integer",
                         "in": "query",
-                        "default": 8,
-                        "description": "Number of topics to be extracted from the dataset."
+                        "type": "integer",
+                        "description": "Number of topics to be extracted from the dataset.",
+                        "default": 8
                     },
                     {
                         "name": "num_keywords",
-                        "type": "integer",
                         "in": "query",
-                        "default": 8,
-                        "description": "Number of keywords per topic that is extracted from the dataset."
+                        "type": "integer",
+                        "description": "Number of keywords per topic that is extracted from the dataset.",
+                        "default": 8
                     },
                     {
                         "name": "excluded_docs",
-                        "type": "custom list",
                         "in": "query",
+                        "type": "custom list",
                         "format": "list of strings",
                         "description": "List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\" "
                     },
                     {
+                        "in": "textHtml",
                         "name": "consumes",
-                        "type": "string",
-                        "in": "textHtml"
+                        "type": "string"
                     }
                 ],
                 "security": [
@@ -1224,83 +615,72 @@
                 "consumes": [
                     "text/html"
                 ],
-                "operationId": "get_topic_consensus_api",
                 "tags": [
                     "topics"
-                ],
-                "responses": {
-                    "400": {
-                        "description": "Failed"
-                    },
-                    "200": {
-                        "schema": {
-                            "$ref": "#/definitions/topicConsensusModel"
-                        },
-                        "description": "Success"
-                    }
-                },
-                "description": "Get topic consensus for topics extracted from a given dataset."
+                ]
             }
         },
         "/topics/topic_sentiment": {
             "get": {
-                "x-amazon-apigateway-integration": {
-                    "httpMethod": "GET",
-                    "responses": {
-                        "default": {
-                            "statusCode": "200"
-                        }
+                "responses": {
+                    "400": {
+                        "description": "Failed"
                     },
-                    "passthroughBehavior": "when_no_match",
-                    "uri": "http://api.sumup.ai:5000/topics/topic_sentiment",
-                    "type": "http_proxy"
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/topicSentimentModel"
+                        }
+                    }
                 },
+                "description": "Get topic sentiment for topics extracted from a given dataset.",
+                "operationId": "get_topic_sentiment_api",
                 "parameters": [
                     {
                         "name": "dataset",
-                        "type": "string",
                         "in": "query",
+                        "type": "string",
                         "required": true,
                         "description": "Dataset name."
                     },
                     {
                         "name": "query",
-                        "type": "string",
                         "in": "query",
+                        "type": "string",
                         "description": "Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\")"
                     },
                     {
                         "name": "custom_stop_words",
-                        "type": "custom list",
                         "in": "query",
+                        "type": "custom list",
                         "format": "list of strings",
                         "description": "List of stop words"
                     },
                     {
                         "name": "num_topics",
-                        "type": "integer",
                         "in": "query",
-                        "default": 8,
-                        "description": "Number of topics to be extracted from the dataset."
+                        "type": "integer",
+                        "description": "Number of topics to be extracted from the dataset.",
+                        "default": 8
                     },
                     {
                         "name": "num_keywords",
-                        "type": "integer",
                         "in": "query",
-                        "default": 8,
-                        "description": "Number of keywords per topic that is extracted from the dataset."
+                        "type": "integer",
+                        "description": "Number of keywords per topic that is extracted from the dataset.",
+                        "default": 8
                     },
                     {
                         "name": "excluded_docs",
-                        "type": "custom list",
                         "in": "query",
+                        "type": "custom list",
                         "format": "list of strings",
                         "description": "List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\" "
                     },
                     {
+                        "in": "textHtml",
                         "name": "consumes",
-                        "type": "string",
-                        "in": "textHtml"
+                        "type": "string"
                     }
                 ],
                 "security": [
@@ -1311,104 +691,93 @@
                 "consumes": [
                     "text/html"
                 ],
-                "operationId": "get_topic_sentiment_api",
                 "tags": [
                     "topics"
-                ],
-                "responses": {
-                    "400": {
-                        "description": "Failed"
-                    },
-                    "200": {
-                        "schema": {
-                            "$ref": "#/definitions/topicSentimentModel"
-                        },
-                        "description": "Success"
-                    }
-                },
-                "description": "Get topic sentiment for topics extracted from a given dataset."
+                ]
             }
         },
         "/topics/topic_summary": {
             "get": {
-                "x-amazon-apigateway-integration": {
-                    "httpMethod": "GET",
-                    "responses": {
-                        "default": {
-                            "statusCode": "200"
-                        }
+                "responses": {
+                    "400": {
+                        "description": "Failed"
                     },
-                    "passthroughBehavior": "when_no_match",
-                    "uri": "http://api.sumup.ai:5000/topics/topic_summary",
-                    "type": "http_proxy"
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/topicSummaryModel"
+                        }
+                    }
                 },
+                "description": "Get summaries of topics that have been extracted from a dataset.",
+                "operationId": "get_topic_summary_api",
                 "parameters": [
                     {
                         "name": "dataset",
-                        "type": "string",
                         "in": "query",
+                        "type": "string",
                         "required": true,
                         "description": "Dataset name."
                     },
                     {
                         "name": "query",
-                        "type": "string",
                         "in": "query",
+                        "type": "string",
                         "description": "Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\")"
                     },
                     {
                         "name": "custom_stop_words",
-                        "type": "custom list",
                         "in": "query",
+                        "type": "custom list",
                         "format": "list of strings",
                         "description": "List of stop words"
                     },
                     {
                         "name": "num_topics",
-                        "type": "integer",
                         "in": "query",
-                        "default": 8,
-                        "description": "Number of topics to be extracted from the dataset and summarized."
+                        "type": "integer",
+                        "description": "Number of topics to be extracted from the dataset and summarized.",
+                        "default": 8
                     },
                     {
                         "name": "num_keywords",
-                        "type": "integer",
                         "in": "query",
-                        "default": 8,
-                        "description": "Number of keywords per topic that is extracted from the dataset."
+                        "type": "integer",
+                        "description": "Number of keywords per topic that is extracted from the dataset.",
+                        "default": 8
                     },
                     {
                         "name": "summary_length",
-                        "type": "integer",
                         "in": "query",
-                        "default": 6,
-                        "description": "The maximum number of bullet points a user wants to see in each topic summary."
+                        "type": "integer",
+                        "description": "The maximum number of bullet points a user wants to see in each topic summary.",
+                        "default": 6
                     },
                     {
                         "name": "context_amount",
-                        "type": "integer",
                         "in": "query",
-                        "default": 0,
-                        "description": "The number of sentences surrounding key summary sentences in the documents that they come from."
+                        "type": "integer",
+                        "description": "The number of sentences surrounding key summary sentences in the documents that they come from.",
+                        "default": 0
                     },
                     {
                         "name": "num_docs",
-                        "type": "integer",
                         "in": "query",
-                        "default": 20,
-                        "description": "The maximum number of key documents to use for summarization."
+                        "type": "integer",
+                        "description": "The maximum number of key documents to use for summarization.",
+                        "default": 20
                     },
                     {
                         "name": "excluded_docs",
-                        "type": "custom list",
                         "in": "query",
+                        "type": "custom list",
                         "format": "list of strings",
                         "description": "List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\" "
                     },
                     {
+                        "in": "textHtml",
                         "name": "consumes",
-                        "type": "string",
-                        "in": "textHtml"
+                        "type": "string"
                     }
                 ],
                 "security": [
@@ -1419,80 +788,72 @@
                 "consumes": [
                     "text/html"
                 ],
-                "operationId": "get_topic_summary_api",
                 "tags": [
                     "topics"
-                ],
+                ]
+            }
+        },
+        "/topics/topics": {
+            "get": {
                 "responses": {
                     "400": {
                         "description": "Failed"
                     },
                     "200": {
+                        "description": "Success",
                         "schema": {
-                            "$ref": "#/definitions/topicSummaryModel"
-                        },
-                        "description": "Success"
+                            "$ref": "#/definitions/topicModel"
+                        }
                     }
                 },
-                "description": "Get summaries of topics that have been extracted from a dataset."
-            }
-        },
-        "/topics/topics": {
-            "get": {
-                "x-amazon-apigateway-integration": {
-                    "httpMethod": "GET",
-                    "responses": {
-                        "default": {
-                            "statusCode": "200"
-                        }
-                    },
-                    "passthroughBehavior": "when_no_match",
-                    "uri": "http://api.sumup.ai:5000/topics/topics",
-                    "type": "http_proxy"
-                },
+                "description": "Get key topics from a given dataset.",
+                "operationId": "get_topic_api",
                 "parameters": [
                     {
                         "name": "dataset",
-                        "type": "string",
                         "in": "query",
+                        "type": "string",
                         "required": true,
                         "description": "Dataset name."
                     },
                     {
                         "name": "query",
-                        "type": "string",
                         "in": "query",
+                        "type": "string",
                         "description": "Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\")"
                     },
                     {
                         "name": "custom_stop_words",
-                        "type": "custom list",
                         "in": "query",
+                        "type": "custom list",
                         "format": "list of strings",
                         "description": "List of stop words."
                     },
                     {
                         "name": "num_topics",
-                        "type": "integer",
                         "in": "query",
-                        "default": 8,
-                        "description": "Number of topics to be extracted from the dataset."
+                        "type": "integer",
+                        "description": "Number of topics to be extracted from the dataset.",
+                        "default": 8
                     },
                     {
                         "name": "num_keywords",
-                        "type": "integer",
                         "in": "query",
-                        "default": 8,
-                        "description": "Number of keywords per topic that is extracted from the dataset."
+                        "type": "integer",
+                        "description": "Number of keywords per topic that is extracted from the dataset.",
+                        "default": 8
                     },
                     {
                         "name": "metadata_selection",
-                        "type": "string",
                         "in": "query",
+                        "type": "string",
                         "description": "json object of {\"metadata_field\":[\"selected_values\"]}"
                     },
                     {
-                        "collectionFormat": "multi",
+                        "name": "time_period",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Time period selection",
                         "enum": [
                             "1M",
                             "3M",
@@ -1502,22 +863,19 @@
                             "5Y",
                             ""
                         ],
-                        "name": "time_period",
-                        "type": "string",
-                        "in": "query",
-                        "description": "Time period selection"
+                        "collectionFormat": "multi"
                     },
                     {
                         "name": "excluded_docs",
-                        "type": "custom list",
                         "in": "query",
+                        "type": "custom list",
                         "format": "list of strings",
                         "description": "List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\" "
                     },
                     {
+                        "in": "textHtml",
                         "name": "consumes",
-                        "type": "string",
-                        "in": "textHtml"
+                        "type": "string"
                     }
                 ],
                 "security": [
@@ -1528,92 +886,64 @@
                 "consumes": [
                     "text/html"
                 ],
-                "operationId": "get_topic_api",
                 "tags": [
                     "topics"
-                ],
-                "responses": {
-                    "400": {
-                        "description": "Failed"
-                    },
-                    "200": {
-                        "schema": {
-                            "$ref": "#/definitions/topicModel"
-                        },
-                        "description": "Success"
-                    }
-                },
-                "description": "Get key topics from a given dataset."
+                ]
             }
         },
         "/users": {
             "get": {
-                "x-amazon-apigateway-integration": {
-                    "httpMethod": "GET",
-                    "responses": {
-                        "default": {
-                            "statusCode": "200"
-                        }
-                    },
-                    "uri": "http://api.sumup.ai:5000/users",
-                    "type": "http_proxy",
-                    "passthroughBehavior": "when_no_match"
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
                 },
+                "description": "Use this API to authenticate. If the password is correct, returns the user details, including the user's api key.",
+                "operationId": "get_user",
                 "parameters": [
                     {
                         "name": "user_email",
-                        "type": "string",
                         "in": "query",
+                        "type": "string",
                         "required": true,
                         "description": "Email of the user to authenticate. "
                     },
                     {
                         "name": "password",
-                        "type": "string",
                         "in": "query",
+                        "type": "string",
                         "required": true,
                         "description": "Plaintext password of the user to authenticate. "
                     },
                     {
+                        "in": "textHtml",
                         "name": "consumes",
-                        "type": "string",
-                        "in": "textHtml"
+                        "type": "string"
                     }
                 ],
+                "consumes": [
+                    "text/html"
+                ],
+                "tags": [
+                    "users"
+                ]
+            },
+            "post": {
                 "responses": {
                     "200": {
                         "description": "Success"
                     }
                 },
-                "operationId": "get_user",
-                "tags": [
-                    "users"
-                ],
-                "description": "Use this API to authenticate. If the password is correct, returns the user details, including the user's api key.",
-                "consumes": [
-                    "text/html"
-                ]
-            },
-            "post": {
-                "x-amazon-apigateway-integration": {
-                    "httpMethod": "POST",
-                    "responses": {
-                        "default": {
-                            "statusCode": "200"
-                        }
-                    },
-                    "passthroughBehavior": "when_no_match",
-                    "uri": "http://api.sumup.ai:5000/users",
-                    "type": "http_proxy"
-                },
+                "description": "Use this API to register a new user. Email and password are required, all other fields optional.",
+                "operationId": "post_user",
                 "parameters": [
                     {
                         "name": "payload",
+                        "required": true,
+                        "in": "body",
                         "schema": {
                             "$ref": "#/definitions/user"
-                        },
-                        "required": true,
-                        "in": "body"
+                        }
                     }
                 ],
                 "security": [
@@ -1621,28 +951,28 @@
                         "apikey": []
                     }
                 ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    }
-                },
                 "tags": [
                     "users"
-                ],
-                "description": "Use this API to register a new user. Email and password are required, all other fields optional.",
-                "operationId": "post_user"
+                ]
             }
         }
     },
+    "info": {
+        "title": "Nucleus API",
+        "version": "0.1",
+        "description": "BETA version of the nucleus text analytics API."
+    },
+    "produces": [
+        "application/json"
+    ],
     "consumes": [
         "application/json"
     ],
-    "swagger": "2.0",
     "securityDefinitions": {
         "apikey": {
-            "name": "x-api-key",
             "type": "apiKey",
-            "in": "header"
+            "in": "header",
+            "name": "x-api-key"
         }
     },
     "tags": [
@@ -1663,7 +993,490 @@
             "description": "Perform operations on documents."
         }
     ],
-    "produces": [
-        "application/json"
-    ]
+    "definitions": {
+        "user": {
+            "required": [
+                "password",
+                "user_email"
+            ],
+            "properties": {
+                "user_email": {
+                    "type": "string",
+                    "description": "Email of the user to register."
+                },
+                "password": {
+                    "type": "string",
+                    "description": "Password of the user to register."
+                },
+                "first_name": {
+                    "type": "string",
+                    "description": "First name of the user to register.'"
+                },
+                "last_name": {
+                    "type": "string",
+                    "description": "Last name of the user to register."
+                },
+                "phone": {
+                    "type": "integer",
+                    "description": "Phone number (int) of the user to register."
+                },
+                "company": {
+                    "type": "string",
+                    "description": "Name of the Company of the user."
+                },
+                "title": {
+                    "type": "string",
+                    "description": "Job title."
+                },
+                "country": {
+                    "type": "string",
+                    "description": "Country of origin."
+                }
+            },
+            "type": "object"
+        },
+        "userDatasetModel": {
+            "properties": {
+                "list_datasets": {
+                    "type": "string",
+                    "description": "List of user datasets"
+                }
+            },
+            "type": "object"
+        },
+        "appendjsonparams": {
+            "required": [
+                "dataset"
+            ],
+            "properties": {
+                "dataset": {
+                    "type": "string",
+                    "description": "Name of the dataset."
+                },
+                "language": {
+                    "type": "string",
+                    "description": "If you want to override language detection."
+                },
+                "document": {
+                    "$ref": "#/definitions/document"
+                }
+            },
+            "type": "object"
+        },
+        "document": {
+            "required": [
+                "content",
+                "time",
+                "title"
+            ],
+            "properties": {
+                "time": {
+                    "type": "string",
+                    "description": "Time of publication."
+                },
+                "title": {
+                    "type": "string",
+                    "description": "Title of the document."
+                },
+                "content": {
+                    "type": "string",
+                    "description": "Plaintext content of the document."
+                }
+            },
+            "type": "object"
+        },
+        "appendjsonpostModel": {
+            "properties": {
+                "success": {
+                    "type": "string",
+                    "description": "Number of documents in the dataset"
+                }
+            },
+            "type": "object"
+        },
+        "deletedatasetmodel": {
+            "required": [
+                "dataset"
+            ],
+            "properties": {
+                "dataset": {
+                    "type": "string",
+                    "description": "Name of the dataset."
+                }
+            },
+            "type": "object"
+        },
+        "deletepostModel": {
+            "properties": {
+                "success": {
+                    "type": "string",
+                    "description": "Dataset deleted"
+                }
+            },
+            "type": "object"
+        },
+        "getDatasetInfoModel": {
+            "properties": {
+                "dataset": {
+                    "type": "string",
+                    "description": "Dataset name"
+                },
+                "num_documents": {
+                    "type": "string",
+                    "description": "Number of documents in the dataset"
+                },
+                "time_range": {
+                    "type": "string",
+                    "description": "Time range of the dataset"
+                },
+                "detected_language": {
+                    "type": "string",
+                    "description": "Language of the dataset"
+                },
+                "metadata": {
+                    "type": "string",
+                    "description": "Metadata information"
+                }
+            },
+            "type": "object"
+        },
+        "deletedocumentmodel": {
+            "required": [
+                "dataset",
+                "docid"
+            ],
+            "properties": {
+                "dataset": {
+                    "type": "string",
+                    "description": "Name of the dataset."
+                },
+                "docid": {
+                    "type": "string",
+                    "description": "ID of the document to be deleted."
+                }
+            },
+            "type": "object"
+        },
+        "deletedocumentpostModel": {
+            "properties": {
+                "success": {
+                    "type": "string",
+                    "description": "Document deleted from dataset"
+                }
+            },
+            "type": "object"
+        },
+        "uploadURLModel": {
+            "required": [
+                "dataset",
+                "file_url"
+            ],
+            "properties": {
+                "dataset": {
+                    "type": "string",
+                    "description": "Name of the dataset."
+                },
+                "file_url": {
+                    "type": "string",
+                    "description": "Public url pointing to the file (pdf/txt/docx...)"
+                },
+                "filename": {
+                    "type": "string",
+                    "description": "Specify the filename if different from the url (nucleus guesses the file type from the extension at the end of the url or file name)"
+                },
+                "metadata": {
+                    "$ref": "#/definitions/MetaData"
+                }
+            },
+            "type": "object"
+        },
+        "MetaData": {
+            "properties": {
+                "author": {
+                    "type": "string",
+                    "description": "Author of the publication."
+                }
+            },
+            "type": "object"
+        },
+        "uploadurlpostModel": {
+            "properties": {
+                "success": {
+                    "type": "string",
+                    "description": "File uploaded from url to the dataset."
+                }
+            },
+            "type": "object"
+        },
+        "topicModel": {
+            "properties": {
+                "results": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/NestedTopicModel"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "NestedTopicModel": {
+            "properties": {
+                "topic": {
+                    "type": "string",
+                    "description": "Topic"
+                },
+                "keywords_weight": {
+                    "type": "string",
+                    "description": "Weight of keywords in each topic"
+                },
+                "strength": {
+                    "type": "string",
+                    "description": "Prevalence of each topic in the dataset"
+                },
+                "doc_topic_exposure": {
+                    "type": "string",
+                    "description": "Exposure of each doc of the dataset to each topic"
+                }
+            },
+            "type": "object"
+        },
+        "topicSentimentModel": {
+            "properties": {
+                "results": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/NestedTopicSentimentModel"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "NestedTopicSentimentModel": {
+            "properties": {
+                "topic": {
+                    "type": "string",
+                    "description": "Topic keywords"
+                },
+                "strength": {
+                    "type": "string",
+                    "description": "Topic strength"
+                },
+                "sentiment": {
+                    "type": "string",
+                    "description": "Topic sentiment"
+                },
+                "document_scores": {
+                    "type": "string",
+                    "description": "Document scores"
+                },
+                "document_sentiments": {
+                    "type": "string",
+                    "description": "Document sentiments"
+                }
+            },
+            "type": "object"
+        },
+        "topicConsensusModel": {
+            "properties": {
+                "results": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/NestedTopicConsensusModel"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "NestedTopicConsensusModel": {
+            "properties": {
+                "topic": {
+                    "type": "string",
+                    "description": "Topic keywords"
+                },
+                "strength": {
+                    "type": "string",
+                    "description": "Topic strength"
+                },
+                "consensus": {
+                    "type": "string",
+                    "description": "Topic consensus"
+                }
+            },
+            "type": "object"
+        },
+        "topicSummaryModel": {
+            "properties": {
+                "results": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/NestedTopicSummaryModel"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "NestedTopicSummaryModel": {
+            "properties": {
+                "topic": {
+                    "type": "string",
+                    "description": "Topic keywords"
+                },
+                "summary": {
+                    "type": "string",
+                    "description": "Topic summary"
+                }
+            },
+            "type": "object"
+        },
+        "documentRecommendModel": {
+            "properties": {
+                "results": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/documentRecommendModel1"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "documentRecommendModel1": {
+            "properties": {
+                "topic": {
+                    "type": "string",
+                    "description": "Topic keywords"
+                },
+                "recommendations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/nestedDocRecModel"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "nestedDocRecModel": {
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "description": "Document title"
+                },
+                "sourceid": {
+                    "type": "string",
+                    "description": "Document ID"
+                },
+                "attribute": {
+                    "$ref": "#/definitions/DocAttributeModel"
+                }
+            },
+            "type": "object"
+        },
+        "DocAttributeModel": {
+            "properties": {
+                "time": {
+                    "type": "string",
+                    "description": "Document published ime"
+                },
+                "author": {
+                    "type": "string",
+                    "description": "Document author"
+                },
+                "source": {
+                    "type": "string",
+                    "description": "Document source"
+                }
+            },
+            "type": "object"
+        },
+        "documentSummaryModel": {
+            "properties": {
+                "doc_title": {
+                    "type": "string",
+                    "description": "Document title"
+                },
+                "summary": {
+                    "$ref": "#/definitions/NestedDocumentSummaryModel"
+                }
+            },
+            "type": "object"
+        },
+        "NestedDocumentSummaryModel": {
+            "properties": {
+                "sentences": {
+                    "type": "string",
+                    "description": "Sentences belonging to the summary"
+                },
+                "sourceid": {
+                    "type": "string",
+                    "description": "The ID of the document the sentence comes from"
+                }
+            },
+            "type": "object"
+        },
+        "docInfoModel": {
+            "properties": {
+                "results": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/nestedDocInfoModel"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "nestedDocInfoModel": {
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "description": "Document title"
+                },
+                "sourceid": {
+                    "type": "string",
+                    "description": "Document ID"
+                },
+                "attribute": {
+                    "$ref": "#/definitions/DocAttributeModel"
+                }
+            },
+            "type": "object"
+        },
+        "docDispModel": {
+            "properties": {
+                "results": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/nestedDocDispModel"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "nestedDocDispModel": {
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "description": "Document title"
+                },
+                "sourceid": {
+                    "type": "string",
+                    "description": "Document ID"
+                },
+                "content": {
+                    "type": "string",
+                    "description": "Document content"
+                },
+                "attribute": {
+                    "$ref": "#/definitions/DocAttributeModel"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "responses": {
+        "ParseError": {
+            "description": "When a mask can't be parsed"
+        },
+        "MaskError": {
+            "description": "When any error occurs on mask"
+        }
+    }
 }

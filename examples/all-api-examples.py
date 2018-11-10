@@ -18,7 +18,7 @@ from pprint import pprint
 
 
 configuration = nucleus_client.Configuration()
-configuration.host = 'https://7h4tcw9nej.execute-api.us-west-2.amazonaws.com/beta'
+configuration.host = 'UPDATE-WITH-API-HOST'
 configuration.api_key['x-api-key'] = 'UPDATE-WITH-API-KEY'
 
 
@@ -385,6 +385,12 @@ try:
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DocumentsApi->get_doc_summary_api: %s\n" % e)
+
+
+# In[ ]:
+
+
+
 
 
 # In[ ]:
