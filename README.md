@@ -67,9 +67,11 @@ Code Generator has been run.
 
 ## Example using Nucleus APIs
 1. Go to the examples directory `cd examples`
-2. Open analyze-trump-tweets.py in a text editor and update the lines below with provided host name and API key  
+2. Open all-api-examples.py in a text editor and update the lines below with provided host name and API key  
     ```
     configuration.host = 'API_HOST_HERE'
     configuration.api_key['x-api-key'] = 'API_KEY_HERE'
     ```
-3. Execute the example: 'python3 analyze-trump-tweets.py' 
+3. Execute the example: 'python3 all-api-examples.py'
+
+4. For Jupyter Notebook users, please use all-api-examples.ipynb in your notebook. 
