@@ -544,6 +544,97 @@
                 ]
             }
         },
+        "/topics/author_connectivity": {
+            "get": {
+                "responses": {
+                    "400": {
+                        "description": "Failed"
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/authorConnect"
+                        }
+                    }
+                },
+                "description": "Get the network of similar authors to a reference author.",
+                "operationId": "get_author_connectivity_api",
+                "parameters": [
+                    {
+                        "name": "dataset",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "Dataset name."
+                    },
+                    {
+                        "name": "target_author",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "Name of the author to be analyzed."
+                    },
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Fulltext query, using mysql MATCH boolean query format. Subject covered by the author, on which to focus the analysis of connectivity. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\")"
+                    },
+                    {
+                        "name": "custom_stop_words",
+                        "in": "query",
+                        "type": "custom list",
+                        "format": "list of strings",
+                        "description": "List of words possibly used by the target author that are considered not information-bearing."
+                    },
+                    {
+                        "name": "time_period",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Time period selection",
+                        "enum": [
+                            "1M",
+                            "3M",
+                            "6M",
+                            "12M",
+                            "3Y",
+                            "5Y",
+                            ""
+                        ],
+                        "collectionFormat": "multi"
+                    },
+                    {
+                        "name": "metadata_selection",
+                        "in": "query",
+                        "type": "string",
+                        "description": "json object of {\"metadata_field\":[\"selected_values\"]}"
+                    },
+                    {
+                        "name": "excluded_docs",
+                        "in": "query",
+                        "type": "custom list",
+                        "format": "list of strings",
+                        "description": "List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\" "
+                    },
+                    {
+                        "in": "textHtml",
+                        "name": "consumes",
+                        "type": "string"
+                    }
+                ],
+                "security": [
+                    {
+                        "apikey": []
+                    }
+                ],
+                "consumes": [
+                    "text/html"
+                ],
+                "tags": [
+                    "topics"
+                ]
+            }
+        },
         "/topics/topic_consensus": {
             "get": {
                 "responses": {
@@ -593,6 +684,128 @@
                         "type": "integer",
                         "description": "Number of keywords per topic that is extracted from the dataset.",
                         "default": 8
+                    },
+                    {
+                        "name": "excluded_docs",
+                        "in": "query",
+                        "type": "custom list",
+                        "format": "list of strings",
+                        "description": "List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\" "
+                    },
+                    {
+                        "in": "textHtml",
+                        "name": "consumes",
+                        "type": "string"
+                    }
+                ],
+                "security": [
+                    {
+                        "apikey": []
+                    }
+                ],
+                "consumes": [
+                    "text/html"
+                ],
+                "tags": [
+                    "topics"
+                ]
+            }
+        },
+        "/topics/topic_historical": {
+            "get": {
+                "responses": {
+                    "400": {
+                        "description": "Failed"
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/topiHistModel"
+                        }
+                    }
+                },
+                "description": "Get a historical analysis of topics extracted from a dataset.",
+                "operationId": "get_topic_historical_analysis_api",
+                "parameters": [
+                    {
+                        "name": "dataset",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "Dataset name."
+                    },
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\")"
+                    },
+                    {
+                        "name": "custom_stop_words",
+                        "in": "query",
+                        "type": "custom list",
+                        "format": "list of strings",
+                        "description": "List of stop words"
+                    },
+                    {
+                        "name": "num_topics",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Number of topics to be extracted from the dataset.",
+                        "default": 8
+                    },
+                    {
+                        "name": "num_keywords",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Number of keywords per topic that is extracted from the dataset.",
+                        "default": 8
+                    },
+                    {
+                        "name": "metadata_selection",
+                        "in": "query",
+                        "type": "string",
+                        "description": "json object of {\"metadata_field\":[\"selected_values\"]}"
+                    },
+                    {
+                        "name": "time_period",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "Time period selection",
+                        "default": "1M",
+                        "enum": [
+                            "1M",
+                            "3M",
+                            "6M",
+                            "12M",
+                            "3Y",
+                            "5Y",
+                            ""
+                        ],
+                        "collectionFormat": "multi"
+                    },
+                    {
+                        "name": "update_period",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "Frequency at which the historical anlaysis is performed",
+                        "default": "d",
+                        "enum": [
+                            "d",
+                            "m",
+                            "H",
+                            "M"
+                        ],
+                        "collectionFormat": "multi"
+                    },
+                    {
+                        "name": "inc_step",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Number of increments of the udpate period in between two historical computations.",
+                        "default": 1
                     },
                     {
                         "name": "excluded_docs",
@@ -892,10 +1105,40 @@
             }
         },
         "/users": {
-            "get": {
+            "post": {
                 "responses": {
                     "200": {
                         "description": "Success"
+                    }
+                },
+                "description": "Use this API to register a new user. Email and password are required, all other fields optional.",
+                "operationId": "post_user",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/user"
+                        }
+                    }
+                ],
+                "security": [
+                    {
+                        "apikey": []
+                    }
+                ],
+                "tags": [
+                    "users"
+                ]
+            },
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/userModel"
+                        }
                     }
                 },
                 "description": "Use this API to authenticate. If the password is correct, returns the user details, including the user's api key.",
@@ -923,33 +1166,6 @@
                 ],
                 "consumes": [
                     "text/html"
-                ],
-                "tags": [
-                    "users"
-                ]
-            },
-            "post": {
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    }
-                },
-                "description": "Use this API to register a new user. Email and password are required, all other fields optional.",
-                "operationId": "post_user",
-                "parameters": [
-                    {
-                        "name": "payload",
-                        "required": true,
-                        "in": "body",
-                        "schema": {
-                            "$ref": "#/definitions/user"
-                        }
-                    }
-                ],
-                "security": [
-                    {
-                        "apikey": []
-                    }
                 ],
                 "tags": [
                     "users"
@@ -1031,6 +1247,59 @@
                 "country": {
                     "type": "string",
                     "description": "Country of origin."
+                }
+            },
+            "type": "object"
+        },
+        "userModel": {
+            "properties": {
+                "user_email": {
+                    "type": "string",
+                    "description": "Email"
+                },
+                "first_name": {
+                    "type": "string",
+                    "description": "First name"
+                },
+                "last_name": {
+                    "type": "string",
+                    "description": "Last name"
+                },
+                "api_key": {
+                    "type": "string",
+                    "description": "API key"
+                },
+                "phone": {
+                    "type": "string",
+                    "description": "Phone number"
+                },
+                "company": {
+                    "type": "string",
+                    "description": "Company"
+                },
+                "title": {
+                    "type": "string",
+                    "description": "Title"
+                },
+                "settings": {
+                    "type": "string",
+                    "description": "User settings"
+                },
+                "reg_time": {
+                    "type": "string",
+                    "description": "Registration time"
+                },
+                "license_id": {
+                    "type": "string",
+                    "description": "License ID"
+                },
+                "license_type": {
+                    "type": "string",
+                    "description": "License type"
+                },
+                "expiry": {
+                    "type": "string",
+                    "description": "License expiration date"
                 }
             },
             "type": "object"
@@ -1236,6 +1505,10 @@
                 "doc_topic_exposure": {
                     "type": "string",
                     "description": "Exposure of each doc of the dataset to each topic"
+                },
+                "doc_id": {
+                    "type": "string",
+                    "description": "Docid of each document in the dataset (used to retrieve per-doc info)"
                 }
             },
             "type": "object"
@@ -1265,13 +1538,17 @@
                     "type": "string",
                     "description": "Topic sentiment"
                 },
-                "document_scores": {
+                "doc_score": {
                     "type": "string",
                     "description": "Document scores"
                 },
-                "document_sentiments": {
+                "doc_sentiment": {
                     "type": "string",
                     "description": "Document sentiments"
+                },
+                "doc_id": {
+                    "type": "string",
+                    "description": "Docid of each document in the dataset (used to retrieve per-doc info)"
                 }
             },
             "type": "object"
@@ -1324,6 +1601,66 @@
                 "summary": {
                     "type": "string",
                     "description": "Topic summary"
+                }
+            },
+            "type": "object"
+        },
+        "topiHistModel": {
+            "properties": {
+                "results": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/NestedTopicHistModel"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "NestedTopicHistModel": {
+            "properties": {
+                "topic": {
+                    "type": "string",
+                    "description": "Topic keywords"
+                },
+                "strength": {
+                    "type": "string",
+                    "description": "Topic strength"
+                },
+                "sentiment": {
+                    "type": "string",
+                    "description": "Topic sentiment"
+                },
+                "consensus": {
+                    "type": "string",
+                    "description": "Topic consensus"
+                },
+                "time_stamp": {
+                    "type": "string",
+                    "description": "Historical dates of the analysis"
+                }
+            },
+            "type": "object"
+        },
+        "authorConnect": {
+            "properties": {
+                "results": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/NestedAuthorConnect"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "NestedAuthorConnect": {
+            "properties": {
+                "mainstream_connection": {
+                    "type": "string",
+                    "description": "Authors most similar to target author based on target author mainstream discussions"
+                },
+                "niche_connection": {
+                    "type": "string",
+                    "description": "Authors most similar to target author based on target author niche discussions"
                 }
             },
             "type": "object"

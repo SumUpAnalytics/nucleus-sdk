@@ -21,7 +21,6 @@ configuration = nucleus_client.Configuration()
 configuration.host = 'UPDATE-WITH-API-HOST'
 configuration.api_key['x-api-key'] = 'UPDATE-WITH-API-KEY'
 
-
 # # Dataset APIs
 
 # ## Create API instance
@@ -29,7 +28,7 @@ configuration.api_key['x-api-key'] = 'UPDATE-WITH-API-KEY'
 # In[3]:
 
 
-api_instance = nucleus_client.DatasetsApi(nucleus_client.ApiClient(configuration))
+api_instance_dataset = nucleus_client.DatasetsApi(nucleus_client.ApiClient(configuration))
 
 
 # ## Append file from local drive to dataset
@@ -41,7 +40,7 @@ file = 'quarles20181109a.pdf' # file |
 dataset = 'dataset_from_file' # str | Destination dataset where the file will be inserted.
 
 try:
-    api_instance.post_upload_file(file, dataset)
+    api_instance_dataset.post_upload_file(file, dataset)
 except ApiException as e:
     print("Exception when calling DatasetsApi->post_upload_file: %s\n" % e)
 
@@ -59,7 +58,7 @@ payload = nucleus_client.UploadURLModel(
             ) # UploadURLModel | 
 
 try:
-    api_response = api_instance.post_upload_url(payload)
+    api_response = api_instance_dataset.post_upload_url(payload)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DatasetsApi->post_upload_url: %s\n" % e)
@@ -71,10 +70,9 @@ except ApiException as e:
 
 
 # add documents to dataset
-csv_file = 'trump_tweets.csv'
+csv_file = 'trump-tweets-100.csv'
 dataset = 'dataset_from_json'   
 
-api_instance = nucleus_client.DatasetsApi(nucleus_client.ApiClient(configuration))
 doc_cnt = 0
 with open(csv_file, encoding='utf-8-sig') as csvfile:
     reader = csv.DictReader(csvfile)
@@ -82,17 +80,20 @@ with open(csv_file, encoding='utf-8-sig') as csvfile:
         if doc_cnt < 10:
             payload = nucleus_client.Appendjsonparams(dataset=dataset, 
                                                   language='english', 
-                                                  document={'time': row['time'],
-                                                            'title': row['title'],
-                                                            'content': row['content']}
+                                                  document={'time'   : row['time'],
+                                                            'title'  : row['title'],
+                                                            'content': row['content'],
+                                                            'author' : row['author']}
                                                  )
 
             try:
-                response = api_instance.post_append_json_to_dataset(payload)
+                response = api_instance_dataset.post_append_json_to_dataset(payload)
             except ApiException as e:
                 print("Exception when calling DatasetsApi->post_append_json_to_dataset: %s\n" % e)
         
         doc_cnt = doc_cnt + 1
+        
+print(response)
 
 
 # ## List available datasets
@@ -101,7 +102,7 @@ with open(csv_file, encoding='utf-8-sig') as csvfile:
 
 
 try:
-    api_response = api_instance.get_list_datasets()
+    api_response = api_instance_dataset.get_list_datasets()
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DatasetsApi->get_list_datasets: %s\n" % e)
@@ -118,7 +119,7 @@ metadata_selection = '' # str | json object of {\"metadata_field\":[\"selected_v
 time_period = '' # str | Time period selection (optional)
 
 try:
-    api_response = api_instance.get_dataset_info(dataset, 
+    api_response = api_instance_dataset.get_dataset_info(dataset, 
                                                  query=query, 
                                                  metadata_selection=metadata_selection, 
                                                  time_period=time_period)
@@ -134,10 +135,10 @@ except ApiException as e:
 
 dataset = 'dataset_from_json'
 payload = nucleus_client.Deletedocumentmodel(dataset=dataset,
-                                             docid='2') # Deletedocumentmodel | 
+                                             docid='1') # Deletedocumentmodel | 
 
 try:
-    api_response = api_instance.post_delete_document(payload)
+    api_response = api_instance_dataset.post_delete_document(payload)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DatasetsApi->post_delete_document: %s\n" % e)
@@ -148,18 +149,18 @@ except ApiException as e:
 # In[10]:
 
 
-dataset = 'dataset_from_json' 
+dataset = 'dataset_from_json'     
 payload = nucleus_client.Deletedatasetmodel(dataset=dataset) # Deletedatasetmodel | 
 
 try:
-    api_response = api_instance.post_delete_dataset(payload)
+    api_response = api_instance_dataset.post_delete_dataset(payload)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DatasetsApi->post_delete_dataset: %s\n" % e)
     
 # List datasets again to check if the specified dataset has been deleted
 try:
-    api_response = api_instance.get_list_datasets()
+    api_response = api_instance_dataset.get_list_datasets()
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DatasetsApi->get_list_datasets: %s\n" % e)
@@ -171,25 +172,26 @@ except ApiException as e:
 
 
 # add documents to dataset
-csv_file = 'trump_tweets.csv'
-dataset = 'trump_tweets_test'   
-
-api_instance = nucleus_client.DatasetsApi(nucleus_client.ApiClient(configuration))
+csv_file = 'trump-tweets-100.csv'
+dataset = 'trump_tweets'   
 
 with open(csv_file, encoding='utf-8-sig') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         payload = nucleus_client.Appendjsonparams(dataset=dataset, 
                                                   language='english', 
-                                                  document={'time': row['time'],
-                                                            'title': row['title'],
-                                                            'content': row['content']}
+                                                  document={'time'   : row['time'],
+                                                            'title'  : row['title'],
+                                                            'content': row['content'],
+                                                            'author' : row['author']}
                                                  )
 
         try:
-            response = api_instance.post_append_json_to_dataset(payload)
+            response = api_instance_dataset.post_append_json_to_dataset(payload)
         except ApiException as e:
             print("Exception when calling DatasetsApi->post_append_json_to_dataset: %s\n" % e)
+            
+print(response)
 
 
 # # Topic APIs
@@ -199,7 +201,7 @@ with open(csv_file, encoding='utf-8-sig') as csvfile:
 # In[12]:
 
 
-api_instance = nucleus_client.TopicsApi(nucleus_client.ApiClient(configuration))
+api_instance_topic = nucleus_client.TopicsApi(nucleus_client.ApiClient(configuration))
 
 
 # ## Get list of topics from dataset
@@ -216,12 +218,13 @@ metadata_selection ="" # str | json object of {\"metadata_field\":[\"selected_va
 time_period =""# str | Time period selection (optional)
 
 try:
-    api_response = api_instance.get_topic_api(dataset, 
-                                              query=query, 
-                                              custom_stop_words=custom_stop_words, 
-                                              num_topics=num_topics, 
-                                              metadata_selection=metadata_selection,
-                                              time_period=time_period)
+    api_response = api_instance_topic.get_topic_api(
+        dataset,                                
+        query=query,                   
+        custom_stop_words=custom_stop_words,     
+        num_topics=num_topics,
+        metadata_selection=metadata_selection,
+        time_period=time_period)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling TopicsApi->get_topic_api: %s\n" % e)
@@ -244,7 +247,7 @@ num_docs = 20 # int | The maximum number of key documents to use for summarizati
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"  (optional)
 
 try:
-    api_response = api_instance.get_topic_summary_api(dataset, 
+    api_response = api_instance_topic.get_topic_summary_api(dataset, 
                                                       query=query, 
                                                       custom_stop_words=custom_stop_words, 
                                                       num_topics=num_topics, 
@@ -271,7 +274,7 @@ num_keywords = 8 # int | Number of keywords per topic that is extracted from the
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"  (optional)
 
 try:
-    api_response = api_instance.get_topic_sentiment_api(dataset, 
+    api_response = api_instance_topic.get_topic_sentiment_api(dataset, 
                                                         query=query, 
                                                         custom_stop_words=custom_stop_words, 
                                                         num_topics=num_topics, 
@@ -291,10 +294,10 @@ query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boo
 custom_stop_words = ["real","hillary"] # ERRORUNKNOWN | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
 num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
-excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"  (optional)
+excluded_docs = [''] # str | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"  (optional)
 
 try:
-    api_response = api_instance.get_topic_consensus_api(dataset, 
+    api_response = api_instance_topic.get_topic_consensus_api(dataset, 
                                                         query=query, 
                                                         custom_stop_words=custom_stop_words, 
                                                         num_topics=num_topics, 
@@ -304,19 +307,46 @@ except ApiException as e:
     print("Exception when calling TopicsApi->get_topic_consensus_api: %s\n" % e)
 
 
-# # Document APIs
-
-# ## Create API instance
+# ## Get author connectivity
 
 # In[17]:
 
 
-api_instance = nucleus_client.DocumentsApi(nucleus_client.ApiClient(configuration))
+dataset = dataset # str | Dataset name.
+target_author = 'D_Trump16' # str | Name of the author to be analyzed.
+query = '' # str | Fulltext query, using mysql MATCH boolean query format. Subject covered by the author, on which to focus the analysis of connectivity. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
+custom_stop_words = ["real","hillary"] # str | List of words possibly used by the target author that are considered not information-bearing. (optional)
+time_period = '' # str | Time period selection (optional)
+metadata_selection = '' # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
+excluded_docs = [''] # str | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"  (optional)
+
+try:
+    api_response = api_instance_topic.get_author_connectivity_api(
+        dataset, 
+        target_author, 
+        query=query, 
+        custom_stop_words=custom_stop_words, 
+        time_period=time_period, 
+        metadata_selection=metadata_selection, 
+        excluded_docs=excluded_docs)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling TopicsApi->get_author_connectivity_api: %s\n" % e)
+
+
+# # Document APIs
+
+# ## Create API instance
+
+# In[18]:
+
+
+api_instance_doc = nucleus_client.DocumentsApi(nucleus_client.ApiClient(configuration))
 
 
 # ## Get document information without content
 
-# In[18]:
+# In[19]:
 
 
 dataset = dataset # str | Dataset name.
@@ -324,7 +354,7 @@ doc_titles = ['D_Trump2018_8_18_1_47']   # str | The title of the document to re
 doc_ids = ['11', '12', '20']      # int | The docid of the document to retrieve. Example: \"docid1\"  (optional)
 
 try:
-    api_response = api_instance.get_doc_info(dataset, doc_titles=doc_titles, doc_ids=doc_ids)
+    api_response = api_instance_doc.get_doc_info(dataset, doc_titles=doc_titles, doc_ids=doc_ids)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DocumentsApi->get_doc_info: %s\n" % e)
@@ -332,7 +362,7 @@ except ApiException as e:
 
 # ## Display document details
 
-# In[19]:
+# In[20]:
 
 
 dataset = dataset # str | Dataset name.
@@ -340,7 +370,7 @@ doc_titles = ['D_Trump2018_8_18_1_47']   # str | The title of the document to re
 doc_ids = ['11']      # int | The docid of the document to retrieve. Example: \"docid1\"  (optional)
 
 try:
-    api_response = api_instance.get_doc_display(dataset, doc_titles=doc_titles, doc_ids=doc_ids)
+    api_response = api_instance_doc.get_doc_display(dataset, doc_titles=doc_titles, doc_ids=doc_ids)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DocumentsApi->get_doc_display_api: %s\n" % e)
@@ -348,7 +378,7 @@ except ApiException as e:
 
 # ## Get document recommendation
 
-# In[20]:
+# In[21]:
 
 
 dataset = dataset # str | Dataset name.
@@ -359,7 +389,7 @@ num_keywords = 8 # int | Number of keywords per topic that is extracted from the
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"  (optional)
 
 try:
-    api_response = api_instance.get_doc_recommend_api(dataset, 
+    api_response = api_instance_doc.get_doc_recommend_api(dataset, 
                                                       query=query, 
                                                       custom_stop_words=custom_stop_words, 
                                                       num_topics=num_topics, 
@@ -371,7 +401,7 @@ except ApiException as e:
 
 # ## Get document summary
 
-# In[21]:
+# In[22]:
 
 
 dataset = dataset # str | Dataset name.
@@ -381,7 +411,7 @@ summary_length = 6 # int | The maximum number of bullet points a user wants to s
 context_amount = 0 # int | The number of sentences surrounding key summary sentences in the documents that they come from. (optional) (default to 0)
 
 try:
-    api_response = api_instance.get_doc_summary_api(dataset, doc_title, custom_stop_words=custom_stop_words, summary_length=summary_length, context_amount=context_amount)
+    api_response = api_instance_doc.get_doc_summary_api(dataset, doc_title, custom_stop_words=custom_stop_words, summary_length=summary_length, context_amount=context_amount)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DocumentsApi->get_doc_summary_api: %s\n" % e)
