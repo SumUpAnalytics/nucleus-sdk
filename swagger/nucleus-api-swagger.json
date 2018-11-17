@@ -1105,33 +1105,6 @@
             }
         },
         "/users": {
-            "post": {
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    }
-                },
-                "description": "Use this API to register a new user. Email and password are required, all other fields optional.",
-                "operationId": "post_user",
-                "parameters": [
-                    {
-                        "name": "payload",
-                        "required": true,
-                        "in": "body",
-                        "schema": {
-                            "$ref": "#/definitions/user"
-                        }
-                    }
-                ],
-                "security": [
-                    {
-                        "apikey": []
-                    }
-                ],
-                "tags": [
-                    "users"
-                ]
-            },
             "get": {
                 "responses": {
                     "200": {
@@ -1166,6 +1139,33 @@
                 ],
                 "consumes": [
                     "text/html"
+                ],
+                "tags": [
+                    "users"
+                ]
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "description": "Use this API to register a new user. Email and password are required, all other fields optional.",
+                "operationId": "post_user",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/user"
+                        }
+                    }
+                ],
+                "security": [
+                    {
+                        "apikey": []
+                    }
                 ],
                 "tags": [
                     "users"
@@ -1307,8 +1307,11 @@
         "userDatasetModel": {
             "properties": {
                 "list_datasets": {
-                    "type": "string",
-                    "description": "List of user datasets"
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "description": "List of user datasets"
+                    }
                 }
             },
             "type": "object"

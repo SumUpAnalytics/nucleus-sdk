@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[37]:
 
 
 from __future__ import print_function
@@ -14,43 +14,53 @@ from pprint import pprint
 
 # # Configure API host and key
 
-# In[2]:
+# In[38]:
 
 
 configuration = nucleus_client.Configuration()
 configuration.host = 'UPDATE-WITH-API-HOST'
 configuration.api_key['x-api-key'] = 'UPDATE-WITH-API-KEY'
 
+
 # # Dataset APIs
 
 # ## Create API instance
 
-# In[3]:
+# In[39]:
 
 
+print('-------------------------------------------------------------')
+print('--                Dataset API Examples                     --')
+print('-------------------------------------------------------------')
 api_instance_dataset = nucleus_client.DatasetsApi(nucleus_client.ApiClient(configuration))
 
 
 # ## Append file from local drive to dataset
 
-# In[4]:
+# In[40]:
 
 
+print('--------- Append file from local drive to dataset -----------')
+print('')
 file = 'quarles20181109a.pdf' # file | 
-dataset = 'dataset_from_file' # str | Destination dataset where the file will be inserted.
+dataset = 'dataset_test' # str | Destination dataset where the file will be inserted.
 
 try:
     api_instance_dataset.post_upload_file(file, dataset)
 except ApiException as e:
     print("Exception when calling DatasetsApi->post_upload_file: %s\n" % e)
+    
+print('-------------------------------------------------------------')
 
 
 # ## Append file from URL to dataset
 
-# In[5]:
+# In[41]:
 
 
-dataset = 'dataset_from_url'
+print('------------ Append frile from URL to dataset ---------------')
+
+dataset = dataset
 file_url = 'https://www.federalreserve.gov/newsevents/speech/files/quarles20181109a.pdf'
 payload = nucleus_client.UploadURLModel(
                 dataset=dataset,
@@ -62,16 +72,18 @@ try:
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DatasetsApi->post_upload_url: %s\n" % e)
+print('-------------------------------------------------------------')
 
 
 # ## Append json from csv to dataset
 
-# In[6]:
+# In[42]:
 
 
+print('----------- Append json from CSV to dataset -----------------')
 # add documents to dataset
 csv_file = 'trump-tweets-100.csv'
-dataset = 'dataset_from_json'   
+dataset = dataset   
 
 doc_cnt = 0
 with open(csv_file, encoding='utf-8-sig') as csvfile:
@@ -93,27 +105,38 @@ with open(csv_file, encoding='utf-8-sig') as csvfile:
         
         doc_cnt = doc_cnt + 1
         
-print(response)
+print('Dataset', dataset, 'now has', response.success, 'documents.')
+print('-------------------------------------------------------------')
 
 
 # ## List available datasets
 
-# In[7]:
+# In[43]:
 
 
+print('---------------- List available datasets ---------------------')
 try:
     api_response = api_instance_dataset.get_list_datasets()
-    pprint(api_response)
 except ApiException as e:
     print("Exception when calling DatasetsApi->get_list_datasets: %s\n" % e)
+
+list_datasets = api_response.to_dict()['list_datasets']
+
+print(len(list_datasets), 'datasets in the database:')
+for ds in list_datasets:
+    print('    ', ds)
+
+    
+print('-------------------------------------------------------------')
 
 
 # ## Get dataset information
 
-# In[8]:
+# In[44]:
 
 
-dataset = 'dataset_from_file' # str | Dataset name.
+print('-------------------------------------------------------------')
+dataset = dataset # str | Dataset name.
 query = '' # str | Fulltext query, using mysql MATCH boolean query format. (optional)
 metadata_selection = '' # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
 time_period = '' # str | Time period selection (optional)
@@ -126,14 +149,17 @@ try:
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DatasetsApi->get_dataset_info: %s\n" % e)
+    
+print('-------------------------------------------------------------')
 
 
-# ## Delete a document
+# ## Delete document
 
-# In[9]:
+# In[45]:
 
 
-dataset = 'dataset_from_json'
+print('-------------------------------------------------------------')
+dataset = dataset
 payload = nucleus_client.Deletedocumentmodel(dataset=dataset,
                                              docid='1') # Deletedocumentmodel | 
 
@@ -143,13 +169,15 @@ try:
 except ApiException as e:
     print("Exception when calling DatasetsApi->post_delete_document: %s\n" % e)
 
-
-# ## Delete the dataset
-
-# In[10]:
+print('-------------------------------------------------------------')
 
 
-dataset = 'dataset_from_json'     
+# ## Delete dataset
+
+# In[46]:
+
+
+dataset = dataset     
 payload = nucleus_client.Deletedatasetmodel(dataset=dataset) # Deletedatasetmodel | 
 
 try:
@@ -168,9 +196,10 @@ except ApiException as e:
 
 # ## Create a full dataset for testing other APIs
 
-# In[11]:
+# In[47]:
 
 
+print('-------------------------------------------------------------')
 # add documents to dataset
 csv_file = 'trump-tweets-100.csv'
 dataset = 'trump_tweets'   
@@ -192,23 +221,28 @@ with open(csv_file, encoding='utf-8-sig') as csvfile:
             print("Exception when calling DatasetsApi->post_append_json_to_dataset: %s\n" % e)
             
 print(response)
+print('-------------------------------------------------------------')
 
 
 # # Topic APIs
 
 # ## Create API Instance
 
-# In[12]:
+# In[48]:
 
 
+print('-------------------------------------------------------------')
+print('--                Topic API Examples                     --')
+print('-------------------------------------------------------------')
 api_instance_topic = nucleus_client.TopicsApi(nucleus_client.ApiClient(configuration))
 
 
 # ## Get list of topics from dataset
 
-# In[13]:
+# In[49]:
 
 
+print('-------------------------------------------------------------')
 dataset = dataset
 #query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
 query = ''
@@ -228,13 +262,16 @@ try:
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling TopicsApi->get_topic_api: %s\n" % e)
+    
+print('-------------------------------------------------------------')
 
 
 # ## Get topic summary
 
-# In[14]:
+# In[50]:
 
 
+print('-------------------------------------------------------------')
 dataset = dataset # str | Dataset name.
 #query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
 query = ''
@@ -259,12 +296,15 @@ try:
 except ApiException as e:
     print("Exception when calling TopicsApi->get_topic_summary_api: %s\n" % e)
 
+print('-------------------------------------------------------------')
+
 
 # ## Get topic sentiment
 
-# In[15]:
+# In[51]:
 
 
+print('-------------------------------------------------------------')
 dataset = dataset # str | Dataset name.
 #query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
 query = ''
@@ -282,13 +322,16 @@ try:
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling TopicsApi->get_topic_sentiment_api: %s\n" % e)
+    
+print('-------------------------------------------------------------')
 
 
 # ## Get topic consensus
 
-# In[16]:
+# In[52]:
 
 
+print('-------------------------------------------------------------')
 dataset = dataset # str | Dataset name.
 query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
 custom_stop_words = ["real","hillary"] # ERRORUNKNOWN | List of stop words. (optional)
@@ -305,13 +348,16 @@ try:
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling TopicsApi->get_topic_consensus_api: %s\n" % e)
+    
+print('-------------------------------------------------------------')
 
 
 # ## Get author connectivity
 
-# In[17]:
+# In[53]:
 
 
+print('-------------------------------------------------------------')
 dataset = dataset # str | Dataset name.
 target_author = 'D_Trump16' # str | Name of the author to be analyzed.
 query = '' # str | Fulltext query, using mysql MATCH boolean query format. Subject covered by the author, on which to focus the analysis of connectivity. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
@@ -332,21 +378,27 @@ try:
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling TopicsApi->get_author_connectivity_api: %s\n" % e)
+    
+print('-------------------------------------------------------------')
 
 
 # # Document APIs
 
 # ## Create API instance
 
-# In[18]:
+# In[54]:
 
+
+print('-------------------------------------------------------------')
+print('--                Document API examples                    --')
+print('-------------------------------------------------------------')
 
 api_instance_doc = nucleus_client.DocumentsApi(nucleus_client.ApiClient(configuration))
 
 
 # ## Get document information without content
 
-# In[19]:
+# In[55]:
 
 
 dataset = dataset # str | Dataset name.
@@ -358,12 +410,16 @@ try:
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DocumentsApi->get_doc_info: %s\n" % e)
+    
+print('-------------------------------------------------------------')
 
 
 # ## Display document details
 
-# In[20]:
+# In[56]:
 
+
+print('-------------------------------------------------------------')
 
 dataset = dataset # str | Dataset name.
 doc_titles = ['D_Trump2018_8_18_1_47']   # str | The title of the document to retrieve. Example: \" \"title 1\" \"  (optional)
@@ -374,12 +430,16 @@ try:
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DocumentsApi->get_doc_display_api: %s\n" % e)
+    
+print('-------------------------------------------------------------')
 
 
 # ## Get document recommendation
 
-# In[21]:
+# In[57]:
 
+
+print('-------------------------------------------------------------')
 
 dataset = dataset # str | Dataset name.
 query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
@@ -397,12 +457,16 @@ try:
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DocumentsApi->get_doc_recommend_api: %s\n" % e)
+    
+print('-------------------------------------------------------------')
 
 
 # ## Get document summary
 
-# In[22]:
+# In[58]:
 
+
+print('-------------------------------------------------------------')
 
 dataset = dataset # str | Dataset name.
 doc_title = 'D_Trump2018_8_15_15_4' # str | The title of the document to be summarized.
@@ -415,6 +479,14 @@ try:
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DocumentsApi->get_doc_summary_api: %s\n" % e)
+    
+print('-------------------------------------------------------------')
+
+
+# In[ ]:
+
+
+
 
 
 # In[ ]:
