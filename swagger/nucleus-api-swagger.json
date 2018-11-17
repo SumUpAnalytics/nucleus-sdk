@@ -1105,6 +1105,33 @@
             }
         },
         "/users": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "description": "Use this API to register a new user. Email and password are required, all other fields optional.",
+                "operationId": "post_user",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/user"
+                        }
+                    }
+                ],
+                "security": [
+                    {
+                        "apikey": []
+                    }
+                ],
+                "tags": [
+                    "users"
+                ]
+            },
             "get": {
                 "responses": {
                     "200": {
@@ -1139,33 +1166,6 @@
                 ],
                 "consumes": [
                     "text/html"
-                ],
-                "tags": [
-                    "users"
-                ]
-            },
-            "post": {
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    }
-                },
-                "description": "Use this API to register a new user. Email and password are required, all other fields optional.",
-                "operationId": "post_user",
-                "parameters": [
-                    {
-                        "name": "payload",
-                        "required": true,
-                        "in": "body",
-                        "schema": {
-                            "$ref": "#/definitions/user"
-                        }
-                    }
-                ],
-                "security": [
-                    {
-                        "apikey": []
-                    }
                 ],
                 "tags": [
                     "users"
@@ -1398,8 +1398,11 @@
                     "description": "Number of documents in the dataset"
                 },
                 "time_range": {
-                    "type": "string",
-                    "description": "Time range of the dataset"
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "description": "Time range of the dataset"
+                    }
                 },
                 "detected_language": {
                     "type": "string",
@@ -1498,20 +1501,29 @@
                     "description": "Topic"
                 },
                 "keywords_weight": {
-                    "type": "string",
-                    "description": "Weight of keywords in each topic"
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "description": "Weight of keywords in each topic"
+                    }
                 },
                 "strength": {
                     "type": "string",
                     "description": "Prevalence of each topic in the dataset"
                 },
                 "doc_topic_exposure": {
-                    "type": "string",
-                    "description": "Exposure of each doc of the dataset to each topic"
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "description": "Exposure of each doc of the dataset to each topic"
+                    }
                 },
                 "doc_id": {
-                    "type": "string",
-                    "description": "Docid of each document in the dataset (used to retrieve per-doc info)"
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "description": "Docid of each document in the dataset (used to retrieve per-doc info)"
+                    }
                 }
             },
             "type": "object"
@@ -1542,16 +1554,25 @@
                     "description": "Topic sentiment"
                 },
                 "doc_score": {
-                    "type": "string",
-                    "description": "Document scores"
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "description": "Document scores"
+                    }
                 },
                 "doc_sentiment": {
-                    "type": "string",
-                    "description": "Document sentiments"
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "description": "Document sentiments"
+                    }
                 },
                 "doc_id": {
-                    "type": "string",
-                    "description": "Docid of each document in the dataset (used to retrieve per-doc info)"
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "description": "Docid of each document in the dataset (used to retrieve per-doc info)"
+                    }
                 }
             },
             "type": "object"
@@ -1602,8 +1623,47 @@
                     "description": "Topic keywords"
                 },
                 "summary": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/NestedSummaryModel"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "NestedSummaryModel": {
+            "properties": {
+                "title": {
                     "type": "string",
-                    "description": "Topic summary"
+                    "description": "Document Title"
+                },
+                "sentences": {
+                    "type": "string",
+                    "description": "Sentences"
+                },
+                "sourceid": {
+                    "type": "string",
+                    "description": "Document ID"
+                },
+                "attribute": {
+                    "$ref": "#/definitions/DocAttributeModel"
+                }
+            },
+            "type": "object"
+        },
+        "DocAttributeModel": {
+            "properties": {
+                "time": {
+                    "type": "string",
+                    "description": "Document published ime"
+                },
+                "author": {
+                    "type": "string",
+                    "description": "Document author"
+                },
+                "source": {
+                    "type": "string",
+                    "description": "Document source"
                 }
             },
             "type": "object"
@@ -1706,23 +1766,6 @@
                 },
                 "attribute": {
                     "$ref": "#/definitions/DocAttributeModel"
-                }
-            },
-            "type": "object"
-        },
-        "DocAttributeModel": {
-            "properties": {
-                "time": {
-                    "type": "string",
-                    "description": "Document published ime"
-                },
-                "author": {
-                    "type": "string",
-                    "description": "Document author"
-                },
-                "source": {
-                    "type": "string",
-                    "description": "Document source"
                 }
             },
             "type": "object"
