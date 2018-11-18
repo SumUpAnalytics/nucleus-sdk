@@ -135,7 +135,7 @@ print('-------------------------------------------------------------')
 
 # ## Get dataset information
 
-# In[34]:
+# In[8]:
 
 
 print('--------------- Get dataset information -------------------')
@@ -165,7 +165,7 @@ print('-------------------------------------------------------------')
 
 # ## Delete document
 
-# In[35]:
+# In[9]:
 
 
 print('--------------------- Delete document -----------------------')
@@ -185,7 +185,7 @@ print('-------------------------------------------------------------')
 
 # ## Delete dataset
 
-# In[36]:
+# In[10]:
 
 
 print('--------------------- Delete dataset ------------------------')
@@ -211,7 +211,7 @@ print('-------------------------------------------------------------')
 
 # ## Create a full dataset for testing other APIs
 
-# In[37]:
+# In[11]:
 
 
 print('--------- Create a full dataset for testing other APIs ---------')
@@ -243,7 +243,7 @@ print('-------------------------------------------------------------')
 
 # ## Create API Instance
 
-# In[38]:
+# In[12]:
 
 
 print('-------------------------------------------------------------')
@@ -254,7 +254,7 @@ api_instance_topic = nucleus_client.TopicsApi(nucleus_client.ApiClient(configura
 
 # ## Get list of topics from dataset
 
-# In[39]:
+# In[13]:
 
 
 print('------------- Get list of topics from dataset --------------')
@@ -306,7 +306,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic summary
 
-# In[40]:
+# In[14]:
 
 
 print('------------------- Get topic summary -----------------------')
@@ -316,6 +316,7 @@ query = ''
 custom_stop_words = ["real","hillary"] # ERRORUNKNOWN | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
 num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
+metadata_selection ="" # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
 summary_length = 6 # int | The maximum number of bullet points a user wants to see in each topic summary. (optional) (default to 6)
 context_amount = 0 # int | The number of sentences surrounding key summary sentences in the documents that they come from. (optional) (default to 0)
 num_docs = 20 # int | The maximum number of key documents to use for summarization. (optional) (default to 20)
@@ -327,7 +328,8 @@ try:
         query=query, 
         custom_stop_words=custom_stop_words, 
         num_topics=num_topics, 
-        num_keywords=num_keywords, 
+        num_keywords=num_keywords,
+        metadata_selection=metadata_selection,
         summary_length=summary_length, 
         context_amount=context_amount, 
         num_docs=num_docs)
@@ -337,8 +339,6 @@ except ApiException as e:
 i = 1
 for res in api_response.results:
     print('Topic', i, 'summary:')
-    #print(type(res.topic))
-    #print(type(res.summary))
     print('    Keywords:', res.topic)
     for j in range(len(res.summary)):
         print('    Document ID:', res.summary[j].sourceid)
@@ -360,7 +360,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic sentiment
 
-# In[41]:
+# In[15]:
 
 
 print('---------------- Get topic sentiment ------------------------')
@@ -406,12 +406,12 @@ print('-------------------------------------------------------------')
 
 # ## Get topic consensus
 
-# In[42]:
+# In[16]:
 
 
 print('---------------- Get topic consensus ------------------------')
 dataset = dataset # str | Dataset name.
-query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
+query = '' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
 custom_stop_words = ["real","hillary"] # ERRORUNKNOWN | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
 num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
@@ -443,7 +443,7 @@ print('-------------------------------------------------------------')
 
 # ## Get author connectivity
 
-# In[43]:
+# In[20]:
 
 
 print('-------------------------------------------------------------')
@@ -451,7 +451,7 @@ dataset = dataset # str | Dataset name.
 target_author = 'D_Trump16' # str | Name of the author to be analyzed.
 query = '' # str | Fulltext query, using mysql MATCH boolean query format. Subject covered by the author, on which to focus the analysis of connectivity. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
 custom_stop_words = ["real","hillary"] # str | List of words possibly used by the target author that are considered not information-bearing. (optional)
-time_period = '' # str | Time period selection (optional)
+time_period = '12M' # str | Time period selection. Required. Valid values: "1M","3M","6M","12M","3Y","5Y"
 metadata_selection = '' # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
 excluded_docs = [''] # str | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"  (optional)
 
@@ -464,10 +464,17 @@ try:
         time_period=time_period, 
         metadata_selection=metadata_selection, 
         excluded_docs=excluded_docs)
-    pprint(api_response)
+    
 except ApiException as e:
     print("Exception when calling TopicsApi->get_author_connectivity_api: %s\n" % e)
+
+for res in api_response.results:
+    #print(type(res.mainstream_connection))
+    print('Mainstream connection:', res.mainstream_connection)
+    print('Niche connection:', res.niche_connection)
     
+    
+#pprint(api_response)   # raw API response
 print('-------------------------------------------------------------')
 
 
@@ -475,7 +482,7 @@ print('-------------------------------------------------------------')
 
 # ## Create API instance
 
-# In[44]:
+# In[ ]:
 
 
 print('-------------------------------------------------------------')
@@ -487,7 +494,7 @@ api_instance_doc = nucleus_client.DocumentsApi(nucleus_client.ApiClient(configur
 
 # ## Get document information without content
 
-# In[45]:
+# In[ ]:
 
 
 dataset = dataset # str | Dataset name.
@@ -516,7 +523,7 @@ print('-------------------------------------------------------------')
 
 # ## Display document details
 
-# In[46]:
+# In[ ]:
 
 
 print('-------------------------------------------------------------')
@@ -548,7 +555,7 @@ print('-------------------------------------------------------------')
 
 # ## Get document recommendations
 
-# In[47]:
+# In[ ]:
 
 
 print('------------- Get document recommendations -----------------')
@@ -596,7 +603,7 @@ print('-------------------------------------------------------------')
 
 # ## Get document summary
 
-# In[48]:
+# In[ ]:
 
 
 print('------------------ Get document summary  --------------------')

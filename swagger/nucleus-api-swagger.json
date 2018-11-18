@@ -449,6 +449,28 @@
                         "default": 20
                     },
                     {
+                        "name": "metadata_selection",
+                        "in": "query",
+                        "type": "string",
+                        "description": "json object of {\"metadata_field\":[\"selected_values\"]}"
+                    },
+                    {
+                        "name": "time_period",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Time period selection",
+                        "enum": [
+                            "1M",
+                            "3M",
+                            "6M",
+                            "12M",
+                            "3Y",
+                            "5Y",
+                            ""
+                        ],
+                        "collectionFormat": "multi"
+                    },
+                    {
                         "name": "excluded_docs",
                         "in": "query",
                         "type": "custom list",
@@ -591,6 +613,7 @@
                         "name": "time_period",
                         "in": "query",
                         "type": "string",
+                        "required": true,
                         "description": "Time period selection",
                         "enum": [
                             "1M",
@@ -598,8 +621,7 @@
                             "6M",
                             "12M",
                             "3Y",
-                            "5Y",
-                            ""
+                            "5Y"
                         ],
                         "collectionFormat": "multi"
                     },
@@ -684,6 +706,28 @@
                         "type": "integer",
                         "description": "Number of keywords per topic that is extracted from the dataset.",
                         "default": 8
+                    },
+                    {
+                        "name": "metadata_selection",
+                        "in": "query",
+                        "type": "string",
+                        "description": "json object of {\"metadata_field\":[\"selected_values\"]}"
+                    },
+                    {
+                        "name": "time_period",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Time period selection",
+                        "enum": [
+                            "1M",
+                            "3M",
+                            "6M",
+                            "12M",
+                            "3Y",
+                            "5Y",
+                            ""
+                        ],
+                        "collectionFormat": "multi"
                     },
                     {
                         "name": "excluded_docs",
@@ -884,6 +928,28 @@
                         "default": 8
                     },
                     {
+                        "name": "metadata_selection",
+                        "in": "query",
+                        "type": "string",
+                        "description": "json object of {\"metadata_field\":[\"selected_values\"]}"
+                    },
+                    {
+                        "name": "time_period",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Time period selection",
+                        "enum": [
+                            "1M",
+                            "3M",
+                            "6M",
+                            "12M",
+                            "3Y",
+                            "5Y",
+                            ""
+                        ],
+                        "collectionFormat": "multi"
+                    },
+                    {
                         "name": "excluded_docs",
                         "in": "query",
                         "type": "custom list",
@@ -958,6 +1024,28 @@
                         "type": "integer",
                         "description": "Number of keywords per topic that is extracted from the dataset.",
                         "default": 8
+                    },
+                    {
+                        "name": "metadata_selection",
+                        "in": "query",
+                        "type": "string",
+                        "description": "json object of {\"metadata_field\":[\"selected_values\"]}"
+                    },
+                    {
+                        "name": "time_period",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Time period selection",
+                        "enum": [
+                            "1M",
+                            "3M",
+                            "6M",
+                            "12M",
+                            "3Y",
+                            "5Y",
+                            ""
+                        ],
+                        "collectionFormat": "multi"
                     },
                     {
                         "name": "summary_length",
