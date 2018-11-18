@@ -443,7 +443,7 @@ print('-------------------------------------------------------------')
 
 # ## Get author connectivity
 
-# In[20]:
+# In[17]:
 
 
 print('-------------------------------------------------------------')
@@ -468,11 +468,16 @@ try:
 except ApiException as e:
     print("Exception when calling TopicsApi->get_author_connectivity_api: %s\n" % e)
 
-for res in api_response.results:
-    #print(type(res.mainstream_connection))
-    print('Mainstream connection:', res.mainstream_connection)
-    print('Niche connection:', res.niche_connection)
+res = api_response.results
+print('Mainstream connections:')
+for mc in res.mainstream_connection:
+    print('    Topic:', mc.topic)
+    print('    Authors:', " ".join(str(x) for x in mc.authors))
     
+print('Niche connections:')
+for nc in res.niche_connection:
+    print('    Topic:', nc.topic)
+    print('    Authors:', " ".join(str(x) for x in nc.authors))  
     
 #pprint(api_response)   # raw API response
 print('-------------------------------------------------------------')
@@ -482,7 +487,7 @@ print('-------------------------------------------------------------')
 
 # ## Create API instance
 
-# In[ ]:
+# In[18]:
 
 
 print('-------------------------------------------------------------')
@@ -494,7 +499,7 @@ api_instance_doc = nucleus_client.DocumentsApi(nucleus_client.ApiClient(configur
 
 # ## Get document information without content
 
-# In[ ]:
+# In[19]:
 
 
 dataset = dataset # str | Dataset name.
@@ -523,7 +528,7 @@ print('-------------------------------------------------------------')
 
 # ## Display document details
 
-# In[ ]:
+# In[20]:
 
 
 print('-------------------------------------------------------------')
@@ -555,7 +560,7 @@ print('-------------------------------------------------------------')
 
 # ## Get document recommendations
 
-# In[ ]:
+# In[21]:
 
 
 print('------------- Get document recommendations -----------------')
@@ -603,7 +608,7 @@ print('-------------------------------------------------------------')
 
 # ## Get document summary
 
-# In[ ]:
+# In[22]:
 
 
 print('------------------ Get document summary  --------------------')
