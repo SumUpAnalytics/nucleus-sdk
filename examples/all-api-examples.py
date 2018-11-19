@@ -102,10 +102,6 @@ def topic_charts_historical(historical_metrics, selected_topics, show_sentiment_
 configuration = nucleus_client.Configuration()
 configuration.host = 'UPDATE-WITH-API-HOST'
 configuration.api_key['x-api-key'] = 'UPDATE-WITH-API-KEY'
-configuration.host = 'https://7h4tcw9nej.execute-api.us-west-2.amazonaws.com/beta'
-configuration.api_key['x-api-key'] = 'hmsVTKr57l8LZPAZ_iEOYg'
-configuration.host = 'http://localhost:5000'
-configuration.api_key['x-api-key'] = 'p2Hbhk1J2cTnO6VFrNUP1Q'
 
 
 # # Dataset APIs
