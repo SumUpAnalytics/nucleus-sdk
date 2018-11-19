@@ -1447,7 +1447,7 @@
         },
         "appendjsonpostModel": {
             "properties": {
-                "success": {
+                "num_documents": {
                     "type": "string",
                     "description": "Number of documents in the dataset"
                 }
@@ -1774,20 +1774,32 @@
                     "description": "Topic keywords"
                 },
                 "strength": {
-                    "type": "string",
-                    "description": "Topic strength"
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "description": "Topic strength"
+                    }
                 },
                 "sentiment": {
-                    "type": "string",
-                    "description": "Topic sentiment"
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "description": "Topic sentiment"
+                    }
                 },
                 "consensus": {
-                    "type": "string",
-                    "description": "Topic consensus"
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "description": "Topic consensus"
+                    }
                 },
-                "time_stamp": {
-                    "type": "string",
-                    "description": "Historical dates of the analysis"
+                "time_stamps": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "description": "Historical dates of the analysis"
+                    }
                 }
             },
             "type": "object"

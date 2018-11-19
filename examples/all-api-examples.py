@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[22]:
 
 
 from __future__ import print_function
@@ -10,23 +10,109 @@ import time
 import nucleus_client
 from nucleus_client.rest import ApiException
 from pprint import pprint
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Determine if in Jupyter notebook or not
+
+try:
+    ip = get_ipython()
+    running_notebook = True
+except NameError:
+    running_notebook = False
+
+if running_notebook:
+    print('Running example in Jupyter Notebook')
+else:
+    print('Running example in script mode')
+
+
+# # Helper functions
+
+# In[2]:
+
+
+# Plot topic historical analysis
+def topic_charts_historical(historical_metrics, selected_topics, show_sentiment_consensus):
+
+    # Charts of Strength, Sentiment, Consensus for each of the topics
+    current_max_strength = 0
+    current_max_sent = 0
+    current_max_cons = 0
+    for i in selected_topics:
+        if np.nanmax(np.abs(historical_metrics[i]['strength'])) > current_max_strength:
+            current_max_strength = np.nanmax(np.abs(historical_metrics[i]['strength']))
+        if np.nanmax(np.abs(historical_metrics[i]['sentiment'])) > current_max_sent:
+            current_max_sent = np.nanmax(np.abs(historical_metrics[i]['sentiment']))
+        if np.nanmax(np.abs(historical_metrics[i]['consensus'])) > current_max_cons:
+            current_max_cons = np.nanmax(np.abs(historical_metrics[i]['consensus']))
+
+    if show_sentiment_consensus == True:
+        plt.rcParams['figure.figsize'] = [12, 18*len(selected_topics)]
+        fig = plt.figure() 
+        for i in selected_topics:
+            current_ax = 'ax' + str(selected_topics.index(i) + 1)
+            if current_ax == 'ax1':
+                current_ax = plt.subplot(3*len(selected_topics), 1, 1 + 3*selected_topics.index(i))
+                ax1 = plt.subplot(3*len(selected_topics), 1, 1 + 3*selected_topics.index(i))
+            else:
+                current_ax = plt.subplot(3*len(selected_topics), 1, 1 + 3*selected_topics.index(i), sharex=ax1)
+
+            # 3 subplots, one per strength, sentiment, consensus
+            current_ax.set_ylim([0, 1.05*current_max_strength])
+            current_ax.plot('time_stamps', 'strength', data=historical_metrics[i], color='blue')
+            plt.ylabel('Prevalence', fontsize=14, fontweight="bold")
+            plt.title(historical_metrics[i]['topic'], fontsize=14, fontweight="bold")
+
+            current_axSent = plt.subplot(3*len(selected_topics), 1, 1 + 3*selected_topics.index(i) + 1, sharex=ax1)
+            current_axSent.set_ylim([-1.05*current_max_sent, 1.05*current_max_sent])
+            current_axSent.plot('time_stamps', 'sentiment', data=historical_metrics[i], color='green')
+            plt.ylabel('Sentiment', fontsize=14, fontweight="bold")
+
+            current_axCons = plt.subplot(3*len(selected_topics), 1, 1 + 3*selected_topics.index(i) + 2, sharex=ax1)
+            current_axCons.set_ylim([0, 1.05*current_max_cons])
+            current_axCons.plot('time_stamps', 'consensus', data=historical_metrics[i], color='red')
+            plt.ylabel('Consensus', fontsize=14, fontweight="bold")
+
+        fig.autofmt_xdate(rotation=90)
+    else:
+        plt.rcParams['figure.figsize'] = [12, 6*len(selected_topics)]
+        fig = plt.figure()
+        for i in selected_topics:
+            current_ax = 'ax' + str(selected_topics.index(i) + 1)
+            if current_ax == 'ax1':
+                current_ax = plt.subplot(len(selected_topics), 1, selected_topics.index(i) + 1)
+                ax1 = plt.subplot(len(selected_topics), 1, selected_topics.index(i) + 1)
+            else:
+                current_ax = plt.subplot(len(selected_topics), 1, selected_topics.index(i) + 1, sharex=ax1)
+            current_ax.set_ylim([0, 1.05*current_max_strength])
+            current_ax.plot('time_stamps', 'strength', data=historical_metrics[i], color='blue')
+            plt.ylabel('Prevalence', fontsize=14, fontweight="bold")        
+            plt.title(historical_metrics[i]['topic'], fontsize=14, fontweight="bold")
+        fig.autofmt_xdate(rotation=90)
+        
+    return 0
 
 
 # # Configure API host and key
 
-# In[2]:
+# In[3]:
 
 
 configuration = nucleus_client.Configuration()
 configuration.host = 'UPDATE-WITH-API-HOST'
 configuration.api_key['x-api-key'] = 'UPDATE-WITH-API-KEY'
+configuration.host = 'https://7h4tcw9nej.execute-api.us-west-2.amazonaws.com/beta'
+configuration.api_key['x-api-key'] = 'hmsVTKr57l8LZPAZ_iEOYg'
+configuration.host = 'http://localhost:5000'
+configuration.api_key['x-api-key'] = 'p2Hbhk1J2cTnO6VFrNUP1Q'
 
 
 # # Dataset APIs
 
 # ## Create API instance
 
-# In[3]:
+# In[4]:
 
 
 print('-------------------------------------------------------------')
@@ -37,7 +123,7 @@ api_instance_dataset = nucleus_client.DatasetsApi(nucleus_client.ApiClient(confi
 
 # ## Append file from local drive to dataset
 
-# In[4]:
+# In[5]:
 
 
 print('--------- Append file from local drive to dataset -----------')
@@ -56,7 +142,7 @@ print('-------------------------------------------------------------')
 
 # ## Append file from URL to dataset
 
-# In[5]:
+# In[6]:
 
 
 print('------------ Append file from URL to dataset ---------------')
@@ -70,17 +156,17 @@ payload = nucleus_client.UploadURLModel(
 
 try:
     api_response = api_instance_dataset.post_upload_url(payload)
-    #pprint(api_response)
 except ApiException as e:
     print("Exception when calling DatasetsApi->post_upload_url: %s\n" % e)
     
+#pprint(api_response)   # raw API response
 print(file_url, 'has been added to dataset', dataset)
 print('-------------------------------------------------------------')
 
 
 # ## Append json from csv to dataset
 
-# In[6]:
+# In[7]:
 
 
 print('----------- Append json from CSV to dataset -----------------')
@@ -102,19 +188,19 @@ with open(csv_file, encoding='utf-8-sig') as csvfile:
                                                  )
 
             try:
-                response = api_instance_dataset.post_append_json_to_dataset(payload)
+                api_response = api_instance_dataset.post_append_json_to_dataset(payload)
             except ApiException as e:
                 print("Exception when calling DatasetsApi->post_append_json_to_dataset: %s\n" % e)
         
         doc_cnt = doc_cnt + 1
         
-print('Dataset', dataset, 'now has', response.success, 'documents.')
+print('Dataset', dataset, 'now has', api_response.num_documents, 'documents.')
 print('-------------------------------------------------------------')
 
 
 # ## List available datasets
 
-# In[7]:
+# In[8]:
 
 
 print('---------------- List available datasets ---------------------')
@@ -135,7 +221,7 @@ print('-------------------------------------------------------------')
 
 # ## Get dataset information
 
-# In[8]:
+# In[9]:
 
 
 print('--------------- Get dataset information -------------------')
@@ -165,7 +251,7 @@ print('-------------------------------------------------------------')
 
 # ## Delete document
 
-# In[9]:
+# In[10]:
 
 
 print('--------------------- Delete document -----------------------')
@@ -179,13 +265,15 @@ try:
 except ApiException as e:
     print("Exception when calling DatasetsApi->post_delete_document: %s\n" % e)
 
+
 print('Document', docid, 'from dataset', dataset, 'has been deleted.')
+# print(api_response)     # raw API response
 print('-------------------------------------------------------------')
 
 
 # ## Delete dataset
 
-# In[10]:
+# In[11]:
 
 
 print('--------------------- Delete dataset ------------------------')
@@ -211,7 +299,7 @@ print('-------------------------------------------------------------')
 
 # ## Create a full dataset for testing other APIs
 
-# In[11]:
+# In[12]:
 
 
 print('--------- Create a full dataset for testing other APIs ---------')
@@ -235,7 +323,7 @@ with open(csv_file, encoding='utf-8-sig') as csvfile:
         except ApiException as e:
             print("Exception when calling DatasetsApi->post_append_json_to_dataset: %s\n" % e)
             
-print('Dataset', dataset, 'now has', response.success, 'documents.')
+print('Dataset', dataset, 'now has', response.num_documents, 'documents.')
 print('-------------------------------------------------------------')
 
 
@@ -243,7 +331,7 @@ print('-------------------------------------------------------------')
 
 # ## Create API Instance
 
-# In[12]:
+# In[13]:
 
 
 print('-------------------------------------------------------------')
@@ -254,14 +342,14 @@ api_instance_topic = nucleus_client.TopicsApi(nucleus_client.ApiClient(configura
 
 # ## Get list of topics from dataset
 
-# In[13]:
+# In[14]:
 
 
 print('------------- Get list of topics from dataset --------------')
 dataset = dataset
 #query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
 query = ''
-custom_stop_words = ["real","hillary"] # ERRORUNKNOWN | List of stop words. (optional)
+custom_stop_words = ["real","hillary"] # str | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
 metadata_selection ="" # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
 time_period =""# str | Time period selection (optional)
@@ -306,14 +394,14 @@ print('-------------------------------------------------------------')
 
 # ## Get topic summary
 
-# In[14]:
+# In[15]:
 
 
 print('------------------- Get topic summary -----------------------')
 dataset = dataset # str | Dataset name.
 #query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
 query = ''
-custom_stop_words = ["real","hillary"] # ERRORUNKNOWN | List of stop words. (optional)
+custom_stop_words = ["real","hillary"] # str | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
 num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
 metadata_selection ="" # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
@@ -360,14 +448,14 @@ print('-------------------------------------------------------------')
 
 # ## Get topic sentiment
 
-# In[15]:
+# In[16]:
 
 
 print('---------------- Get topic sentiment ------------------------')
 dataset = dataset # str | Dataset name.
 #query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
 query = ''
-custom_stop_words = ["real","hillary"] # ERRORUNKNOWN | List of stop words. (optional)
+custom_stop_words = ["real","hillary"] # str | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
 num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"  (optional)
@@ -406,13 +494,13 @@ print('-------------------------------------------------------------')
 
 # ## Get topic consensus
 
-# In[16]:
+# In[17]:
 
 
 print('---------------- Get topic consensus ------------------------')
 dataset = dataset # str | Dataset name.
 query = '' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
-custom_stop_words = ["real","hillary"] # ERRORUNKNOWN | List of stop words. (optional)
+custom_stop_words = ["real","hillary"] # str | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
 num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
 excluded_docs = [''] # str | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"  (optional)
@@ -441,12 +529,79 @@ for res in api_response.results:
 print('-------------------------------------------------------------')
 
 
+# ## Get topic historical analysis
+
+# In[24]:
+
+
+print('------------ Get topic historical analysis ----------------')
+
+dataset = dataset   # str | Dataset name.
+time_period = '6M'  # str | Time period selection (default to 1M)
+update_period = 'd' # str | Frequency at which the historical anlaysis is performed (default to d)
+query = '' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
+custom_stop_words = ["real","hillary"] # str | List of stop words (optional)
+num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
+num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
+metadata_selection = '' # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
+inc_step = 1 # int | Number of increments of the udpate period in between two historical computations. (optional) (default to 1)
+excluded_docs = [''] # str | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"  (optional)
+
+try:
+    api_response = api_instance_topic.get_topic_historical_analysis_api(
+        dataset, 
+        time_period, 
+        update_period, 
+        query=query, 
+        custom_stop_words=custom_stop_words, 
+        num_topics=num_topics, 
+        num_keywords=num_keywords, 
+        metadata_selection=metadata_selection, 
+        inc_step=inc_step, 
+        excluded_docs=excluded_docs)
+    
+except ApiException as e:
+    print("Exception when calling TopicsApi->get_topic_historical_analysis_api: %s\n" % e)
+
+results = api_response.results
+
+# chart the historical metrics when running in Jupyter Notebook
+if running_notebook:
+    print('Plotting historical metrics data...')
+    historical_metrics = []
+    for res in results:
+        # conctruct a list of historical metrics dictionaries for charting
+        historical_metrics.append({
+            'topic'    : res.topic,
+            'time_stamps' : np.array(res.time_stamps),
+            'strength' : np.array(res.strength, dtype=np.float32),
+            'consensus': np.array(res.consensus, dtype=np.float32), 
+            'sentiment': np.array(res.sentiment, dtype=np.float32)})
+
+    selected_topics = range(len(historical_metrics)) 
+    topic_charts_historical(historical_metrics, selected_topics, True)
+else:
+    print('Printing historical metrics data...')
+    print('NOTE: historical metrics data can be plotted when running the example in Jupyter Notebook')
+    i = 1
+    for res in results:
+        print('Topic', i, res.topic)
+        print('    Timestamps:', res.time_stamps)
+        print('    Strength:', res.strength)
+        print('    Consensus:', res.consensus)
+        print('    Sentiment:', res.sentiment)
+        print('----------------')
+        i = i + 1
+#pprint(api_response)
+print('-------------------------------------------------------------')
+
+
 # ## Get author connectivity
 
-# In[17]:
+# In[ ]:
 
 
-print('-------------------------------------------------------------')
+print('----------------- Get author connectivity -------------------')
 dataset = dataset # str | Dataset name.
 target_author = 'D_Trump16' # str | Name of the author to be analyzed.
 query = '' # str | Fulltext query, using mysql MATCH boolean query format. Subject covered by the author, on which to focus the analysis of connectivity. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
@@ -487,7 +642,7 @@ print('-------------------------------------------------------------')
 
 # ## Create API instance
 
-# In[18]:
+# In[ ]:
 
 
 print('-------------------------------------------------------------')
@@ -499,7 +654,7 @@ api_instance_doc = nucleus_client.DocumentsApi(nucleus_client.ApiClient(configur
 
 # ## Get document information without content
 
-# In[19]:
+# In[ ]:
 
 
 dataset = dataset # str | Dataset name.
@@ -528,7 +683,7 @@ print('-------------------------------------------------------------')
 
 # ## Display document details
 
-# In[20]:
+# In[ ]:
 
 
 print('-------------------------------------------------------------')
@@ -560,7 +715,7 @@ print('-------------------------------------------------------------')
 
 # ## Get document recommendations
 
-# In[21]:
+# In[ ]:
 
 
 print('------------- Get document recommendations -----------------')
@@ -608,7 +763,7 @@ print('-------------------------------------------------------------')
 
 # ## Get document summary
 
-# In[22]:
+# In[ ]:
 
 
 print('------------------ Get document summary  --------------------')
