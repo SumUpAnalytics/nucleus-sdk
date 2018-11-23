@@ -633,6 +633,52 @@ for nc in res.niche_connection:
 #pprint(api_response)   # raw API response
 print('-------------------------------------------------------------')
 
+# ## Get topic exposure delta
+
+# In[ ]:
+
+
+print('------------------- Get topic deltas -----------------------')
+dataset = dataset # str | Dataset name.
+query = '' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
+custom_stop_words = [""] # str | List of stop words. (optional)
+num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
+num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
+metadata_selection = "" # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
+time_start_t0 = '2018-08-12 00:00:00'
+time_end_t0 = '2018-08-15 13:00:00'
+time_start_t1 = '2018-08-16 00:00:00'
+time_end_t1 = '2018-08-19 00:00:00'
+excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"  (optional)
+
+try:
+    api_response = api_instance_topic.get_topic_delta_api(
+        dataset, 
+        query=query, 
+        custom_stop_words=custom_stop_words, 
+        num_topics=num_topics, 
+        num_keywords=num_keywords,
+        time_start_t0 = time_start_t0,
+        time_end_t0 = time_end_t0,
+        time_start_t1 = time_start_t1,
+        time_end_t1 = time_end_t1,
+        metadata_selection=metadata_selection)
+except ApiException as e:
+    print("Exception when calling TopicsApi->get_topic_delta_api: %s\n" % e)
+
+i = 1
+for res in api_response.results:
+    print('Topic', i, 'changes in exposure:')
+    print('    Keywords:', res.topic)
+    print('    Document ID:', res.doc_id_t0, res.doc_id_t1)
+    print('    Per Source Change in Exposure:', res.doc_topic_exposure_delta)
+    print('---------------')
+    i = i + 1
+    
+    
+#pprint(api_response)  # raw API response
+print('-------------------------------------------------------------')
+
 
 # # Document APIs
 
