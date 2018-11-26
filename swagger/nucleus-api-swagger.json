@@ -566,6 +566,78 @@
                 ]
             }
         },
+        "/jobs": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "description": "Use this API to check the progress and retrieve results of a job. Poll this endpoint repeatedly until result is not null.",
+                "operationId": "get_job",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "ID of the job"
+                    },
+                    {
+                        "in": "textHtml",
+                        "name": "consumes",
+                        "type": "string"
+                    }
+                ],
+                "security": [
+                    {
+                        "apikey": []
+                    }
+                ],
+                "consumes": [
+                    "text/html"
+                ],
+                "tags": [
+                    "jobs"
+                ]
+            }
+        },
+        "/jobs/start_example_job": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "description": "Start an example background job",
+                "operationId": "post_example_job",
+                "parameters": [
+                    {
+                        "name": "color",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "A color"
+                    },
+                    {
+                        "in": "textHtml",
+                        "name": "consumes",
+                        "type": "string"
+                    }
+                ],
+                "security": [
+                    {
+                        "apikey": []
+                    }
+                ],
+                "consumes": [
+                    "text/html"
+                ],
+                "tags": [
+                    "jobs"
+                ]
+            }
+        },
         "/topics/author_connectivity": {
             "get": {
                 "responses": {
@@ -728,6 +800,116 @@
                             ""
                         ],
                         "collectionFormat": "multi"
+                    },
+                    {
+                        "name": "excluded_docs",
+                        "in": "query",
+                        "type": "custom list",
+                        "format": "list of strings",
+                        "description": "List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\" "
+                    },
+                    {
+                        "in": "textHtml",
+                        "name": "consumes",
+                        "type": "string"
+                    }
+                ],
+                "security": [
+                    {
+                        "apikey": []
+                    }
+                ],
+                "consumes": [
+                    "text/html"
+                ],
+                "tags": [
+                    "topics"
+                ]
+            }
+        },
+        "/topics/topic_delta": {
+            "get": {
+                "responses": {
+                    "400": {
+                        "description": "Failed"
+                    },
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/topicDeltaModel"
+                        }
+                    }
+                },
+                "description": "Get changes in exposure to key topics from documents in a dataset in between two dates.",
+                "operationId": "get_topic_delta_api",
+                "parameters": [
+                    {
+                        "name": "dataset",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "Dataset with a time series component. These docs should reference a universe of entities that overlaps through time."
+                    },
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\")"
+                    },
+                    {
+                        "name": "custom_stop_words",
+                        "in": "query",
+                        "type": "custom list",
+                        "format": "list of strings",
+                        "description": "List of stop words."
+                    },
+                    {
+                        "name": "num_topics",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Number of topics to be extracted from the dataset.",
+                        "default": 8
+                    },
+                    {
+                        "name": "num_keywords",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "Number of keywords per topic that is extracted from the dataset.",
+                        "default": 8
+                    },
+                    {
+                        "name": "metadata_selection",
+                        "in": "query",
+                        "type": "string",
+                        "description": "json object of {\"metadata_field\":[\"selected_values\"]}"
+                    },
+                    {
+                        "name": "time_start_t0",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "Start date for the start-of-period dataset. Format: \"YYYY-MM-DD HH:MM:SS\" "
+                    },
+                    {
+                        "name": "time_end_t0",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "End date for the start-of-period dataset. Format: \"YYYY-MM-DD HH:MM:SS\" "
+                    },
+                    {
+                        "name": "time_start_t1",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "Start date for the end-of-period dataset. Format: \"YYYY-MM-DD HH:MM:SS\" "
+                    },
+                    {
+                        "name": "time_end_t1",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "End date for the end-of-period dataset. Format: \"YYYY-MM-DD HH:MM:SS\" "
                     },
                     {
                         "name": "excluded_docs",
@@ -1193,6 +1375,33 @@
             }
         },
         "/users": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "description": "Use this API to register a new user. Email and password are required, all other fields optional.",
+                "operationId": "post_user",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/user"
+                        }
+                    }
+                ],
+                "security": [
+                    {
+                        "apikey": []
+                    }
+                ],
+                "tags": [
+                    "users"
+                ]
+            },
             "get": {
                 "responses": {
                     "200": {
@@ -1227,33 +1436,6 @@
                 ],
                 "consumes": [
                     "text/html"
-                ],
-                "tags": [
-                    "users"
-                ]
-            },
-            "post": {
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    }
-                },
-                "description": "Use this API to register a new user. Email and password are required, all other fields optional.",
-                "operationId": "post_user",
-                "parameters": [
-                    {
-                        "name": "payload",
-                        "required": true,
-                        "in": "body",
-                        "schema": {
-                            "$ref": "#/definitions/user"
-                        }
-                    }
-                ],
-                "security": [
-                    {
-                        "apikey": []
-                    }
                 ],
                 "tags": [
                     "users"
@@ -1295,6 +1477,10 @@
         {
             "name": "documents",
             "description": "Perform operations on documents."
+        },
+        {
+            "name": "jobs",
+            "description": "Check job progress and retrieve results"
         }
     ],
     "definitions": {
@@ -1840,6 +2026,55 @@
                     "items": {
                         "type": "string",
                         "description": "Authors most similar to target author based on target author discussions"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "topicDeltaModel": {
+            "properties": {
+                "results": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/NestedTopicDeltaModel"
+                    }
+                }
+            },
+            "type": "object"
+        },
+        "NestedTopicDeltaModel": {
+            "properties": {
+                "topic": {
+                    "type": "string",
+                    "description": "Start-of-period topics"
+                },
+                "keywords_weight": {
+                    "type": "string",
+                    "description": "Weight of keywords in each topic"
+                },
+                "strength": {
+                    "type": "string",
+                    "description": "Prevalence of each topic in the dataset"
+                },
+                "doc_topic_exposure_delta": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "description": "Change in exposure to each start-of-period topic for each doc of the dataset"
+                    }
+                },
+                "doc_id_t0": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "description": "Docid of each document in the start-of-period dataset (used to retrieve per-doc info)"
+                    }
+                },
+                "doc_id_t1": {
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "description": "Docid of each document in the end-of-period dataset (used to retrieve per-doc info)"
                     }
                 }
             },

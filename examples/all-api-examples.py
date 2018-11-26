@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[22]:
+# In[1]:
 
 
 from __future__ import print_function
@@ -27,9 +27,19 @@ else:
     print('Running example in script mode')
 
 
-# # Helper functions
+# # Configure API host and key
 
 # In[2]:
+
+
+configuration = nucleus_client.Configuration()
+configuration.host = 'UPDATE-WITH-API-HOST'
+configuration.api_key['x-api-key'] = 'UPDATE-WITH-API-KEY'
+
+
+# # Helper functions
+
+# In[3]:
 
 
 # Plot topic historical analysis
@@ -92,16 +102,6 @@ def topic_charts_historical(historical_metrics, selected_topics, show_sentiment_
         fig.autofmt_xdate(rotation=90)
         
     return 0
-
-
-# # Configure API host and key
-
-# In[3]:
-
-
-configuration = nucleus_client.Configuration()
-configuration.host = 'UPDATE-WITH-API-HOST'
-configuration.api_key['x-api-key'] = 'UPDATE-WITH-API-KEY'
 
 
 # # Dataset APIs
@@ -527,7 +527,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic historical analysis
 
-# In[24]:
+# In[18]:
 
 
 print('------------ Get topic historical analysis ----------------')
@@ -594,7 +594,7 @@ print('-------------------------------------------------------------')
 
 # ## Get author connectivity
 
-# In[ ]:
+# In[19]:
 
 
 print('----------------- Get author connectivity -------------------')
@@ -633,18 +633,21 @@ for nc in res.niche_connection:
 #pprint(api_response)   # raw API response
 print('-------------------------------------------------------------')
 
-# ## Get topic exposure delta
 
-# In[ ]:
+# # Get topic delta
+
+# In[20]:
 
 
 print('------------------- Get topic deltas -----------------------')
-dataset = dataset # str | Dataset name.
-query = '' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
+dataset = 'trump_tweets' 
+#dataset = dataset # str | Dataset name.
+#query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
+query = ''
 custom_stop_words = [""] # str | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
 num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
-metadata_selection = "" # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
+metadata_selection ="" # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
 time_start_t0 = '2018-08-12 00:00:00'
 time_end_t0 = '2018-08-15 13:00:00'
 time_start_t1 = '2018-08-16 00:00:00'
@@ -680,11 +683,12 @@ for res in api_response.results:
 print('-------------------------------------------------------------')
 
 
+
 # # Document APIs
 
 # ## Create API instance
 
-# In[ ]:
+# In[21]:
 
 
 print('-------------------------------------------------------------')
@@ -696,7 +700,7 @@ api_instance_doc = nucleus_client.DocumentsApi(nucleus_client.ApiClient(configur
 
 # ## Get document information without content
 
-# In[ ]:
+# In[22]:
 
 
 dataset = dataset # str | Dataset name.
@@ -725,7 +729,7 @@ print('-------------------------------------------------------------')
 
 # ## Display document details
 
-# In[ ]:
+# In[23]:
 
 
 print('-------------------------------------------------------------')
@@ -757,7 +761,7 @@ print('-------------------------------------------------------------')
 
 # ## Get document recommendations
 
-# In[ ]:
+# In[24]:
 
 
 print('------------- Get document recommendations -----------------')
@@ -805,7 +809,7 @@ print('-------------------------------------------------------------')
 
 # ## Get document summary
 
-# In[ ]:
+# In[25]:
 
 
 print('------------------ Get document summary  --------------------')
