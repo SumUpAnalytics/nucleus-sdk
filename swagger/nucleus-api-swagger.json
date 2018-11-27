@@ -244,6 +244,14 @@
             }
         },
         "/datasets/upload_file": {
+            "parameters": [
+                {
+                    "name": "metadata",
+                    "in": "query",
+                    "type": "string",
+                    "description": "Optional json containing additional document metadata. Eg: {\"time\":\"01/01/2001\",\"author\":\"me\"}"
+                }
+            ],
             "post": {
                 "responses": {
                     "200": {

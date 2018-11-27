@@ -123,12 +123,13 @@ api_instance_dataset = nucleus_client.DatasetsApi(nucleus_client.ApiClient(confi
 
 
 print('--------- Append file from local drive to dataset -----------')
-print('')
-file = 'quarles20181109a.pdf' # file | 
-dataset = 'dataset_test' # str | Destination dataset where the file will be inserted.
+file = 'quarles20181109a.pdf'         # file | 
+dataset = 'dataset_test'              # str | Destination dataset where the file will be inserted.
+metadata = {"time": "1/2/2018", 
+            "author": "Test Author"}  # Optional json containing additional document metadata
 
 try:
-    api_instance_dataset.post_upload_file(file, dataset)
+    api_instance_dataset.post_upload_file(file, dataset, metadata=metadata)
 except ApiException as e:
     print("Exception when calling DatasetsApi->post_upload_file: %s\n" % e)
 
@@ -735,11 +736,13 @@ print('-------------------------------------------------------------')
 print('-------------------------------------------------------------')
 
 dataset = dataset # str | Dataset name.
-doc_titles = ['D_Trump2018_8_18_1_47']   # str | The title of the document to retrieve. Example: \" \"title 1\" \"  (optional)
-doc_ids = ['11']      # int | The docid of the document to retrieve. Example: \"docid1\"  (optional)
+#doc_titles = ['D_Trump2018_8_18_1_47']   # str | The title of the document to retrieve. Example: \" \"title 1\" \"  (optional)
+doc_ids = ['1']      # int | The docid of the document to retrieve. Example: \"docid1\"  (optional)
 
 try:
-    api_response = api_instance_doc.get_doc_display(dataset, doc_titles=doc_titles, doc_ids=doc_ids)
+    api_response = api_instance_doc.get_doc_display(dataset, 
+                                                    #doc_titles=doc_titles, 
+                                                    doc_ids=doc_ids)
     
 except ApiException as e:
     print("Exception when calling DocumentsApi->get_doc_display_api: %s\n" % e)
