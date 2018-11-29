@@ -13,6 +13,7 @@ Those APIs enable end-users to perform the following tasks:
 * Content recommendation at the Topic level
 * Historical analysis of prevalence, sentiment and consensus at the Topic level
 * Author connectivity analysis
+* Topic exposure variation, as building block for time-series predictive modeling
 
 2. Dataset Management
 * Retrieval of documents metadata
@@ -67,6 +68,8 @@ cd ../..
 ## Python SDK Documentation
 The documentation on all available APIs can be found in swagger/sdk/README.md and swagger/sdk/docs after Swagger
 Code Generator has been run.
+
+A Guideline for Calibration is available in examples/
 
 ## Example using Nucleus APIs
 1. Go to the examples directory `cd examples`
