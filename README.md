@@ -70,7 +70,7 @@ cd ../..
 The documentation on all available APIs can be found in swagger/sdk/README.md and swagger/sdk/docs after Swagger
 Code Generator has been run.
 
-A Guideline for Calibration is available in examples/
+A Guideline for Calibration is available in examples/ directory: [a relative link]examples/Guidelines%20for%20Calibrating%20Nucleus%20APIs.pdf 
 
 ## Example using Nucleus APIs
 1. Go to the examples directory `cd examples`
