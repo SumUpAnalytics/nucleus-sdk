@@ -16,6 +16,7 @@ Those APIs enable end-users to perform the following tasks:
 * Topic exposure variation, as building block for time-series predictive modeling
 
 2. Dataset Management
+* Dataset creation (whole pre-processing pipeline)
 * Retrieval of documents metadata
 * Document display
 * Selective documents deletion
