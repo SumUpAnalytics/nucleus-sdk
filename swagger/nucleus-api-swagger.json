@@ -30,7 +30,7 @@
                     "text/html"
                 ],
                 "tags": [
-                    "datasets"
+                    "nucleus"
                 ]
             }
         },
@@ -65,7 +65,7 @@
                     }
                 ],
                 "tags": [
-                    "datasets"
+                    "nucleus"
                 ]
             }
         },
@@ -135,7 +135,7 @@
                     "text/html"
                 ],
                 "tags": [
-                    "datasets"
+                    "nucleus"
                 ]
             }
         },
@@ -170,7 +170,7 @@
                     }
                 ],
                 "tags": [
-                    "datasets"
+                    "nucleus"
                 ]
             }
         },
@@ -205,7 +205,7 @@
                     }
                 ],
                 "tags": [
-                    "datasets"
+                    "nucleus"
                 ]
             }
         },
@@ -239,7 +239,7 @@
                     }
                 ],
                 "tags": [
-                    "datasets"
+                    "nucleus"
                 ]
             }
         },
@@ -283,7 +283,7 @@
                     "multipart/form-data"
                 ],
                 "tags": [
-                    "datasets"
+                    "nucleus"
                 ]
             }
         },
@@ -339,7 +339,7 @@
                     "text/html"
                 ],
                 "tags": [
-                    "documents"
+                    "nucleus"
                 ]
             }
         },
@@ -395,7 +395,7 @@
                     "text/html"
                 ],
                 "tags": [
-                    "documents"
+                    "nucleus"
                 ]
             }
         },
@@ -500,7 +500,7 @@
                     "text/html"
                 ],
                 "tags": [
-                    "documents"
+                    "nucleus"
                 ]
             }
         },
@@ -570,7 +570,7 @@
                     "text/html"
                 ],
                 "tags": [
-                    "documents"
+                    "nucleus"
                 ]
             }
         },
@@ -606,7 +606,7 @@
                     "text/html"
                 ],
                 "tags": [
-                    "jobs"
+                    "nucleus"
                 ]
             }
         },
@@ -642,7 +642,7 @@
                     "text/html"
                 ],
                 "tags": [
-                    "jobs"
+                    "nucleus"
                 ]
             }
         },
@@ -733,7 +733,7 @@
                     "text/html"
                 ],
                 "tags": [
-                    "topics"
+                    "nucleus"
                 ]
             }
         },
@@ -831,7 +831,7 @@
                     "text/html"
                 ],
                 "tags": [
-                    "topics"
+                    "nucleus"
                 ]
             }
         },
@@ -941,7 +941,7 @@
                     "text/html"
                 ],
                 "tags": [
-                    "topics"
+                    "nucleus"
                 ]
             }
         },
@@ -1063,7 +1063,7 @@
                     "text/html"
                 ],
                 "tags": [
-                    "topics"
+                    "nucleus"
                 ]
             }
         },
@@ -1161,7 +1161,7 @@
                     "text/html"
                 ],
                 "tags": [
-                    "topics"
+                    "nucleus"
                 ]
             }
         },
@@ -1280,7 +1280,7 @@
                     "text/html"
                 ],
                 "tags": [
-                    "topics"
+                    "nucleus"
                 ]
             }
         },
@@ -1378,38 +1378,11 @@
                     "text/html"
                 ],
                 "tags": [
-                    "topics"
+                    "nucleus"
                 ]
             }
         },
         "/users": {
-            "post": {
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    }
-                },
-                "description": "Use this API to register a new user. Email and password are required, all other fields optional.",
-                "operationId": "post_user",
-                "parameters": [
-                    {
-                        "name": "payload",
-                        "required": true,
-                        "in": "body",
-                        "schema": {
-                            "$ref": "#/definitions/user"
-                        }
-                    }
-                ],
-                "security": [
-                    {
-                        "apikey": []
-                    }
-                ],
-                "tags": [
-                    "users"
-                ]
-            },
             "get": {
                 "responses": {
                     "200": {
@@ -1446,14 +1419,41 @@
                     "text/html"
                 ],
                 "tags": [
-                    "users"
+                    "nucleus"
+                ]
+            },
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "description": "Use this API to register a new user. Email and password are required, all other fields optional.",
+                "operationId": "post_user",
+                "parameters": [
+                    {
+                        "name": "payload",
+                        "required": true,
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/user"
+                        }
+                    }
+                ],
+                "security": [
+                    {
+                        "apikey": []
+                    }
+                ],
+                "tags": [
+                    "nucleus"
                 ]
             }
         }
     },
     "info": {
         "title": "Nucleus API",
-        "version": "0.1",
+        "version": "v0.0.1",
         "description": "BETA version of the nucleus text analytics API."
     },
     "produces": [
@@ -1471,24 +1471,8 @@
     },
     "tags": [
         {
-            "name": "users",
-            "description": "Register or authenticate users"
-        },
-        {
-            "name": "datasets",
-            "description": "Manipulate datasets."
-        },
-        {
-            "name": "topics",
-            "description": "Perform operations on topics extracted."
-        },
-        {
-            "name": "documents",
-            "description": "Perform operations on documents."
-        },
-        {
-            "name": "jobs",
-            "description": "Check job progress and retrieve results"
+            "name": "nucleus",
+            "description": "Default namespace"
         }
     ],
     "definitions": {
