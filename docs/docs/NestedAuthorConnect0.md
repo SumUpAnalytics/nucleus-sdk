@@ -1,10 +1,10 @@
-# NestedDocumentSummaryModel
+# NestedAuthorConnect0
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**sentences** | **str** | Sentences belonging to the summary | [optional] 
-**sourceid** | **str** | The ID of the document the sentence comes from | [optional] 
+**topic** | **str** | Topic discussed by target author and connected authors | [optional] 
+**authors** | **list[str]** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

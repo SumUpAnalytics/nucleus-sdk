@@ -1,20 +1,20 @@
-# GetUserKeyModel
+# UserModel
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**user_email** | **str** | User email | [optional] 
+**user_email** | **str** | Email | [optional] 
 **first_name** | **str** | First name | [optional] 
 **last_name** | **str** | Last name | [optional] 
 **api_key** | **str** | API key | [optional] 
-**phone** | **str** | Phone | [optional] 
+**phone** | **str** | Phone number | [optional] 
 **company** | **str** | Company | [optional] 
 **title** | **str** | Title | [optional] 
-**settings** | **str** | Settings | [optional] 
+**settings** | **str** | User settings | [optional] 
 **reg_time** | **str** | Registration time | [optional] 
-**license_id** | **str** | License id | [optional] 
+**license_id** | **str** | License ID | [optional] 
 **license_type** | **str** | License type | [optional] 
-**expiry** | **str** | Expiration date | [optional] 
+**expiry** | **str** | License expiration date | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
