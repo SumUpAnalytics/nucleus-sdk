@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[2]:
 
 
 from __future__ import print_function
 import csv, json, datetime
 import time
-import nucleus_client
-from nucleus_client.rest import ApiException
+import nucleus_api
+from nucleus_api.rest import ApiException
 from pprint import pprint
 import numpy as np
 import matplotlib.pyplot as plt
@@ -29,20 +29,20 @@ else:
 
 # # Configure API host and key and create new API instance
 
-# In[6]:
+# In[4]:
 
 
-configuration = nucleus_client.Configuration()
+configuration = nucleus_api.Configuration()
 configuration.host = 'UPDATE-WITH-API-HOST'
 configuration.api_key['x-api-key'] = 'UPDATE-WITH-API-KEY'
 
 # Create API instance
-api_instance = nucleus_client.NucleusApi(nucleus_client.ApiClient(configuration))
+api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
 
 
 # # Helper functions
 
-# In[7]:
+# In[5]:
 
 
 # Plot topic historical analysis
@@ -111,7 +111,7 @@ def topic_charts_historical(historical_metrics, selected_topics, show_sentiment_
 
 # ## Append file from local drive to dataset
 
-# In[8]:
+# In[6]:
 
 
 print('--------- Append file from local drive to dataset -----------')
@@ -131,14 +131,14 @@ print('-------------------------------------------------------------')
 
 # ## Append file from URL to dataset
 
-# In[9]:
+# In[8]:
 
 
 print('------------ Append file from URL to dataset ---------------')
 
 dataset = dataset
 file_url = 'https://www.federalreserve.gov/newsevents/speech/files/quarles20181109a.pdf'
-payload = nucleus_client.UploadURLModel(
+payload = nucleus_api.UploadURLModel(
                 dataset=dataset,
                 file_url=file_url
             ) # UploadURLModel | 
@@ -155,7 +155,7 @@ print('-------------------------------------------------------------')
 
 # ## Append json from csv to dataset
 
-# In[10]:
+# In[13]:
 
 
 print('----------- Append json from CSV to dataset -----------------')
@@ -168,7 +168,7 @@ with open(csv_file, encoding='utf-8-sig') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
         if doc_cnt < 10:
-            payload = nucleus_client.Appendjsonparams(dataset=dataset, 
+            payload = nucleus_api.Appendjsonparams(dataset=dataset, 
                                                   language='english', 
                                                   document={'time'   : row['time'],
                                                             'title'  : row['title'],
@@ -189,7 +189,7 @@ print('-------------------------------------------------------------')
 
 # ## List available datasets
 
-# In[11]:
+# In[14]:
 
 
 print('---------------- List available datasets ---------------------')
@@ -210,7 +210,7 @@ print('-------------------------------------------------------------')
 
 # ## Get dataset information
 
-# In[12]:
+# In[15]:
 
 
 print('--------------- Get dataset information -------------------')
@@ -240,13 +240,13 @@ print('-------------------------------------------------------------')
 
 # ## Delete document
 
-# In[13]:
+# In[17]:
 
 
 print('--------------------- Delete document -----------------------')
 dataset = dataset
 docid = '1'
-payload = nucleus_client.Deletedocumentmodel(dataset=dataset,
+payload = nucleus_api.Deletedocumentmodel(dataset=dataset,
                                              docid=docid) # Deletedocumentmodel | 
 
 try:
@@ -262,13 +262,13 @@ print('-------------------------------------------------------------')
 
 # ## Delete dataset
 
-# In[14]:
+# In[19]:
 
 
 print('--------------------- Delete dataset ------------------------')
 
 dataset = dataset  
-payload = nucleus_client.Deletedatasetmodel(dataset=dataset) # Deletedatasetmodel | 
+payload = nucleus_api.Deletedatasetmodel(dataset=dataset) # Deletedatasetmodel | 
 
 try:
     api_response = api_instance.post_delete_dataset(payload)
@@ -278,7 +278,7 @@ except ApiException as e:
     
 # List datasets again to check if the specified dataset has been deleted
 try:
-    api_response = api_instance_dataset.get_list_datasets()
+    api_response = api_instance.get_list_datasets()
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DatasetsApi->get_list_datasets: %s\n" % e)
@@ -288,7 +288,7 @@ print('-------------------------------------------------------------')
 
 # ## Create a full dataset for testing other APIs
 
-# In[15]:
+# In[21]:
 
 
 print('--------- Create a full dataset for testing other APIs ---------')
@@ -299,7 +299,7 @@ dataset = 'trump_tweets'
 with open(csv_file, encoding='utf-8-sig') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
-        payload = nucleus_client.Appendjsonparams(dataset=dataset, 
+        payload = nucleus_api.Appendjsonparams(dataset=dataset, 
                                                   language='english', 
                                                   document={'time'   : row['time'],
                                                             'title'  : row['title'],
@@ -320,7 +320,7 @@ print('-------------------------------------------------------------')
 
 # ## Get list of topics from dataset
 
-# In[17]:
+# In[22]:
 
 
 print('------------- Get list of topics from dataset --------------')
@@ -372,7 +372,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic summary
 
-# In[18]:
+# In[23]:
 
 
 print('------------------- Get topic summary -----------------------')
@@ -426,7 +426,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic sentiment
 
-# In[19]:
+# In[24]:
 
 
 print('---------------- Get topic sentiment ------------------------')
@@ -472,7 +472,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic consensus
 
-# In[20]:
+# In[25]:
 
 
 print('---------------- Get topic consensus ------------------------')
@@ -509,7 +509,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic historical analysis
 
-# In[21]:
+# In[26]:
 
 
 print('------------ Get topic historical analysis ----------------')
@@ -576,7 +576,7 @@ print('-------------------------------------------------------------')
 
 # ## Get author connectivity
 
-# In[22]:
+# In[27]:
 
 
 print('----------------- Get author connectivity -------------------')
@@ -618,7 +618,7 @@ print('-------------------------------------------------------------')
 
 # # Get topic delta
 
-# In[23]:
+# In[28]:
 
 
 print('------------------- Get topic deltas -----------------------')
@@ -670,7 +670,7 @@ print('-------------------------------------------------------------')
 
 # ## Get document information without content
 
-# In[26]:
+# In[29]:
 
 
 dataset = dataset # str | Dataset name.
@@ -699,7 +699,7 @@ print('-------------------------------------------------------------')
 
 # ## Display document details
 
-# In[28]:
+# In[30]:
 
 
 print('-------------------------------------------------------------')
@@ -733,7 +733,7 @@ print('-------------------------------------------------------------')
 
 # ## Get document recommendations
 
-# In[30]:
+# In[31]:
 
 
 print('------------- Get document recommendations -----------------')
@@ -781,7 +781,7 @@ print('-------------------------------------------------------------')
 
 # ## Get document summary
 
-# In[31]:
+# In[32]:
 
 
 print('------------------ Get document summary  --------------------')

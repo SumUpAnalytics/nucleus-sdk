@@ -27,48 +27,15 @@ Those APIs enable end-users to perform the following tasks:
 The core task, topic modeling, has been benchmarked against Scikit-Learn, Gensim and AWS Comprehend topic models and delivers 100x speed-up with 2x accuracy. More details can be found at www.sumup.ai in Nucleus Solution Brief (https://www.sumup.ai/SumUp%20Real-Time%20Text%20Analytics%20Solution%20Brief.pdf)
 
 ## Prerequisites
-1. Python 3.5 or 3.6 is set up in a virtual environment. More details: https://docs.python.org/3/tutorial/venv.html
-2. Java 7 or 8 is installed. More details: https://www.oracle.com/technetwork/java/index.html 
+1. Python 3.5 or 3.6 is set up in a virtual environment. More details: https://docs.python.org/3/tutorial/venv.html . All commands in this documents assume running python from the virtual environment.
 
-## Python SDK Generation
-The starting point of all command sequence is the root of the repository.  
-1. Install Swagger Generator  
-   Below are quick-start instructions for the operations systems that we have tested. For more details or OS not listed below please refer to https://github.com/swagger-api/swagger-codegen .
-  * MacOS:   
-    `brew install swagger-codegen`
-  
-  * Ubuntu:   
-    ```
-    cd swagger
-    wget http://central.maven.org/maven2/io/swagger/swagger-codegen-cli/2.3.1/swagger-codegen-cli-2.3.1.jar -O swagger-codegen-cli.jar
-    cd ..
-    ```
-
-2. Run Swagger Code Generator to generate Nucleus client Python module
-  * MacOS:  
-    ```
-    cd swagger
-    swagger-codegen generate -i nucleus-api-swagger.json -l python -c config.json -o sdk
-    cd ..
-    ```
-
-  * Ubuntu:  
-    ```
-    cd swagger
-    java -jar swagger-codegen-cli.jar generate -i nucleus-api-swagger.json -l python -c config.json -o sdk
-    cd ..
-    ```
-
-3. Install Nucleus client Python module. This step assumes that you are running python from a Python3 virtual environment
+## Install Nucleus API Package
 ```
-cd swagger/sdk
-python3 setup.py install
-cd ../..
+pip install nucleus-api --upgrade
 ```
 
 ## Python SDK Documentation
-The documentation on all available APIs can be found in swagger/sdk/README.md and swagger/sdk/docs after Swagger
-Code Generator has been run.
+The documentation on all available APIs can be found in docs/README.md
 
 A [Guideline for Calibration](examples/Guidelines%20for%20Calibrating%20Nucleus%20APIs.pdf) is available in examples/ directory.
 
