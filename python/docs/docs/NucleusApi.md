@@ -1,6 +1,6 @@
 # nucleus_api.NucleusApi
 
-All URIs are relative to *https://localhost*
+All URIs are relative to *https://localhost:5000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -17,12 +17,13 @@ Method | HTTP request | Description
 [**get_topic_delta_api**](NucleusApi.md#get_topic_delta_api) | **GET** /topics/topic_delta | 
 [**get_topic_historical_analysis_api**](NucleusApi.md#get_topic_historical_analysis_api) | **GET** /topics/topic_historical | 
 [**get_topic_sentiment_api**](NucleusApi.md#get_topic_sentiment_api) | **GET** /topics/topic_sentiment | 
-[**get_topic_summary_api**](NucleusApi.md#get_topic_summary_api) | **GET** /topics/topic_summary | 
+[**get_topic_summary_api**](NucleusApi.md#get_topic_summary_api) | **GET** /topics/topic_summary_job | 
 [**get_user**](NucleusApi.md#get_user) | **GET** /users | 
 [**post_append_json_to_dataset**](NucleusApi.md#post_append_json_to_dataset) | **POST** /datasets/append_json_to_dataset | 
 [**post_delete_dataset**](NucleusApi.md#post_delete_dataset) | **POST** /datasets/delete_dataset | 
 [**post_delete_document**](NucleusApi.md#post_delete_document) | **POST** /datasets/delete_document | 
 [**post_example_job**](NucleusApi.md#post_example_job) | **POST** /jobs/start_example_job | 
+[**post_legacy**](NucleusApi.md#post_legacy) | **POST** /legacy | 
 [**post_upload_file**](NucleusApi.md#post_upload_file) | **POST** /datasets/upload_file | 
 [**post_upload_url**](NucleusApi.md#post_upload_url) | **POST** /datasets/import_file_from_url | 
 [**post_user**](NucleusApi.md#post_user) | **POST** /users | 
@@ -397,7 +398,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_job**
-> get_job(id)
+> JobResponse get_job(id)
 
 
 
@@ -422,7 +423,8 @@ api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
 id = 'id_example' # str | ID of the job
 
 try:
-    api_instance.get_job(id)
+    api_response = api_instance.get_job(id)
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling NucleusApi->get_job: %s\n" % e)
 ```
@@ -435,7 +437,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**JobResponse**](JobResponse.md)
 
 ### Authorization
 
@@ -1124,7 +1126,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_example_job**
-> post_example_job(color)
+> ExampleJobResponse post_example_job(color, wait_time)
 
 
 
@@ -1147,9 +1149,11 @@ configuration.api_key['x-api-key'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
 color = 'color_example' # str | A color
+wait_time = 0 # int | Seconds to wait before returning the result (default to 0)
 
 try:
-    api_instance.post_example_job(color)
+    api_response = api_instance.post_example_job(color, wait_time)
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling NucleusApi->post_example_job: %s\n" % e)
 ```
@@ -1159,10 +1163,11 @@ except ApiException as e:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **color** | **str**| A color | 
+ **wait_time** | **int**| Seconds to wait before returning the result | [default to 0]
 
 ### Return type
 
-void (empty response body)
+[**ExampleJobResponse**](ExampleJobResponse.md)
 
 ### Authorization
 
@@ -1171,6 +1176,59 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: text/html
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **post_legacy**
+> LegacyResponseModel post_legacy(payload)
+
+
+
+Recommendation of documents on given topics that have been extracted from a given dataset.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import nucleus_api
+from nucleus_api.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: apikey
+configuration = nucleus_api.Configuration()
+configuration.api_key['x-api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['x-api-key'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
+payload = nucleus_api.ApiCall() # ApiCall | 
+
+try:
+    api_response = api_instance.post_legacy(payload)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling NucleusApi->post_legacy: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**ApiCall**](ApiCall.md)|  | 
+
+### Return type
+
+[**LegacyResponseModel**](LegacyResponseModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
