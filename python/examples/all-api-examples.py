@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[2]:
+# In[1]:
 
 
 from __future__ import print_function
@@ -29,89 +29,25 @@ else:
 
 # # Configure API host and key and create new API instance
 
-# In[4]:
+# In[2]:
 
 
 configuration = nucleus_api.Configuration()
 configuration.host = 'UPDATE-WITH-API-HOST'
 configuration.api_key['x-api-key'] = 'UPDATE-WITH-API-KEY'
 
+configuration.host = 'http://localhost:5000'
+configuration.api_key['x-api-key'] = 'p2Hbhk1J2cTnO6VFrNUP1Q' 
+
 # Create API instance
 api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
-
-
-# # Helper functions
-
-# In[5]:
-
-
-# Plot topic historical analysis
-def topic_charts_historical(historical_metrics, selected_topics, show_sentiment_consensus):
-
-    # Charts of Strength, Sentiment, Consensus for each of the topics
-    current_max_strength = 0
-    current_max_sent = 0
-    current_max_cons = 0
-    for i in selected_topics:
-        if np.nanmax(np.abs(historical_metrics[i]['strength'])) > current_max_strength:
-            current_max_strength = np.nanmax(np.abs(historical_metrics[i]['strength']))
-        if np.nanmax(np.abs(historical_metrics[i]['sentiment'])) > current_max_sent:
-            current_max_sent = np.nanmax(np.abs(historical_metrics[i]['sentiment']))
-        if np.nanmax(np.abs(historical_metrics[i]['consensus'])) > current_max_cons:
-            current_max_cons = np.nanmax(np.abs(historical_metrics[i]['consensus']))
-
-    if show_sentiment_consensus == True:
-        plt.rcParams['figure.figsize'] = [12, 18*len(selected_topics)]
-        fig = plt.figure() 
-        for i in selected_topics:
-            current_ax = 'ax' + str(selected_topics.index(i) + 1)
-            if current_ax == 'ax1':
-                current_ax = plt.subplot(3*len(selected_topics), 1, 1 + 3*selected_topics.index(i))
-                ax1 = plt.subplot(3*len(selected_topics), 1, 1 + 3*selected_topics.index(i))
-            else:
-                current_ax = plt.subplot(3*len(selected_topics), 1, 1 + 3*selected_topics.index(i), sharex=ax1)
-
-            # 3 subplots, one per strength, sentiment, consensus
-            current_ax.set_ylim([0, 1.05*current_max_strength])
-            current_ax.plot('time_stamps', 'strength', data=historical_metrics[i], color='blue')
-            plt.ylabel('Prevalence', fontsize=14, fontweight="bold")
-            plt.title(historical_metrics[i]['topic'], fontsize=14, fontweight="bold")
-
-            current_axSent = plt.subplot(3*len(selected_topics), 1, 1 + 3*selected_topics.index(i) + 1, sharex=ax1)
-            current_axSent.set_ylim([-1.05*current_max_sent, 1.05*current_max_sent])
-            current_axSent.plot('time_stamps', 'sentiment', data=historical_metrics[i], color='green')
-            plt.ylabel('Sentiment', fontsize=14, fontweight="bold")
-
-            current_axCons = plt.subplot(3*len(selected_topics), 1, 1 + 3*selected_topics.index(i) + 2, sharex=ax1)
-            current_axCons.set_ylim([0, 1.05*current_max_cons])
-            current_axCons.plot('time_stamps', 'consensus', data=historical_metrics[i], color='red')
-            plt.ylabel('Consensus', fontsize=14, fontweight="bold")
-
-        fig.autofmt_xdate(rotation=90)
-    else:
-        plt.rcParams['figure.figsize'] = [12, 6*len(selected_topics)]
-        fig = plt.figure()
-        for i in selected_topics:
-            current_ax = 'ax' + str(selected_topics.index(i) + 1)
-            if current_ax == 'ax1':
-                current_ax = plt.subplot(len(selected_topics), 1, selected_topics.index(i) + 1)
-                ax1 = plt.subplot(len(selected_topics), 1, selected_topics.index(i) + 1)
-            else:
-                current_ax = plt.subplot(len(selected_topics), 1, selected_topics.index(i) + 1, sharex=ax1)
-            current_ax.set_ylim([0, 1.05*current_max_strength])
-            current_ax.plot('time_stamps', 'strength', data=historical_metrics[i], color='blue')
-            plt.ylabel('Prevalence', fontsize=14, fontweight="bold")        
-            plt.title(historical_metrics[i]['topic'], fontsize=14, fontweight="bold")
-        fig.autofmt_xdate(rotation=90)
-        
-    return 0
 
 
 # # Dataset APIs
 
 # ## Append file from local drive to dataset
 
-# In[6]:
+# In[3]:
 
 
 print('--------- Append file from local drive to dataset -----------')
@@ -122,16 +58,18 @@ metadata = {"time": "1/2/2018",
 
 try:
     api_instance.post_upload_file(file, dataset, metadata=metadata)
+    print(file, 'has been added to dataset', dataset)
 except ApiException as e:
     print("Exception when calling DatasetsApi->post_upload_file: %s\n" % e)
+    exit
 
-print(file, 'has been added to dataset', dataset)
+
 print('-------------------------------------------------------------')
 
 
 # ## Append file from URL to dataset
 
-# In[8]:
+# In[4]:
 
 
 print('------------ Append file from URL to dataset ---------------')
@@ -155,7 +93,7 @@ print('-------------------------------------------------------------')
 
 # ## Append json from csv to dataset
 
-# In[13]:
+# In[5]:
 
 
 print('----------- Append json from CSV to dataset -----------------')
@@ -189,7 +127,7 @@ print('-------------------------------------------------------------')
 
 # ## List available datasets
 
-# In[14]:
+# In[ ]:
 
 
 print('---------------- List available datasets ---------------------')
@@ -210,7 +148,7 @@ print('-------------------------------------------------------------')
 
 # ## Get dataset information
 
-# In[15]:
+# In[ ]:
 
 
 print('--------------- Get dataset information -------------------')
@@ -240,7 +178,7 @@ print('-------------------------------------------------------------')
 
 # ## Delete document
 
-# In[17]:
+# In[ ]:
 
 
 print('--------------------- Delete document -----------------------')
@@ -262,7 +200,7 @@ print('-------------------------------------------------------------')
 
 # ## Delete dataset
 
-# In[19]:
+# In[ ]:
 
 
 print('--------------------- Delete dataset ------------------------')
@@ -288,7 +226,7 @@ print('-------------------------------------------------------------')
 
 # ## Create a full dataset for testing other APIs
 
-# In[21]:
+# In[ ]:
 
 
 print('--------- Create a full dataset for testing other APIs ---------')
@@ -320,7 +258,7 @@ print('-------------------------------------------------------------')
 
 # ## Get list of topics from dataset
 
-# In[22]:
+# In[ ]:
 
 
 print('------------- Get list of topics from dataset --------------')
@@ -372,7 +310,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic summary
 
-# In[23]:
+# In[ ]:
 
 
 print('------------------- Get topic summary -----------------------')
@@ -426,7 +364,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic sentiment
 
-# In[24]:
+# In[ ]:
 
 
 print('---------------- Get topic sentiment ------------------------')
@@ -472,7 +410,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic consensus
 
-# In[25]:
+# In[ ]:
 
 
 print('---------------- Get topic consensus ------------------------')
@@ -509,7 +447,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic historical analysis
 
-# In[26]:
+# In[ ]:
 
 
 print('------------ Get topic historical analysis ----------------')
@@ -576,7 +514,7 @@ print('-------------------------------------------------------------')
 
 # ## Get author connectivity
 
-# In[27]:
+# In[ ]:
 
 
 print('----------------- Get author connectivity -------------------')
@@ -618,7 +556,7 @@ print('-------------------------------------------------------------')
 
 # # Get topic delta
 
-# In[28]:
+# In[ ]:
 
 
 print('------------------- Get topic deltas -----------------------')
@@ -670,7 +608,7 @@ print('-------------------------------------------------------------')
 
 # ## Get document information without content
 
-# In[29]:
+# In[ ]:
 
 
 dataset = dataset # str | Dataset name.
@@ -699,7 +637,7 @@ print('-------------------------------------------------------------')
 
 # ## Display document details
 
-# In[30]:
+# In[ ]:
 
 
 print('-------------------------------------------------------------')
@@ -733,7 +671,7 @@ print('-------------------------------------------------------------')
 
 # ## Get document recommendations
 
-# In[31]:
+# In[ ]:
 
 
 print('------------- Get document recommendations -----------------')
@@ -781,7 +719,7 @@ print('-------------------------------------------------------------')
 
 # ## Get document summary
 
-# In[32]:
+# In[ ]:
 
 
 print('------------------ Get document summary  --------------------')
