@@ -26,26 +26,27 @@ Those APIs enable end-users to perform the following tasks:
 
 The core task, topic modeling, has been benchmarked against Scikit-Learn, Gensim and AWS Comprehend topic models and delivers 100x speed-up with 2x accuracy. More details can be found at www.sumup.ai in Nucleus Solution Brief (https://www.sumup.ai/SumUp%20Real-Time%20Text%20Analytics%20Solution%20Brief.pdf)
 
-## Prerequisites
+## Python SDK
+### Prerequisites
 1. Python 3.5 or 3.6 is set up in a virtual environment. More details: https://docs.python.org/3/tutorial/venv.html . All commands in this documents assume running python from the virtual environment.
 
-## Install Nucleus API Package
+### Install Nucleus API Package
 ```
 pip install nucleus-api --upgrade
 ```
 
-## Python SDK Documentation
-The documentation on all available APIs can be found in docs/README.md
+### Documentation
+The documentation on all available APIs can be found in python/docs/README.md
 
-A [Guideline for Calibration](examples/Guidelines%20for%20Calibrating%20Nucleus%20APIs.pdf) is available in examples/ directory.
+A [Guideline for Calibration](python/examples/Guidelines%20for%20Calibrating%20Nucleus%20APIs.pdf) is available in examples/ directory.
 
-## Example using Nucleus APIs
-1. Go to the examples directory `cd examples`
-2. Open all-api-examples.py in a text editor and update the lines below with provided host name and API key  
+### Examples using Nucleus APIs
+1. Go to the examples directory `cd python/examples`
+1. An example using all APIs is provided in a Jupyter Notebook (all-api-examples.ipynb) and a Python script all-api-examples.py 
+1. Open the example in Jupyter Notebook or a text editor and update the lines below with provided host name and API key  
     ```
     configuration.host = 'API_HOST_HERE'
     configuration.api_key['x-api-key'] = 'API_KEY_HERE'
     ```
-3. Execute the example: 'python3 all-api-examples.py'
+1. Execute the example in Jupyter Notebook or using the command line: 'python3 all-api-examples.py'
 
-4. For Jupyter Notebook users, please use all-api-examples.ipynb in your notebook. 
