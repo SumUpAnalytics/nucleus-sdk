@@ -375,17 +375,19 @@ custom_stop_words = ["real","hillary"] # str | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
 num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"  (optional)
+custom_dict_file = 'custom-sentiment-dict.json' # file | Custom sentiment dictionary JSON file. (optional)
 
 try:
-    api_response = api_instance.get_topic_sentiment_api(
+    api_response = api_instance.post_topic_sentiment_api(
         dataset, 
         query=query, 
         custom_stop_words=custom_stop_words, 
         num_topics=num_topics, 
-        num_keywords=num_keywords)
+        num_keywords=num_keywords,
+        custom_dict_file=custom_dict_file)
     
 except ApiException as e:
-    print("Exception when calling TopicsApi->get_topic_sentiment_api: %s\n" % e)
+    print("Exception when calling TopicsApi->post_topic_sentiment_api: %s\n" % e)
 
 i = 1
 for res in api_response.results:
@@ -397,9 +399,9 @@ for res in api_response.results:
     doc_id_str = ' '.join(str(x) for x in res.doc_id)
     doc_sentiment_str = ' '.join(str(x) for x in res.doc_sentiment)
     doc_score_str = ' '.join(str(x) for x in res.doc_score)
-    print('    Doucment IDs:', doc_id_str)
-    print('    Doucment Sentiments:', doc_sentiment_str)
-    print('    Doucment Scores:', doc_score_str)
+    print('    Document IDs:', doc_id_str)
+    print('    Document Sentiments:', doc_sentiment_str)
+    print('    Document Scores:', doc_score_str)
     
     print('---------------')
     i = i + 1
@@ -420,16 +422,18 @@ custom_stop_words = ["real","hillary"] # str | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
 num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
 excluded_docs = [''] # str | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"  (optional)
+custom_dict_file = 'custom-sentiment-dict.json'  # file | Custom sentiment dictionary JSON file. (optional)
 
 try:
-    api_response = api_instance.get_topic_consensus_api(
+    api_response = api_instance.post_topic_consensus_api(
         dataset, 
         query=query, 
         custom_stop_words=custom_stop_words, 
         num_topics=num_topics, 
-        num_keywords=num_keywords)
+        num_keywords=num_keywords,
+        custom_dict_file=custom_dict_file)
 except ApiException as e:
-    print("Exception when calling TopicsApi->get_topic_consensus_api: %s\n" % e)
+    print("Exception when calling TopicsApi->post_topic_consensus_api: %s\n" % e)
     
 i = 1
 for res in api_response.results:
@@ -462,9 +466,10 @@ num_keywords = 8 # int | Number of keywords per topic that is extracted from the
 metadata_selection = '' # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
 inc_step = 1 # int | Number of increments of the udpate period in between two historical computations. (optional) (default to 1)
 excluded_docs = [''] # str | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"  (optional)
+custom_dict_file = 'custom-sentiment-dict.json' # file | Custom sentiment dictionary JSON file. (optional)
 
 try:
-    api_response = api_instance.get_topic_historical_analysis_api(
+    api_response = api_instance.post_topic_historical_analysis_api(
         dataset, 
         time_period, 
         update_period, 
@@ -474,10 +479,11 @@ try:
         num_keywords=num_keywords, 
         metadata_selection=metadata_selection, 
         inc_step=inc_step, 
-        excluded_docs=excluded_docs)
+        excluded_docs=excluded_docs,
+        custom_dict_file=custom_dict_file)
     
 except ApiException as e:
-    print("Exception when calling TopicsApi->get_topic_historical_analysis_api: %s\n" % e)
+    print("Exception when calling TopicsApi->post_topic_historical_analysis_api: %s\n" % e)
 
 results = api_response.results
 
