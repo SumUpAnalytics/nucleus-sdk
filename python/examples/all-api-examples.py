@@ -1,20 +1,21 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# # Initialization, configure API host and key, and create new API instance
+
 # In[1]:
 
 
-from __future__ import print_function
+# from __future__ import print_function
 import csv, json, datetime
 import time
 import nucleus_api
 from nucleus_api.rest import ApiException
+from nucleus_api.api.nucleus_api import topic_charts_historical
 from pprint import pprint
 import numpy as np
-import matplotlib.pyplot as plt
 
 # Determine if in Jupyter notebook or not
-
 try:
     ip = get_ipython()
     running_notebook = True
@@ -25,19 +26,10 @@ if running_notebook:
     print('Running example in Jupyter Notebook')
 else:
     print('Running example in script mode')
-
-
-# # Configure API host and key and create new API instance
-
-# In[2]:
-
-
+    
 configuration = nucleus_api.Configuration()
 configuration.host = 'UPDATE-WITH-API-HOST'
-configuration.api_key['x-api-key'] = 'UPDATE-WITH-API-KEY'
-
-configuration.host = 'http://localhost:5000'
-configuration.api_key['x-api-key'] = 'p2Hbhk1J2cTnO6VFrNUP1Q' 
+configuration.api_key['x-api-key'] = 'UPDATE-WITH-API-KEY' 
 
 # Create API instance
 api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
@@ -47,7 +39,7 @@ api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
 
 # ## Append file from local drive to dataset
 
-# In[3]:
+# In[2]:
 
 
 print('--------- Append file from local drive to dataset -----------')
@@ -57,24 +49,25 @@ metadata = {"time": "1/2/2018",
             "author": "Test Author"}  # Optional json containing additional document metadata
 
 try:
-    api_instance.post_upload_file(file, dataset, metadata=metadata)
-    print(file, 'has been added to dataset', dataset)
+    api_response = api_instance.post_upload_file(file, dataset, metadata=metadata)
+    #print('api_response=', api_response)   # raw API response    
 except ApiException as e:
     print("Exception when calling DatasetsApi->post_upload_file: %s\n" % e)
     exit
 
 
+print(api_response.result, 'has been added to dataset', dataset)
 print('-------------------------------------------------------------')
 
 
 # ## Append file from URL to dataset
 
-# In[4]:
+# In[3]:
 
 
 print('------------ Append file from URL to dataset ---------------')
 
-dataset = dataset
+dataset = 'dataset_test'
 file_url = 'https://www.federalreserve.gov/newsevents/speech/files/quarles20181109a.pdf'
 payload = nucleus_api.UploadURLModel(
                 dataset=dataset,
@@ -83,29 +76,29 @@ payload = nucleus_api.UploadURLModel(
 
 try:
     api_response = api_instance.post_upload_url(payload)
+    #print('api_response=', api_response)   # raw API response
 except ApiException as e:
     print("Exception when calling DatasetsApi->post_upload_url: %s\n" % e)
     
-#pprint(api_response)   # raw API response
-print(file_url, 'has been added to dataset', dataset)
+print(api_response.result, 'has been added to dataset', dataset)
 print('-------------------------------------------------------------')
 
 
 # ## Append json from csv to dataset
 
-# In[5]:
+# In[4]:
 
 
 print('----------- Append json from CSV to dataset -----------------')
 # add documents to dataset
 csv_file = 'trump-tweets-100.csv'
-dataset = dataset   
+dataset = 'dataset_test'  
 
 doc_cnt = 0
 with open(csv_file, encoding='utf-8-sig') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
-        if doc_cnt < 10:
+        if doc_cnt < 1:
             payload = nucleus_api.Appendjsonparams(dataset=dataset, 
                                                   language='english', 
                                                   document={'time'   : row['time'],
@@ -116,18 +109,19 @@ with open(csv_file, encoding='utf-8-sig') as csvfile:
 
             try:
                 api_response = api_instance.post_append_json_to_dataset(payload)
+                #print('api_response', api_response)
             except ApiException as e:
                 print("Exception when calling DatasetsApi->post_append_json_to_dataset: %s\n" % e)
         
         doc_cnt = doc_cnt + 1
         
-print('Dataset', dataset, 'now has', api_response.num_documents, 'documents.')
+print('Dataset', dataset, 'now has', api_response.result, 'documents.')
 print('-------------------------------------------------------------')
 
 
 # ## List available datasets
 
-# In[ ]:
+# In[5]:
 
 
 print('---------------- List available datasets ---------------------')
@@ -136,7 +130,7 @@ try:
 except ApiException as e:
     print("Exception when calling DatasetsApi->get_list_datasets: %s\n" % e)
 
-list_datasets = api_response.to_dict()['list_datasets']
+list_datasets = api_response.result
 
 print(len(list_datasets), 'datasets in the database:')
 for ds in list_datasets:
@@ -148,11 +142,11 @@ print('-------------------------------------------------------------')
 
 # ## Get dataset information
 
-# In[ ]:
+# In[6]:
 
 
 print('--------------- Get dataset information -------------------')
-dataset = dataset # str | Dataset name.
+dataset = 'dataset_test' # str | Dataset name.
 query = '' # str | Fulltext query, using mysql MATCH boolean query format. (optional)
 metadata_selection = '' # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
 time_period = '' # str | Time period selection (optional)
@@ -163,26 +157,27 @@ try:
         query=query, 
         metadata_selection=metadata_selection, 
         time_period=time_period)
+    #print('api_response=', api_response) # raw API response
 except ApiException as e:
     print("Exception when calling DatasetsApi->get_dataset_info: %s\n" % e)
 
 print('Information about dataset', dataset)
-print('    Language:', api_response.detected_language)
-print('    Number of documents:', api_response.num_documents)
-print('    Time range:', datetime.datetime.fromtimestamp(float(api_response.time_range[0])),
-             'to', datetime.datetime.fromtimestamp(float(api_response.time_range[1])))
+print('    Language:', api_response.result.detected_language)
+print('    Number of documents:', api_response.result.num_documents)
+print('    Time range:', datetime.datetime.fromtimestamp(float(api_response.result.time_range[0])),
+             'to', datetime.datetime.fromtimestamp(float(api_response.result.time_range[1])))
 
-#pprint(api_response) # raw API response
+
 print('-------------------------------------------------------------')
 
 
 # ## Delete document
 
-# In[ ]:
+# In[7]:
 
 
 print('--------------------- Delete document -----------------------')
-dataset = dataset
+dataset = 'dataset_test'
 docid = '1'
 payload = nucleus_api.Deletedocumentmodel(dataset=dataset,
                                              docid=docid) # Deletedocumentmodel | 
@@ -200,12 +195,12 @@ print('-------------------------------------------------------------')
 
 # ## Delete dataset
 
-# In[ ]:
+# In[8]:
 
 
 print('--------------------- Delete dataset ------------------------')
 
-dataset = dataset  
+dataset = 'dataset_test'  
 payload = nucleus_api.Deletedatasetmodel(dataset=dataset) # Deletedatasetmodel | 
 
 try:
@@ -217,7 +212,7 @@ except ApiException as e:
 # List datasets again to check if the specified dataset has been deleted
 try:
     api_response = api_instance.get_list_datasets()
-    pprint(api_response)
+    #print('api_response=', api_response)
 except ApiException as e:
     print("Exception when calling DatasetsApi->get_list_datasets: %s\n" % e)
     
@@ -226,7 +221,7 @@ print('-------------------------------------------------------------')
 
 # ## Create a full dataset for testing other APIs
 
-# In[ ]:
+# In[9]:
 
 
 print('--------- Create a full dataset for testing other APIs ---------')
@@ -246,11 +241,12 @@ with open(csv_file, encoding='utf-8-sig') as csvfile:
                                                  )
 
         try:
-            response = api_instance.post_append_json_to_dataset(payload)
+            api_response = api_instance.post_append_json_to_dataset(payload)
+            #print('api_response=', api_response)
         except ApiException as e:
             print("Exception when calling DatasetsApi->post_append_json_to_dataset: %s\n" % e)
             
-print('Dataset', dataset, 'now has', response.num_documents, 'documents.')
+print('Dataset', dataset, 'now has', api_response.result, 'documents.')
 print('-------------------------------------------------------------')
 
 
@@ -258,11 +254,11 @@ print('-------------------------------------------------------------')
 
 # ## Get list of topics from dataset
 
-# In[ ]:
+# In[10]:
 
 
 print('------------- Get list of topics from dataset --------------')
-dataset = dataset
+dataset = 'trump_tweets'
 #query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
 query = ''
 custom_stop_words = ["real","hillary"] # str | List of stop words. (optional)
@@ -283,7 +279,7 @@ except ApiException as e:
     
 #print(api_response)
 i = 1
-for res in api_response.results:
+for res in api_response.result:
     print('Topic', i, 'keywords:')
     print('    Keywords:', res.topic)
     keywords_weight_str = ";".join(str(x) for x in res.keywords_weight)
@@ -310,11 +306,11 @@ print('-------------------------------------------------------------')
 
 # ## Get topic summary
 
-# In[ ]:
+# In[11]:
 
 
 print('------------------- Get topic summary -----------------------')
-dataset = dataset # str | Dataset name.
+dataset = 'trump_tweets' # str | Dataset name.
 #query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
 query = ''
 custom_stop_words = ["real","hillary"] # str | List of stop words. (optional)
@@ -341,7 +337,7 @@ except ApiException as e:
     print("Exception when calling TopicsApi->get_topic_summary_api: %s\n" % e)
 
 i = 1
-for res in api_response.results:
+for res in api_response.result:
     print('Topic', i, 'summary:')
     print('    Keywords:', res.topic)
     for j in range(len(res.summary)):
@@ -364,11 +360,11 @@ print('-------------------------------------------------------------')
 
 # ## Get topic sentiment
 
-# In[ ]:
+# In[12]:
 
 
 print('---------------- Get topic sentiment ------------------------')
-dataset = dataset # str | Dataset name.
+dataset = 'trump_tweets' # str | Dataset name.
 #query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
 query = ''
 custom_stop_words = ["real","hillary"] # str | List of stop words. (optional)
@@ -390,7 +386,7 @@ except ApiException as e:
     print("Exception when calling TopicsApi->post_topic_sentiment_api: %s\n" % e)
 
 i = 1
-for res in api_response.results:
+for res in api_response.result:
     print('Topic', i, 'sentiment:')
     print('    Keywords:', res.topic)
     print('    Sentiment:', res.sentiment)
@@ -412,18 +408,17 @@ print('-------------------------------------------------------------')
 
 # ## Get topic consensus
 
-# In[ ]:
+# In[13]:
 
 
 print('---------------- Get topic consensus ------------------------')
-dataset = dataset # str | Dataset name.
+dataset = 'trump_tweets' # str | Dataset name.
 query = '' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
 custom_stop_words = ["real","hillary"] # str | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
 num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
 excluded_docs = [''] # str | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"  (optional)
 custom_dict_file = 'custom-sentiment-dict.json'  # file | Custom sentiment dictionary JSON file. (optional)
-
 try:
     api_response = api_instance.post_topic_consensus_api(
         dataset, 
@@ -436,7 +431,7 @@ except ApiException as e:
     print("Exception when calling TopicsApi->post_topic_consensus_api: %s\n" % e)
     
 i = 1
-for res in api_response.results:
+for res in api_response.result:
     print('Topic', i, 'consensus:')
     print('    Keywords:', res.topic)
     print('    Consensus:', res.consensus)
@@ -451,12 +446,12 @@ print('-------------------------------------------------------------')
 
 # ## Get topic historical analysis
 
-# In[ ]:
+# In[14]:
 
 
 print('------------ Get topic historical analysis ----------------')
 
-dataset = dataset   # str | Dataset name.
+dataset = 'trump_tweets'   # str | Dataset name.
 time_period = '6M'  # str | Time period selection (default to 1M)
 update_period = 'd' # str | Frequency at which the historical anlaysis is performed (default to d)
 query = '' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
@@ -485,7 +480,8 @@ try:
 except ApiException as e:
     print("Exception when calling TopicsApi->post_topic_historical_analysis_api: %s\n" % e)
 
-results = api_response.results
+print('api_response=', api_response)
+results = api_response.result
 
 # chart the historical metrics when running in Jupyter Notebook
 if running_notebook:
@@ -520,7 +516,7 @@ print('-------------------------------------------------------------')
 
 # ## Get author connectivity
 
-# In[ ]:
+# In[15]:
 
 
 print('----------------- Get author connectivity -------------------')
@@ -545,7 +541,7 @@ try:
 except ApiException as e:
     print("Exception when calling TopicsApi->get_author_connectivity_api: %s\n" % e)
 
-res = api_response.results
+res = api_response.result
 print('Mainstream connections:')
 for mc in res.mainstream_connection:
     print('    Topic:', mc.topic)
@@ -562,7 +558,7 @@ print('-------------------------------------------------------------')
 
 # # Get topic delta
 
-# In[ ]:
+# In[16]:
 
 
 print('------------------- Get topic deltas -----------------------')
@@ -596,7 +592,7 @@ except ApiException as e:
     print("Exception when calling TopicsApi->get_topic_delta_api: %s\n" % e)
 
 i = 1
-for res in api_response.results:
+for res in api_response.result:
     print('Topic', i, 'changes in exposure:')
     print('    Keywords:', res.topic)
     print('    Document ID:', res.doc_id_t0, res.doc_id_t1)
@@ -614,10 +610,10 @@ print('-------------------------------------------------------------')
 
 # ## Get document information without content
 
-# In[ ]:
+# In[17]:
 
 
-dataset = dataset # str | Dataset name.
+dataset = 'trump_tweets' # str | Dataset name.
 doc_titles = ['D_Trump2018_8_18_1_47']   # str | The title of the document to retrieve. Example: \" \"title 1\" \"  (optional)
 doc_ids = ['11', '12', '20']      # int | The docid of the document to retrieve. Example: \"docid1\"  (optional)
 
@@ -627,7 +623,7 @@ try:
 except ApiException as e:
     print("Exception when calling DocumentsApi->get_doc_info: %s\n" % e)
     
-for res in api_response.results:
+for res in api_response.result:
     print('Document ID:', res.sourceid)
     print('    Title:', res.title)
     print('    Author:', res.attribute.author)
@@ -643,12 +639,12 @@ print('-------------------------------------------------------------')
 
 # ## Display document details
 
-# In[ ]:
+# In[18]:
 
 
 print('-------------------------------------------------------------')
 
-dataset = dataset # str | Dataset name.
+dataset = 'trump_tweets' # str | Dataset name.
 #doc_titles = ['D_Trump2018_8_18_1_47']   # str | The title of the document to retrieve. Example: \" \"title 1\" \"  (optional)
 doc_ids = ['1']      # int | The docid of the document to retrieve. Example: \"docid1\"  (optional)
 
@@ -660,7 +656,7 @@ try:
 except ApiException as e:
     print("Exception when calling DocumentsApi->get_doc_display_api: %s\n" % e)
 
-for res in api_response.results:
+for res in api_response.result:
     print('Document ID:', res.sourceid)
     print('    Title:', res.title)
     print('    Author:', res.attribute.author)
@@ -677,12 +673,12 @@ print('-------------------------------------------------------------')
 
 # ## Get document recommendations
 
-# In[ ]:
+# In[19]:
 
 
 print('------------- Get document recommendations -----------------')
 
-dataset = dataset # str | Dataset name.
+dataset = 'trump_tweets' # str | Dataset name.
 #query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
 query = ''
 custom_stop_words = ["real","hillary"] # ERRORUNKNOWN | List of stop words. (optional)
@@ -701,7 +697,7 @@ except ApiException as e:
     print("Exception when calling DocumentsApi->get_doc_recommend_api: %s\n" % e)
     
 i = 1
-for res in api_response.results:
+for res in api_response.result:
     print('Document recommendations for topic', i, ':')
     print('    Keywords:', res.topic)
 
@@ -725,12 +721,12 @@ print('-------------------------------------------------------------')
 
 # ## Get document summary
 
-# In[ ]:
+# In[20]:
 
 
 print('------------------ Get document summary  --------------------')
 
-dataset = dataset # str | Dataset name.
+dataset = 'trump_tweets' # str | Dataset name.
 doc_title = 'D_Trump2018_8_15_15_4' # str | The title of the document to be summarized.
 custom_stop_words = ["real","hillary"] # ERRORUNKNOWN | List of stop words. (optional)
 summary_length = 6 # int | The maximum number of bullet points a user wants to see in the document summary. (optional) (default to 6)
@@ -748,9 +744,9 @@ except ApiException as e:
     print("Exception when calling DocumentsApi->get_doc_summary_api: %s\n" % e)
  
 print('Document Summary')
-print('    ID:', api_response.summary.sourceid)
-print('    Title:', api_response.doc_title)
-print('    Summary:', api_response.summary.sentences)
+print('    ID:', api_response.result.summary.sourceid)
+print('    Title:', api_response.result.doc_title)
+print('    Summary:', api_response.result.summary.sentences)
 
 #pprint(api_response)   # raw API response
 print('-------------------------------------------------------------')

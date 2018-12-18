@@ -1,10 +1,10 @@
-# DocumentSummaryModel
+# TopicRecommendModel
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**doc_title** | **str** | Document title | [optional] 
-**summary** | [**NestedDocumentSummaryModel**](NestedDocumentSummaryModel.md) |  | [optional] 
+**topic** | **str** | Topic keywords | [optional] 
+**recommendations** | [**list[NestedDocRecModel]**](NestedDocRecModel.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

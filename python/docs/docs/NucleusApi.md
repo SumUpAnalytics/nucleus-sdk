@@ -13,10 +13,7 @@ Method | HTTP request | Description
 [**get_job**](NucleusApi.md#get_job) | **GET** /jobs | 
 [**get_list_datasets**](NucleusApi.md#get_list_datasets) | **GET** /datasets | 
 [**get_topic_api**](NucleusApi.md#get_topic_api) | **GET** /topics/topics | 
-[**get_topic_consensus_api**](NucleusApi.md#get_topic_consensus_api) | **GET** /topics/topic_consensus | 
 [**get_topic_delta_api**](NucleusApi.md#get_topic_delta_api) | **GET** /topics/topic_delta | 
-[**get_topic_historical_analysis_api**](NucleusApi.md#get_topic_historical_analysis_api) | **GET** /topics/topic_historical | 
-[**get_topic_sentiment_api**](NucleusApi.md#get_topic_sentiment_api) | **GET** /topics/topic_sentiment | 
 [**get_topic_summary_api**](NucleusApi.md#get_topic_summary_api) | **GET** /topics/topic_summary_job | 
 [**get_user**](NucleusApi.md#get_user) | **GET** /users | 
 [**post_append_json_to_dataset**](NucleusApi.md#post_append_json_to_dataset) | **POST** /datasets/append_json_to_dataset | 
@@ -24,13 +21,16 @@ Method | HTTP request | Description
 [**post_delete_document**](NucleusApi.md#post_delete_document) | **POST** /datasets/delete_document | 
 [**post_example_job**](NucleusApi.md#post_example_job) | **POST** /jobs/start_example_job | 
 [**post_legacy**](NucleusApi.md#post_legacy) | **POST** /legacy | 
+[**post_topic_consensus_api**](NucleusApi.md#post_topic_consensus_api) | **POST** /topics/topic_consensus | 
+[**post_topic_historical_analysis_api**](NucleusApi.md#post_topic_historical_analysis_api) | **POST** /topics/topic_historical | 
+[**post_topic_sentiment_api**](NucleusApi.md#post_topic_sentiment_api) | **POST** /topics/topic_sentiment | 
 [**post_upload_file**](NucleusApi.md#post_upload_file) | **POST** /datasets/upload_file | 
 [**post_upload_url**](NucleusApi.md#post_upload_url) | **POST** /datasets/import_file_from_url | 
 [**post_user**](NucleusApi.md#post_user) | **POST** /users | 
 
 
 # **get_author_connectivity_api**
-> AuthorConnect get_author_connectivity_api(dataset, target_author, time_period, query=query, custom_stop_words=custom_stop_words, metadata_selection=metadata_selection, excluded_docs=excluded_docs)
+> AuthorConnectRespModel get_author_connectivity_api(dataset, target_author, time_period, query=query, custom_stop_words=custom_stop_words, metadata_selection=metadata_selection, excluded_docs=excluded_docs)
 
 
 
@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AuthorConnect**](AuthorConnect.md)
+[**AuthorConnectRespModel**](AuthorConnectRespModel.md)
 
 ### Authorization
 
@@ -95,7 +95,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_dataset_info**
-> GetDatasetInfoModel get_dataset_info(dataset, query=query, metadata_selection=metadata_selection, time_period=time_period)
+> DatasetInfoRespModel get_dataset_info(dataset, query=query, metadata_selection=metadata_selection, time_period=time_period)
 
 
 
@@ -140,7 +140,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetDatasetInfoModel**](GetDatasetInfoModel.md)
+[**DatasetInfoRespModel**](DatasetInfoRespModel.md)
 
 ### Authorization
 
@@ -154,7 +154,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_doc_display**
-> DocDispModel get_doc_display(dataset, doc_titles=doc_titles, doc_ids=doc_ids)
+> DocDisplayRespModel get_doc_display(dataset, doc_titles=doc_titles, doc_ids=doc_ids)
 
 
 
@@ -197,7 +197,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DocDispModel**](DocDispModel.md)
+[**DocDisplayRespModel**](DocDisplayRespModel.md)
 
 ### Authorization
 
@@ -211,7 +211,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_doc_info**
-> DocInfoModel get_doc_info(dataset, doc_titles=doc_titles, doc_ids=doc_ids)
+> DocInfoRespModel get_doc_info(dataset, doc_titles=doc_titles, doc_ids=doc_ids)
 
 
 
@@ -254,7 +254,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DocInfoModel**](DocInfoModel.md)
+[**DocInfoRespModel**](DocInfoRespModel.md)
 
 ### Authorization
 
@@ -268,7 +268,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_doc_recommend_api**
-> DocumentRecommendModel get_doc_recommend_api(dataset, query=query, custom_stop_words=custom_stop_words, num_topics=num_topics, num_keywords=num_keywords, num_docs=num_docs, metadata_selection=metadata_selection, time_period=time_period, excluded_docs=excluded_docs)
+> DocumentRecommendRespModel get_doc_recommend_api(dataset, query=query, custom_stop_words=custom_stop_words, num_topics=num_topics, num_keywords=num_keywords, num_docs=num_docs, metadata_selection=metadata_selection, time_period=time_period, excluded_docs=excluded_docs)
 
 
 
@@ -323,7 +323,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DocumentRecommendModel**](DocumentRecommendModel.md)
+[**DocumentRecommendRespModel**](DocumentRecommendRespModel.md)
 
 ### Authorization
 
@@ -337,7 +337,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_doc_summary_api**
-> DocumentSummaryModel get_doc_summary_api(dataset, doc_title, custom_stop_words=custom_stop_words, summary_length=summary_length, context_amount=context_amount)
+> DocumentSummaryRespModel get_doc_summary_api(dataset, doc_title, custom_stop_words=custom_stop_words, summary_length=summary_length, context_amount=context_amount)
 
 
 
@@ -384,7 +384,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DocumentSummaryModel**](DocumentSummaryModel.md)
+[**DocumentSummaryRespModel**](DocumentSummaryRespModel.md)
 
 ### Authorization
 
@@ -398,7 +398,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_job**
-> JobResponse get_job(id)
+> JobRespModel get_job(id)
 
 
 
@@ -437,7 +437,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**JobResponse**](JobResponse.md)
+[**JobRespModel**](JobRespModel.md)
 
 ### Authorization
 
@@ -451,7 +451,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_list_datasets**
-> UserDatasetModel get_list_datasets()
+> ListDatasetsModel get_list_datasets()
 
 
 
@@ -486,7 +486,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**UserDatasetModel**](UserDatasetModel.md)
+[**ListDatasetsModel**](ListDatasetsModel.md)
 
 ### Authorization
 
@@ -500,7 +500,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_topic_api**
-> TopicModel get_topic_api(dataset, query=query, custom_stop_words=custom_stop_words, num_topics=num_topics, num_keywords=num_keywords, metadata_selection=metadata_selection, time_period=time_period, excluded_docs=excluded_docs)
+> TopicRespModel get_topic_api(dataset, query=query, custom_stop_words=custom_stop_words, num_topics=num_topics, num_keywords=num_keywords, metadata_selection=metadata_selection, time_period=time_period, excluded_docs=excluded_docs)
 
 
 
@@ -553,74 +553,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TopicModel**](TopicModel.md)
-
-### Authorization
-
-[apikey](../README.md#apikey)
-
-### HTTP request headers
-
- - **Content-Type**: text/html
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_topic_consensus_api**
-> TopicConsensusModel get_topic_consensus_api(dataset, query=query, custom_stop_words=custom_stop_words, num_topics=num_topics, num_keywords=num_keywords, metadata_selection=metadata_selection, time_period=time_period, excluded_docs=excluded_docs)
-
-
-
-Get topic consensus for topics extracted from a given dataset.
-
-### Example
-```python
-from __future__ import print_function
-import time
-import nucleus_api
-from nucleus_api.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: apikey
-configuration = nucleus_api.Configuration()
-configuration.api_key['x-api-key'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['x-api-key'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
-dataset = 'dataset_example' # str | Dataset name.
-query = 'query_example' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
-custom_stop_words = 'custom_stop_words_example' # str | List of stop words (optional)
-num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
-num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
-metadata_selection = 'metadata_selection_example' # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
-time_period = 'time_period_example' # str | Time period selection (optional)
-excluded_docs = 'excluded_docs_example' # str | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"  (optional)
-
-try:
-    api_response = api_instance.get_topic_consensus_api(dataset, query=query, custom_stop_words=custom_stop_words, num_topics=num_topics, num_keywords=num_keywords, metadata_selection=metadata_selection, time_period=time_period, excluded_docs=excluded_docs)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling NucleusApi->get_topic_consensus_api: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **dataset** | **str**| Dataset name. | 
- **query** | **str**| Fulltext query, using mysql MATCH boolean query format. Example, (\&quot;word1\&quot; OR \&quot;word2\&quot;) AND (\&quot;word3\&quot; OR \&quot;word4\&quot;) | [optional] 
- **custom_stop_words** | **str**| List of stop words | [optional] 
- **num_topics** | **int**| Number of topics to be extracted from the dataset. | [optional] [default to 8]
- **num_keywords** | **int**| Number of keywords per topic that is extracted from the dataset. | [optional] [default to 8]
- **metadata_selection** | **str**| json object of {\&quot;metadata_field\&quot;:[\&quot;selected_values\&quot;]} | [optional] 
- **time_period** | **str**| Time period selection | [optional] 
- **excluded_docs** | **str**| List of document IDs that should be excluded from the analysis. Example, \&quot;docid1, docid2, ..., docidN\&quot;  | [optional] 
-
-### Return type
-
-[**TopicConsensusModel**](TopicConsensusModel.md)
+[**TopicRespModel**](TopicRespModel.md)
 
 ### Authorization
 
@@ -634,7 +567,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_topic_delta_api**
-> TopicDeltaModel get_topic_delta_api(dataset, time_start_t0, time_end_t0, time_start_t1, time_end_t1, query=query, custom_stop_words=custom_stop_words, num_topics=num_topics, num_keywords=num_keywords, metadata_selection=metadata_selection, excluded_docs=excluded_docs)
+> TopicDeltaRespModel get_topic_delta_api(dataset, time_start_t0, time_end_t0, time_start_t1, time_end_t1, query=query, custom_stop_words=custom_stop_words, num_topics=num_topics, num_keywords=num_keywords, metadata_selection=metadata_selection, excluded_docs=excluded_docs)
 
 
 
@@ -693,145 +626,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TopicDeltaModel**](TopicDeltaModel.md)
-
-### Authorization
-
-[apikey](../README.md#apikey)
-
-### HTTP request headers
-
- - **Content-Type**: text/html
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_topic_historical_analysis_api**
-> TopiHistModel get_topic_historical_analysis_api(dataset, time_period, update_period, query=query, custom_stop_words=custom_stop_words, num_topics=num_topics, num_keywords=num_keywords, metadata_selection=metadata_selection, inc_step=inc_step, excluded_docs=excluded_docs)
-
-
-
-Get a historical analysis of topics extracted from a dataset.
-
-### Example
-```python
-from __future__ import print_function
-import time
-import nucleus_api
-from nucleus_api.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: apikey
-configuration = nucleus_api.Configuration()
-configuration.api_key['x-api-key'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['x-api-key'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
-dataset = 'dataset_example' # str | Dataset name.
-time_period = '1M' # str | Time period selection (default to 1M)
-update_period = 'd' # str | Frequency at which the historical anlaysis is performed (default to d)
-query = 'query_example' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
-custom_stop_words = 'custom_stop_words_example' # str | List of stop words (optional)
-num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
-num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
-metadata_selection = 'metadata_selection_example' # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
-inc_step = 1 # int | Number of increments of the udpate period in between two historical computations. (optional) (default to 1)
-excluded_docs = 'excluded_docs_example' # str | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"  (optional)
-
-try:
-    api_response = api_instance.get_topic_historical_analysis_api(dataset, time_period, update_period, query=query, custom_stop_words=custom_stop_words, num_topics=num_topics, num_keywords=num_keywords, metadata_selection=metadata_selection, inc_step=inc_step, excluded_docs=excluded_docs)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling NucleusApi->get_topic_historical_analysis_api: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **dataset** | **str**| Dataset name. | 
- **time_period** | **str**| Time period selection | [default to 1M]
- **update_period** | **str**| Frequency at which the historical anlaysis is performed | [default to d]
- **query** | **str**| Fulltext query, using mysql MATCH boolean query format. Example, (\&quot;word1\&quot; OR \&quot;word2\&quot;) AND (\&quot;word3\&quot; OR \&quot;word4\&quot;) | [optional] 
- **custom_stop_words** | **str**| List of stop words | [optional] 
- **num_topics** | **int**| Number of topics to be extracted from the dataset. | [optional] [default to 8]
- **num_keywords** | **int**| Number of keywords per topic that is extracted from the dataset. | [optional] [default to 8]
- **metadata_selection** | **str**| json object of {\&quot;metadata_field\&quot;:[\&quot;selected_values\&quot;]} | [optional] 
- **inc_step** | **int**| Number of increments of the udpate period in between two historical computations. | [optional] [default to 1]
- **excluded_docs** | **str**| List of document IDs that should be excluded from the analysis. Example, \&quot;docid1, docid2, ..., docidN\&quot;  | [optional] 
-
-### Return type
-
-[**TopiHistModel**](TopiHistModel.md)
-
-### Authorization
-
-[apikey](../README.md#apikey)
-
-### HTTP request headers
-
- - **Content-Type**: text/html
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **get_topic_sentiment_api**
-> TopicSentimentModel get_topic_sentiment_api(dataset, query=query, custom_stop_words=custom_stop_words, num_topics=num_topics, num_keywords=num_keywords, metadata_selection=metadata_selection, time_period=time_period, excluded_docs=excluded_docs)
-
-
-
-Get topic sentiment for topics extracted from a given dataset.
-
-### Example
-```python
-from __future__ import print_function
-import time
-import nucleus_api
-from nucleus_api.rest import ApiException
-from pprint import pprint
-
-# Configure API key authorization: apikey
-configuration = nucleus_api.Configuration()
-configuration.api_key['x-api-key'] = 'YOUR_API_KEY'
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['x-api-key'] = 'Bearer'
-
-# create an instance of the API class
-api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
-dataset = 'dataset_example' # str | Dataset name.
-query = 'query_example' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
-custom_stop_words = 'custom_stop_words_example' # str | List of stop words (optional)
-num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
-num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
-metadata_selection = 'metadata_selection_example' # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
-time_period = 'time_period_example' # str | Time period selection (optional)
-excluded_docs = 'excluded_docs_example' # str | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"  (optional)
-
-try:
-    api_response = api_instance.get_topic_sentiment_api(dataset, query=query, custom_stop_words=custom_stop_words, num_topics=num_topics, num_keywords=num_keywords, metadata_selection=metadata_selection, time_period=time_period, excluded_docs=excluded_docs)
-    pprint(api_response)
-except ApiException as e:
-    print("Exception when calling NucleusApi->get_topic_sentiment_api: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **dataset** | **str**| Dataset name. | 
- **query** | **str**| Fulltext query, using mysql MATCH boolean query format. Example, (\&quot;word1\&quot; OR \&quot;word2\&quot;) AND (\&quot;word3\&quot; OR \&quot;word4\&quot;) | [optional] 
- **custom_stop_words** | **str**| List of stop words | [optional] 
- **num_topics** | **int**| Number of topics to be extracted from the dataset. | [optional] [default to 8]
- **num_keywords** | **int**| Number of keywords per topic that is extracted from the dataset. | [optional] [default to 8]
- **metadata_selection** | **str**| json object of {\&quot;metadata_field\&quot;:[\&quot;selected_values\&quot;]} | [optional] 
- **time_period** | **str**| Time period selection | [optional] 
- **excluded_docs** | **str**| List of document IDs that should be excluded from the analysis. Example, \&quot;docid1, docid2, ..., docidN\&quot;  | [optional] 
-
-### Return type
-
-[**TopicSentimentModel**](TopicSentimentModel.md)
+[**TopicDeltaRespModel**](TopicDeltaRespModel.md)
 
 ### Authorization
 
@@ -845,7 +640,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_topic_summary_api**
-> TopicSummaryModel get_topic_summary_api(dataset, query=query, custom_stop_words=custom_stop_words, num_topics=num_topics, num_keywords=num_keywords, metadata_selection=metadata_selection, time_period=time_period, summary_length=summary_length, context_amount=context_amount, num_docs=num_docs, excluded_docs=excluded_docs)
+> TopicSummaryRespModel get_topic_summary_api(dataset, query=query, custom_stop_words=custom_stop_words, num_topics=num_topics, num_keywords=num_keywords, metadata_selection=metadata_selection, time_period=time_period, summary_length=summary_length, context_amount=context_amount, num_docs=num_docs, excluded_docs=excluded_docs)
 
 
 
@@ -904,7 +699,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TopicSummaryModel**](TopicSummaryModel.md)
+[**TopicSummaryRespModel**](TopicSummaryRespModel.md)
 
 ### Authorization
 
@@ -967,7 +762,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_append_json_to_dataset**
-> AppendjsonpostModel post_append_json_to_dataset(payload)
+> AppendJsonRespModel post_append_json_to_dataset(payload)
 
 
 
@@ -1006,7 +801,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AppendjsonpostModel**](AppendjsonpostModel.md)
+[**AppendJsonRespModel**](AppendJsonRespModel.md)
 
 ### Authorization
 
@@ -1020,7 +815,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_delete_dataset**
-> DeletepostModel post_delete_dataset(payload)
+> DeleteDatasetRespModel post_delete_dataset(payload)
 
 
 
@@ -1059,7 +854,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeletepostModel**](DeletepostModel.md)
+[**DeleteDatasetRespModel**](DeleteDatasetRespModel.md)
 
 ### Authorization
 
@@ -1073,7 +868,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_delete_document**
-> DeletedocumentpostModel post_delete_document(payload)
+> DeleteDocumentRespModel post_delete_document(payload)
 
 
 
@@ -1112,7 +907,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeletedocumentpostModel**](DeletedocumentpostModel.md)
+[**DeleteDocumentRespModel**](DeleteDocumentRespModel.md)
 
 ### Authorization
 
@@ -1233,8 +1028,219 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **post_topic_consensus_api**
+> TopicConsensusRespModel post_topic_consensus_api(dataset, query=query, custom_stop_words=custom_stop_words, num_topics=num_topics, num_keywords=num_keywords, metadata_selection=metadata_selection, time_period=time_period, excluded_docs=excluded_docs, custom_dict_file=custom_dict_file)
+
+
+
+Get topic consensus for topics extracted from a given dataset.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import nucleus_api
+from nucleus_api.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: apikey
+configuration = nucleus_api.Configuration()
+configuration.api_key['x-api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['x-api-key'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
+dataset = 'dataset_example' # str | Dataset name.
+query = 'query_example' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
+custom_stop_words = 'custom_stop_words_example' # str | List of stop words (optional)
+num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
+num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
+metadata_selection = 'metadata_selection_example' # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
+time_period = 'time_period_example' # str | Time period selection (optional)
+excluded_docs = 'excluded_docs_example' # str | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"  (optional)
+custom_dict_file = '/path/to/file.txt' # file | Custom sentiment dictionary JSON file. (optional)
+
+try:
+    api_response = api_instance.post_topic_consensus_api(dataset, query=query, custom_stop_words=custom_stop_words, num_topics=num_topics, num_keywords=num_keywords, metadata_selection=metadata_selection, time_period=time_period, excluded_docs=excluded_docs, custom_dict_file=custom_dict_file)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling NucleusApi->post_topic_consensus_api: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **dataset** | **str**| Dataset name. | 
+ **query** | **str**| Fulltext query, using mysql MATCH boolean query format. Example, (\&quot;word1\&quot; OR \&quot;word2\&quot;) AND (\&quot;word3\&quot; OR \&quot;word4\&quot;) | [optional] 
+ **custom_stop_words** | **str**| List of stop words | [optional] 
+ **num_topics** | **int**| Number of topics to be extracted from the dataset. | [optional] [default to 8]
+ **num_keywords** | **int**| Number of keywords per topic that is extracted from the dataset. | [optional] [default to 8]
+ **metadata_selection** | **str**| json object of {\&quot;metadata_field\&quot;:[\&quot;selected_values\&quot;]} | [optional] 
+ **time_period** | **str**| Time period selection | [optional] 
+ **excluded_docs** | **str**| List of document IDs that should be excluded from the analysis. Example, \&quot;docid1, docid2, ..., docidN\&quot;  | [optional] 
+ **custom_dict_file** | **file**| Custom sentiment dictionary JSON file. | [optional] 
+
+### Return type
+
+[**TopicConsensusRespModel**](TopicConsensusRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **post_topic_historical_analysis_api**
+> TopicHistoryRespModel post_topic_historical_analysis_api(dataset, time_period, update_period, query=query, custom_stop_words=custom_stop_words, num_topics=num_topics, num_keywords=num_keywords, metadata_selection=metadata_selection, inc_step=inc_step, excluded_docs=excluded_docs, custom_dict_file=custom_dict_file)
+
+
+
+Get a historical analysis of topics extracted from a dataset.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import nucleus_api
+from nucleus_api.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: apikey
+configuration = nucleus_api.Configuration()
+configuration.api_key['x-api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['x-api-key'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
+dataset = 'dataset_example' # str | Dataset name.
+time_period = '1M' # str | Time period selection (default to 1M)
+update_period = 'd' # str | Frequency at which the historical anlaysis is performed (default to d)
+query = 'query_example' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
+custom_stop_words = 'custom_stop_words_example' # str | List of stop words (optional)
+num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
+num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
+metadata_selection = 'metadata_selection_example' # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
+inc_step = 1 # int | Number of increments of the udpate period in between two historical computations. (optional) (default to 1)
+excluded_docs = 'excluded_docs_example' # str | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"  (optional)
+custom_dict_file = '/path/to/file.txt' # file | Custom sentiment dictionary JSON file. (optional)
+
+try:
+    api_response = api_instance.post_topic_historical_analysis_api(dataset, time_period, update_period, query=query, custom_stop_words=custom_stop_words, num_topics=num_topics, num_keywords=num_keywords, metadata_selection=metadata_selection, inc_step=inc_step, excluded_docs=excluded_docs, custom_dict_file=custom_dict_file)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling NucleusApi->post_topic_historical_analysis_api: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **dataset** | **str**| Dataset name. | 
+ **time_period** | **str**| Time period selection | [default to 1M]
+ **update_period** | **str**| Frequency at which the historical anlaysis is performed | [default to d]
+ **query** | **str**| Fulltext query, using mysql MATCH boolean query format. Example, (\&quot;word1\&quot; OR \&quot;word2\&quot;) AND (\&quot;word3\&quot; OR \&quot;word4\&quot;) | [optional] 
+ **custom_stop_words** | **str**| List of stop words | [optional] 
+ **num_topics** | **int**| Number of topics to be extracted from the dataset. | [optional] [default to 8]
+ **num_keywords** | **int**| Number of keywords per topic that is extracted from the dataset. | [optional] [default to 8]
+ **metadata_selection** | **str**| json object of {\&quot;metadata_field\&quot;:[\&quot;selected_values\&quot;]} | [optional] 
+ **inc_step** | **int**| Number of increments of the udpate period in between two historical computations. | [optional] [default to 1]
+ **excluded_docs** | **str**| List of document IDs that should be excluded from the analysis. Example, \&quot;docid1, docid2, ..., docidN\&quot;  | [optional] 
+ **custom_dict_file** | **file**| Custom sentiment dictionary JSON file. | [optional] 
+
+### Return type
+
+[**TopicHistoryRespModel**](TopicHistoryRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **post_topic_sentiment_api**
+> TopicSentimentRespModel post_topic_sentiment_api(dataset, query=query, custom_stop_words=custom_stop_words, num_topics=num_topics, num_keywords=num_keywords, metadata_selection=metadata_selection, time_period=time_period, excluded_docs=excluded_docs, custom_dict_file=custom_dict_file)
+
+
+
+Get topic sentiment for topics extracted from a given dataset.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import nucleus_api
+from nucleus_api.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: apikey
+configuration = nucleus_api.Configuration()
+configuration.api_key['x-api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['x-api-key'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
+dataset = 'dataset_example' # str | Dataset name.
+query = 'query_example' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
+custom_stop_words = 'custom_stop_words_example' # str | List of stop words (optional)
+num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
+num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
+metadata_selection = 'metadata_selection_example' # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
+time_period = 'time_period_example' # str | Time period selection (optional)
+excluded_docs = 'excluded_docs_example' # str | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"  (optional)
+custom_dict_file = '/path/to/file.txt' # file | Custom sentiment dictionary JSON file. (optional)
+
+try:
+    api_response = api_instance.post_topic_sentiment_api(dataset, query=query, custom_stop_words=custom_stop_words, num_topics=num_topics, num_keywords=num_keywords, metadata_selection=metadata_selection, time_period=time_period, excluded_docs=excluded_docs, custom_dict_file=custom_dict_file)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling NucleusApi->post_topic_sentiment_api: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **dataset** | **str**| Dataset name. | 
+ **query** | **str**| Fulltext query, using mysql MATCH boolean query format. Example, (\&quot;word1\&quot; OR \&quot;word2\&quot;) AND (\&quot;word3\&quot; OR \&quot;word4\&quot;) | [optional] 
+ **custom_stop_words** | **str**| List of stop words | [optional] 
+ **num_topics** | **int**| Number of topics to be extracted from the dataset. | [optional] [default to 8]
+ **num_keywords** | **int**| Number of keywords per topic that is extracted from the dataset. | [optional] [default to 8]
+ **metadata_selection** | **str**| json object of {\&quot;metadata_field\&quot;:[\&quot;selected_values\&quot;]} | [optional] 
+ **time_period** | **str**| Time period selection | [optional] 
+ **excluded_docs** | **str**| List of document IDs that should be excluded from the analysis. Example, \&quot;docid1, docid2, ..., docidN\&quot;  | [optional] 
+ **custom_dict_file** | **file**| Custom sentiment dictionary JSON file. | [optional] 
+
+### Return type
+
+[**TopicSentimentRespModel**](TopicSentimentRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **post_upload_file**
-> post_upload_file(file, dataset, metadata=metadata)
+> UploadFileRespModel post_upload_file(file, dataset, metadata=metadata)
 
 
 
@@ -1259,7 +1265,8 @@ dataset = 'dataset_example' # str | Destination dataset where the file will be i
 metadata = 'metadata_example' # str | Optional json containing additional document metadata. Eg: {\"time\":\"01/01/2001\",\"author\":\"me\"} (optional)
 
 try:
-    api_instance.post_upload_file(file, dataset, metadata=metadata)
+    api_response = api_instance.post_upload_file(file, dataset, metadata=metadata)
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling NucleusApi->post_upload_file: %s\n" % e)
 ```
@@ -1274,7 +1281,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**UploadFileRespModel**](UploadFileRespModel.md)
 
 ### Authorization
 
@@ -1288,7 +1295,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_upload_url**
-> UploadurlpostModel post_upload_url(payload)
+> UploadUrlRespModel post_upload_url(payload)
 
 
 
@@ -1325,7 +1332,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UploadurlpostModel**](UploadurlpostModel.md)
+[**UploadUrlRespModel**](UploadUrlRespModel.md)
 
 ### Authorization
 
