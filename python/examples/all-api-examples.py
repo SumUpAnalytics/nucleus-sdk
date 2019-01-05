@@ -89,33 +89,32 @@ print('-------------------------------------------------------------')
 # In[4]:
 
 
+# This dataset will be used to test all topics and documents APIs
 print('----------- Append json from CSV to dataset -----------------')
-# add documents to dataset
 csv_file = 'trump-tweets-100.csv'
 dataset = 'dataset_test'  
 
-doc_cnt = 0
 with open(csv_file, encoding='utf-8-sig') as csvfile:
     reader = csv.DictReader(csvfile)
+    doc_count = 0
     for row in reader:
-        if doc_cnt < 1:
-            payload = nucleus_api.Appendjsonparams(dataset=dataset, 
-                                                  language='english', 
-                                                  document={'time'   : row['time'],
-                                                            'title'  : row['title'],
-                                                            'content': row['content'],
-                                                            'author' : row['author']}
-                                                 )
+        payload = nucleus_api.Appendjsonparams(dataset=dataset, 
+                                               #language='english', #optional. language can be auto detected
+                                               document={'time'   : row['time'],
+                                                         'title'  : row['title'],
+                                                         'content': row['content'],
+                                                         'author' : row['author']}
+                                              )
 
-            try:
-                api_response = api_instance.post_append_json_to_dataset(payload)
-                #print('api_response', api_response)
-            except ApiException as e:
-                print("Exception when calling DatasetsApi->post_append_json_to_dataset: %s\n" % e)
+        try:
+            api_response = api_instance.post_append_json_to_dataset(payload)
+            #print('api_response', api_response)
+        except ApiException as e:
+            print("Exception when calling DatasetsApi->post_append_json_to_dataset: %s\n" % e)
+            
+        doc_count += 1
         
-        doc_cnt = doc_cnt + 1
-        
-print('Dataset', dataset, 'now has', api_response.result, 'documents.')
+print(doc_count, 'documents added to dataset', dataset)
 print('-------------------------------------------------------------')
 
 
@@ -219,42 +218,11 @@ except ApiException as e:
 print('-------------------------------------------------------------')
 
 
-# ## Create a full dataset for testing other APIs
-
-# In[9]:
-
-
-print('--------- Create a full dataset for testing other APIs ---------')
-# add documents to dataset
-csv_file = 'trump-tweets-100.csv'
-dataset = 'trump_tweets'   
-
-with open(csv_file, encoding='utf-8-sig') as csvfile:
-    reader = csv.DictReader(csvfile)
-    for row in reader:
-        payload = nucleus_api.Appendjsonparams(dataset=dataset, 
-                                                  language='english', 
-                                                  document={'time'   : row['time'],
-                                                            'title'  : row['title'],
-                                                            'content': row['content'],
-                                                            'author' : row['author']}
-                                                 )
-
-        try:
-            api_response = api_instance.post_append_json_to_dataset(payload)
-            #print('api_response=', api_response)
-        except ApiException as e:
-            print("Exception when calling DatasetsApi->post_append_json_to_dataset: %s\n" % e)
-            
-print('Dataset', dataset, 'now has', api_response.result, 'documents.')
-print('-------------------------------------------------------------')
-
-
 # # Topic APIs
 
 # ## Get list of topics from dataset
 
-# In[10]:
+# In[9]:
 
 
 print('------------- Get list of topics from dataset --------------')
@@ -306,7 +274,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic summary
 
-# In[11]:
+# In[10]:
 
 
 print('------------------- Get topic summary -----------------------')
@@ -360,7 +328,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic sentiment
 
-# In[12]:
+# In[11]:
 
 
 print('---------------- Get topic sentiment ------------------------')
@@ -408,7 +376,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic consensus
 
-# In[13]:
+# In[12]:
 
 
 print('---------------- Get topic consensus ------------------------')
@@ -446,7 +414,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic historical analysis
 
-# In[14]:
+# In[13]:
 
 
 print('------------ Get topic historical analysis ----------------')
@@ -480,7 +448,7 @@ try:
 except ApiException as e:
     print("Exception when calling TopicsApi->post_topic_historical_analysis_api: %s\n" % e)
 
-print('api_response=', api_response)
+#print('api_response=', api_response)
 results = api_response.result
 
 # chart the historical metrics when running in Jupyter Notebook
@@ -516,7 +484,7 @@ print('-------------------------------------------------------------')
 
 # ## Get author connectivity
 
-# In[15]:
+# In[14]:
 
 
 print('----------------- Get author connectivity -------------------')
@@ -558,7 +526,7 @@ print('-------------------------------------------------------------')
 
 # # Get topic delta
 
-# In[16]:
+# In[15]:
 
 
 print('------------------- Get topic deltas -----------------------')
@@ -610,7 +578,7 @@ print('-------------------------------------------------------------')
 
 # ## Get document information without content
 
-# In[17]:
+# In[16]:
 
 
 dataset = 'trump_tweets' # str | Dataset name.
@@ -639,7 +607,7 @@ print('-------------------------------------------------------------')
 
 # ## Display document details
 
-# In[18]:
+# In[17]:
 
 
 print('-------------------------------------------------------------')
@@ -673,7 +641,7 @@ print('-------------------------------------------------------------')
 
 # ## Get document recommendations
 
-# In[19]:
+# In[18]:
 
 
 print('------------- Get document recommendations -----------------')
@@ -721,7 +689,7 @@ print('-------------------------------------------------------------')
 
 # ## Get document summary
 
-# In[20]:
+# In[19]:
 
 
 print('------------------ Get document summary  --------------------')
