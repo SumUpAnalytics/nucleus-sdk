@@ -48,5 +48,5 @@ A [Guideline for Calibration](python/examples/Guidelines%20for%20Calibrating%20N
     configuration.host = 'API_HOST_HERE'
     configuration.api_key['x-api-key'] = 'API_KEY_HERE'
     ```
-1. Execute the example in Jupyter Notebook or using the command line: 'python3 all-api-examples.py'
+1. Execute the example in Jupyter Notebook or use the command line: 'python3 all-api-examples.py'
 
