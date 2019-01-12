@@ -14,7 +14,7 @@ Method | HTTP request | Description
 [**get_list_datasets**](NucleusApi.md#get_list_datasets) | **GET** /datasets | 
 [**get_topic_api**](NucleusApi.md#get_topic_api) | **GET** /topics/topics | 
 [**get_topic_delta_api**](NucleusApi.md#get_topic_delta_api) | **GET** /topics/topic_delta | 
-[**get_topic_summary_api**](NucleusApi.md#get_topic_summary_api) | **GET** /topics/topic_summary_job | 
+[**get_topic_summary_api**](NucleusApi.md#get_topic_summary_api) | **GET** /topics/topic_summary | 
 [**get_user**](NucleusApi.md#get_user) | **GET** /users | 
 [**post_append_json_to_dataset**](NucleusApi.md#post_append_json_to_dataset) | **POST** /datasets/append_json_to_dataset | 
 [**post_delete_dataset**](NucleusApi.md#post_delete_dataset) | **POST** /datasets/delete_dataset | 
@@ -337,7 +337,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_doc_summary_api**
-> DocumentSummaryRespModel get_doc_summary_api(dataset, doc_title, custom_stop_words=custom_stop_words, summary_length=summary_length, context_amount=context_amount)
+> DocumentSummaryRespModel get_doc_summary_api(dataset, doc_title, custom_stop_words=custom_stop_words, summary_length=summary_length, context_amount=context_amount, short_sentence_length=short_sentence_length, long_sentence_length=long_sentence_length)
 
 
 
@@ -364,9 +364,11 @@ doc_title = 'doc_title_example' # str | The title of the document to be summariz
 custom_stop_words = 'custom_stop_words_example' # str | List of stop words (optional)
 summary_length = 6 # int | The maximum number of bullet points a user wants to see in the document summary. (optional) (default to 6)
 context_amount = 0 # int | The number of sentences surrounding key summary sentences in the documents that they come from. (optional) (default to 0)
+short_sentence_length = 4 # int | The sentence length below which a sentence is excluded from summarization (optional) (default to 4)
+long_sentence_length = 40 # int | The sentence length beyond which a sentence is excluded from summarization (optional) (default to 40)
 
 try:
-    api_response = api_instance.get_doc_summary_api(dataset, doc_title, custom_stop_words=custom_stop_words, summary_length=summary_length, context_amount=context_amount)
+    api_response = api_instance.get_doc_summary_api(dataset, doc_title, custom_stop_words=custom_stop_words, summary_length=summary_length, context_amount=context_amount, short_sentence_length=short_sentence_length, long_sentence_length=long_sentence_length)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling NucleusApi->get_doc_summary_api: %s\n" % e)
@@ -381,6 +383,8 @@ Name | Type | Description  | Notes
  **custom_stop_words** | **str**| List of stop words | [optional] 
  **summary_length** | **int**| The maximum number of bullet points a user wants to see in the document summary. | [optional] [default to 6]
  **context_amount** | **int**| The number of sentences surrounding key summary sentences in the documents that they come from. | [optional] [default to 0]
+ **short_sentence_length** | **int**| The sentence length below which a sentence is excluded from summarization | [optional] [default to 4]
+ **long_sentence_length** | **int**| The sentence length beyond which a sentence is excluded from summarization | [optional] [default to 40]
 
 ### Return type
 
@@ -1346,7 +1350,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_user**
-> post_user(payload)
+> PostUserRespModel post_user(payload)
 
 
 
@@ -1371,7 +1375,8 @@ api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
 payload = nucleus_api.User() # User | 
 
 try:
-    api_instance.post_user(payload)
+    api_response = api_instance.post_user(payload)
+    pprint(api_response)
 except ApiException as e:
     print("Exception when calling NucleusApi->post_user: %s\n" % e)
 ```
@@ -1384,7 +1389,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**PostUserRespModel**](PostUserRespModel.md)
 
 ### Authorization
 

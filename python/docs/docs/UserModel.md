@@ -3,6 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**job_id** | **str** | If the job is taking too long, job_id is returned, GET /jobs can then be used to poll for results | [optional] 
 **user_email** | **str** | Email | [optional] 
 **first_name** | **str** | First name | [optional] 
 **last_name** | **str** | Last name | [optional] 
