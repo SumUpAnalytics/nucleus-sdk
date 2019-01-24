@@ -232,7 +232,9 @@ query = ''
 custom_stop_words = ["real","hillary"] # str | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
 metadata_selection ="" # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
-time_period =""# str | Time period selection (optional)
+time_period =""# str | Alternative 1: Time period selection. "1M","3M","6M","12M","3Y","5Y" (optional)
+period_start =""# str | Alternative 2: Start date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS" (optional)
+period_end =""# str | Alternative 2: End date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS" (optional)
 
 try:
     api_response = api_instance.get_topic_api(
@@ -242,6 +244,55 @@ try:
         num_topics=num_topics,
         metadata_selection=metadata_selection,
         time_period=time_period)
+except ApiException as e:
+    print("Exception when calling TopicsApi->get_topic_api: %s\n" % e)
+    
+#print(api_response)
+i = 1
+for res in api_response.result:
+    print('Topic', i, 'keywords:')
+    print('    Keywords:', res.topic)
+    keywords_weight_str = ";".join(str(x) for x in res.keywords_weight)
+    print('    Keyword weights:', keywords_weight_str)
+    print('    Strength:', res.strength)
+    doc_topic_exposure_sel = []  # list of non-zero doc_topic_exposure
+    doc_id_sel = []        # list of doc ids matching doc_topic_exposure_sel
+    for j in range(len(res.doc_topic_exposure)):
+        doc_topic_exp = float(res.doc_topic_exposure[j])
+        if doc_topic_exp != 0:
+            doc_topic_exposure_sel.append(doc_topic_exp)
+            doc_id_sel.append(res.doc_id[j])
+    
+    doc_id_sel_str = ' '.join(str(x) for x in doc_id_sel)
+    doc_topic_exposure_sel_str = ' '.join(str(x) for x in doc_topic_exposure_sel)
+    print('    Document IDs:', doc_id_sel_str)
+    print('    Document exposures:', doc_topic_exposure_sel_str)
+
+    print('---------------')
+    i = i + 1
+    
+print('-------------------------------------------------------------')
+
+print('------------- Get list of topics from dataset - v2 --------------')
+dataset = 'trump_tweets'
+#query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
+query = ''
+custom_stop_words = ["real","hillary"] # str | List of stop words. (optional)
+num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
+metadata_selection ="" # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
+time_period =""# str | Alternative 1: Time period selection. "1M","3M","6M","12M","3Y","5Y" (optional)
+period_start ="2017-01-01 12:00:00"# str | Alternative 2: Start date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS" (optional)
+period_end ="2018-12-15 03:00:00"# str | Alternative 2: End date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS" (optional)
+
+try:
+    api_response = api_instance.get_topic_api(
+        dataset,                                
+        query=query,                   
+        custom_stop_words=custom_stop_words,     
+        num_topics=num_topics,
+        metadata_selection=metadata_selection,
+        period_start=period_start,
+        period_end=period_end)
 except ApiException as e:
     print("Exception when calling TopicsApi->get_topic_api: %s\n" % e)
     
@@ -289,6 +340,9 @@ summary_length = 6 # int | The maximum number of bullet points a user wants to s
 context_amount = 0 # int | The number of sentences surrounding key summary sentences in the documents that they come from. (optional) (default to 0)
 num_docs = 20 # int | The maximum number of key documents to use for summarization. (optional) (default to 20)
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"  (optional)
+time_period =""# str | Alternative 1: Time period selection. "1M","3M","6M","12M","3Y","5Y" (optional)
+period_start =""# str | Alternative 2: Start date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS" (optional)
+period_end =""# str | Alternative 2: End date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS" (optional)
 
 try:
     api_response = api_instance.get_topic_summary_api(
@@ -340,6 +394,9 @@ num_topics = 8 # int | Number of topics to be extracted from the dataset. (optio
 num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"  (optional)
 custom_dict_file = 'custom-sentiment-dict.json' # file | Custom sentiment dictionary JSON file. (optional)
+time_period =""# str | Alternative 1: Time period selection. "1M","3M","6M","12M","3Y","5Y" (optional)
+period_start =""# str | Alternative 2: Start date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS" (optional)
+period_end =""# str | Alternative 2: End date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS" (optional)
 
 try:
     api_response = api_instance.post_topic_sentiment_api(
@@ -387,6 +444,10 @@ num_topics = 8 # int | Number of topics to be extracted from the dataset. (optio
 num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
 excluded_docs = [''] # str | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"  (optional)
 custom_dict_file = 'custom-sentiment-dict.json'  # file | Custom sentiment dictionary JSON file. (optional)
+time_period =""# str | Alternative 1: Time period selection. "1M","3M","6M","12M","3Y","5Y" (optional)
+period_start =""# str | Alternative 2: Start date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS" (optional)
+period_end =""# str | Alternative 2: End date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS" (optional)
+
 try:
     api_response = api_instance.post_topic_consensus_api(
         dataset, 
@@ -420,7 +481,9 @@ print('-------------------------------------------------------------')
 print('------------ Get topic historical analysis ----------------')
 
 dataset = 'trump_tweets'   # str | Dataset name.
-time_period = '6M'  # str | Time period selection (default to 1M)
+time_period ='6M' # str | Alternative 1: Time period selection. "1M","3M","6M","12M","3Y","5Y" (optional)
+period_start =""# str | Alternative 2: Start date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS" (optional)
+period_end =""# str | Alternative 2: End date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS" (optional)
 update_period = 'd' # str | Frequency at which the historical anlaysis is performed (default to d)
 query = '' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
 custom_stop_words = ["real","hillary"] # str | List of stop words (optional)
@@ -492,7 +555,9 @@ dataset = dataset # str | Dataset name.
 target_author = 'D_Trump16' # str | Name of the author to be analyzed.
 query = '' # str | Fulltext query, using mysql MATCH boolean query format. Subject covered by the author, on which to focus the analysis of connectivity. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
 custom_stop_words = ["real","hillary"] # str | List of words possibly used by the target author that are considered not information-bearing. (optional)
-time_period = '12M' # str | Time period selection. Required. Valid values: "1M","3M","6M","12M","3Y","5Y"
+time_period ='12M' # str | Alternative 1: Time period selection. "1M","3M","6M","12M","3Y","5Y" (optional)
+period_start =""# str | Alternative 2: Start date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS" (optional)
+period_end =""# str | Alternative 2: End date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS" (optional)
 metadata_selection = '' # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
 excluded_docs = [''] # str | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"  (optional)
 
