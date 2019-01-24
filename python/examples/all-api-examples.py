@@ -233,8 +233,6 @@ custom_stop_words = ["real","hillary"] # str | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
 metadata_selection ="" # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
 time_period =""# str | Alternative 1: Time period selection. "1M","3M","6M","12M","3Y","5Y" (optional)
-period_start =""# str | Alternative 2: Start date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS" (optional)
-period_end =""# str | Alternative 2: End date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS" (optional)
 
 try:
     api_response = api_instance.get_topic_api(
@@ -280,7 +278,6 @@ query = ''
 custom_stop_words = ["real","hillary"] # str | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
 metadata_selection ="" # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
-time_period =""# str | Alternative 1: Time period selection. "1M","3M","6M","12M","3Y","5Y" (optional)
 period_start ="2017-01-01 12:00:00"# str | Alternative 2: Start date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS" (optional)
 period_end ="2018-12-15 03:00:00"# str | Alternative 2: End date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS" (optional)
 
@@ -603,10 +600,10 @@ custom_stop_words = [""] # str | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
 num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
 metadata_selection ="" # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
-time_start_t0 = '2018-08-12 00:00:00'
-time_end_t0 = '2018-08-15 13:00:00'
-time_start_t1 = '2018-08-16 00:00:00'
-time_end_t1 = '2018-08-19 00:00:00'
+period_0_start = '2018-08-12 00:00:00'
+period_0_end = '2018-08-15 13:00:00'
+period_1_start = '2018-08-16 00:00:00'
+period_1_end = '2018-08-19 00:00:00'
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"  (optional)
 
 try:
@@ -616,10 +613,10 @@ try:
         custom_stop_words=custom_stop_words, 
         num_topics=num_topics, 
         num_keywords=num_keywords,
-        time_start_t0 = time_start_t0,
-        time_end_t0 = time_end_t0,
-        time_start_t1 = time_start_t1,
-        time_end_t1 = time_end_t1,
+        period_0_start = period_0_start,
+        period_0_end = period_0_end,
+        period_1_start = period_1_start,
+        period_1_end = period_1_end,
         metadata_selection=metadata_selection)
 except ApiException as e:
     print("Exception when calling TopicsApi->get_topic_delta_api: %s\n" % e)
