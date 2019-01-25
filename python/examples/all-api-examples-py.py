@@ -6,12 +6,14 @@
 # In[1]:
 
 
-# from __future__ import print_function
-import csv, json, datetime
+import os
+import csv
+import json
+import datetime
 import time
 import nucleus_api
 from nucleus_api.rest import ApiException
-from nucleus_api.api.nucleus_api import topic_charts_historical
+from nucleus_api.api.nucleus_api import topic_charts_historical,summarize_file_url
 from pprint import pprint
 import numpy as np
 
@@ -29,7 +31,8 @@ else:
     
 configuration = nucleus_api.Configuration()
 configuration.host = 'UPDATE-WITH-API-HOST'
-configuration.api_key['x-api-key'] = 'UPDATE-WITH-API-KEY' 
+configuration.api_key['x-api-key'] = 'UPDATE-WITH-API-KEY'
+
 
 # Create API instance
 api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
@@ -60,18 +63,51 @@ print(api_response.result, 'has been added to dataset', dataset)
 print('-------------------------------------------------------------')
 
 
-# ## Append file from URL to dataset
+# # Append all files from local folder to dataset
 
 # In[3]:
+
+
+print('--------- Append all files from local folder to dataset -----------')
+folder = 'fomc-minutes'         
+
+dataset = 'dataset_test'              # str | Destination dataset where the file will be inserted.
+metadata = {"time": "1/2/2018", 
+            "author": "Test Author"}  # Optional json containing additional document metadata
+
+for root, dirs, files in os.walk(folder):
+    for file in files:
+        file = os.path.join(root, file)
+        
+        try:
+            api_response = api_instance.post_upload_file(file, dataset, metadata=metadata)
+            #print('api_response=', api_response)   # raw API response    
+        except ApiException as e:
+            print("Exception when calling DatasetsApi->post_upload_file: %s\n" % e)
+            exit
+
+
+        print(api_response.result, 'has been added to dataset', dataset)
+
+print('-------------------------------------------------------------')
+
+
+# ## Append file from URL to dataset
+
+# In[4]:
 
 
 print('------------ Append file from URL to dataset ---------------')
 
 dataset = 'dataset_test'
-file_url = 'https://www.federalreserve.gov/newsevents/speech/files/quarles20181109a.pdf'
+file_url = 'https://s3-us-west-2.amazonaws.com/sumup-public/nucleus-sdk/quarles20181109a.docx'
+# Optional filename saved on the server for the URL. If not specified, Nucleus will make
+# an intelligent guess from the file URL
+filename = 'quarles20181109a-newname.pdf'  
 payload = nucleus_api.UploadURLModel(
                 dataset=dataset,
-                file_url=file_url
+                file_url=file_url,
+                filename=filename  
             ) # UploadURLModel | 
 
 try:
@@ -86,13 +122,13 @@ print('-------------------------------------------------------------')
 
 # ## Append json from csv to dataset
 
-# In[4]:
+# In[5]:
 
 
 # This dataset will be used to test all topics and documents APIs
 print('----------- Append json from CSV to dataset -----------------')
 csv_file = 'trump-tweets-100.csv'
-dataset = 'dataset_test'  
+dataset = 'trump-tweets'  
 
 with open(csv_file, encoding='utf-8-sig') as csvfile:
     reader = csv.DictReader(csvfile)
@@ -120,7 +156,7 @@ print('-------------------------------------------------------------')
 
 # ## List available datasets
 
-# In[5]:
+# In[6]:
 
 
 print('---------------- List available datasets ---------------------')
@@ -141,7 +177,7 @@ print('-------------------------------------------------------------')
 
 # ## Get dataset information
 
-# In[6]:
+# In[7]:
 
 
 print('--------------- Get dataset information -------------------')
@@ -172,7 +208,7 @@ print('-------------------------------------------------------------')
 
 # ## Delete document
 
-# In[7]:
+# In[8]:
 
 
 print('--------------------- Delete document -----------------------')
@@ -194,7 +230,7 @@ print('-------------------------------------------------------------')
 
 # ## Delete dataset
 
-# In[8]:
+# In[9]:
 
 
 print('--------------------- Delete dataset ------------------------')
@@ -204,7 +240,7 @@ payload = nucleus_api.Deletedatasetmodel(dataset=dataset) # Deletedatasetmodel |
 
 try:
     api_response = api_instance.post_delete_dataset(payload)
-    pprint(api_response)
+    #print(api_response)
 except ApiException as e:
     print("Exception when calling DatasetsApi->post_delete_dataset: %s\n" % e)
     
@@ -222,7 +258,7 @@ print('-------------------------------------------------------------')
 
 # ## Get list of topics from dataset
 
-# In[9]:
+# In[10]:
 
 
 print('------------- Get list of topics from dataset --------------')
@@ -231,8 +267,8 @@ dataset = 'trump_tweets'
 query = ''
 custom_stop_words = ["real","hillary"] # str | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
-metadata_selection ="" # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
-time_period =""# str | Time period selection (optional)
+metadata_selection = "" # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
+time_period = ""     # str | Time period selection (optional)
 
 try:
     api_response = api_instance.get_topic_api(
@@ -274,7 +310,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic summary
 
-# In[10]:
+# In[11]:
 
 
 print('------------------- Get topic summary -----------------------')
@@ -309,12 +345,12 @@ for res in api_response.result:
     print('Topic', i, 'summary:')
     print('    Keywords:', res.topic)
     for j in range(len(res.summary)):
+        print(res.summary[j])
         print('    Document ID:', res.summary[j].sourceid)
         print('        Title:', res.summary[j].title)
         print('        Sentences:', res.summary[j].sentences)
-        print('        Author:', res.summary[j].attribute.author)
-        print('        Source:', res.summary[j].attribute.source)
-        print('        Time:', datetime.datetime.fromtimestamp(float(res.summary[j].attribute.time)))
+        print('        Author:', res.summary[j].attribute['author'])
+        print('        Time:', datetime.datetime.fromtimestamp(float(res.summary[j].attribute['time'])))
 
         #print(type(res.summary[j].attribute))
         
@@ -328,7 +364,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic sentiment
 
-# In[11]:
+# In[12]:
 
 
 print('---------------- Get topic sentiment ------------------------')
@@ -376,7 +412,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic consensus
 
-# In[12]:
+# In[13]:
 
 
 print('---------------- Get topic consensus ------------------------')
@@ -414,7 +450,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic historical analysis
 
-# In[13]:
+# In[14]:
 
 
 print('------------ Get topic historical analysis ----------------')
@@ -433,9 +469,9 @@ custom_dict_file = 'custom-sentiment-dict.json' # file | Custom sentiment dictio
 
 try:
     api_response = api_instance.post_topic_historical_analysis_api(
-        dataset, 
-        time_period, 
-        update_period, 
+        dataset=dataset, 
+        time_period=time_period, 
+        update_period=update_period, 
         query=query, 
         custom_stop_words=custom_stop_words, 
         num_topics=num_topics, 
@@ -484,7 +520,7 @@ print('-------------------------------------------------------------')
 
 # ## Get author connectivity
 
-# In[14]:
+# In[15]:
 
 
 print('----------------- Get author connectivity -------------------')
@@ -526,7 +562,7 @@ print('-------------------------------------------------------------')
 
 # # Get topic delta
 
-# In[15]:
+# In[16]:
 
 
 print('------------------- Get topic deltas -----------------------')
@@ -538,23 +574,23 @@ custom_stop_words = [""] # str | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
 num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
 metadata_selection ="" # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
-time_start_t0 = '2018-08-12 00:00:00'
-time_end_t0 = '2018-08-15 13:00:00'
-time_start_t1 = '2018-08-16 00:00:00'
-time_end_t1 = '2018-08-19 00:00:00'
+period_0_start = '2018-08-12 00:00:00'
+period_0_end = '2018-08-15 13:00:00'
+period_1_start = '2018-08-16 00:00:00'
+period_1_end = '2018-08-19 00:00:00'
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"  (optional)
 
 try:
     api_response = api_instance.get_topic_delta_api(
-        dataset, 
+        dataset=dataset, 
         query=query, 
         custom_stop_words=custom_stop_words, 
         num_topics=num_topics, 
         num_keywords=num_keywords,
-        time_start_t0 = time_start_t0,
-        time_end_t0 = time_end_t0,
-        time_start_t1 = time_start_t1,
-        time_end_t1 = time_end_t1,
+        period_0_start= period_0_start,
+        period_0_end=period_0_end,
+        period_1_start=period_1_start,
+        period_1_end=period_1_end,
         metadata_selection=metadata_selection)
 except ApiException as e:
     print("Exception when calling TopicsApi->get_topic_delta_api: %s\n" % e)
@@ -578,7 +614,7 @@ print('-------------------------------------------------------------')
 
 # ## Get document information without content
 
-# In[16]:
+# In[17]:
 
 
 dataset = 'trump_tweets' # str | Dataset name.
@@ -594,9 +630,8 @@ except ApiException as e:
 for res in api_response.result:
     print('Document ID:', res.sourceid)
     print('    Title:', res.title)
-    print('    Author:', res.attribute.author)
-    print('    Source:', res.attribute.source)
-    print('    Time:', datetime.datetime.fromtimestamp(float(res.attribute.time)))
+    print('    Author:', res.attribute['author'])
+    print('    Time:', datetime.datetime.fromtimestamp(float(res.attribute['time'])))
 
     print('---------------')
     
@@ -607,7 +642,7 @@ print('-------------------------------------------------------------')
 
 # ## Display document details
 
-# In[17]:
+# In[18]:
 
 
 print('-------------------------------------------------------------')
@@ -627,9 +662,8 @@ except ApiException as e:
 for res in api_response.result:
     print('Document ID:', res.sourceid)
     print('    Title:', res.title)
-    print('    Author:', res.attribute.author)
-    print('    Source:', res.attribute.source)
-    print('    Time:', datetime.datetime.fromtimestamp(float(res.attribute.time)))
+    print('    Author:', res.attribute['author'])
+    print('    Time:', datetime.datetime.fromtimestamp(float(res.attribute['time'])))
     print('    Content', res.content)
 
     print('---------------')
@@ -641,7 +675,7 @@ print('-------------------------------------------------------------')
 
 # ## Get document recommendations
 
-# In[18]:
+# In[19]:
 
 
 print('------------- Get document recommendations -----------------')
@@ -675,9 +709,8 @@ for res in api_response.result:
         print('        Document ID:', doc.sourceid)
         print('        Title:', doc.title)
         print('        Attribute:', doc.attribute)
-        print('        Author:', doc.attribute.author)
-        print('        Source:', doc.attribute.source)
-        print('        Time:', datetime.datetime.fromtimestamp(float(doc.attribute.time)))
+        print('        Author:', doc.attribute['author'])
+        print('        Time:', datetime.datetime.fromtimestamp(float(doc.attribute['time'])))
         j = j + 1
     
     print('---------------')
@@ -689,16 +722,18 @@ print('-------------------------------------------------------------')
 
 # ## Get document summary
 
-# In[19]:
+# In[20]:
 
 
 print('------------------ Get document summary  --------------------')
 
 dataset = 'trump_tweets' # str | Dataset name.
-doc_title = 'D_Trump2018_8_15_15_4' # str | The title of the document to be summarized.
-custom_stop_words = ["real","hillary"] # ERRORUNKNOWN | List of stop words. (optional)
+doc_title = 'D_Trump2018_8_17_14_10' # str | The title of the document to be summarized.
+custom_stop_words = ["real","hillary"] # List of stop words. (optional)
 summary_length = 6 # int | The maximum number of bullet points a user wants to see in the document summary. (optional) (default to 6)
 context_amount = 0 # int | The number of sentences surrounding key summary sentences in the documents that they come from. (optional) (default to 0)
+short_sentence_length = 0 # int | The sentence length below which a sentence is excluded from summarization (optional) (default to 4)
+long_sentence_length = 40 # int | The sentence length beyond which a sentence is excluded from summarization (optional) (default to 40)
 
 try:
     api_response = api_instance.get_doc_summary_api(
@@ -706,24 +741,57 @@ try:
         doc_title, 
         custom_stop_words=custom_stop_words, 
         summary_length=summary_length, 
-        context_amount=context_amount)
+        context_amount=context_amount,
+        short_sentence_length=short_sentence_length,
+        long_sentence_length=long_sentence_length)
+    
+    print('Summary for', api_response.result.doc_title)
+    for sent in api_response.result.summary.sentences:
+        print('    *', sent)
+
+    #pprint(api_response)   # raw API response
     
 except ApiException as e:
     print("Exception when calling DocumentsApi->get_doc_summary_api: %s\n" % e)
  
-print('Document Summary')
-print('    ID:', api_response.result.summary.sourceid)
-print('    Title:', api_response.result.doc_title)
-print('    Summary:', api_response.result.summary.sentences)
 
-#pprint(api_response)   # raw API response
 print('-------------------------------------------------------------')
 
 
-# In[ ]:
+# # Summarize file from URL 
+
+# In[21]:
 
 
+######################################################################################
+# file_params fields descriptions:  
+#   file_url              : string, the URL at which the file is stored (could be a S3 bucket address for instance)
+#   filename              : OPTIONAL string, filename saved on the server. also serves as the doc_title for summarization
+#   custom_stop_words     : OPTIONAL a string list, user-provided list of stopwords to be excluded from the content analysis leading to document summarization
+#                            ["word1", "word2", ...]. DEFAULT: empty
+#   summary_length        : OPTIONAL an integer, the maximum number of bullet points a user wants to see in the document summary. DEFAULT: 6
+#   context_amount        : OPTIONAL an integer, the number of sentences surrounding key summary sentences in the original document that a user wants to see in the document summary. DEFAULT: 0
+#   short_sentence_length : OPTIONAL an integer, the sentence length below which a sentence is excluded from summarization. DEFAULT: 4 words
+#   long_sentence_length  : OPTIONAL an integer, the sentence length beyond which a sentence is excluded from summarization. DEFAULT: 40 words
+#
+file_params = {
+    'file_url': 'https://s3-us-west-2.amazonaws.com/sumup-public/nucleus-sdk/quarles20181109a.docx',
+    'filename': 'quarles20181109a-newname.pdf',   
+    'custom_stop_words': ["document", "sometimes"], 
+    'summary_length': 6,
+    'context_amount': 0, 
+    'short_sentence_length': 4, 
+    'long_sentence_length': 40}
 
+
+result = summarize_file_url(api_instance, file_params)
+
+#print(result)   
+print('Summary for', result.doc_title, ':')
+for sent in result.summary.sentences:
+    print('    *', sent)
+
+print('-------------------------------------------------------------')
 
 
 # In[ ]:
