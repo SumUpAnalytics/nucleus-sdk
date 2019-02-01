@@ -575,7 +575,6 @@ print('-------------------------------------------------------------')
 print('------------ Get topic historical analysis ----------------')
 
 dataset = 'trump_tweets'   # str | Dataset name.
-time_period = '6M'  # str | Time period selection (default to 1M)
 update_period = 'd' # str | Frequency at which the historical anlaysis is performed (default to d)
 query = '' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
 custom_stop_words = ["real","hillary"] # str | List of stop words (optional)
@@ -586,7 +585,7 @@ excluded_docs = [''] # str | List of document IDs that should be excluded from t
 custom_dict_file = 'custom-sentiment-dict.json' # file | Custom sentiment dictionary JSON file. (optional)
 
 metadata_selection ="" # dict | JSON object specifying metadata-based queries on the dataset, of type {"metadata_field": "selected_values"} (optional)
-time_period = ""     # str | Time period selection. Choices: ["1M","3M","6M","12M","3Y","5Y",""] (optional)
+time_period = "6M"     # str | Time period selection. Choices: ["1M","3M","6M","12M","3Y","5Y",""] (optional)
 period_start = "" # str | Start date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS"
 period_end = "" # str | End date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS"
 
@@ -744,8 +743,8 @@ print('-------------------------------------------------------------')
 
 
 dataset = 'trump_tweets' # str | Dataset name.
-doc_titles = ['D_Trump2018_8_18_1_47']   # str | The title of the document to retrieve. Example: \" \"title 1\" \"  (optional)
-doc_ids = ['11', '12', '20']      # int | The docid of the document to retrieve. Example: \"docid1\"  (optional)
+doc_titles = ['D_Trump2018_8_18_1_47']   # str | The title of the documents to retrieve. Example: ["title1", "title2", ..., "titleN"]  (optional)
+doc_ids = ['11', '12', '20']      # str | The docid of the documents to retrieve. Example: ["docid1", "docid2", ..., "docidN"]  (optional)
 
 try:
     api_response = api_instance.get_doc_info(dataset, doc_titles=doc_titles, doc_ids=doc_ids)
@@ -803,8 +802,8 @@ print('-------------------------------------------------------------')
 print('-------------------------------------------------------------')
 
 dataset = 'trump_tweets' # str | Dataset name.
-#doc_titles = ['D_Trump2018_8_18_1_47']   # str | The title of the document to retrieve. Example: \" \"title 1\" \"  (optional)
-doc_ids = ['1']      # int | The docid of the document to retrieve. Example: \"docid1\"  (optional)
+#doc_titles = ['D_Trump2018_8_18_1_47']   # str | The title of the documents to retrieve. Example: ["title1", "title2", ..., "titleN"]  (optional)
+doc_ids = ['1']      # str | The docid of the documents to retrieve. Example: ["docid1", "docid2", ..., "docidN"]  (optional)
 
 try:
     api_response = api_instance.get_doc_display(dataset, doc_ids=doc_ids)
@@ -866,7 +865,7 @@ print('------------- Get document recommendations -----------------')
 dataset = 'trump_tweets' # str | Dataset name.
 #query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
 query = ''
-custom_stop_words = ["real","hillary"] # ERRORUNKNOWN | List of stop words. (optional)
+custom_stop_words = ["real","hillary"] # str | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
 num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
