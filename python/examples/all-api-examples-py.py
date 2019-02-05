@@ -185,16 +185,18 @@ dataset = 'dataset_test' # str | Dataset name.
 query = '' # str | Fulltext query, using mysql MATCH boolean query format. (optional)
 metadata_selection = '' # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
 time_period = '' # str | Time period selection (optional)
+period_start = "" # str | Start date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS"
+period_end = "" # str | End date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS"
 
 try:
-    api_response = api_instance.get_dataset_info(
-        dataset, 
-        query=query, 
-        metadata_selection=metadata_selection, 
-        time_period=time_period)
+    payload = nucleus_api.DatasetInfo(dataset=dataset, 
+                                    query=query, 
+                                    metadata_selection=metadata_selection, 
+                                    time_period=time_period)
+    api_response = api_instance.post_dataset_info(payload)
     #print('api_response=', api_response) # raw API response
 except ApiException as e:
-    print("Exception when calling DatasetsApi->get_dataset_info: %s\n" % e)
+    print("Exception when calling DatasetsApi->post_dataset_info: %s\n" % e)
 
 print('Information about dataset', dataset)
 print('    Language:', api_response.result.detected_language)
@@ -271,15 +273,15 @@ metadata_selection = "" # dict | JSON object specifying metadata-based queries o
 time_period = ""     # str | Time period selection. Choices: ["1M","3M","6M","12M","3Y","5Y",""] (optional)
 
 try:
-    api_response = api_instance.get_topic_api(
-        dataset,                                
-        query=query,                   
-        custom_stop_words=custom_stop_words,     
-        num_topics=num_topics,
-        metadata_selection=metadata_selection,
-        time_period=time_period)
+    payload = nucleus_api.Topics(dataset=dataset,                                
+                                query=query,                   
+                                custom_stop_words=custom_stop_words,     
+                                num_topics=num_topics,
+                                metadata_selection=metadata_selection,
+                                time_period=time_period)
+    api_response = api_instance.post_topic_api(payload)        
 except ApiException as e:
-    print("Exception when calling TopicsApi->get_topic_api: %s\n" % e)
+    print("Exception when calling TopicsApi->post_topic_api: %s\n" % e)
     
 #print(api_response)
 i = 1
@@ -321,19 +323,19 @@ custom_stop_words = ["real","hillary"] # str | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
 metadata_selection = "" # dict | JSON object specifying metadata-based queries on the dataset, of type {"metadata_field": "selected_values"} (optional)
 period_start = "2016-10-15 04:30:00" # str | Start date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS"
-period_end = "2018-01-01 12:00:05" # str | End date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS"
+period_end = "2019-01-01 12:00:05" # str | End date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS"
 
 try:
-    api_response = api_instance.get_topic_api(
-        dataset,                                
-        query=query,                   
-        custom_stop_words=custom_stop_words,     
-        num_topics=num_topics,
-        metadata_selection=metadata_selection,
-        period_start=period_start,
-        period_end=period_end)
+    payload = nucleus_api.Topics(dataset=dataset,                                
+                                query=query,                   
+                                custom_stop_words=custom_stop_words,     
+                                num_topics=num_topics,
+                                metadata_selection=metadata_selection,
+                                period_start=period_start,
+                                period_end=period_end)
+    api_response = api_instance.post_topic_api(payload)        
 except ApiException as e:
-    print("Exception when calling TopicsApi->get_topic_api: %s\n" % e)
+    print("Exception when calling TopicsApi->post_topic_api: %s\n" % e)
     
 #print(api_response)
 i = 1
@@ -376,14 +378,14 @@ num_topics = 8 # int | Number of topics to be extracted from the dataset. (optio
 metadata_selection = {"author": "D_Trump16"} # dict | JSON object specifying metadata-based queries on the dataset, of type {"metadata_field": "selected_values"} (optional)
 
 try:
-    api_response = api_instance.get_topic_api(
-        dataset,                                
-        query=query,                   
-        custom_stop_words=custom_stop_words,     
-        num_topics=num_topics,
-        metadata_selection=metadata_selection)
+    payload = nucleus_api.Topics(dataset=dataset,                                
+                                query=query,                   
+                                custom_stop_words=custom_stop_words,     
+                                num_topics=num_topics,
+                                metadata_selection=metadata_selection)
+    api_response = api_instance.post_topic_api(payload)        
 except ApiException as e:
-    print("Exception when calling TopicsApi->get_topic_api: %s\n" % e)
+    print("Exception when calling TopicsApi->post_topic_api: %s\n" % e)
     
 #print(api_response)
 i = 1
@@ -435,18 +437,18 @@ period_start = "" # str | Start date for the period to analyze within the datase
 period_end = "" # str | End date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS"
 
 try:
-    api_response = api_instance.get_topic_summary_api(
-        dataset, 
-        query=query, 
-        custom_stop_words=custom_stop_words, 
-        num_topics=num_topics, 
-        num_keywords=num_keywords,
-        metadata_selection=metadata_selection,
-        summary_length=summary_length, 
-        context_amount=context_amount, 
-        num_docs=num_docs)
+    payload = nucleus_api.Summary(dataset=dataset, 
+                                    query=query, 
+                                    custom_stop_words=custom_stop_words, 
+                                    num_topics=num_topics, 
+                                    num_keywords=num_keywords,
+                                    metadata_selection=metadata_selection,
+                                    summary_length=summary_length, 
+                                    context_amount=context_amount, 
+                                    num_docs=num_docs)
+    api_response = api_instance.post_topic_summary_api(payload)        
 except ApiException as e:
-    print("Exception when calling TopicsApi->get_topic_summary_api: %s\n" % e)
+    print("Exception when calling TopicsApi->post_topic_summary_api: %s\n" % e)
 
 i = 1
 for res in api_response.result:
@@ -459,8 +461,6 @@ for res in api_response.result:
         print('        Sentences:', res.summary[j].sentences)
         print('        Author:', res.summary[j].attribute['author'])
         print('        Time:', datetime.datetime.fromtimestamp(float(res.summary[j].attribute['time'])))
-
-        #print(type(res.summary[j].attribute))
         
     print('---------------')
     i = i + 1
@@ -483,7 +483,7 @@ custom_stop_words = ["real","hillary"] # str | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
 num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
-custom_dict_file = 'custom-sentiment-dict.json' # file | Custom sentiment dictionary JSON file. (optional)
+custom_dict_file = {"great": 1.0, "awful": -1.0, "clinton":-1.0, "trump":1.0} # file | Custom sentiment dictionary JSON file. Example, {"field1": value1, ..., "fieldN": valueN} (optional)
 
 metadata_selection ="" # dict | JSON object specifying metadata-based queries on the dataset, of type {"metadata_field": "selected_values"} (optional)
 time_period = ""     # str | Time period selection. Choices: ["1M","3M","6M","12M","3Y","5Y",""] (optional)
@@ -491,13 +491,13 @@ period_start = "" # str | Start date for the period to analyze within the datase
 period_end = "" # str | End date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS"
 
 try:
-    api_response = api_instance.post_topic_sentiment_api(
-        dataset, 
-        query=query, 
-        custom_stop_words=custom_stop_words, 
-        num_topics=num_topics, 
-        num_keywords=num_keywords,
-        custom_dict_file=custom_dict_file)
+    payload = nucleus_api.Sentiment(dataset=dataset, 
+                                    query=query, 
+                                    custom_stop_words=custom_stop_words, 
+                                    num_topics=num_topics, 
+                                    num_keywords=num_keywords,
+                                    custom_dict_file=custom_dict_file)
+    api_response = api_instance.post_topic_sentiment_api(payload)
     
 except ApiException as e:
     print("Exception when calling TopicsApi->post_topic_sentiment_api: %s\n" % e)
@@ -535,7 +535,7 @@ custom_stop_words = ["real","hillary"] # str | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
 num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
 excluded_docs = [''] # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
-custom_dict_file = 'custom-sentiment-dict.json'  # file | Custom sentiment dictionary JSON file. (optional)
+custom_dict_file = {"great": 1.0, "awful": -1.0, "clinton":-1.0, "trump":1.0} # file | Custom sentiment dictionary JSON file. Example, {"field1": value1, ..., "fieldN": valueN} (optional)
 
 metadata_selection ="" # dict | JSON object specifying metadata-based queries on the dataset, of type {"metadata_field": "selected_values"} (optional)
 time_period = ""     # str | Time period selection. Choices: ["1M","3M","6M","12M","3Y","5Y",""] (optional)
@@ -543,13 +543,13 @@ period_start = "" # str | Start date for the period to analyze within the datase
 period_end = "" # str | End date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS"
 
 try:
-    api_response = api_instance.post_topic_consensus_api(
-        dataset, 
-        query=query, 
-        custom_stop_words=custom_stop_words, 
-        num_topics=num_topics, 
-        num_keywords=num_keywords,
-        custom_dict_file=custom_dict_file)
+    payload = nucleus_api.Consensus(dataset=dataset, 
+                                    query=query, 
+                                    custom_stop_words=custom_stop_words, 
+                                    num_topics=num_topics, 
+                                    num_keywords=num_keywords,
+                                    custom_dict_file=custom_dict_file)
+    api_response = api_instance.post_topic_sentiment_api(payload)
 except ApiException as e:
     print("Exception when calling TopicsApi->post_topic_consensus_api: %s\n" % e)
     
@@ -582,7 +582,7 @@ num_topics = 8 # int | Number of topics to be extracted from the dataset. (optio
 num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
 inc_step = 1 # int | Number of increments of the udpate period in between two historical computations. (optional) (default to 1)
 excluded_docs = [''] # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
-custom_dict_file = 'custom-sentiment-dict.json' # file | Custom sentiment dictionary JSON file. (optional)
+custom_dict_file = {} # file | Custom sentiment dictionary JSON file. Example, {"field1": value1, ..., "fieldN": valueN} (optional)
 
 metadata_selection ="" # dict | JSON object specifying metadata-based queries on the dataset, of type {"metadata_field": "selected_values"} (optional)
 time_period = "6M"     # str | Time period selection. Choices: ["1M","3M","6M","12M","3Y","5Y",""] (optional)
@@ -590,19 +590,18 @@ period_start = "" # str | Start date for the period to analyze within the datase
 period_end = "" # str | End date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS"
 
 try:
-    api_response = api_instance.post_topic_historical_analysis_api(
-        dataset=dataset, 
-        time_period=time_period, 
-        update_period=update_period, 
-        query=query, 
-        custom_stop_words=custom_stop_words, 
-        num_topics=num_topics, 
-        num_keywords=num_keywords, 
-        metadata_selection=metadata_selection, 
-        inc_step=inc_step, 
-        excluded_docs=excluded_docs,
-        custom_dict_file=custom_dict_file)
-    
+    payload = nucleus_api.HistoAnalysis(dataset=dataset, 
+                                        time_period=time_period, 
+                                        update_period=update_period, 
+                                        query=query, 
+                                        custom_stop_words=custom_stop_words, 
+                                        num_topics=num_topics, 
+                                        num_keywords=num_keywords, 
+                                        metadata_selection=metadata_selection, 
+                                        inc_step=inc_step, 
+                                        excluded_docs=excluded_docs,
+                                        custom_dict_file=custom_dict_file)
+    api_response = api_instance.post_topic_historical_analysis_api(payload)
 except ApiException as e:
     print("Exception when calling TopicsApi->post_topic_historical_analysis_api: %s\n" % e)
 
@@ -658,17 +657,16 @@ period_start = "" # str | Start date for the period to analyze within the datase
 period_end = "" # str | End date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS"
 
 try:
-    api_response = api_instance.get_author_connectivity_api(
-        dataset, 
-        target_author, 
-        query=query, 
-        custom_stop_words=custom_stop_words, 
-        time_period=time_period, 
-        metadata_selection=metadata_selection, 
-        excluded_docs=excluded_docs)
-    
+    payload = nucleus_api.AuthorConnection(dataset=dataset, 
+                                            target_author=target_author, 
+                                            query=query, 
+                                            custom_stop_words=custom_stop_words, 
+                                            time_period=time_period, 
+                                            metadata_selection=metadata_selection, 
+                                            excluded_docs=excluded_docs)
+    api_response = api_instance.post_author_connectivity_api(payload)    
 except ApiException as e:
-    print("Exception when calling TopicsApi->get_author_connectivity_api: %s\n" % e)
+    print("Exception when calling TopicsApi->post_author_connectivity_api: %s\n" % e)
 
 res = api_response.result
 print('Mainstream connections:')
@@ -706,19 +704,19 @@ period_1_end = '2018-08-19 00:00:00'
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
 
 try:
-    api_response = api_instance.get_topic_delta_api(
-        dataset=dataset, 
-        query=query, 
-        custom_stop_words=custom_stop_words, 
-        num_topics=num_topics, 
-        num_keywords=num_keywords,
-        period_0_start= period_0_start,
-        period_0_end=period_0_end,
-        period_1_start=period_1_start,
-        period_1_end=period_1_end,
-        metadata_selection=metadata_selection)
+    payload = nucleus_api.TopicDelta(dataset=dataset, 
+                                    query=query, 
+                                    custom_stop_words=custom_stop_words, 
+                                    num_topics=num_topics, 
+                                    num_keywords=num_keywords,
+                                    period_0_start= period_0_start,
+                                    period_0_end=period_0_end,
+                                    period_1_start=period_1_start,
+                                    period_1_end=period_1_end,
+                                    metadata_selection=metadata_selection)
+    api_response = api_instance.post_topic_delta_api(payload)        
 except ApiException as e:
-    print("Exception when calling TopicsApi->get_topic_delta_api: %s\n" % e)
+    print("Exception when calling TopicsApi->post_topic_delta_api: %s\n" % e)
 
 i = 1
 for res in api_response.result:
@@ -747,10 +745,11 @@ doc_titles = ['D_Trump2018_8_18_1_47']   # str | The title of the documents to r
 doc_ids = ['11', '12', '20']      # str | The docid of the documents to retrieve. Example: ["docid1", "docid2", ..., "docidN"]  (optional)
 
 try:
-    api_response = api_instance.get_doc_info(dataset, doc_titles=doc_titles, doc_ids=doc_ids)
+    payload = nucleus_api.DocInfo(dataset=dataset, doc_titles=doc_titles, doc_ids=doc_ids)
+    api_response = api_instance.post_doc_info(payload)
     
 except ApiException as e:
-    print("Exception when calling DocumentsApi->get_doc_info: %s\n" % e)
+    print("Exception when calling DocumentsApi->post_doc_info: %s\n" % e)
     
 for res in api_response.result:
     print('Document ID:', res.sourceid)
@@ -770,16 +769,15 @@ print('-------------------------------------------------------------')
 # In[23]:
 
 
-print('-------------------------------------------------------------')
-
 dataset = 'trump_tweets' # str | Dataset name.
 metadata_selection = {"author": "D_Trump16"}      # dict | A selector off metadata. Example: {"field": "value"}  (optional)
 
 try:
-    api_response = api_instance.get_doc_info(dataset, metadata_selection=metadata_selection)
+    payload = nucleus_api.DocInfo(dataset=dataset, metadata_selection=metadata_selection)
+    api_response = api_instance.post_doc_info(payload)
     
 except ApiException as e:
-    print("Exception when calling DocumentsApi->get_doc_info_api: %s\n" % e)
+    print("Exception when calling DocumentsApi->post_doc_info_api: %s\n" % e)
 
 for res in api_response.result:
     print('Document ID:', res.sourceid)
@@ -799,17 +797,16 @@ print('-------------------------------------------------------------')
 # In[18]:
 
 
-print('-------------------------------------------------------------')
-
 dataset = 'trump_tweets' # str | Dataset name.
 #doc_titles = ['D_Trump2018_8_18_1_47']   # str | The title of the documents to retrieve. Example: ["title1", "title2", ..., "titleN"]  (optional)
 doc_ids = ['1']      # str | The docid of the documents to retrieve. Example: ["docid1", "docid2", ..., "docidN"]  (optional)
 
 try:
-    api_response = api_instance.get_doc_display(dataset, doc_ids=doc_ids)
+    payload = nucleus_api.DocDisplay(dataset, doc_ids=doc_ids)
+    api_response = api_instance.post_doc_display(payload)
     
 except ApiException as e:
-    print("Exception when calling DocumentsApi->get_doc_display_api: %s\n" % e)
+    print("Exception when calling DocumentsApi->post_doc_display_api: %s\n" % e)
 
 for res in api_response.result:
     print('Document ID:', res.sourceid)
@@ -830,16 +827,15 @@ print('-------------------------------------------------------------')
 # In[22]:
 
 
-print('-------------------------------------------------------------')
-
 dataset = 'trump_tweets' # str | Dataset name.
 metadata_selection = {"author": "D_Trump16"}      # dict | A selector off metadata. Example: {"field": "value"}  (optional)
 
 try:
-    api_response = api_instance.get_doc_display(dataset, metadata_selection=metadata_selection)
+    payload = nucleus_api.DocDisplay(dataset=dataset, metadata_selection=metadata_selection)
+    api_response = api_instance.post_doc_display(payload)
     
 except ApiException as e:
-    print("Exception when calling DocumentsApi->get_doc_display_api: %s\n" % e)
+    print("Exception when calling DocumentsApi->post_doc_display_api: %s\n" % e)
 
 for res in api_response.result:
     print('Document ID:', res.sourceid)
@@ -871,14 +867,14 @@ num_keywords = 8 # int | Number of keywords per topic that is extracted from the
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
 
 try:
-    api_response = api_instance.get_doc_recommend_api(
-        dataset, 
-        query=query, 
-        custom_stop_words=custom_stop_words, 
-        num_topics=num_topics, 
-        num_keywords=num_keywords)
+    payload = nucleus_api.RecommendDocs(dataset=dataset, 
+                                        query=query, 
+                                        custom_stop_words=custom_stop_words, 
+                                        num_topics=num_topics, 
+                                        num_keywords=num_keywords)
+    api_response = api_instance.post_doc_recommend_api(payload)
 except ApiException as e:
-    print("Exception when calling DocumentsApi->get_doc_recommend_api: %s\n" % e)
+    print("Exception when calling DocumentsApi->post_doc_recommend_api: %s\n" % e)
     
 i = 1
 for res in api_response.result:
@@ -918,14 +914,14 @@ short_sentence_length = 0 # int | The sentence length below which a sentence is 
 long_sentence_length = 40 # int | The sentence length beyond which a sentence is excluded from summarization (optional) (default to 40)
 
 try:
-    api_response = api_instance.get_doc_summary_api(
-        dataset, 
-        doc_title, 
-        custom_stop_words=custom_stop_words, 
-        summary_length=summary_length, 
-        context_amount=context_amount,
-        short_sentence_length=short_sentence_length,
-        long_sentence_length=long_sentence_length)
+    payload = nucleus_api.SummarizedDocs(dataset=dataset, 
+                                        doc_title=doc_title, 
+                                        custom_stop_words=custom_stop_words, 
+                                        summary_length=summary_length, 
+                                        context_amount=context_amount,
+                                        short_sentence_length=short_sentence_length,
+                                        long_sentence_length=long_sentence_length)
+    api_response = api_instance.post_doc_summary_api(payload)
     
     print('Summary for', api_response.result.doc_title)
     for sent in api_response.result.summary.sentences:
@@ -934,7 +930,7 @@ try:
     #pprint(api_response)   # raw API response
     
 except ApiException as e:
-    print("Exception when calling DocumentsApi->get_doc_summary_api: %s\n" % e)
+    print("Exception when calling DocumentsApi->post_doc_summary_api: %s\n" % e)
  
 
 print('-------------------------------------------------------------')
