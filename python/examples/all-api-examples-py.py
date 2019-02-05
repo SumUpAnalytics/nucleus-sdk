@@ -33,7 +33,6 @@ configuration = nucleus_api.Configuration()
 configuration.host = 'UPDATE-WITH-API-HOST'
 configuration.api_key['x-api-key'] = 'UPDATE-WITH-API-KEY'
 
-
 # Create API instance
 api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
 
@@ -42,7 +41,7 @@ api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
 
 # ## Append file from local drive to dataset
 
-# In[2]:
+# In[3]:
 
 
 print('--------- Append file from local drive to dataset -----------')
@@ -65,7 +64,7 @@ print('-------------------------------------------------------------')
 
 # # Append all files from local folder to dataset
 
-# In[3]:
+# In[4]:
 
 
 print('--------- Append all files from local folder to dataset -----------')
@@ -94,7 +93,7 @@ print('-------------------------------------------------------------')
 
 # ## Append file from URL to dataset
 
-# In[4]:
+# In[5]:
 
 
 print('------------ Append file from URL to dataset ---------------')
@@ -122,7 +121,7 @@ print('-------------------------------------------------------------')
 
 # ## Append json from csv to dataset
 
-# In[5]:
+# In[6]:
 
 
 # This dataset will be used to test all topics and documents APIs
@@ -156,7 +155,7 @@ print('-------------------------------------------------------------')
 
 # ## List available datasets
 
-# In[6]:
+# In[7]:
 
 
 print('---------------- List available datasets ---------------------')
@@ -177,7 +176,7 @@ print('-------------------------------------------------------------')
 
 # ## Get dataset information
 
-# In[7]:
+# In[8]:
 
 
 print('--------------- Get dataset information -------------------')
@@ -210,7 +209,7 @@ print('-------------------------------------------------------------')
 
 # ## Delete document
 
-# In[8]:
+# In[9]:
 
 
 print('--------------------- Delete document -----------------------')
@@ -232,7 +231,7 @@ print('-------------------------------------------------------------')
 
 # ## Delete dataset
 
-# In[9]:
+# In[10]:
 
 
 print('--------------------- Delete dataset ------------------------')
@@ -260,7 +259,7 @@ print('-------------------------------------------------------------')
 
 # ## Get list of topics from dataset
 
-# In[10]:
+# In[11]:
 
 
 print('------------- Get list of topics from dataset --------------')
@@ -312,7 +311,7 @@ print('-------------------------------------------------------------')
 
 # ## Get list of topics from dataset with a time range selection
 
-# In[24]:
+# In[12]:
 
 
 print('------------- Get list of topics from dataset --------------')
@@ -366,7 +365,7 @@ print('-------------------------------------------------------------')
 
 # ## Get list of topics from dataset with a metadata selection
 
-# In[25]:
+# In[13]:
 
 
 print('------------- Get list of topics from dataset --------------')
@@ -416,7 +415,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic summary
 
-# In[11]:
+# In[14]:
 
 
 print('------------------- Get topic summary -----------------------')
@@ -472,7 +471,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic sentiment
 
-# In[12]:
+# In[15]:
 
 
 print('---------------- Get topic sentiment ------------------------')
@@ -525,7 +524,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic consensus
 
-# In[13]:
+# In[16]:
 
 
 print('---------------- Get topic consensus ------------------------')
@@ -549,7 +548,7 @@ try:
                                     num_topics=num_topics, 
                                     num_keywords=num_keywords,
                                     custom_dict_file=custom_dict_file)
-    api_response = api_instance.post_topic_sentiment_api(payload)
+    api_response = api_instance.post_topic_consensus_api(payload)
 except ApiException as e:
     print("Exception when calling TopicsApi->post_topic_consensus_api: %s\n" % e)
     
@@ -569,7 +568,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic historical analysis
 
-# In[14]:
+# In[17]:
 
 
 print('------------ Get topic historical analysis ----------------')
@@ -641,7 +640,7 @@ print('-------------------------------------------------------------')
 
 # ## Get author connectivity
 
-# In[15]:
+# In[18]:
 
 
 print('----------------- Get author connectivity -------------------')
@@ -685,7 +684,7 @@ print('-------------------------------------------------------------')
 
 # # Get topic delta
 
-# In[16]:
+# In[19]:
 
 
 print('------------------- Get topic deltas -----------------------')
@@ -732,12 +731,11 @@ for res in api_response.result:
 print('-------------------------------------------------------------')
 
 
-
 # # Document APIs
 
 # ## Get document information without content
 
-# In[17]:
+# In[20]:
 
 
 dataset = 'trump_tweets' # str | Dataset name.
@@ -766,7 +764,7 @@ print('-------------------------------------------------------------')
 
 # ## Display document info with a metadata selection
 
-# In[23]:
+# In[ ]:
 
 
 dataset = 'trump_tweets' # str | Dataset name.
@@ -794,7 +792,7 @@ print('-------------------------------------------------------------')
 
 # ## Display document details
 
-# In[18]:
+# In[ ]:
 
 
 dataset = 'trump_tweets' # str | Dataset name.
@@ -824,7 +822,7 @@ print('-------------------------------------------------------------')
 
 # ## Display document details with a metadata selection
 
-# In[22]:
+# In[ ]:
 
 
 dataset = 'trump_tweets' # str | Dataset name.
@@ -853,7 +851,7 @@ print('-------------------------------------------------------------')
 
 # ## Get document recommendations
 
-# In[19]:
+# In[ ]:
 
 
 print('------------- Get document recommendations -----------------')
@@ -900,7 +898,7 @@ print('-------------------------------------------------------------')
 
 # ## Get document summary
 
-# In[20]:
+# In[ ]:
 
 
 print('------------------ Get document summary  --------------------')
@@ -914,7 +912,7 @@ short_sentence_length = 0 # int | The sentence length below which a sentence is 
 long_sentence_length = 40 # int | The sentence length beyond which a sentence is excluded from summarization (optional) (default to 40)
 
 try:
-    payload = nucleus_api.SummarizedDocs(dataset=dataset, 
+    payload = nucleus_api.SummarizeDocs(dataset=dataset, 
                                         doc_title=doc_title, 
                                         custom_stop_words=custom_stop_words, 
                                         summary_length=summary_length, 
@@ -931,14 +929,14 @@ try:
     
 except ApiException as e:
     print("Exception when calling DocumentsApi->post_doc_summary_api: %s\n" % e)
- 
+
 
 print('-------------------------------------------------------------')
 
 
 # # Summarize file from URL 
 
-# In[21]:
+# In[ ]:
 
 
 ######################################################################################
@@ -970,10 +968,4 @@ for sent in result.summary.sentences:
     print('    *', sent)
 
 print('-------------------------------------------------------------')
-
-
-# In[ ]:
-
-
-
 
