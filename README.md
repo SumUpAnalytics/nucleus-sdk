@@ -17,12 +17,12 @@ Those APIs enable end-users to perform the following tasks:
 
 2. Dataset Management
 * Dataset creation (whole pre-processing pipeline)
-* Retrieval of documents metadata
-* Document display
+* Metadata-based documents' selection
+* Document' display
 * Selective documents deletion
 * Dataset deletion
 
-10 languages are currently supported by those APIs: English, Mandarin, Japanese, Portuguese, Spanish, German, Russian, Italian, French, Farsi.
+11 languages are currently supported by those APIs: English, Mandarin, Japanese, Portuguese, Spanish, German, Russian, Italian, French, Arabic, Farsi.
 
 The core task, topic modeling, has been benchmarked against Scikit-Learn, Gensim and AWS Comprehend topic models and delivers 100x speed-up with 2x accuracy on a wide range of dataset sizes, complexity and languages. More details can be found at www.sumup.ai in Nucleus Solution Brief (https://www.sumup.ai/SumUp%20Real-Time%20Text%20Analytics%20Solution%20Brief.pdf)
 
