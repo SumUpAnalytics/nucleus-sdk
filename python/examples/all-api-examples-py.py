@@ -1,6 +1,12 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+# Copyright (c) 2018 SumUp Analytics, Inc. All Rights Reserved.
+# 
+# NOTICE: All information contained herein is, and remains the property of SumUp Analytics Inc. and its suppliers, if any. The intellectual and technical concepts contained herein are proprietary to SumUp Analytics Inc. and its suppliers and may be covered by U.S. and Foreign Patents, patents in process, and are protected by trade secret or copyright law.
+# 
+# Dissemination of this information or reproduction of this material is strictly forbidden unless prior written permission is obtained from SumUp Analytics Inc.
+
 # # Initialization, configure API host and key, and create new API instance
 
 # In[1]:
@@ -41,7 +47,7 @@ api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
 
 # ## Append file from local drive to dataset
 
-# In[3]:
+# In[2]:
 
 
 print('--------- Append file from local drive to dataset -----------')
@@ -64,7 +70,7 @@ print('-------------------------------------------------------------')
 
 # # Append all files from local folder to dataset
 
-# In[4]:
+# In[3]:
 
 
 print('--------- Append all files from local folder to dataset -----------')
@@ -93,7 +99,7 @@ print('-------------------------------------------------------------')
 
 # ## Append file from URL to dataset
 
-# In[5]:
+# In[4]:
 
 
 print('------------ Append file from URL to dataset ---------------')
@@ -121,7 +127,7 @@ print('-------------------------------------------------------------')
 
 # ## Append json from csv to dataset
 
-# In[6]:
+# In[5]:
 
 
 # This dataset will be used to test all topics and documents APIs
@@ -155,7 +161,7 @@ print('-------------------------------------------------------------')
 
 # ## List available datasets
 
-# In[7]:
+# In[6]:
 
 
 print('---------------- List available datasets ---------------------')
@@ -176,7 +182,7 @@ print('-------------------------------------------------------------')
 
 # ## Get dataset information
 
-# In[8]:
+# In[7]:
 
 
 print('--------------- Get dataset information -------------------')
@@ -209,7 +215,7 @@ print('-------------------------------------------------------------')
 
 # ## Delete document
 
-# In[9]:
+# In[8]:
 
 
 print('--------------------- Delete document -----------------------')
@@ -231,7 +237,7 @@ print('-------------------------------------------------------------')
 
 # ## Delete dataset
 
-# In[10]:
+# In[9]:
 
 
 print('--------------------- Delete dataset ------------------------')
@@ -259,7 +265,7 @@ print('-------------------------------------------------------------')
 
 # ## Get list of topics from dataset
 
-# In[11]:
+# In[10]:
 
 
 print('------------- Get list of topics from dataset --------------')
@@ -311,7 +317,7 @@ print('-------------------------------------------------------------')
 
 # ## Get list of topics from dataset with a time range selection
 
-# In[12]:
+# In[11]:
 
 
 print('------------- Get list of topics from dataset --------------')
@@ -365,7 +371,7 @@ print('-------------------------------------------------------------')
 
 # ## Get list of topics from dataset with a metadata selection
 
-# In[13]:
+# In[12]:
 
 
 print('------------- Get list of topics from dataset --------------')
@@ -415,7 +421,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic summary
 
-# In[14]:
+# In[13]:
 
 
 print('------------------- Get topic summary -----------------------')
@@ -471,7 +477,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic sentiment
 
-# In[15]:
+# In[14]:
 
 
 print('---------------- Get topic sentiment ------------------------')
@@ -524,7 +530,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic consensus
 
-# In[16]:
+# In[15]:
 
 
 print('---------------- Get topic consensus ------------------------')
@@ -568,13 +574,13 @@ print('-------------------------------------------------------------')
 
 # ## Get topic historical analysis
 
-# In[17]:
+# In[16]:
 
 
 print('------------ Get topic historical analysis ----------------')
 
 dataset = 'trump_tweets'   # str | Dataset name.
-update_period = 'd' # str | Frequency at which the historical anlaysis is performed (default to d)
+update_period = 'd' # str | Frequency at which the historical anlaysis is performed. choices=["d","m","H","M"] (default to d)
 query = '' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
 custom_stop_words = ["real","hillary"] # str | List of stop words (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
@@ -589,17 +595,18 @@ period_start = "" # str | Start date for the period to analyze within the datase
 period_end = "" # str | End date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS"
 
 try:
-    payload = nucleus_api.HistoAnalysis(dataset=dataset, 
-                                        time_period=time_period, 
-                                        update_period=update_period, 
-                                        query=query, 
-                                        custom_stop_words=custom_stop_words, 
-                                        num_topics=num_topics, 
-                                        num_keywords=num_keywords, 
-                                        metadata_selection=metadata_selection, 
-                                        inc_step=inc_step, 
-                                        excluded_docs=excluded_docs,
-                                        custom_dict_file=custom_dict_file)
+    payload = nucleus_api.TopicHistoryModel(
+        dataset=dataset, 
+        time_period=time_period, 
+        update_period=update_period, 
+        query=query, 
+        custom_stop_words=custom_stop_words, 
+        num_topics=num_topics, 
+        num_keywords=num_keywords, 
+        metadata_selection=metadata_selection, 
+        inc_step=inc_step, 
+        excluded_docs=excluded_docs,
+        custom_dict_file=custom_dict_file)
     api_response = api_instance.post_topic_historical_analysis_api(payload)
 except ApiException as e:
     print("Exception when calling TopicsApi->post_topic_historical_analysis_api: %s\n" % e)
@@ -640,7 +647,7 @@ print('-------------------------------------------------------------')
 
 # ## Get author connectivity
 
-# In[18]:
+# In[17]:
 
 
 print('----------------- Get author connectivity -------------------')
@@ -684,7 +691,7 @@ print('-------------------------------------------------------------')
 
 # # Get topic delta
 
-# In[19]:
+# In[18]:
 
 
 print('------------------- Get topic deltas -----------------------')
@@ -735,7 +742,7 @@ print('-------------------------------------------------------------')
 
 # ## Get document information without content
 
-# In[20]:
+# In[19]:
 
 
 dataset = 'trump_tweets' # str | Dataset name.
@@ -743,7 +750,11 @@ doc_titles = ['D_Trump2018_8_18_1_47']   # str | The title of the documents to r
 doc_ids = ['11', '12', '20']      # str | The docid of the documents to retrieve. Example: ["docid1", "docid2", ..., "docidN"]  (optional)
 
 try:
-    payload = nucleus_api.DocInfo(dataset=dataset, doc_titles=doc_titles, doc_ids=doc_ids)
+    payload = nucleus_api.DocInfo(
+        dataset=dataset, 
+        doc_titles=doc_titles, 
+        doc_ids=doc_ids,
+        metadata_selection='')
     api_response = api_instance.post_doc_info(payload)
     
 except ApiException as e:
@@ -764,7 +775,7 @@ print('-------------------------------------------------------------')
 
 # ## Display document info with a metadata selection
 
-# In[ ]:
+# In[20]:
 
 
 dataset = 'trump_tweets' # str | Dataset name.
@@ -792,7 +803,7 @@ print('-------------------------------------------------------------')
 
 # ## Display document details
 
-# In[ ]:
+# In[21]:
 
 
 dataset = 'trump_tweets' # str | Dataset name.
@@ -822,7 +833,7 @@ print('-------------------------------------------------------------')
 
 # ## Display document details with a metadata selection
 
-# In[ ]:
+# In[22]:
 
 
 dataset = 'trump_tweets' # str | Dataset name.
@@ -851,7 +862,7 @@ print('-------------------------------------------------------------')
 
 # ## Get document recommendations
 
-# In[ ]:
+# In[23]:
 
 
 print('------------- Get document recommendations -----------------')
@@ -898,7 +909,7 @@ print('-------------------------------------------------------------')
 
 # ## Get document summary
 
-# In[ ]:
+# In[24]:
 
 
 print('------------------ Get document summary  --------------------')
@@ -936,7 +947,7 @@ print('-------------------------------------------------------------')
 
 # # Summarize file from URL 
 
-# In[ ]:
+# In[25]:
 
 
 ######################################################################################

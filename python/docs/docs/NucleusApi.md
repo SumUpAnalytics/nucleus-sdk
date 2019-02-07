@@ -947,7 +947,7 @@ configuration.api_key['x-api-key'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
-payload = nucleus_api.HistoAnalysis() # HistoAnalysis | 
+payload = nucleus_api.TopicHistoryModel() # TopicHistoryModel | 
 
 try:
     api_response = api_instance.post_topic_historical_analysis_api(payload)
@@ -960,7 +960,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **payload** | [**HistoAnalysis**](HistoAnalysis.md)|  | 
+ **payload** | [**TopicHistoryModel**](TopicHistoryModel.md)|  | 
 
 ### Return type
 

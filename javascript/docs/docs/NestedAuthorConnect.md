@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**mainstreamConnection** | [**[NestedAuthorConnect0]**](NestedAuthorConnect0.md) |  | [optional] 
-**nicheConnection** | [**[NestedAuthorConnect0]**](NestedAuthorConnect0.md) |  | [optional] 
+**mainstream_connection** | [**[NestedAuthorConnect0]**](NestedAuthorConnect0.md) |  | [optional] 
+**niche_connection** | [**[NestedAuthorConnect0]**](NestedAuthorConnect0.md) |  | [optional] 
 
 
