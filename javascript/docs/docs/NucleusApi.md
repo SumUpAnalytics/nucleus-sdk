@@ -4,413 +4,30 @@ All URIs are relative to *https://localhost:5000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getAuthorConnectivityApi**](NucleusApi.md#getAuthorConnectivityApi) | **GET** /topics/author_connectivity | 
-[**getDatasetInfo**](NucleusApi.md#getDatasetInfo) | **GET** /datasets/dataset_info | 
-[**getDocDisplay**](NucleusApi.md#getDocDisplay) | **GET** /documents/document_display | 
-[**getDocInfo**](NucleusApi.md#getDocInfo) | **GET** /documents/document_info | 
-[**getDocRecommendApi**](NucleusApi.md#getDocRecommendApi) | **GET** /documents/document_recommend | 
-[**getDocSummaryApi**](NucleusApi.md#getDocSummaryApi) | **GET** /documents/document_summary | 
 [**getJob**](NucleusApi.md#getJob) | **GET** /jobs | 
 [**getListDatasets**](NucleusApi.md#getListDatasets) | **GET** /datasets | 
-[**getTopicApi**](NucleusApi.md#getTopicApi) | **GET** /topics/topics | 
-[**getTopicDeltaApi**](NucleusApi.md#getTopicDeltaApi) | **GET** /topics/topic_delta | 
-[**getTopicSummaryApi**](NucleusApi.md#getTopicSummaryApi) | **GET** /topics/topic_summary | 
 [**getUser**](NucleusApi.md#getUser) | **GET** /users | 
 [**postAppendJsonToDataset**](NucleusApi.md#postAppendJsonToDataset) | **POST** /datasets/append_json_to_dataset | 
+[**postAuthorConnectivityApi**](NucleusApi.md#postAuthorConnectivityApi) | **POST** /topics/author_connectivity | 
+[**postDatasetInfo**](NucleusApi.md#postDatasetInfo) | **POST** /datasets/dataset_info | 
 [**postDeleteDataset**](NucleusApi.md#postDeleteDataset) | **POST** /datasets/delete_dataset | 
 [**postDeleteDocument**](NucleusApi.md#postDeleteDocument) | **POST** /datasets/delete_document | 
+[**postDocDisplay**](NucleusApi.md#postDocDisplay) | **POST** /documents/document_display | 
+[**postDocInfo**](NucleusApi.md#postDocInfo) | **POST** /documents/document_info | 
+[**postDocRecommendApi**](NucleusApi.md#postDocRecommendApi) | **POST** /documents/document_recommend | 
+[**postDocSummaryApi**](NucleusApi.md#postDocSummaryApi) | **POST** /documents/document_summary | 
 [**postExampleJob**](NucleusApi.md#postExampleJob) | **POST** /jobs/start_example_job | 
 [**postLegacy**](NucleusApi.md#postLegacy) | **POST** /legacy | 
+[**postTopicApi**](NucleusApi.md#postTopicApi) | **POST** /topics/topics | 
 [**postTopicConsensusApi**](NucleusApi.md#postTopicConsensusApi) | **POST** /topics/topic_consensus | 
+[**postTopicDeltaApi**](NucleusApi.md#postTopicDeltaApi) | **POST** /topics/topic_delta | 
 [**postTopicHistoricalAnalysisApi**](NucleusApi.md#postTopicHistoricalAnalysisApi) | **POST** /topics/topic_historical | 
 [**postTopicSentimentApi**](NucleusApi.md#postTopicSentimentApi) | **POST** /topics/topic_sentiment | 
+[**postTopicSummaryApi**](NucleusApi.md#postTopicSummaryApi) | **POST** /topics/topic_summary | 
 [**postUploadFile**](NucleusApi.md#postUploadFile) | **POST** /datasets/upload_file | 
 [**postUploadUrl**](NucleusApi.md#postUploadUrl) | **POST** /datasets/import_file_from_url | 
 [**postUser**](NucleusApi.md#postUser) | **POST** /users | 
 
-
-<a name="getAuthorConnectivityApi"></a>
-# **getAuthorConnectivityApi**
-> AuthorConnectRespModel getAuthorConnectivityApi(dataset, targetAuthor, timePeriod, opts)
-
-
-
-Get the network of similar authors to a reference author.
-
-### Example
-```javascript
-var NucleusApi = require('nucleus_api');
-var defaultClient = NucleusApi.ApiClient.instance;
-
-// Configure API key authorization: apikey
-var apikey = defaultClient.authentications['apikey'];
-apikey.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apikey.apiKeyPrefix = 'Token';
-
-var apiInstance = new NucleusApi.NucleusApi();
-
-var dataset = "dataset_example"; // String | Dataset name.
-
-var targetAuthor = "targetAuthor_example"; // String | Name of the author to be analyzed.
-
-var timePeriod = "timePeriod_example"; // String | Time period selection
-
-var opts = { 
-  'query': "query_example", // String | Fulltext query, using mysql MATCH boolean query format. Subject covered by the author, on which to focus the analysis of connectivity. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\")
-  'customStopWords': "customStopWords_example", // String | List of words possibly used by the target author that are considered not information-bearing.
-  'metadataSelection': "metadataSelection_example", // String | json object of {\"metadata_field\":[\"selected_values\"]}
-  'excludedDocs': "excludedDocs_example" // String | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\" 
-};
-
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-apiInstance.getAuthorConnectivityApi(dataset, targetAuthor, timePeriod, opts, callback);
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **dataset** | **String**| Dataset name. | 
- **targetAuthor** | **String**| Name of the author to be analyzed. | 
- **timePeriod** | **String**| Time period selection | 
- **query** | **String**| Fulltext query, using mysql MATCH boolean query format. Subject covered by the author, on which to focus the analysis of connectivity. Example, (\&quot;word1\&quot; OR \&quot;word2\&quot;) AND (\&quot;word3\&quot; OR \&quot;word4\&quot;) | [optional] 
- **customStopWords** | **String**| List of words possibly used by the target author that are considered not information-bearing. | [optional] 
- **metadataSelection** | **String**| json object of {\&quot;metadata_field\&quot;:[\&quot;selected_values\&quot;]} | [optional] 
- **excludedDocs** | **String**| List of document IDs that should be excluded from the analysis. Example, \&quot;docid1, docid2, ..., docidN\&quot;  | [optional] 
-
-### Return type
-
-[**AuthorConnectRespModel**](AuthorConnectRespModel.md)
-
-### Authorization
-
-[apikey](../README.md#apikey)
-
-### HTTP request headers
-
- - **Content-Type**: text/html
- - **Accept**: application/json
-
-<a name="getDatasetInfo"></a>
-# **getDatasetInfo**
-> DatasetInfoRespModel getDatasetInfo(dataset, opts)
-
-
-
-Get information about a dataset.
-
-### Example
-```javascript
-var NucleusApi = require('nucleus_api');
-var defaultClient = NucleusApi.ApiClient.instance;
-
-// Configure API key authorization: apikey
-var apikey = defaultClient.authentications['apikey'];
-apikey.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apikey.apiKeyPrefix = 'Token';
-
-var apiInstance = new NucleusApi.NucleusApi();
-
-var dataset = "dataset_example"; // String | Dataset name.
-
-var opts = { 
-  'query': "query_example", // String | Fulltext query, using mysql MATCH boolean query format.
-  'metadataSelection': "metadataSelection_example", // String | json object of {\"metadata_field\":[\"selected_values\"]}
-  'timePeriod': "timePeriod_example" // String | Time period selection
-};
-
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-apiInstance.getDatasetInfo(dataset, opts, callback);
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **dataset** | **String**| Dataset name. | 
- **query** | **String**| Fulltext query, using mysql MATCH boolean query format. | [optional] 
- **metadataSelection** | **String**| json object of {\&quot;metadata_field\&quot;:[\&quot;selected_values\&quot;]} | [optional] 
- **timePeriod** | **String**| Time period selection | [optional] 
-
-### Return type
-
-[**DatasetInfoRespModel**](DatasetInfoRespModel.md)
-
-### Authorization
-
-[apikey](../README.md#apikey)
-
-### HTTP request headers
-
- - **Content-Type**: text/html
- - **Accept**: application/json
-
-<a name="getDocDisplay"></a>
-# **getDocDisplay**
-> DocDisplayRespModel getDocDisplay(dataset, opts)
-
-
-
-Document display.
-
-### Example
-```javascript
-var NucleusApi = require('nucleus_api');
-var defaultClient = NucleusApi.ApiClient.instance;
-
-// Configure API key authorization: apikey
-var apikey = defaultClient.authentications['apikey'];
-apikey.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apikey.apiKeyPrefix = 'Token';
-
-var apiInstance = new NucleusApi.NucleusApi();
-
-var dataset = "dataset_example"; // String | Dataset name.
-
-var opts = { 
-  'docTitles': "docTitles_example", // String | The title of the documents on which info is requested. Example: [ \"title 1\", \"title 2\" ] 
-  'docIds': "docIds_example" // String | The docid of the documents on which info is requested. Example:[ \"docid1, docid2\" ]
-};
-
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-apiInstance.getDocDisplay(dataset, opts, callback);
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **dataset** | **String**| Dataset name. | 
- **docTitles** | **String**| The title of the documents on which info is requested. Example: [ \&quot;title 1\&quot;, \&quot;title 2\&quot; ]  | [optional] 
- **docIds** | **String**| The docid of the documents on which info is requested. Example:[ \&quot;docid1, docid2\&quot; ] | [optional] 
-
-### Return type
-
-[**DocDisplayRespModel**](DocDisplayRespModel.md)
-
-### Authorization
-
-[apikey](../README.md#apikey)
-
-### HTTP request headers
-
- - **Content-Type**: text/html
- - **Accept**: application/json
-
-<a name="getDocInfo"></a>
-# **getDocInfo**
-> DocInfoRespModel getDocInfo(dataset, opts)
-
-
-
-Document metadata retrieval.
-
-### Example
-```javascript
-var NucleusApi = require('nucleus_api');
-var defaultClient = NucleusApi.ApiClient.instance;
-
-// Configure API key authorization: apikey
-var apikey = defaultClient.authentications['apikey'];
-apikey.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apikey.apiKeyPrefix = 'Token';
-
-var apiInstance = new NucleusApi.NucleusApi();
-
-var dataset = "dataset_example"; // String | Dataset name.
-
-var opts = { 
-  'docTitles': "docTitles_example", // String | The title of the documents on which info is requested. Example: [ \"title 1\", \"title 2\" ] 
-  'docIds': "docIds_example" // String | The docid of the documents on which info is requested. Example:[ \"docid1, docid2\" ]
-};
-
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-apiInstance.getDocInfo(dataset, opts, callback);
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **dataset** | **String**| Dataset name. | 
- **docTitles** | **String**| The title of the documents on which info is requested. Example: [ \&quot;title 1\&quot;, \&quot;title 2\&quot; ]  | [optional] 
- **docIds** | **String**| The docid of the documents on which info is requested. Example:[ \&quot;docid1, docid2\&quot; ] | [optional] 
-
-### Return type
-
-[**DocInfoRespModel**](DocInfoRespModel.md)
-
-### Authorization
-
-[apikey](../README.md#apikey)
-
-### HTTP request headers
-
- - **Content-Type**: text/html
- - **Accept**: application/json
-
-<a name="getDocRecommendApi"></a>
-# **getDocRecommendApi**
-> DocumentRecommendRespModel getDocRecommendApi(dataset, opts)
-
-
-
-Recommendation of documents on given topics that have been extracted from a given dataset.
-
-### Example
-```javascript
-var NucleusApi = require('nucleus_api');
-var defaultClient = NucleusApi.ApiClient.instance;
-
-// Configure API key authorization: apikey
-var apikey = defaultClient.authentications['apikey'];
-apikey.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apikey.apiKeyPrefix = 'Token';
-
-var apiInstance = new NucleusApi.NucleusApi();
-
-var dataset = "dataset_example"; // String | Dataset name.
-
-var opts = { 
-  'query': "query_example", // String | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\")
-  'customStopWords': "customStopWords_example", // String | List of stop words.
-  'numTopics': 8, // Number | Number of topics to be extracted from the dataset.
-  'numKeywords': 8, // Number | Number of keywords per topic that is extracted from the dataset.
-  'numDocs': 20, // Number | Number of desired recommended docs per topic.
-  'metadataSelection': "metadataSelection_example", // String | json object of {\"metadata_field\":[\"selected_values\"]}
-  'timePeriod': "timePeriod_example", // String | Time period selection
-  'excludedDocs': "excludedDocs_example" // String | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\" 
-};
-
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-apiInstance.getDocRecommendApi(dataset, opts, callback);
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **dataset** | **String**| Dataset name. | 
- **query** | **String**| Fulltext query, using mysql MATCH boolean query format. Example, (\&quot;word1\&quot; OR \&quot;word2\&quot;) AND (\&quot;word3\&quot; OR \&quot;word4\&quot;) | [optional] 
- **customStopWords** | **String**| List of stop words. | [optional] 
- **numTopics** | **Number**| Number of topics to be extracted from the dataset. | [optional] [default to 8]
- **numKeywords** | **Number**| Number of keywords per topic that is extracted from the dataset. | [optional] [default to 8]
- **numDocs** | **Number**| Number of desired recommended docs per topic. | [optional] [default to 20]
- **metadataSelection** | **String**| json object of {\&quot;metadata_field\&quot;:[\&quot;selected_values\&quot;]} | [optional] 
- **timePeriod** | **String**| Time period selection | [optional] 
- **excludedDocs** | **String**| List of document IDs that should be excluded from the analysis. Example, \&quot;docid1, docid2, ..., docidN\&quot;  | [optional] 
-
-### Return type
-
-[**DocumentRecommendRespModel**](DocumentRecommendRespModel.md)
-
-### Authorization
-
-[apikey](../README.md#apikey)
-
-### HTTP request headers
-
- - **Content-Type**: text/html
- - **Accept**: application/json
-
-<a name="getDocSummaryApi"></a>
-# **getDocSummaryApi**
-> DocumentSummaryRespModel getDocSummaryApi(dataset, docTitle, opts)
-
-
-
-Document summarization.
-
-### Example
-```javascript
-var NucleusApi = require('nucleus_api');
-var defaultClient = NucleusApi.ApiClient.instance;
-
-// Configure API key authorization: apikey
-var apikey = defaultClient.authentications['apikey'];
-apikey.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apikey.apiKeyPrefix = 'Token';
-
-var apiInstance = new NucleusApi.NucleusApi();
-
-var dataset = "dataset_example"; // String | Dataset name.
-
-var docTitle = "docTitle_example"; // String | The title of the document to be summarized.
-
-var opts = { 
-  'customStopWords': "customStopWords_example", // String | List of stop words
-  'summaryLength': 6, // Number | The maximum number of bullet points a user wants to see in the document summary.
-  'contextAmount': 0 // Number | The number of sentences surrounding key summary sentences in the documents that they come from.
-};
-
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-apiInstance.getDocSummaryApi(dataset, docTitle, opts, callback);
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **dataset** | **String**| Dataset name. | 
- **docTitle** | **String**| The title of the document to be summarized. | 
- **customStopWords** | **String**| List of stop words | [optional] 
- **summaryLength** | **Number**| The maximum number of bullet points a user wants to see in the document summary. | [optional] [default to 6]
- **contextAmount** | **Number**| The number of sentences surrounding key summary sentences in the documents that they come from. | [optional] [default to 0]
-
-### Return type
-
-[**DocumentSummaryRespModel**](DocumentSummaryRespModel.md)
-
-### Authorization
-
-[apikey](../README.md#apikey)
-
-### HTTP request headers
-
- - **Content-Type**: text/html
- - **Accept**: application/json
 
 <a name="getJob"></a>
 # **getJob**
@@ -512,232 +129,9 @@ This endpoint does not need any parameter.
  - **Content-Type**: text/html
  - **Accept**: application/json
 
-<a name="getTopicApi"></a>
-# **getTopicApi**
-> TopicRespModel getTopicApi(dataset, opts)
-
-
-
-Get key topics from a given dataset.
-
-### Example
-```javascript
-var NucleusApi = require('nucleus_api');
-var defaultClient = NucleusApi.ApiClient.instance;
-
-// Configure API key authorization: apikey
-var apikey = defaultClient.authentications['apikey'];
-apikey.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apikey.apiKeyPrefix = 'Token';
-
-var apiInstance = new NucleusApi.NucleusApi();
-
-var dataset = "dataset_example"; // String | Dataset name.
-
-var opts = { 
-  'query': "query_example", // String | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\")
-  'customStopWords': "customStopWords_example", // String | List of stop words.
-  'numTopics': 8, // Number | Number of topics to be extracted from the dataset.
-  'numKeywords': 8, // Number | Number of keywords per topic that is extracted from the dataset.
-  'metadataSelection': "metadataSelection_example", // String | json object of {\"metadata_field\":[\"selected_values\"]}
-  'timePeriod': "timePeriod_example", // String | Time period selection
-  'excludedDocs': "excludedDocs_example" // String | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\" 
-};
-
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-apiInstance.getTopicApi(dataset, opts, callback);
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **dataset** | **String**| Dataset name. | 
- **query** | **String**| Fulltext query, using mysql MATCH boolean query format. Example, (\&quot;word1\&quot; OR \&quot;word2\&quot;) AND (\&quot;word3\&quot; OR \&quot;word4\&quot;) | [optional] 
- **customStopWords** | **String**| List of stop words. | [optional] 
- **numTopics** | **Number**| Number of topics to be extracted from the dataset. | [optional] [default to 8]
- **numKeywords** | **Number**| Number of keywords per topic that is extracted from the dataset. | [optional] [default to 8]
- **metadataSelection** | **String**| json object of {\&quot;metadata_field\&quot;:[\&quot;selected_values\&quot;]} | [optional] 
- **timePeriod** | **String**| Time period selection | [optional] 
- **excludedDocs** | **String**| List of document IDs that should be excluded from the analysis. Example, \&quot;docid1, docid2, ..., docidN\&quot;  | [optional] 
-
-### Return type
-
-[**TopicRespModel**](TopicRespModel.md)
-
-### Authorization
-
-[apikey](../README.md#apikey)
-
-### HTTP request headers
-
- - **Content-Type**: text/html
- - **Accept**: application/json
-
-<a name="getTopicDeltaApi"></a>
-# **getTopicDeltaApi**
-> TopicDeltaRespModel getTopicDeltaApi(dataset, timeStartT0, timeEndT0, timeStartT1, timeEndT1, opts)
-
-
-
-Get changes in exposure to key topics from documents in a dataset in between two dates.
-
-### Example
-```javascript
-var NucleusApi = require('nucleus_api');
-var defaultClient = NucleusApi.ApiClient.instance;
-
-// Configure API key authorization: apikey
-var apikey = defaultClient.authentications['apikey'];
-apikey.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apikey.apiKeyPrefix = 'Token';
-
-var apiInstance = new NucleusApi.NucleusApi();
-
-var dataset = "dataset_example"; // String | Dataset with a time series component. These docs should reference a universe of entities that overlaps through time.
-
-var timeStartT0 = "timeStartT0_example"; // String | Start date for the start-of-period dataset. Format: \"YYYY-MM-DD HH:MM:SS\" 
-
-var timeEndT0 = "timeEndT0_example"; // String | End date for the start-of-period dataset. Format: \"YYYY-MM-DD HH:MM:SS\" 
-
-var timeStartT1 = "timeStartT1_example"; // String | Start date for the end-of-period dataset. Format: \"YYYY-MM-DD HH:MM:SS\" 
-
-var timeEndT1 = "timeEndT1_example"; // String | End date for the end-of-period dataset. Format: \"YYYY-MM-DD HH:MM:SS\" 
-
-var opts = { 
-  'query': "query_example", // String | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\")
-  'customStopWords': "customStopWords_example", // String | List of stop words.
-  'numTopics': 8, // Number | Number of topics to be extracted from the dataset.
-  'numKeywords': 8, // Number | Number of keywords per topic that is extracted from the dataset.
-  'metadataSelection': "metadataSelection_example", // String | json object of {\"metadata_field\":[\"selected_values\"]}
-  'excludedDocs': "excludedDocs_example" // String | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\" 
-};
-
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-apiInstance.getTopicDeltaApi(dataset, timeStartT0, timeEndT0, timeStartT1, timeEndT1, opts, callback);
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **dataset** | **String**| Dataset with a time series component. These docs should reference a universe of entities that overlaps through time. | 
- **timeStartT0** | **String**| Start date for the start-of-period dataset. Format: \&quot;YYYY-MM-DD HH:MM:SS\&quot;  | 
- **timeEndT0** | **String**| End date for the start-of-period dataset. Format: \&quot;YYYY-MM-DD HH:MM:SS\&quot;  | 
- **timeStartT1** | **String**| Start date for the end-of-period dataset. Format: \&quot;YYYY-MM-DD HH:MM:SS\&quot;  | 
- **timeEndT1** | **String**| End date for the end-of-period dataset. Format: \&quot;YYYY-MM-DD HH:MM:SS\&quot;  | 
- **query** | **String**| Fulltext query, using mysql MATCH boolean query format. Example, (\&quot;word1\&quot; OR \&quot;word2\&quot;) AND (\&quot;word3\&quot; OR \&quot;word4\&quot;) | [optional] 
- **customStopWords** | **String**| List of stop words. | [optional] 
- **numTopics** | **Number**| Number of topics to be extracted from the dataset. | [optional] [default to 8]
- **numKeywords** | **Number**| Number of keywords per topic that is extracted from the dataset. | [optional] [default to 8]
- **metadataSelection** | **String**| json object of {\&quot;metadata_field\&quot;:[\&quot;selected_values\&quot;]} | [optional] 
- **excludedDocs** | **String**| List of document IDs that should be excluded from the analysis. Example, \&quot;docid1, docid2, ..., docidN\&quot;  | [optional] 
-
-### Return type
-
-[**TopicDeltaRespModel**](TopicDeltaRespModel.md)
-
-### Authorization
-
-[apikey](../README.md#apikey)
-
-### HTTP request headers
-
- - **Content-Type**: text/html
- - **Accept**: application/json
-
-<a name="getTopicSummaryApi"></a>
-# **getTopicSummaryApi**
-> TopicSummaryRespModel getTopicSummaryApi(dataset, opts)
-
-
-
-Get summaries of topics that have been extracted from a dataset.
-
-### Example
-```javascript
-var NucleusApi = require('nucleus_api');
-var defaultClient = NucleusApi.ApiClient.instance;
-
-// Configure API key authorization: apikey
-var apikey = defaultClient.authentications['apikey'];
-apikey.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apikey.apiKeyPrefix = 'Token';
-
-var apiInstance = new NucleusApi.NucleusApi();
-
-var dataset = "dataset_example"; // String | Dataset name.
-
-var opts = { 
-  'query': "query_example", // String | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\")
-  'customStopWords': "customStopWords_example", // String | List of stop words
-  'numTopics': 8, // Number | Number of topics to be extracted from the dataset and summarized.
-  'numKeywords': 8, // Number | Number of keywords per topic that is extracted from the dataset.
-  'metadataSelection': "metadataSelection_example", // String | json object of {\"metadata_field\":[\"selected_values\"]}
-  'timePeriod': "timePeriod_example", // String | Time period selection
-  'summaryLength': 6, // Number | The maximum number of bullet points a user wants to see in each topic summary.
-  'contextAmount': 0, // Number | The number of sentences surrounding key summary sentences in the documents that they come from.
-  'numDocs': 20, // Number | The maximum number of key documents to use for summarization.
-  'excludedDocs': "excludedDocs_example" // String | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\" 
-};
-
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-apiInstance.getTopicSummaryApi(dataset, opts, callback);
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **dataset** | **String**| Dataset name. | 
- **query** | **String**| Fulltext query, using mysql MATCH boolean query format. Example, (\&quot;word1\&quot; OR \&quot;word2\&quot;) AND (\&quot;word3\&quot; OR \&quot;word4\&quot;) | [optional] 
- **customStopWords** | **String**| List of stop words | [optional] 
- **numTopics** | **Number**| Number of topics to be extracted from the dataset and summarized. | [optional] [default to 8]
- **numKeywords** | **Number**| Number of keywords per topic that is extracted from the dataset. | [optional] [default to 8]
- **metadataSelection** | **String**| json object of {\&quot;metadata_field\&quot;:[\&quot;selected_values\&quot;]} | [optional] 
- **timePeriod** | **String**| Time period selection | [optional] 
- **summaryLength** | **Number**| The maximum number of bullet points a user wants to see in each topic summary. | [optional] [default to 6]
- **contextAmount** | **Number**| The number of sentences surrounding key summary sentences in the documents that they come from. | [optional] [default to 0]
- **numDocs** | **Number**| The maximum number of key documents to use for summarization. | [optional] [default to 20]
- **excludedDocs** | **String**| List of document IDs that should be excluded from the analysis. Example, \&quot;docid1, docid2, ..., docidN\&quot;  | [optional] 
-
-### Return type
-
-[**TopicSummaryRespModel**](TopicSummaryRespModel.md)
-
-### Authorization
-
-[apikey](../README.md#apikey)
-
-### HTTP request headers
-
- - **Content-Type**: text/html
- - **Accept**: application/json
-
 <a name="getUser"></a>
 # **getUser**
-> UserModel getUser(userEmail, password)
+> UserModel getUser(user_email, password)
 
 
 
@@ -749,7 +143,7 @@ var NucleusApi = require('nucleus_api');
 
 var apiInstance = new NucleusApi.NucleusApi();
 
-var userEmail = "userEmail_example"; // String | Email of the user to authenticate. 
+var user_email = "user_email_example"; // String | Email of the user to authenticate. 
 
 var password = "password_example"; // String | Plaintext password of the user to authenticate. 
 
@@ -761,14 +155,14 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-apiInstance.getUser(userEmail, password, callback);
+apiInstance.getUser(user_email, password, callback);
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userEmail** | **String**| Email of the user to authenticate.  | 
+ **user_email** | **String**| Email of the user to authenticate.  | 
  **password** | **String**| Plaintext password of the user to authenticate.  | 
 
 ### Return type
@@ -827,6 +221,112 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AppendJsonRespModel**](AppendJsonRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="postAuthorConnectivityApi"></a>
+# **postAuthorConnectivityApi**
+> AuthorConnectRespModel postAuthorConnectivityApi(payload)
+
+
+
+Get the network of similar authors to a reference author.
+
+### Example
+```javascript
+var NucleusApi = require('nucleus_api');
+var defaultClient = NucleusApi.ApiClient.instance;
+
+// Configure API key authorization: apikey
+var apikey = defaultClient.authentications['apikey'];
+apikey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apikey.apiKeyPrefix = 'Token';
+
+var apiInstance = new NucleusApi.NucleusApi();
+
+var payload = new NucleusApi.AuthorConnection(); // AuthorConnection | 
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+apiInstance.postAuthorConnectivityApi(payload, callback);
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**AuthorConnection**](AuthorConnection.md)|  | 
+
+### Return type
+
+[**AuthorConnectRespModel**](AuthorConnectRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="postDatasetInfo"></a>
+# **postDatasetInfo**
+> DatasetInfoRespModel postDatasetInfo(payload)
+
+
+
+Get information about a dataset.
+
+### Example
+```javascript
+var NucleusApi = require('nucleus_api');
+var defaultClient = NucleusApi.ApiClient.instance;
+
+// Configure API key authorization: apikey
+var apikey = defaultClient.authentications['apikey'];
+apikey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apikey.apiKeyPrefix = 'Token';
+
+var apiInstance = new NucleusApi.NucleusApi();
+
+var payload = new NucleusApi.DatasetInfo(); // DatasetInfo | 
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+apiInstance.postDatasetInfo(payload, callback);
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**DatasetInfo**](DatasetInfo.md)|  | 
+
+### Return type
+
+[**DatasetInfoRespModel**](DatasetInfoRespModel.md)
 
 ### Authorization
 
@@ -943,9 +443,221 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+<a name="postDocDisplay"></a>
+# **postDocDisplay**
+> DocDisplayRespModel postDocDisplay(payload)
+
+
+
+Document display.
+
+### Example
+```javascript
+var NucleusApi = require('nucleus_api');
+var defaultClient = NucleusApi.ApiClient.instance;
+
+// Configure API key authorization: apikey
+var apikey = defaultClient.authentications['apikey'];
+apikey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apikey.apiKeyPrefix = 'Token';
+
+var apiInstance = new NucleusApi.NucleusApi();
+
+var payload = new NucleusApi.DocDisplay(); // DocDisplay | 
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+apiInstance.postDocDisplay(payload, callback);
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**DocDisplay**](DocDisplay.md)|  | 
+
+### Return type
+
+[**DocDisplayRespModel**](DocDisplayRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="postDocInfo"></a>
+# **postDocInfo**
+> DocInfoRespModel postDocInfo(payload)
+
+
+
+Document metadata retrieval.
+
+### Example
+```javascript
+var NucleusApi = require('nucleus_api');
+var defaultClient = NucleusApi.ApiClient.instance;
+
+// Configure API key authorization: apikey
+var apikey = defaultClient.authentications['apikey'];
+apikey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apikey.apiKeyPrefix = 'Token';
+
+var apiInstance = new NucleusApi.NucleusApi();
+
+var payload = new NucleusApi.DocInfo(); // DocInfo | 
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+apiInstance.postDocInfo(payload, callback);
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**DocInfo**](DocInfo.md)|  | 
+
+### Return type
+
+[**DocInfoRespModel**](DocInfoRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="postDocRecommendApi"></a>
+# **postDocRecommendApi**
+> DocumentRecommendRespModel postDocRecommendApi(payload)
+
+
+
+Recommendation of documents on given topics that have been extracted from a given dataset.
+
+### Example
+```javascript
+var NucleusApi = require('nucleus_api');
+var defaultClient = NucleusApi.ApiClient.instance;
+
+// Configure API key authorization: apikey
+var apikey = defaultClient.authentications['apikey'];
+apikey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apikey.apiKeyPrefix = 'Token';
+
+var apiInstance = new NucleusApi.NucleusApi();
+
+var payload = new NucleusApi.RecommendDocs(); // RecommendDocs | 
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+apiInstance.postDocRecommendApi(payload, callback);
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**RecommendDocs**](RecommendDocs.md)|  | 
+
+### Return type
+
+[**DocumentRecommendRespModel**](DocumentRecommendRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="postDocSummaryApi"></a>
+# **postDocSummaryApi**
+> DocumentSummaryRespModel postDocSummaryApi(payload)
+
+
+
+Document summarization.
+
+### Example
+```javascript
+var NucleusApi = require('nucleus_api');
+var defaultClient = NucleusApi.ApiClient.instance;
+
+// Configure API key authorization: apikey
+var apikey = defaultClient.authentications['apikey'];
+apikey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apikey.apiKeyPrefix = 'Token';
+
+var apiInstance = new NucleusApi.NucleusApi();
+
+var payload = new NucleusApi.SummarizeDocs(); // SummarizeDocs | 
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+apiInstance.postDocSummaryApi(payload, callback);
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**SummarizeDocs**](SummarizeDocs.md)|  | 
+
+### Return type
+
+[**DocumentSummaryRespModel**](DocumentSummaryRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
 <a name="postExampleJob"></a>
 # **postExampleJob**
-> ExampleJobResponse postExampleJob(color, waitTime)
+> ExampleJobResponse postExampleJob(color, wait_time)
 
 
 
@@ -966,7 +678,7 @@ var apiInstance = new NucleusApi.NucleusApi();
 
 var color = "color_example"; // String | A color
 
-var waitTime = 0; // Number | Seconds to wait before returning the result
+var wait_time = 0; // Number | Seconds to wait before returning the result
 
 
 var callback = function(error, data, response) {
@@ -976,7 +688,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-apiInstance.postExampleJob(color, waitTime, callback);
+apiInstance.postExampleJob(color, wait_time, callback);
 ```
 
 ### Parameters
@@ -984,7 +696,7 @@ apiInstance.postExampleJob(color, waitTime, callback);
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **color** | **String**| A color | 
- **waitTime** | **Number**| Seconds to wait before returning the result | [default to 0]
+ **wait_time** | **Number**| Seconds to wait before returning the result | [default to 0]
 
 ### Return type
 
@@ -1052,9 +764,62 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+<a name="postTopicApi"></a>
+# **postTopicApi**
+> TopicRespModel postTopicApi(payload)
+
+
+
+Get key topics from a given dataset.
+
+### Example
+```javascript
+var NucleusApi = require('nucleus_api');
+var defaultClient = NucleusApi.ApiClient.instance;
+
+// Configure API key authorization: apikey
+var apikey = defaultClient.authentications['apikey'];
+apikey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apikey.apiKeyPrefix = 'Token';
+
+var apiInstance = new NucleusApi.NucleusApi();
+
+var payload = new NucleusApi.Topics(); // Topics | 
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+apiInstance.postTopicApi(payload, callback);
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**Topics**](Topics.md)|  | 
+
+### Return type
+
+[**TopicRespModel**](TopicRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
 <a name="postTopicConsensusApi"></a>
 # **postTopicConsensusApi**
-> TopicConsensusRespModel postTopicConsensusApi(dataset, opts)
+> TopicConsensusRespModel postTopicConsensusApi(payload)
 
 
 
@@ -1073,18 +838,8 @@ apikey.apiKey = 'YOUR API KEY';
 
 var apiInstance = new NucleusApi.NucleusApi();
 
-var dataset = "dataset_example"; // String | Dataset name.
+var payload = new NucleusApi.Consensus(); // Consensus | 
 
-var opts = { 
-  'query': "query_example", // String | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\")
-  'customStopWords': "customStopWords_example", // String | List of stop words
-  'numTopics': 8, // Number | Number of topics to be extracted from the dataset.
-  'numKeywords': 8, // Number | Number of keywords per topic that is extracted from the dataset.
-  'metadataSelection': "metadataSelection_example", // String | json object of {\"metadata_field\":[\"selected_values\"]}
-  'timePeriod': "timePeriod_example", // String | Time period selection
-  'excludedDocs': "excludedDocs_example", // String | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\" 
-  'customDictFile': "/path/to/file.txt" // File | Custom sentiment dictionary JSON file.
-};
 
 var callback = function(error, data, response) {
   if (error) {
@@ -1093,22 +848,14 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-apiInstance.postTopicConsensusApi(dataset, opts, callback);
+apiInstance.postTopicConsensusApi(payload, callback);
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **dataset** | **String**| Dataset name. | 
- **query** | **String**| Fulltext query, using mysql MATCH boolean query format. Example, (\&quot;word1\&quot; OR \&quot;word2\&quot;) AND (\&quot;word3\&quot; OR \&quot;word4\&quot;) | [optional] 
- **customStopWords** | **String**| List of stop words | [optional] 
- **numTopics** | **Number**| Number of topics to be extracted from the dataset. | [optional] [default to 8]
- **numKeywords** | **Number**| Number of keywords per topic that is extracted from the dataset. | [optional] [default to 8]
- **metadataSelection** | **String**| json object of {\&quot;metadata_field\&quot;:[\&quot;selected_values\&quot;]} | [optional] 
- **timePeriod** | **String**| Time period selection | [optional] 
- **excludedDocs** | **String**| List of document IDs that should be excluded from the analysis. Example, \&quot;docid1, docid2, ..., docidN\&quot;  | [optional] 
- **customDictFile** | **File**| Custom sentiment dictionary JSON file. | [optional] 
+ **payload** | [**Consensus**](Consensus.md)|  | 
 
 ### Return type
 
@@ -1120,12 +867,65 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: multipart/form-data
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="postTopicDeltaApi"></a>
+# **postTopicDeltaApi**
+> TopicDeltaRespModel postTopicDeltaApi(payload)
+
+
+
+Get changes in exposure to key topics from documents in a dataset in between two dates.
+
+### Example
+```javascript
+var NucleusApi = require('nucleus_api');
+var defaultClient = NucleusApi.ApiClient.instance;
+
+// Configure API key authorization: apikey
+var apikey = defaultClient.authentications['apikey'];
+apikey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apikey.apiKeyPrefix = 'Token';
+
+var apiInstance = new NucleusApi.NucleusApi();
+
+var payload = new NucleusApi.TopicDelta(); // TopicDelta | 
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+apiInstance.postTopicDeltaApi(payload, callback);
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**TopicDelta**](TopicDelta.md)|  | 
+
+### Return type
+
+[**TopicDeltaRespModel**](TopicDeltaRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="postTopicHistoricalAnalysisApi"></a>
 # **postTopicHistoricalAnalysisApi**
-> TopicHistoryRespModel postTopicHistoricalAnalysisApi(dataset, timePeriod, updatePeriod, opts)
+> TopicHistoryRespModel postTopicHistoricalAnalysisApi(payload)
 
 
 
@@ -1144,22 +944,8 @@ apikey.apiKey = 'YOUR API KEY';
 
 var apiInstance = new NucleusApi.NucleusApi();
 
-var dataset = "dataset_example"; // String | Dataset name.
+var payload = new NucleusApi.TopicHistoryModel(); // TopicHistoryModel | 
 
-var timePeriod = "1M"; // String | Time period selection
-
-var updatePeriod = "d"; // String | Frequency at which the historical anlaysis is performed
-
-var opts = { 
-  'query': "query_example", // String | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\")
-  'customStopWords': "customStopWords_example", // String | List of stop words
-  'numTopics': 8, // Number | Number of topics to be extracted from the dataset.
-  'numKeywords': 8, // Number | Number of keywords per topic that is extracted from the dataset.
-  'metadataSelection': "metadataSelection_example", // String | json object of {\"metadata_field\":[\"selected_values\"]}
-  'incStep': 1, // Number | Number of increments of the udpate period in between two historical computations.
-  'excludedDocs': "excludedDocs_example", // String | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\" 
-  'customDictFile': "/path/to/file.txt" // File | Custom sentiment dictionary JSON file.
-};
 
 var callback = function(error, data, response) {
   if (error) {
@@ -1168,24 +954,14 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-apiInstance.postTopicHistoricalAnalysisApi(dataset, timePeriod, updatePeriod, opts, callback);
+apiInstance.postTopicHistoricalAnalysisApi(payload, callback);
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **dataset** | **String**| Dataset name. | 
- **timePeriod** | **String**| Time period selection | [default to 1M]
- **updatePeriod** | **String**| Frequency at which the historical anlaysis is performed | [default to d]
- **query** | **String**| Fulltext query, using mysql MATCH boolean query format. Example, (\&quot;word1\&quot; OR \&quot;word2\&quot;) AND (\&quot;word3\&quot; OR \&quot;word4\&quot;) | [optional] 
- **customStopWords** | **String**| List of stop words | [optional] 
- **numTopics** | **Number**| Number of topics to be extracted from the dataset. | [optional] [default to 8]
- **numKeywords** | **Number**| Number of keywords per topic that is extracted from the dataset. | [optional] [default to 8]
- **metadataSelection** | **String**| json object of {\&quot;metadata_field\&quot;:[\&quot;selected_values\&quot;]} | [optional] 
- **incStep** | **Number**| Number of increments of the udpate period in between two historical computations. | [optional] [default to 1]
- **excludedDocs** | **String**| List of document IDs that should be excluded from the analysis. Example, \&quot;docid1, docid2, ..., docidN\&quot;  | [optional] 
- **customDictFile** | **File**| Custom sentiment dictionary JSON file. | [optional] 
+ **payload** | [**TopicHistoryModel**](TopicHistoryModel.md)|  | 
 
 ### Return type
 
@@ -1197,12 +973,12 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: multipart/form-data
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="postTopicSentimentApi"></a>
 # **postTopicSentimentApi**
-> TopicSentimentRespModel postTopicSentimentApi(dataset, opts)
+> TopicSentimentRespModel postTopicSentimentApi(payload)
 
 
 
@@ -1221,18 +997,8 @@ apikey.apiKey = 'YOUR API KEY';
 
 var apiInstance = new NucleusApi.NucleusApi();
 
-var dataset = "dataset_example"; // String | Dataset name.
+var payload = new NucleusApi.Sentiment(); // Sentiment | 
 
-var opts = { 
-  'query': "query_example", // String | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\")
-  'customStopWords': "customStopWords_example", // String | List of stop words
-  'numTopics': 8, // Number | Number of topics to be extracted from the dataset.
-  'numKeywords': 8, // Number | Number of keywords per topic that is extracted from the dataset.
-  'metadataSelection': "metadataSelection_example", // String | json object of {\"metadata_field\":[\"selected_values\"]}
-  'timePeriod': "timePeriod_example", // String | Time period selection
-  'excludedDocs': "excludedDocs_example", // String | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\" 
-  'customDictFile': "/path/to/file.txt" // File | Custom sentiment dictionary JSON file.
-};
 
 var callback = function(error, data, response) {
   if (error) {
@@ -1241,22 +1007,14 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-apiInstance.postTopicSentimentApi(dataset, opts, callback);
+apiInstance.postTopicSentimentApi(payload, callback);
 ```
 
 ### Parameters
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **dataset** | **String**| Dataset name. | 
- **query** | **String**| Fulltext query, using mysql MATCH boolean query format. Example, (\&quot;word1\&quot; OR \&quot;word2\&quot;) AND (\&quot;word3\&quot; OR \&quot;word4\&quot;) | [optional] 
- **customStopWords** | **String**| List of stop words | [optional] 
- **numTopics** | **Number**| Number of topics to be extracted from the dataset. | [optional] [default to 8]
- **numKeywords** | **Number**| Number of keywords per topic that is extracted from the dataset. | [optional] [default to 8]
- **metadataSelection** | **String**| json object of {\&quot;metadata_field\&quot;:[\&quot;selected_values\&quot;]} | [optional] 
- **timePeriod** | **String**| Time period selection | [optional] 
- **excludedDocs** | **String**| List of document IDs that should be excluded from the analysis. Example, \&quot;docid1, docid2, ..., docidN\&quot;  | [optional] 
- **customDictFile** | **File**| Custom sentiment dictionary JSON file. | [optional] 
+ **payload** | [**Sentiment**](Sentiment.md)|  | 
 
 ### Return type
 
@@ -1268,7 +1026,60 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: multipart/form-data
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="postTopicSummaryApi"></a>
+# **postTopicSummaryApi**
+> TopicSummaryRespModel postTopicSummaryApi(payload)
+
+
+
+Get summaries of topics that have been extracted from a dataset.
+
+### Example
+```javascript
+var NucleusApi = require('nucleus_api');
+var defaultClient = NucleusApi.ApiClient.instance;
+
+// Configure API key authorization: apikey
+var apikey = defaultClient.authentications['apikey'];
+apikey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apikey.apiKeyPrefix = 'Token';
+
+var apiInstance = new NucleusApi.NucleusApi();
+
+var payload = new NucleusApi.Summary(); // Summary | 
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+apiInstance.postTopicSummaryApi(payload, callback);
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**Summary**](Summary.md)|  | 
+
+### Return type
+
+[**TopicSummaryRespModel**](TopicSummaryRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="postUploadFile"></a>

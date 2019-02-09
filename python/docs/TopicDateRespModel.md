@@ -1,12 +1,10 @@
-# NestedDocDispModel
+# TopicDateRespModel
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**title** | **str** | Document title | [optional] 
-**sourceid** | **str** | Document ID | [optional] 
-**content** | **str** | Document content | [optional] 
-**attribute** | [**DocAttributeModel**](DocAttributeModel.md) |  | [optional] 
+**job_id** | **str** | If the job is taking too long, job_id is returned, GET /jobs can then be used to poll for results | [optional] 
+**result** | [**list[NestedTopicDateModel]**](NestedTopicDateModel.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

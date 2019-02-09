@@ -4,9 +4,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **dataset** | **String** | Dataset name | [optional] 
-**numDocuments** | **String** | Number of documents in the dataset | [optional] 
-**timeRange** | **[String]** |  | [optional] 
-**detectedLanguage** | **String** | Language of the dataset | [optional] 
-**metadata** | **String** | Metadata information | [optional] 
+**num_documents** | **String** | Number of documents in the dataset | [optional] 
+**time_range** | **[String]** |  | [optional] 
+**detected_language** | **String** | Language of the dataset | [optional] 
+**metadata** | **Object** | Metadata information | [optional] 
 
 

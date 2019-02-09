@@ -7,6 +7,6 @@ Name | Type | Description | Notes
 **strength** | **[String]** |  | [optional] 
 **sentiment** | **[String]** |  | [optional] 
 **consensus** | **[String]** |  | [optional] 
-**timeStamps** | **[String]** |  | [optional] 
+**time_stamps** | **[String]** |  | [optional] 
 
 

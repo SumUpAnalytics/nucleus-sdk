@@ -1,6 +1,6 @@
 
 var NucleusApi = require('nucleus_api');
-var fs = require('fs');
+var fs = require('fs'); 
 var csvParser = require('csv-parse');
 
 var host = 'UPDATE-WITH-API-HOST';
@@ -11,9 +11,9 @@ var apiClient = new NucleusApi.ApiClient(host, apiKey);
 var apiInstance = new NucleusApi.NucleusApi(apiClient);
 
 console.log("--------- Append file from local drive to dataset -----------");
-var file = "quarles20181109a.pdf"; // File |
+var file = "quarles20181109a.pdf"; // File | 
 var dataset = "dataset_test"; // String | Destination dataset where the file will be inserted.
-var opts = {
+var payload = { 
     //'metadata': "" // String | Optional json containing additional document metadata. Eg: {\"time\":\"01/01/2001\",\"author\":\"me\"}
 };
 
@@ -27,7 +27,7 @@ var callback = function(error, data, response) {
         console.log('-------------------------------------------------------------');
     }
 };
-apiInstance.postUploadFile(fileStream, dataset, opts, callback);
+apiInstance.postUploadFile(fileStream, dataset, payload, callback);
 console.log('-------------------------------------------------------------');
 
 
@@ -35,8 +35,10 @@ console.log("------------ Append file from URL to dataset ---------------");
 
 var file_url = "https://www.federalreserve.gov/newsevents/speech/files/quarles20181109a.pdf"
 var dataset = "dataset_test"
-var payload = new NucleusApi.UploadURLModel(dataset=dataset,
-                 file_url=file_url); // UploadURLModel |
+var payload = {
+    'dataset': dataset,
+    'file_url': file_url
+};
 
 var callback = function(error, data, response) {
     if (error) {
@@ -77,7 +79,7 @@ var processCsvData = function(data, rows, dataset) {
                          'content': curRow[1],
                          'source' : curRow[0],
                          'author' : curRow[3]}};
-
+        
         apiInstance.postAppendJsonToDataset(payload, callback);
     }
     console.log(rows-1 + ' documents added to dataset ' + dataset);
@@ -88,7 +90,7 @@ var csvData=[];
 fs.createReadStream(csvFile)
     .pipe(csvParser())
     .on('data', function(csvrow) {
-        csvData.push(csvrow);
+        csvData.push(csvrow);        
     })
     .on('end',function() {
         processCsvData(csvData, csvData.length, dataset);
@@ -116,11 +118,11 @@ apiInstance.getListDatasets(callback);
 console.log('-------------------------------------------------------------');
 
 console.log('--------------- Get dataset information -------------------');
-var dataset = 'dataset_test'; // String | Dataset name.
-var opts = {
+var payload = { 
+    'dataset': 'dataset_test', // String | Dataset name
     'query': '', // String | Fulltext query, using mysql MATCH boolean query format.
-    'metadataSelection': '', // String | json object of {\"metadata_field\":[\"selected_values\"]}
-    'timePeriod': '' // String | Time period selection
+    'metadata_selection': '', // String | json object of {\"metadata_field\":[\"selected_values\"]}
+    'time_period': '' // String | Time period selection
 };
 
 var callback = function(error, data, response) {
@@ -135,16 +137,17 @@ var callback = function(error, data, response) {
         console.log('-------------------------------------------------------------');
     }
 };
-apiInstance.getDatasetInfo(dataset, opts, callback);
+apiInstance.postDatasetInfo(payload, callback);
 
 console.log('-------------------------------------------------------------');
 
 console.log('--------------------- Delete document -----------------------');
-var dataset = 'dataset_test'
-var docid = '1'
-var payload = new NucleusApi.Deletedocumentmodel(
-    dataset=dataset,
-    docid=docid); // Deletedocumentmodel |
+var dataset = 'dataset_test';
+var docid = '1';
+var payload = {
+    'dataset': dataset,
+    'docid': docid
+}; // Deletedocumentmodel | 
 
 
 var callback = function(error, data, response) {
@@ -160,9 +163,8 @@ apiInstance.postDeleteDocument(payload, callback);
 console.log('-------------------------------------------------------------');
 
 console.log('--------------------- Delete dataset ------------------------');
-var dataset = 'dataset_test'
-var payload = new NucleusApi.Deletedatasetmodel(
-    dataset=dataset); // Deletedatasetmodel |
+var dataset = 'dataset_test';
+var payload = {'dataset': dataset}; // Deletedatasetmodel | 
 
 var callback = function(error, data, response) {
     if (error) {
@@ -177,16 +179,16 @@ apiInstance.postDeleteDataset(payload, callback);
 console.log('-------------------------------------------------------------');
 
 console.log('------------- Get list of topics from dataset --------------');
-var dataset = "trump_tweets"; // String | Dataset name.
 
-var opts = {
+var payload = { 
+    'dataset': 'trump_tweets', // String | Dataset name
     'query': '', // String | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\")
     //'customStopWords': "\["real", "hillary"\]", // String | List of stop words.
-    'numTopics': 8, // Number | Number of topics to be extracted from the dataset.
-    'numKeywords': 8, // Number | Number of keywords per topic that is extracted from the dataset.
-    'metadataSelection': '', // String | json object of {\"metadata_field\":[\"selected_values\"]}
-    'timePeriod': '' // String | Time period selection
-    //'excludedDocs': '' // String | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"
+    'num_topics': 8, // Number | Number of topics to be extracted from the dataset.
+    'num_keywords': 8, // Number | Number of keywords per topic that is extracted from the dataset.
+    'metadata_selection': '', // String | json object of {\"metadata_field\":[\"selected_values\"]}
+    'time_period': '' // String | Time period selection
+    //'excludedDocs': '' // String | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\" 
 };
 
 var callback = function(error, data, response) {
@@ -215,24 +217,24 @@ var callback = function(error, data, response) {
         }
     }
 };
-apiInstance.getTopicApi(dataset, opts, callback);
+apiInstance.postTopicApi(payload, callback);
 
 console.log('-------------------------------------------------------------');
 
 console.log('------------------- Get topic summary -----------------------');
-var dataset = "trump_tweets"; // String | Dataset name.
 
-var opts = {
+var payload = { 
+    'dataset': 'trump_tweets', // String | Dataset name
     'query': "", // String | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\")
-    //'customStopWords': "customStopWords_example", // String | List of stop words
-    'numTopics': 8, // Number | Number of topics to be extracted from the dataset and summarized.
-    'numKeywords': 8, // Number | Number of keywords per topic that is extracted from the dataset.
-    'metadataSelection': "", // String | json object of {\"metadata_field\":[\"selected_values\"]}
-    'timePeriod': "", // String | Time period selection
-    'summaryLength': 6, // Number | The maximum number of bullet points a user wants to see in each topic summary.
-    'contextAmount': 0, // Number | The number of sentences surrounding key summary sentences in the documents that they come from.
-    'numDocs': 20 // Number | The maximum number of key documents to use for summarization.
-    //'excludedDocs': "excludedDocs_example" // String | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"
+    //'custom_stop_words': "customStopWords_example", // String | List of stop words
+    'num_topics': 8, // Number | Number of topics to be extracted from the dataset and summarized.
+    'num_keywords': 8, // Number | Number of keywords per topic that is extracted from the dataset.
+    'metadata_selection': "", // String | json object of {\"metadata_field\":[\"selected_values\"]}
+    'time_period': "", // String | Time period selection
+    'summary_length': 6, // Number | The maximum number of bullet points a user wants to see in each topic summary.
+    'context_amount': 0, // Number | The number of sentences surrounding key summary sentences in the documents that they come from.
+    'num_docs': 20 // Number | The maximum number of key documents to use for summarization.
+    //'excluded_docs': "excludedDocs_example" // String | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\" 
 };
 
 var callback = function(error, data, response) {
@@ -261,21 +263,22 @@ var callback = function(error, data, response) {
         console.log('-------------------------------------------------------------');
     }
 };
-apiInstance.getTopicSummaryApi(dataset, opts, callback);
+apiInstance.postTopicSummaryApi(payload, callback);
 
 console.log('-------------------------------------------------------------');
 
 console.log('---------------- Get topic sentiment ------------------------');
-var dataset = "trump_tweets"; // String | Dataset name.
-var opts = {
+
+var payload = { 
+    'dataset': 'trump_tweets', // String | Dataset name
     'query': "", // String | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\")
     //'customStopWords': "customStopWords_example", // String | List of stop words
-    'numTopics': 8, // Number | Number of topics to be extracted from the dataset.
-    'numKeywords': 8, // Number | Number of keywords per topic that is extracted from the dataset.
-    'metadataSelection': "", // String | json object of {\"metadata_field\":[\"selected_values\"]}
-    'timePeriod': "", // String | Time period selection
-    //'excludedDocs': "excludedDocs_example", // String | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"
-    //'customDictFile': "/path/to/file.txt" // File | Custom sentiment dictionary JSON file.
+    'num_topics': 8, // Number | Number of topics to be extracted from the dataset.
+    'num_keywords': 8, // Number | Number of keywords per topic that is extracted from the dataset.
+    'metadata_selection': "", // String | json object of {\"metadata_field\":[\"selected_values\"]}
+    'time_period': "", // String | Time period selection
+    //'excluded_docs': "excludedDocs_example", // String | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\" 
+    //'custom_dict_file': "/path/to/file.txt" // File | Custom sentiment dictionary JSON file.
 };
 
 var callback = function(error, data, response) {
@@ -292,28 +295,28 @@ var callback = function(error, data, response) {
             console.log('    Document IDs:', res.doc_id);
             console.log('    Document Sentiments:', res.doc_sentiment);
             console.log('    Document Scores:', res.doc_score);
-
+    
             console.log('---------------');
         }
         console.log('-------------------------------------------------------------');
     }
 };
-apiInstance.postTopicSentimentApi(dataset, opts, callback);
+apiInstance.postTopicSentimentApi(payload, callback);
 
 console.log('-------------------------------------------------------------');
 
 console.log('---------------- Get topic consensus ------------------------')
-var dataset = "trump_tweets"; // String | Dataset name.
 
-var opts = {
+var payload = {
+    'dataset': 'trump_tweets', // String | Dataset name
     'query': "", // String | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\")
     //'customStopWords': "", // String | List of stop words
-    'numTopics': 8, // Number | Number of topics to be extracted from the dataset.
-    'numKeywords': 8, // Number | Number of keywords per topic that is extracted from the dataset.
-    'metadataSelection': "", // String | json object of {\"metadata_field\":[\"selected_values\"]}
-    'timePeriod': "", // String | Time period selection
-    //'excludedDocs': "excludedDocs_example", // String | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"
-    'customDictFile': "" // File | Custom sentiment dictionary JSON file.
+    'num_topics': 8, // Number | Number of topics to be extracted from the dataset.
+    'num_keywords': 8, // Number | Number of keywords per topic that is extracted from the dataset.
+    'metadata_selection': "", // String | json object of {\"metadata_field\":[\"selected_values\"]}
+    'time_period': "", // String | Time period selection
+    //'excluded_docs': "excludedDocs_example", // String | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\" 
+    'custom_dict_file': "" // File | Custom sentiment dictionary JSON file.
 };
 
 var callback = function(error, data, response) {
@@ -326,30 +329,32 @@ var callback = function(error, data, response) {
             console.log('    Keywords: ' + res.topic);
             console.log('    Consensus: ' + res.consensus);
             console.log('    Strength: ' + res.strength);
-
+        
             console.log('---------------');
         }
     }
 };
-apiInstance.postTopicConsensusApi(dataset, opts, callback);
+apiInstance.postTopicConsensusApi(payload, callback);
 
 console.log('-------------------------------------------------------------')
 
 console.log('------------ Get topic historical analysis ----------------');
 
-var dataset = "trump_tweets"; // String | Dataset name.
 var timePeriod = "6M"; // String | Time period selection
 var updatePeriod = "d"; // String | Frequency at which the historical anlaysis is performed
 
-var opts = {
-    'query': "", // String | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\")
-    //'customStopWords': "", // String | List of stop words
-    'numTopics': 8, // Number | Number of topics to be extracted from the dataset.
-    'numKeywords': 8, // Number | Number of keywords per topic that is extracted from the dataset.
-    'metadataSelection': "", // String | json object of {\"metadata_field\":[\"selected_values\"]}
-    'incStep': 1, // Number | Number of increments of the udpate period in between two historical computations.
-    //'excludedDocs': "excludedDocs_example", // String | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"
-    'customDictFile': "" // File | Custom sentiment dictionary JSON file.
+var payload = {
+    'dataset': 'trump_tweets', // String | Dataset name
+    'time_period': '6M', // String | Time period selection. Choices: ["1M","3M","6M","12M","3Y","5Y",""]
+    'update_period': 'M',  // String | Frequency at which the historical anlaysis is performed
+    'query': '', // String | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\")
+    //'custom_stop_words': '' , // String | List of stop words
+    'num_topics': 6, // Number | Number of topics to be extracted from the dataset.
+    'num_keywords': 7, // Number | Number of keywords per topic that is extracted from the dataset.
+    'metadata_selection': '', // String | json object of {\"metadata_field\":[\"selected_values\"]}
+    'inc_step': 1, // Number | Number of increments of the udpate period in between two historical computations.
+    //'excluded_docs': 'excludedDocs_example', // String | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\" 
+    'custom_dict_file': '' // File | Custom sentiment dictionary JSON file.
 };
 
 var callback = function(error, data, response) {
@@ -369,21 +374,20 @@ var callback = function(error, data, response) {
         console.log('-------------------------------------------------------------');
     }
 };
-apiInstance.postTopicHistoricalAnalysisApi(dataset, timePeriod, updatePeriod, opts, callback);
+apiInstance.postTopicHistoricalAnalysisApi(payload, callback);
 
 console.log('-------------------------------------------------------------');
 
 console.log('----------------- Get author connectivity -------------------');
 
-
-var dataset = "trump_tweets"; // String | Dataset name.
-var targetAuthor = "D_Trump16"; // String | Name of the author to be analyzed.
-var timePeriod = "12M"; // String | Time period selection
-var opts = {
+var payload = { 
+    'dataset': 'trump_tweets', // String | Dataset name,
+    'target_author': "D_Trump16", // String | Name of the author to be analyzed.
     'query': "", // String | Fulltext query, using mysql MATCH boolean query format. Subject covered by the author, on which to focus the analysis of connectivity. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\")
-    //'customStopWords': [""], // String | List of words possibly used by the target author that are considered not information-bearing.
-    'metadataSelection': "", // String | json object of {\"metadata_field\":[\"selected_values\"]}
-    //'excludedDocs': [""] // String | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"
+    //'custom_stop_words': [""], // String | List of words possibly used by the target author that are considered not information-bearing.
+    'time_period': '12M',  // String | Time period selection Choices: ["1M","3M","6M","12M","3Y","5Y",""]
+    'metadata_selection': "", // String | json object of {\"metadata_field\":[\"selected_values\"]}
+    //'excluded_docs': [""] // String | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\" 
 };
 
 var callback = function(error, data, response) {
@@ -397,7 +401,7 @@ var callback = function(error, data, response) {
             console.log('    Topic:', mc.topic);
             console.log('    Authors:', mc.authors);
         }
-
+        
         console.log('Niche connections:')
         for (var i = 0; i < res.niche_connection.length; i++) {
             var nc = res.niche_connection[i];
@@ -407,25 +411,24 @@ var callback = function(error, data, response) {
         console.log('-------------------------------------------------------------');
   }
 };
-apiInstance.getAuthorConnectivityApi(dataset, targetAuthor, timePeriod, opts, callback);
+apiInstance.postAuthorConnectivityApi(payload, callback);
 
 console.log('-------------------------------------------------------------');
 
 console.log('------------------- Get topic deltas -----------------------');
 
-var dataset = "trump_tweets"; // String | Dataset with a time series component. These docs should reference a universe of entities that overlaps through time.
-var timeStartT0 = "2018-08-12 00:00:00"; // String | Start date for the start-of-period dataset. Format: \"YYYY-MM-DD HH:MM:SS\"
-var timeEndT0 = "2018-08-15 13:00:00"; // String | End date for the start-of-period dataset. Format: \"YYYY-MM-DD HH:MM:SS\"
-var timeStartT1 = "2018-08-16 00:00:00"; // String | Start date for the end-of-period dataset. Format: \"YYYY-MM-DD HH:MM:SS\"
-var timeEndT1 = "2018-08-19 00:00:00"; // String | End date for the end-of-period dataset. Format: \"YYYY-MM-DD HH:MM:SS\"
-
-var opts = {
-   'query': "", // String | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\")
-   //'customStopWords': "customStopWords_example", // String | List of stop words.
-   'numTopics': 8, // Number | Number of topics to be extracted from the dataset.
-   'numKeywords': 8, // Number | Number of keywords per topic that is extracted from the dataset.
-   'metadataSelection': "", // String | json object of {\"metadata_field\":[\"selected_values\"]}
-   //'excludedDocs': "excludedDocs_example" // String | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"
+var payload = {
+    'dataset': 'trump_tweets',                               
+    'query': '', // String | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\")
+    //'custom_stop_words': "customStopWords_example", // String | List of stop words.
+    'num_topics': 8, // Number | Number of topics to be extracted from the dataset.
+    'num_keywords': 8, // Number | Number of keywords per topic that is extracted from the dataset.
+    'period_0_start': '2018-08-12 00:00:00',
+    'period_0_end': '2018-08-15 13:00:00',
+    'period_1_start': '2018-08-16 00:00:00',
+    'period_1_end': '2018-08-19 00:00:00',
+    'metadata_selection': '', // String | json object of {\"metadata_field\":[\"selected_values\"]}
+    //'excluded_docs': 'excludedDocs_example' // String | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\" 
 };
 
 var callback = function(error, data, response) {
@@ -442,16 +445,18 @@ var callback = function(error, data, response) {
         }
     }
 };
-apiInstance.getTopicDeltaApi(dataset, timeStartT0, timeEndT0, timeStartT1, timeEndT1, opts, callback);
+apiInstance.postTopicDeltaApi(payload, callback);
 
 console.log('-------------------------------------------------------------');
 //
 
 console.log('----------------- Display document information --------------------');
-var dataset = "trump_tweets"; // String | Dataset name.
-var opts = {
-    'docTitles': "[ \"D_Trump2018_8_18_1_47\" ]", // String | The title of the documents on which info is requested. Example: [ \"title 1\", \"title 2\" ]
-    'docIds': "[ \"11\", \"12\", \"13\" ]" // String | The docid of the documents on which info is requested. Example:[ \"docid1, docid2\" ]
+
+var payload = {
+    'dataset': 'trump_tweets', // String | Dataset name,
+    'docTitles': "[ \"D_Trump2018_8_18_1_47\" ]", // String | The title of the documents on which info is requested. Example: [ \"title 1\", \"title 2\" ] 
+    'docIds': "[ \"11\", \"12\", \"13\" ]", // String | The docid of the documents on which info is requested. Example:[ \"docid1, docid2\" ]
+    'metadata_selection': ''
 };
 
 var callback = function(error, data, response) {
@@ -470,16 +475,15 @@ var callback = function(error, data, response) {
         }
     }
 };
-apiInstance.getDocInfo(dataset, opts, callback);
+apiInstance.postDocInfo(payload, callback);
 
 console.log('-------------------------------------------------------------');
 
 console.log('----------------- Display document details --------------------');
 
-var dataset = "trump_tweets"; // String | Dataset name.
-
-var opts = {
-    'docTitles': "[ \"D_Trump2018_8_18_1_47\" ]", // String | The title of the documents on which info is requested. Example: [ \"title 1\", \"title 2\" ]
+var payload = { 
+    'dataset': 'trump_tweets', // String | Dataset name,
+    'docTitles': "[ \"D_Trump2018_8_18_1_47\" ]", // String | The title of the documents on which info is requested. Example: [ \"title 1\", \"title 2\" ] 
     'docIds': "[ \"11\", \"12\", \"13\" ]" // String | The docid of the documents on which info is requested. Example:[ \"docid1, docid2\" ]
 };
 
@@ -501,21 +505,22 @@ var callback = function(error, data, response) {
         console.log('-------------------------------------------------------------')
     }
 };
-apiInstance.getDocDisplay(dataset, opts, callback);
+apiInstance.postDocDisplay(payload, callback);
 
 console.log('-------------------------------------------------------------')
 
 console.log('------------- Get document recommendations -----------------')
-var dataset = "trump_tweets"; // String | Dataset name.
-var opts = {
+
+var payload = { 
+    'dataset': 'trump_tweets', // String | Dataset name,
     'query': "", // String | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\")
     //'customStopWords': "customStopWords_example", // String | List of stop words.
-    'numTopics': 8, // Number | Number of topics to be extracted from the dataset.
-    'numKeywords': 8, // Number | Number of keywords per topic that is extracted from the dataset.
-    'numDocs': 20, // Number | Number of desired recommended docs per topic.
-    //'metadataSelection': "metadataSelection_example", // String | json object of {\"metadata_field\":[\"selected_values\"]}
-    //'timePeriod': "timePeriod_example", // String | Time period selection
-    //'excludedDocs': "excludedDocs_example" // String | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\"
+    'num_topics': 8, // Number | Number of topics to be extracted from the dataset.
+    'num_keywords': 8, // Number | Number of keywords per topic that is extracted from the dataset.
+    'num_docs': 20, // Number | Number of desired recommended docs per topic.
+    //'metadata_selection': "metadataSelection_example", // String | json object of {\"metadata_field\":[\"selected_values\"]}
+    //'time_period': "timePeriod_example", // String | Time period selection
+    //'excluded_docs': "excludedDocs_example" // String | List of document IDs that should be excluded from the analysis. Example, \"docid1, docid2, ..., docidN\" 
 };
 
 var callback = function(error, data, response) {
@@ -536,24 +541,26 @@ var callback = function(error, data, response) {
                 console.log('        Source:', doc.attribute.source)
                 console.log('        Time:', doc.attribute.time)
             }
-
+    
             console.log('---------------')
         }
     }
 };
-apiInstance.getDocRecommendApi(dataset, opts, callback);
+apiInstance.postDocRecommendApi(payload, callback);
 
 console.log('-------------------------------------------------------------')
 
 console.log('------------------ Get document summary  --------------------')
 
 var dataset = "trump_tweets"; // String | Dataset name.
-var docTitle = "D_Trump2018_8_15_15_4"; // String | The title of the document to be summarized.
+var doc_title = "D_Trump2018_8_15_15_4"; // String | The title of the document to be summarized.
 
-var opts = {
-    //'customStopWords': "customStopWords_example", // String | List of stop words
-    'summaryLength': 6, // Number | The maximum number of bullet points a user wants to see in the document summary.
-    'contextAmount': 0 // Number | The number of sentences surrounding key summary sentences in the documents that they come from.
+var payload = { 
+    'dataset': 'trump_tweets', // String | Dataset name,
+    'doc_title': 'D_Trump2018_8_15_15_4', // String | The title of the document to be summarized.
+    //'custom_stop_words': "customStopWords_example", // String | List of stop words
+    'summary_length': 6, // Number | The maximum number of bullet points a user wants to see in the document summary.
+    'context_amount': 0 // Number | The number of sentences surrounding key summary sentences in the documents that they come from.
 };
 
 var callback = function(error, data, response) {
@@ -566,6 +573,9 @@ var callback = function(error, data, response) {
         console.log('    Summary:', data.result.summary.sentences);
     }
 };
-apiInstance.getDocSummaryApi(dataset, docTitle, opts, callback);
+apiInstance.postDocSummaryApi(payload, callback);
 
 console.log('-------------------------------------------------------------')
+
+
+
