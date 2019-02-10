@@ -574,7 +574,7 @@ configuration.api_key['x-api-key'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
-payload = nucleus_api.RecommendDocs() # RecommendDocs | 
+payload = nucleus_api.DocumentRecommendModel() # DocumentRecommendModel | 
 
 try:
     api_response = api_instance.post_doc_recommend_api(payload)
@@ -587,7 +587,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **payload** | [**RecommendDocs**](RecommendDocs.md)|  | 
+ **payload** | [**DocumentRecommendModel**](DocumentRecommendModel.md)|  | 
 
 ### Return type
 
@@ -627,7 +627,7 @@ configuration.api_key['x-api-key'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
-payload = nucleus_api.SummarizeDocs() # SummarizeDocs | 
+payload = nucleus_api.DocumentSummaryModel() # DocumentSummaryModel | 
 
 try:
     api_response = api_instance.post_doc_summary_api(payload)
@@ -640,7 +640,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **payload** | [**SummarizeDocs**](SummarizeDocs.md)|  | 
+ **payload** | [**DocumentSummaryModel**](DocumentSummaryModel.md)|  | 
 
 ### Return type
 
@@ -841,7 +841,7 @@ configuration.api_key['x-api-key'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
-payload = nucleus_api.Consensus() # Consensus | 
+payload = nucleus_api.TopicConsensusModel() # TopicConsensusModel | 
 
 try:
     api_response = api_instance.post_topic_consensus_api(payload)
@@ -854,7 +854,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **payload** | [**Consensus**](Consensus.md)|  | 
+ **payload** | [**TopicConsensusModel**](TopicConsensusModel.md)|  | 
 
 ### Return type
 
@@ -894,7 +894,7 @@ configuration.api_key['x-api-key'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
-payload = nucleus_api.TopicDelta() # TopicDelta | 
+payload = nucleus_api.TopicDeltaModel() # TopicDeltaModel | 
 
 try:
     api_response = api_instance.post_topic_delta_api(payload)
@@ -907,7 +907,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **payload** | [**TopicDelta**](TopicDelta.md)|  | 
+ **payload** | [**TopicDeltaModel**](TopicDeltaModel.md)|  | 
 
 ### Return type
 
@@ -1000,7 +1000,7 @@ configuration.api_key['x-api-key'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
-payload = nucleus_api.Sentiment() # Sentiment | 
+payload = nucleus_api.TopicSentimentModel() # TopicSentimentModel | 
 
 try:
     api_response = api_instance.post_topic_sentiment_api(payload)
@@ -1013,7 +1013,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **payload** | [**Sentiment**](Sentiment.md)|  | 
+ **payload** | [**TopicSentimentModel**](TopicSentimentModel.md)|  | 
 
 ### Return type
 
@@ -1053,7 +1053,7 @@ configuration.api_key['x-api-key'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
 api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
-payload = nucleus_api.Summary() # Summary | 
+payload = nucleus_api.TopicSummaryModel() # TopicSummaryModel | 
 
 try:
     api_response = api_instance.post_topic_summary_api(payload)
@@ -1066,7 +1066,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **payload** | [**Summary**](Summary.md)|  | 
+ **payload** | [**TopicSummaryModel**](TopicSummaryModel.md)|  | 
 
 ### Return type
 
