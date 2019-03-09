@@ -36,7 +36,7 @@ else:
     print('Running example in script mode')
     
 configuration = nucleus_api.Configuration()
-configuration.host = 'UPDATE-WITH-API-SERVER-HOSTNAME'
+configuration.host = 'UPDATE-WITH-API-HOST'
 configuration.api_key['x-api-key'] = 'UPDATE-WITH-API-KEY'
 
 # Create API instance
@@ -58,11 +58,13 @@ metadata = {"time": "1/2/2018",
 
 try:
     api_response = api_instance.post_upload_file(file, dataset, metadata=metadata)
-    print(api_response.result, 'has been added to dataset', dataset)
     #print('api_response=', api_response)   # raw API response    
 except ApiException as e:
     print("Exception when calling DatasetsApi->post_upload_file: %s\n" % e)
+    exit
 
+
+print(api_response.result, 'has been added to dataset', dataset)
 print('-------------------------------------------------------------')
 
 
@@ -440,7 +442,7 @@ period_start = "" # str | Start date for the period to analyze within the datase
 period_end = "" # str | End date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS"
 
 try:
-    payload = nucleus_api.TopicSummaryModel(dataset=dataset, 
+    payload = nucleus_api.Summary(dataset=dataset, 
                                     query=query, 
                                     custom_stop_words=custom_stop_words, 
                                     num_topics=num_topics, 
@@ -494,7 +496,7 @@ period_start = "" # str | Start date for the period to analyze within the datase
 period_end = "" # str | End date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS"
 
 try:
-    payload = nucleus_api.TopicSentimentModel(dataset=dataset, 
+    payload = nucleus_api.Sentiment(dataset=dataset, 
                                     query=query, 
                                     custom_stop_words=custom_stop_words, 
                                     num_topics=num_topics, 
@@ -546,7 +548,7 @@ period_start = "" # str | Start date for the period to analyze within the datase
 period_end = "" # str | End date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS"
 
 try:
-    payload = nucleus_api.TopicConsensusModel(dataset=dataset, 
+    payload = nucleus_api.Consensus(dataset=dataset, 
                                     query=query, 
                                     custom_stop_words=custom_stop_words, 
                                     num_topics=num_topics, 
@@ -708,7 +710,7 @@ period_1_end = '2018-08-19 00:00:00'
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
 
 try:
-    payload = nucleus_api.TopicDeltaModel(dataset=dataset, 
+    payload = nucleus_api.TopicDelta(dataset=dataset, 
                                     query=query, 
                                     custom_stop_words=custom_stop_words, 
                                     num_topics=num_topics, 
@@ -874,7 +876,7 @@ num_keywords = 8 # int | Number of keywords per topic that is extracted from the
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
 
 try:
-    payload = nucleus_api.DocumentRecommendModel(dataset=dataset, 
+    payload = nucleus_api.RecommendDocs(dataset=dataset, 
                                         query=query, 
                                         custom_stop_words=custom_stop_words, 
                                         num_topics=num_topics, 
@@ -921,7 +923,7 @@ short_sentence_length = 0 # int | The sentence length below which a sentence is 
 long_sentence_length = 40 # int | The sentence length beyond which a sentence is excluded from summarization (optional) (default to 40)
 
 try:
-    payload = nucleus_api.DocumentSummaryModel(dataset=dataset, 
+    payload = nucleus_api.SummarizeDocs(dataset=dataset, 
                                         doc_title=doc_title, 
                                         custom_stop_words=custom_stop_words, 
                                         summary_length=summary_length, 
@@ -979,8 +981,34 @@ for sent in result.summary.sentences:
 print('-------------------------------------------------------------')
 
 
-# In[ ]:
+# ## Get document sentiment
+
+# In[26]:
 
 
+print('------------------ Get document sentiment  --------------------')
+
+dataset = 'trump_tweets' # str | Dataset name.
+doc_title = 'D_Trump2018_8_17_14_10' # str | The title of the document to be analyzed.
+custom_stop_words = ["real","hillary"] # List of stop words. (optional)
+num_topics = 8 # int | Number of topics to be extracted from the document. (optional) (default to 8)
+num_keywords = 8 # int | Number of keywords per topic that is extracted from the document. (optional) (default to 8)
+
+try:
+    payload = nucleus_api.DocumentSentimentModel(dataset=dataset, 
+                                        doc_title=doc_title, 
+                                        custom_stop_words=custom_stop_words, 
+                                        num_topics=num_topics, 
+                                        num_keywords=num_keywords)
+    api_response = api_instance.post_doc_sentiment_api(payload)
+    
+    print('Sentiment for', api_response.result.doc_title)
+    print(api_response.result.sentiment)
+
+    #pprint(api_response)   # raw API response
+    
+except ApiException as e:
+    print("Exception when calling DocumentsApi->post_doc_sentiment_api: %s\n" % e)
 
 
+print('-------------------------------------------------------------')
