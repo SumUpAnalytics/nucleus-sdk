@@ -1,10 +1,10 @@
-# ExampleJobResponse
+# DocumentSummaryL2Model
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**job_id** | **str** | If the job is taking too long, job_id is returned, GET /jobs can then be used to poll for results | [optional] 
-**result** | [**ExampleJobInnerResponse**](ExampleJobInnerResponse.md) |  | [optional] 
+**sentences** | **list[str]** |  | [optional] 
+**sourceid** | **str** | The ID of the document the sentence comes from | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -6,18 +6,23 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**get_job**](NucleusApi.md#get_job) | **GET** /jobs | 
 [**get_list_datasets**](NucleusApi.md#get_list_datasets) | **GET** /datasets | 
+[**get_list_filters**](NucleusApi.md#get_list_filters) | **GET** /filters | 
 [**get_user**](NucleusApi.md#get_user) | **GET** /users | 
 [**post_append_json_to_dataset**](NucleusApi.md#post_append_json_to_dataset) | **POST** /datasets/append_json_to_dataset | 
 [**post_author_connectivity_api**](NucleusApi.md#post_author_connectivity_api) | **POST** /topics/author_connectivity | 
 [**post_dataset_info**](NucleusApi.md#post_dataset_info) | **POST** /datasets/dataset_info | 
 [**post_delete_dataset**](NucleusApi.md#post_delete_dataset) | **POST** /datasets/delete_dataset | 
 [**post_delete_document**](NucleusApi.md#post_delete_document) | **POST** /datasets/delete_document | 
+[**post_delete_filter**](NucleusApi.md#post_delete_filter) | **POST** /filters/delete_filter | 
 [**post_doc_display**](NucleusApi.md#post_doc_display) | **POST** /documents/document_display | 
 [**post_doc_info**](NucleusApi.md#post_doc_info) | **POST** /documents/document_info | 
 [**post_doc_recommend_api**](NucleusApi.md#post_doc_recommend_api) | **POST** /documents/document_recommend | 
+[**post_doc_sentiment_api**](NucleusApi.md#post_doc_sentiment_api) | **POST** /documents/document_sentiment | 
 [**post_doc_summary_api**](NucleusApi.md#post_doc_summary_api) | **POST** /documents/document_summary | 
 [**post_example_job**](NucleusApi.md#post_example_job) | **POST** /jobs/start_example_job | 
 [**post_legacy**](NucleusApi.md#post_legacy) | **POST** /legacy | 
+[**post_rename_dataset**](NucleusApi.md#post_rename_dataset) | **POST** /datasets/rename_dataset | 
+[**post_save_filter**](NucleusApi.md#post_save_filter) | **POST** /filters/save_filter | 
 [**post_topic_api**](NucleusApi.md#post_topic_api) | **POST** /topics/topics | 
 [**post_topic_consensus_api**](NucleusApi.md#post_topic_consensus_api) | **POST** /topics/topic_consensus | 
 [**post_topic_delta_api**](NucleusApi.md#post_topic_delta_api) | **POST** /topics/topic_delta | 
@@ -119,6 +124,55 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**ListDatasetsModel**](ListDatasetsModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: text/html
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **get_list_filters**
+> ListFiltersModel get_list_filters()
+
+
+
+List the filters owned by the user.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import nucleus_api
+from nucleus_api.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: apikey
+configuration = nucleus_api.Configuration()
+configuration.api_key['x-api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['x-api-key'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
+
+try:
+    api_response = api_instance.get_list_filters()
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling NucleusApi->get_list_filters: %s\n" % e)
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**ListFiltersModel**](ListFiltersModel.md)
 
 ### Authorization
 
@@ -445,6 +499,59 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **post_delete_filter**
+> DeleteFilterRespModel post_delete_filter(payload)
+
+
+
+Delete a filter.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import nucleus_api
+from nucleus_api.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: apikey
+configuration = nucleus_api.Configuration()
+configuration.api_key['x-api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['x-api-key'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
+payload = nucleus_api.DeleteFilterModel() # DeleteFilterModel | 
+
+try:
+    api_response = api_instance.post_delete_filter(payload)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling NucleusApi->post_delete_filter: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**DeleteFilterModel**](DeleteFilterModel.md)|  | 
+
+### Return type
+
+[**DeleteFilterRespModel**](DeleteFilterRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **post_doc_display**
 > DocDisplayRespModel post_doc_display(payload)
 
@@ -592,6 +699,59 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**DocumentRecommendRespModel**](DocumentRecommendRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **post_doc_sentiment_api**
+> DocumentSentimentRespModel post_doc_sentiment_api(payload)
+
+
+
+Document sentiment.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import nucleus_api
+from nucleus_api.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: apikey
+configuration = nucleus_api.Configuration()
+configuration.api_key['x-api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['x-api-key'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
+payload = nucleus_api.DocumentSentimentModel() # DocumentSentimentModel | 
+
+try:
+    api_response = api_instance.post_doc_sentiment_api(payload)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling NucleusApi->post_doc_sentiment_api: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**DocumentSentimentModel**](DocumentSentimentModel.md)|  | 
+
+### Return type
+
+[**DocumentSentimentRespModel**](DocumentSentimentRespModel.md)
 
 ### Authorization
 
@@ -753,6 +913,112 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**LegacyResponseModel**](LegacyResponseModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **post_rename_dataset**
+> RenameDatasetRespModel post_rename_dataset(payload)
+
+
+
+Rename an existing dataset.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import nucleus_api
+from nucleus_api.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: apikey
+configuration = nucleus_api.Configuration()
+configuration.api_key['x-api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['x-api-key'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
+payload = nucleus_api.Renamedatasetmodel() # Renamedatasetmodel | 
+
+try:
+    api_response = api_instance.post_rename_dataset(payload)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling NucleusApi->post_rename_dataset: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**Renamedatasetmodel**](Renamedatasetmodel.md)|  | 
+
+### Return type
+
+[**RenameDatasetRespModel**](RenameDatasetRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **post_save_filter**
+> SaveFilterRespModel post_save_filter(payload)
+
+
+
+Save a filter representing a subsect of a dataset (time range, query, metadata..).
+
+### Example
+```python
+from __future__ import print_function
+import time
+import nucleus_api
+from nucleus_api.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: apikey
+configuration = nucleus_api.Configuration()
+configuration.api_key['x-api-key'] = 'YOUR_API_KEY'
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['x-api-key'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
+payload = nucleus_api.SaveFilterModel() # SaveFilterModel | 
+
+try:
+    api_response = api_instance.post_save_filter(payload)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling NucleusApi->post_save_filter: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**SaveFilterModel**](SaveFilterModel.md)|  | 
+
+### Return type
+
+[**SaveFilterRespModel**](SaveFilterRespModel.md)
 
 ### Authorization
 
@@ -1084,7 +1350,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_upload_file**
-> UploadFileRespModel post_upload_file(file, dataset, metadata=metadata)
+> UploadFileRespModel post_upload_file(file, dataset, metadata=metadata, filename=filename)
 
 
 
@@ -1107,9 +1373,10 @@ api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
 file = '/path/to/file.txt' # file | 
 dataset = 'dataset_example' # str | Destination dataset where the file will be inserted.
 metadata = 'metadata_example' # str | Optional json containing additional document metadata. Eg: {\"time\":\"01/01/2001\",\"author\":\"me\"} (optional)
+filename = 'filename_example' # str | Specify the filename if you want to override the original filename (Nucleus guesses the file type from the file name extension) (optional)
 
 try:
-    api_response = api_instance.post_upload_file(file, dataset, metadata=metadata)
+    api_response = api_instance.post_upload_file(file, dataset, metadata=metadata, filename=filename)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling NucleusApi->post_upload_file: %s\n" % e)
@@ -1122,6 +1389,7 @@ Name | Type | Description  | Notes
  **file** | **file**|  | 
  **dataset** | **str**| Destination dataset where the file will be inserted. | 
  **metadata** | **str**| Optional json containing additional document metadata. Eg: {\&quot;time\&quot;:\&quot;01/01/2001\&quot;,\&quot;author\&quot;:\&quot;me\&quot;} | [optional] 
+ **filename** | **str**| Specify the filename if you want to override the original filename (Nucleus guesses the file type from the file name extension) | [optional] 
 
 ### Return type
 

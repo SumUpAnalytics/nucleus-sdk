@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# Copyright (c) 2018 SumUp Analytics, Inc. All Rights Reserved.
+# Copyright (c) 2018-2019 SumUp Analytics, Inc. All Rights Reserved.
 # 
 # NOTICE: All information contained herein is, and remains the property of SumUp Analytics Inc. and its suppliers, if any. The intellectual and technical concepts contained herein are proprietary to SumUp Analytics Inc. and its suppliers and may be covered by U.S. and Foreign Patents, patents in process, and are protected by trade secret or copyright law.
 # 
@@ -36,7 +36,7 @@ else:
     print('Running example in script mode')
     
 configuration = nucleus_api.Configuration()
-configuration.host = 'UPDATE-WITH-API-HOST'
+configuration.host = 'UPDATE-WITH-API-SERVER-HOSTNAME'
 configuration.api_key['x-api-key'] = 'UPDATE-WITH-API-KEY'
 
 # Create API instance
@@ -58,13 +58,11 @@ metadata = {"time": "1/2/2018",
 
 try:
     api_response = api_instance.post_upload_file(file, dataset, metadata=metadata)
+    print(api_response.result, 'has been added to dataset', dataset)
     #print('api_response=', api_response)   # raw API response    
 except ApiException as e:
     print("Exception when calling DatasetsApi->post_upload_file: %s\n" % e)
-    exit
 
-
-print(api_response.result, 'has been added to dataset', dataset)
 print('-------------------------------------------------------------')
 
 
@@ -247,14 +245,14 @@ payload = nucleus_api.Deletedatasetmodel(dataset=dataset) # Deletedatasetmodel |
 
 try:
     api_response = api_instance.post_delete_dataset(payload)
-    #print(api_response)
+    print(api_response)
 except ApiException as e:
     print("Exception when calling DatasetsApi->post_delete_dataset: %s\n" % e)
     
 # List datasets again to check if the specified dataset has been deleted
 try:
     api_response = api_instance.get_list_datasets()
-    #print('api_response=', api_response)
+    print('api_response=', api_response)
 except ApiException as e:
     print("Exception when calling DatasetsApi->get_list_datasets: %s\n" % e)
     
@@ -440,38 +438,40 @@ metadata_selection ="" # dict | JSON object specifying metadata-based queries on
 time_period = ""     # str | Time period selection. Choices: ["1M","3M","6M","12M","3Y","5Y",""]  (optional)
 period_start = "" # str | Start date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS"
 period_end = "" # str | End date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS"
+api_response = None
 
 try:
-    payload = nucleus_api.Summary(dataset=dataset, 
-                                    query=query, 
-                                    custom_stop_words=custom_stop_words, 
-                                    num_topics=num_topics, 
-                                    num_keywords=num_keywords,
-                                    metadata_selection=metadata_selection,
-                                    summary_length=summary_length, 
-                                    context_amount=context_amount, 
-                                    num_docs=num_docs)
+    payload = nucleus_api.TopicSummaryModel	(
+        dataset=dataset, 
+        query=query,
+        custom_stop_words=custom_stop_words, 
+        num_topics=num_topics, 
+        num_keywords=num_keywords,
+        metadata_selection=metadata_selection,
+        summary_length=summary_length, 
+        context_amount=context_amount, 
+        num_docs=num_docs)
     api_response = api_instance.post_topic_summary_api(payload)        
 except ApiException as e:
     print("Exception when calling TopicsApi->post_topic_summary_api: %s\n" % e)
 
-i = 1
-for res in api_response.result:
-    print('Topic', i, 'summary:')
-    print('    Keywords:', res.topic)
-    for j in range(len(res.summary)):
-        print(res.summary[j])
-        print('    Document ID:', res.summary[j].sourceid)
-        print('        Title:', res.summary[j].title)
-        print('        Sentences:', res.summary[j].sentences)
-        print('        Author:', res.summary[j].attribute['author'])
-        print('        Time:', datetime.datetime.fromtimestamp(float(res.summary[j].attribute['time'])))
-        
-    print('---------------')
-    i = i + 1
-    
-    
 #pprint(api_response)  # raw API response
+if api_response != None:
+    i = 1
+    for res in api_response.result:
+        print('Topic', i, 'summary:')
+        print('    Keywords:', res.topic)
+        for j in range(len(res.summary)):
+            print(res.summary[j])
+            print('    Document ID:', res.summary[j].sourceid)
+            print('        Title:', res.summary[j].title)
+            print('        Sentences:', res.summary[j].sentences)
+            print('        Author:', res.summary[j].attribute['author'])
+            print('        Time:', datetime.datetime.fromtimestamp(float(res.summary[j].attribute['time'])))
+        
+        print('---------------')
+        i = i + 1
+    
 print('-------------------------------------------------------------')
 
 
@@ -496,12 +496,13 @@ period_start = "" # str | Start date for the period to analyze within the datase
 period_end = "" # str | End date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS"
 
 try:
-    payload = nucleus_api.Sentiment(dataset=dataset, 
-                                    query=query, 
-                                    custom_stop_words=custom_stop_words, 
-                                    num_topics=num_topics, 
-                                    num_keywords=num_keywords,
-                                    custom_dict_file=custom_dict_file)
+    payload = nucleus_api.TopicSentimentModel(
+        dataset=dataset, 
+        query=query, 
+        custom_stop_words=custom_stop_words, 
+        num_topics=num_topics, 
+        num_keywords=num_keywords,
+        custom_dict_file=custom_dict_file)
     api_response = api_instance.post_topic_sentiment_api(payload)
     
 except ApiException as e:
@@ -548,12 +549,13 @@ period_start = "" # str | Start date for the period to analyze within the datase
 period_end = "" # str | End date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS"
 
 try:
-    payload = nucleus_api.Consensus(dataset=dataset, 
-                                    query=query, 
-                                    custom_stop_words=custom_stop_words, 
-                                    num_topics=num_topics, 
-                                    num_keywords=num_keywords,
-                                    custom_dict_file=custom_dict_file)
+    payload = nucleus_api.TopicConsensusModel(
+        dataset=dataset, 
+        query=query, 
+        custom_stop_words=custom_stop_words, 
+        num_topics=num_topics, 
+        num_keywords=num_keywords,
+        custom_dict_file=custom_dict_file)
     api_response = api_instance.post_topic_consensus_api(payload)
 except ApiException as e:
     print("Exception when calling TopicsApi->post_topic_consensus_api: %s\n" % e)
@@ -593,7 +595,7 @@ metadata_selection ="" # dict | JSON object specifying metadata-based queries on
 time_period = "6M"     # str | Time period selection. Choices: ["1M","3M","6M","12M","3Y","5Y",""] (optional)
 period_start = "" # str | Start date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS"
 period_end = "" # str | End date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS"
-
+api_response = None
 try:
     payload = nucleus_api.TopicHistoryModel(
         dataset=dataset, 
@@ -611,37 +613,38 @@ try:
 except ApiException as e:
     print("Exception when calling TopicsApi->post_topic_historical_analysis_api: %s\n" % e)
 
-#print('api_response=', api_response)
-results = api_response.result
+if api_response != None:
+    #print('api_response=', api_response)
+    results = api_response.result
 
-# chart the historical metrics when running in Jupyter Notebook
-if running_notebook:
-    print('Plotting historical metrics data...')
-    historical_metrics = []
-    for res in results:
-        # conctruct a list of historical metrics dictionaries for charting
-        historical_metrics.append({
-            'topic'    : res.topic,
-            'time_stamps' : np.array(res.time_stamps),
-            'strength' : np.array(res.strength, dtype=np.float32),
-            'consensus': np.array(res.consensus, dtype=np.float32), 
-            'sentiment': np.array(res.sentiment, dtype=np.float32)})
+    # chart the historical metrics when running in Jupyter Notebook
+    if running_notebook:
+        print('Plotting historical metrics data...')
+        historical_metrics = []
+        for res in results:
+            # conctruct a list of historical metrics dictionaries for charting
+            historical_metrics.append({
+                'topic'    : res.topic,
+                'time_stamps' : np.array(res.time_stamps),
+                'strength' : np.array(res.strength, dtype=np.float32),
+                'consensus': np.array(res.consensus, dtype=np.float32), 
+                'sentiment': np.array(res.sentiment, dtype=np.float32)})
 
-    selected_topics = range(len(historical_metrics)) 
-    topic_charts_historical(historical_metrics, selected_topics, True)
-else:
-    print('Printing historical metrics data...')
-    print('NOTE: historical metrics data can be plotted when running the example in Jupyter Notebook')
-    i = 1
-    for res in results:
-        print('Topic', i, res.topic)
-        print('    Timestamps:', res.time_stamps)
-        print('    Strength:', res.strength)
-        print('    Consensus:', res.consensus)
-        print('    Sentiment:', res.sentiment)
-        print('----------------')
-        i = i + 1
-#pprint(api_response)
+        selected_topics = range(len(historical_metrics)) 
+        topic_charts_historical(historical_metrics, selected_topics, True)
+    else:
+        print('Printing historical metrics data...')
+        print('NOTE: historical metrics data can be plotted when running the example in Jupyter Notebook')
+        i = 1
+        for res in results:
+            print('Topic', i, res.topic)
+            print('    Timestamps:', res.time_stamps)
+            print('    Strength:', res.strength)
+            print('    Consensus:', res.consensus)
+            print('    Sentiment:', res.sentiment)
+            print('----------------')
+            i = i + 1
+
 print('-------------------------------------------------------------')
 
 
@@ -710,16 +713,17 @@ period_1_end = '2018-08-19 00:00:00'
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
 
 try:
-    payload = nucleus_api.TopicDelta(dataset=dataset, 
-                                    query=query, 
-                                    custom_stop_words=custom_stop_words, 
-                                    num_topics=num_topics, 
-                                    num_keywords=num_keywords,
-                                    period_0_start= period_0_start,
-                                    period_0_end=period_0_end,
-                                    period_1_start=period_1_start,
-                                    period_1_end=period_1_end,
-                                    metadata_selection=metadata_selection)
+    payload = nucleus_api.TopicDeltaModel(
+        dataset=dataset, 
+        query=query, 
+        custom_stop_words=custom_stop_words, 
+        num_topics=num_topics, 
+        num_keywords=num_keywords,
+        period_0_start=period_0_start,
+        period_0_end=period_0_end,
+        period_1_start=period_1_start,
+        period_1_end=period_1_end,
+        metadata_selection=metadata_selection)
     api_response = api_instance.post_topic_delta_api(payload)        
 except ApiException as e:
     print("Exception when calling TopicsApi->post_topic_delta_api: %s\n" % e)
@@ -876,11 +880,12 @@ num_keywords = 8 # int | Number of keywords per topic that is extracted from the
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
 
 try:
-    payload = nucleus_api.RecommendDocs(dataset=dataset, 
-                                        query=query, 
-                                        custom_stop_words=custom_stop_words, 
-                                        num_topics=num_topics, 
-                                        num_keywords=num_keywords)
+    payload = nucleus_api.DocumentRecommendModel(
+        dataset=dataset, 
+        query=query, 
+        custom_stop_words=custom_stop_words, 
+        num_topics=num_topics, 
+        num_keywords=num_keywords)
     api_response = api_instance.post_doc_recommend_api(payload)
 except ApiException as e:
     print("Exception when calling DocumentsApi->post_doc_recommend_api: %s\n" % e)
@@ -923,13 +928,14 @@ short_sentence_length = 0 # int | The sentence length below which a sentence is 
 long_sentence_length = 40 # int | The sentence length beyond which a sentence is excluded from summarization (optional) (default to 40)
 
 try:
-    payload = nucleus_api.SummarizeDocs(dataset=dataset, 
-                                        doc_title=doc_title, 
-                                        custom_stop_words=custom_stop_words, 
-                                        summary_length=summary_length, 
-                                        context_amount=context_amount,
-                                        short_sentence_length=short_sentence_length,
-                                        long_sentence_length=long_sentence_length)
+    payload = nucleus_api.DocumentSummaryModel(
+        dataset=dataset, 
+        doc_title=doc_title, 
+        custom_stop_words=custom_stop_words, 
+        summary_length=summary_length, 
+        context_amount=context_amount,
+        short_sentence_length=short_sentence_length,
+        long_sentence_length=long_sentence_length)
     api_response = api_instance.post_doc_summary_api(payload)
     
     print('Summary for', api_response.result.doc_title)
@@ -995,11 +1001,12 @@ num_topics = 8 # int | Number of topics to be extracted from the document. (opti
 num_keywords = 8 # int | Number of keywords per topic that is extracted from the document. (optional) (default to 8)
 
 try:
-    payload = nucleus_api.DocumentSentimentModel(dataset=dataset, 
-                                        doc_title=doc_title, 
-                                        custom_stop_words=custom_stop_words, 
-                                        num_topics=num_topics, 
-                                        num_keywords=num_keywords)
+    payload = nucleus_api.DocumentSentimentModel(
+        dataset=dataset, 
+        doc_title=doc_title, 
+        custom_stop_words=custom_stop_words, 
+        num_topics=num_topics, 
+        num_keywords=num_keywords)
     api_response = api_instance.post_doc_sentiment_api(payload)
     
     print('Sentiment for', api_response.result.doc_title)
@@ -1012,3 +1019,10 @@ except ApiException as e:
 
 
 print('-------------------------------------------------------------')
+
+
+# In[ ]:
+
+
+
+

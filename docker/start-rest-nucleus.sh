@@ -1,6 +1,6 @@
 #set -x
 
-ver="0.0.3"
+ver="0.0.4"
 if [ "$#" -lt 1 ]; then
     echo "Usage: ./start-rest-nucleus.sh license-file [nucleus-docker-image-version]"
     exit 1
@@ -35,6 +35,6 @@ else
 fi 
 
 # start a new container, copy the license file to the container and start api server
-docker run -d --name nucleus-api-server -e "PYTHONIOENCODING=utf8" -v nucleus-mysql-data:/var/lib/mysql -p 50000:5000 nucleus:$ver
-docker cp $license_file nucleus-api-server:/usr/local/lib/python3.5/dist-packages/nucleus/resources
+docker run -d --name nucleus-api-server -e "PYTHONIOENCODING=utf8" -e MYSQL_ROOT_HOST=% -v nucleus-mysql-data:/var/lib/mysql -p 50000:5000 nucleus:$ver
+docker cp $license_file nucleus-api-server:/usr/local/lib/python3.5/dist-packages/nucleus/resources/nucleus.lic
 docker exec -it nucleus-api-server rest_nucleus

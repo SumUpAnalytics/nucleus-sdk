@@ -52,5 +52,5 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DocumentSummaryModel**](docs/DocumentSummaryModel.md)
+[**DocumentSummaryRespModel**](docs/DocumentSummaryRespModel.md)
 
