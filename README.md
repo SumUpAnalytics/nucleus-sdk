@@ -8,7 +8,7 @@ Those APIs enable end-users to perform the following tasks:
 1. Analytics
 * Topic modeling
 * Summarization at the Topic and Document level
-* Sentiment analysis at the Topic level
+* Sentiment analysis at the Topic and Document level
 * Consensus analysis at the Topic level
 * Content recommendation at the Topic level
 * Historical analysis of prevalence, sentiment and consensus at the Topic level
@@ -20,7 +20,7 @@ Those APIs enable end-users to perform the following tasks:
 * Metadata-based documents' selection
 * Document' display
 * Selective documents deletion
-* Dataset deletion
+* Dataset deletion and renaming
 
 11 languages are currently supported by those APIs: English, Mandarin, Japanese, Portuguese, Spanish, German, Russian, Italian, French, Arabic, Farsi.
 
