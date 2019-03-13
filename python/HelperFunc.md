@@ -1,3 +1,117 @@
+# **import_files**
+> import_files(api_instance, dataset, file_iter, processes=4)
+
+
+Import files to dataset in parallel
+
+### Example
+```python
+import nucleus_api
+import nucleus_api.api.nucleus_api as nucleus_helper
+
+configuration = nucleus_api.Configuration()
+configuration.host = 'UPDATE-WITH-API-SERVER-HOSTNAME'
+configuration.api_key['x-api-key'] = 'UPDATE-WITH-API-KEY'
+
+
+# create an instance of the API class
+api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
+
+dataset = 'test'
+file_iter = ['file1', 'file2', 'file3', 'file4']
+nucleus_helper.import_files(api_instance, dataset, file_iter, processes=4)
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **api_instance** | **NucleusApi**| An instance of the NucleusAPI class. |
+ **dataset** | **string**| Name of the dataset |
+ **file_iter** | **iterable**| Iterable containing files to be imported
+ **processes** | **integer**| Number of parallel processes. DEFAULT: 4| [optional]
+
+### Return type
+
+No return value
+
+# **import_jsons**
+> import_jsons(api_instance, dataset, file_iter, processes=4)
+
+
+Import JSONs to dataset in parallel
+
+### Example
+```python
+import nucleus_api
+import nucleus_api.api.nucleus_api as nucleus_helper
+
+configuration = nucleus_api.Configuration()
+configuration.host = 'UPDATE-WITH-API-SERVER-HOSTNAME'
+configuration.api_key['x-api-key'] = 'UPDATE-WITH-API-KEY'
+
+
+# create an instance of the API class
+api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
+
+dataset = 'test'
+json_iter = [{JSON1}, {JSON2}, {JSON3}, {JSON4}]
+nucleus_helper.import_jsons(api_instance, dataset, json_iter, processes=4)
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **api_instance** | **NucleusApi**| An instance of the NucleusAPI class. |
+ **dataset** | **string**| Name of the dataset |
+ **json_iter** | **iterable**| Iterable containing JSON records to be imported
+ **processes** | **integer**| Number of parallel processes. DEFAULT: 4| [optional]
+
+### Return type
+
+No return value
+
+# **import_urls**
+> import_urls(api_instance, dataset, url_iter, processes=4)
+
+
+Import URLs to dataset in parallel
+
+### Example
+```python
+import nucleus_api
+import nucleus_api.api.nucleus_api as nucleus_helper
+
+configuration = nucleus_api.Configuration()
+configuration.host = 'UPDATE-WITH-API-SERVER-HOSTNAME'
+configuration.api_key['x-api-key'] = 'UPDATE-WITH-API-KEY'
+
+
+# create an instance of the API class
+api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
+
+dataset = 'test'
+url_iter = ['URL1', 'URL2', 'URL3', 'URL4']
+nucleus_helper.import_urls(api_instance, dataset, url_iter, processes=4)
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **api_instance** | **NucleusApi**| An instance of the NucleusAPI class. |
+ **dataset** | **string**| Name of the dataset |
+ **url_iter** | **iterable**| Iterable containing URLs to be imported
+ **processes** | **integer**| Number of parallel processes. DEFAULT: 4| [optional]
+
+### Return type
+
+No return value
+
 # **summarize_file_url**
 > DocumentSummaryRespModel summarize_file_url(api_instance, file_params)
 
