@@ -9,7 +9,7 @@
 
 # # Initialization, configure API host and key, and create new API instance
 
-# In[1]:
+# In[36]:
 
 
 import os
@@ -19,9 +19,10 @@ import datetime
 import time
 import nucleus_api
 from nucleus_api.rest import ApiException
-from nucleus_api.api.nucleus_api import topic_charts_historical,summarize_file_url
+import nucleus_api.api.nucleus_api as nucleus_helper
 from pprint import pprint
 import numpy as np
+from pathlib import Path
 
 # Determine if in Jupyter notebook or not
 try:
@@ -47,7 +48,7 @@ api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
 
 # ## Append file from local drive to dataset
 
-# In[2]:
+# In[37]:
 
 
 print('--------- Append file from local drive to dataset -----------')
@@ -57,7 +58,7 @@ metadata = {"time": "1/2/2018",
             "author": "Test Author"}  # Optional json containing additional document metadata
 
 try:
-    api_response = api_instance.post_upload_file(file, dataset, metadata=metadata)
+    api_response = api_instance.post_upload_file(file, dataset)
     print(api_response.result, 'has been added to dataset', dataset)
     #print('api_response=', api_response)   # raw API response    
 except ApiException as e:
@@ -66,38 +67,30 @@ except ApiException as e:
 print('-------------------------------------------------------------')
 
 
-# # Append all files from local folder to dataset
+# # Append all PDFs from a folder to dataset in parallel
 
-# In[3]:
+# In[38]:
 
 
 print('--------- Append all files from local folder to dataset -----------')
 folder = 'fomc-minutes'         
 
 dataset = 'dataset_test'              # str | Destination dataset where the file will be inserted.
-metadata = {"time": "1/2/2018", 
-            "author": "Test Author"}  # Optional json containing additional document metadata
 
 for root, dirs, files in os.walk(folder):
+    file_iters = []
     for file in files:
-        file = os.path.join(root, file)
+        if Path(file).suffix == '.pdf':
+            file_iters.append(os.path.join(root, file))
         
-        try:
-            api_response = api_instance.post_upload_file(file, dataset, metadata=metadata)
-            #print('api_response=', api_response)   # raw API response    
-        except ApiException as e:
-            print("Exception when calling DatasetsApi->post_upload_file: %s\n" % e)
-            exit
-
-
-        print(api_response.result, 'has been added to dataset', dataset)
+    nucleus_helper.import_files(api_instance, dataset, file_iters, processes=4)
 
 print('-------------------------------------------------------------')
 
 
 # ## Append file from URL to dataset
 
-# In[4]:
+# In[39]:
 
 
 print('------------ Append file from URL to dataset ---------------')
@@ -123,43 +116,48 @@ print(api_response.result, 'has been added to dataset', dataset)
 print('-------------------------------------------------------------')
 
 
-# ## Append json from csv to dataset
+# ## Append files from URLs to dataset in parallel
 
-# In[5]:
+# In[40]:
+
+
+print('------------ Append file from URL to dataset ---------------')
+
+dataset = 'dataset_test'
+file_urls = [
+    'https://s3-us-west-2.amazonaws.com/sumup-public/nucleus-sdk/quarles20181109a.docx',
+    'https://s3-us-west-2.amazonaws.com/sumup-public/nucleus-sdk/quarles20181109b.docx',
+    'https://s3-us-west-2.amazonaws.com/sumup-public/nucleus-sdk/quarles20181109c.docx',
+    'https://s3-us-west-2.amazonaws.com/sumup-public/nucleus-sdk/quarles20181109d.docx'
+]
+
+nucleus_helper.import_urls(api_instance, dataset, file_urls, processes=4)
+    
+
+print('-------------------------------------------------------------')
+
+
+# ## Append jsons from csv to dataset in parallel
+
+# In[42]:
 
 
 # This dataset will be used to test all topics and documents APIs
 print('----------- Append json from CSV to dataset -----------------')
 csv_file = 'trump-tweets-100.csv'
-dataset = 'trump-tweets'  
+dataset = 'trump_tweets'
 
 with open(csv_file, encoding='utf-8-sig') as csvfile:
     reader = csv.DictReader(csvfile)
-    doc_count = 0
-    for row in reader:
-        payload = nucleus_api.Appendjsonparams(dataset=dataset, 
-                                               #language='english', #optional. language can be auto detected
-                                               document={'time'   : row['time'],
-                                                         'title'  : row['title'],
-                                                         'content': row['content'],
-                                                         'author' : row['author']}
-                                              )
+    #print(list(reader))
+    nucleus_helper.import_jsons(api_instance, dataset, reader, processes=4)
 
-        try:
-            api_response = api_instance.post_append_json_to_dataset(payload)
-            #print('api_response', api_response)
-        except ApiException as e:
-            print("Exception when calling DatasetsApi->post_append_json_to_dataset: %s\n" % e)
-            
-        doc_count += 1
-        
-print(doc_count, 'documents added to dataset', dataset)
 print('-------------------------------------------------------------')
 
 
 # ## List available datasets
 
-# In[6]:
+# In[43]:
 
 
 print('---------------- List available datasets ---------------------')
@@ -180,7 +178,7 @@ print('-------------------------------------------------------------')
 
 # ## Get dataset information
 
-# In[7]:
+# In[44]:
 
 
 print('--------------- Get dataset information -------------------')
@@ -213,7 +211,7 @@ print('-------------------------------------------------------------')
 
 # ## Delete document
 
-# In[8]:
+# In[45]:
 
 
 print('--------------------- Delete document -----------------------')
@@ -235,7 +233,7 @@ print('-------------------------------------------------------------')
 
 # ## Delete dataset
 
-# In[9]:
+# In[46]:
 
 
 print('--------------------- Delete dataset ------------------------')
@@ -263,7 +261,7 @@ print('-------------------------------------------------------------')
 
 # ## Get list of topics from dataset
 
-# In[10]:
+# In[47]:
 
 
 print('------------- Get list of topics from dataset --------------')
@@ -315,7 +313,7 @@ print('-------------------------------------------------------------')
 
 # ## Get list of topics from dataset with a time range selection
 
-# In[11]:
+# In[48]:
 
 
 print('------------- Get list of topics from dataset --------------')
@@ -369,7 +367,7 @@ print('-------------------------------------------------------------')
 
 # ## Get list of topics from dataset with a metadata selection
 
-# In[12]:
+# In[49]:
 
 
 print('------------- Get list of topics from dataset --------------')
@@ -419,7 +417,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic summary
 
-# In[13]:
+# In[34]:
 
 
 print('------------------- Get topic summary -----------------------')
@@ -477,7 +475,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic sentiment
 
-# In[14]:
+# In[35]:
 
 
 print('---------------- Get topic sentiment ------------------------')

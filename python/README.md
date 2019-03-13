@@ -35,7 +35,10 @@ import nucleus_api
 1. Execute the example in Jupyter Notebook or use the command line: 'python3 all-api-examples-py.py'
 
 ##  Documentation for Helper Functions
-[**summarize_file_url**](HelperFunc.md#summarize_file_url)
+[**import_files**](HelperFunc.md#import_files)  
+[**import_jsons**](HelperFunc.md#import_jsons)  
+[**import_urls**](HelperFunc.md#import_urls)  
+[**summarize_file_url**](HelperFunc.md#summarize_file_url)  
 
 ## Documentation for API Endpoints
 
