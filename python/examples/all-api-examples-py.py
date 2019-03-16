@@ -9,7 +9,7 @@
 
 # # Initialization, configure API host and key, and create new API instance
 
-# In[36]:
+# In[1]:
 
 
 import os
@@ -48,7 +48,7 @@ api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
 
 # ## Append file from local drive to dataset
 
-# In[37]:
+# In[2]:
 
 
 print('--------- Append file from local drive to dataset -----------')
@@ -69,7 +69,7 @@ print('-------------------------------------------------------------')
 
 # # Append all PDFs from a folder to dataset in parallel
 
-# In[38]:
+# In[3]:
 
 
 print('--------- Append all files from local folder to dataset -----------')
@@ -90,7 +90,7 @@ print('-------------------------------------------------------------')
 
 # ## Append file from URL to dataset
 
-# In[39]:
+# In[4]:
 
 
 print('------------ Append file from URL to dataset ---------------')
@@ -118,7 +118,7 @@ print('-------------------------------------------------------------')
 
 # ## Append files from URLs to dataset in parallel
 
-# In[40]:
+# In[5]:
 
 
 print('------------ Append file from URL to dataset ---------------')
@@ -139,7 +139,7 @@ print('-------------------------------------------------------------')
 
 # ## Append jsons from csv to dataset in parallel
 
-# In[42]:
+# In[6]:
 
 
 # This dataset will be used to test all topics and documents APIs
@@ -150,14 +150,14 @@ dataset = 'trump_tweets'
 with open(csv_file, encoding='utf-8-sig') as csvfile:
     reader = csv.DictReader(csvfile)
     #print(list(reader))
-    nucleus_helper.import_jsons(api_instance, dataset, reader, processes=4)
+    nucleus_helper.import_jsons(api_instance, dataset, reader, processes=1)
 
 print('-------------------------------------------------------------')
 
 
 # ## List available datasets
 
-# In[43]:
+# In[7]:
 
 
 print('---------------- List available datasets ---------------------')
@@ -178,7 +178,7 @@ print('-------------------------------------------------------------')
 
 # ## Get dataset information
 
-# In[44]:
+# In[8]:
 
 
 print('--------------- Get dataset information -------------------')
@@ -211,11 +211,12 @@ print('-------------------------------------------------------------')
 
 # ## Delete document
 
-# In[45]:
+# In[9]:
 
 
 print('--------------------- Delete document -----------------------')
 dataset = 'dataset_test'
+
 docid = '1'
 payload = nucleus_api.Deletedocumentmodel(dataset=dataset,
                                              docid=docid) # Deletedocumentmodel | 
@@ -233,7 +234,7 @@ print('-------------------------------------------------------------')
 
 # ## Delete dataset
 
-# In[46]:
+# In[10]:
 
 
 print('--------------------- Delete dataset ------------------------')
@@ -241,9 +242,10 @@ print('--------------------- Delete dataset ------------------------')
 dataset = 'dataset_test'  
 payload = nucleus_api.Deletedatasetmodel(dataset=dataset) # Deletedatasetmodel | 
 
+
 try:
     api_response = api_instance.post_delete_dataset(payload)
-    print(api_response)
+    #print(api_response)
 except ApiException as e:
     print("Exception when calling DatasetsApi->post_delete_dataset: %s\n" % e)
     
@@ -261,7 +263,7 @@ print('-------------------------------------------------------------')
 
 # ## Get list of topics from dataset
 
-# In[47]:
+# In[11]:
 
 
 print('------------- Get list of topics from dataset --------------')
@@ -313,7 +315,7 @@ print('-------------------------------------------------------------')
 
 # ## Get list of topics from dataset with a time range selection
 
-# In[48]:
+# In[12]:
 
 
 print('------------- Get list of topics from dataset --------------')
@@ -367,7 +369,7 @@ print('-------------------------------------------------------------')
 
 # ## Get list of topics from dataset with a metadata selection
 
-# In[49]:
+# In[13]:
 
 
 print('------------- Get list of topics from dataset --------------')
@@ -417,7 +419,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic summary
 
-# In[34]:
+# In[14]:
 
 
 print('------------------- Get topic summary -----------------------')
@@ -475,7 +477,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic sentiment
 
-# In[35]:
+# In[15]:
 
 
 print('---------------- Get topic sentiment ------------------------')
@@ -529,7 +531,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic consensus
 
-# In[15]:
+# In[16]:
 
 
 print('---------------- Get topic consensus ------------------------')
@@ -574,7 +576,7 @@ print('-------------------------------------------------------------')
 
 # ## Get topic historical analysis
 
-# In[16]:
+# In[17]:
 
 
 print('------------ Get topic historical analysis ----------------')
@@ -648,7 +650,7 @@ print('-------------------------------------------------------------')
 
 # ## Get author connectivity
 
-# In[17]:
+# In[18]:
 
 
 print('----------------- Get author connectivity -------------------')
@@ -692,7 +694,7 @@ print('-------------------------------------------------------------')
 
 # # Get topic delta
 
-# In[18]:
+# In[19]:
 
 
 print('------------------- Get topic deltas -----------------------')
@@ -744,12 +746,12 @@ print('-------------------------------------------------------------')
 
 # ## Get document information without content
 
-# In[19]:
+# In[20]:
 
 
 dataset = 'trump_tweets' # str | Dataset name.
 doc_titles = ['D_Trump2018_8_18_1_47']   # str | The title of the documents to retrieve. Example: ["title1", "title2", ..., "titleN"]  (optional)
-doc_ids = ['11', '12', '20']      # str | The docid of the documents to retrieve. Example: ["docid1", "docid2", ..., "docidN"]  (optional)
+doc_ids = ['3397215194896514820', '776902852041351634']      # str | The docid of the documents to retrieve. Example: ["docid1", "docid2", ..., "docidN"]  (optional)
 
 try:
     payload = nucleus_api.DocInfo(
@@ -758,9 +760,8 @@ try:
         doc_ids=doc_ids,
         metadata_selection='')
     api_response = api_instance.post_doc_info(payload)
-    
 except ApiException as e:
-    print("Exception when calling DocumentsApi->post_doc_info: %s\n" % e)
+    print("Exception when calling post_doc_info: %s\n" % e)
     
 for res in api_response.result:
     print('Document ID:', res.sourceid)
@@ -777,7 +778,7 @@ print('-------------------------------------------------------------')
 
 # ## Display document info with a metadata selection
 
-# In[20]:
+# In[21]:
 
 
 dataset = 'trump_tweets' # str | Dataset name.
@@ -805,12 +806,12 @@ print('-------------------------------------------------------------')
 
 # ## Display document details
 
-# In[21]:
+# In[22]:
 
 
 dataset = 'trump_tweets' # str | Dataset name.
 #doc_titles = ['D_Trump2018_8_18_1_47']   # str | The title of the documents to retrieve. Example: ["title1", "title2", ..., "titleN"]  (optional)
-doc_ids = ['1']      # str | The docid of the documents to retrieve. Example: ["docid1", "docid2", ..., "docidN"]  (optional)
+doc_ids = ['776902852041351634']      # str | The docid of the documents to retrieve. Example: ["docid1", "docid2", ..., "docidN"]  (optional)
 
 try:
     payload = nucleus_api.DocDisplay(dataset, doc_ids=doc_ids)
@@ -835,7 +836,7 @@ print('-------------------------------------------------------------')
 
 # ## Display document details with a metadata selection
 
-# In[22]:
+# In[23]:
 
 
 dataset = 'trump_tweets' # str | Dataset name.
@@ -864,7 +865,7 @@ print('-------------------------------------------------------------')
 
 # ## Get document recommendations
 
-# In[23]:
+# In[24]:
 
 
 print('------------- Get document recommendations -----------------')
@@ -912,7 +913,7 @@ print('-------------------------------------------------------------')
 
 # ## Get document summary
 
-# In[24]:
+# In[25]:
 
 
 print('------------------ Get document summary  --------------------')
@@ -951,7 +952,7 @@ print('-------------------------------------------------------------')
 
 # # Summarize file from URL 
 
-# In[25]:
+# In[26]:
 
 
 ######################################################################################
@@ -975,7 +976,7 @@ file_params = {
     'long_sentence_length': 40}
 
 
-result = summarize_file_url(api_instance, file_params)
+result = nucleus_helper.summarize_file_url(api_instance, file_params)
 
 #print(result)   
 print('Summary for', result.doc_title, ':')
@@ -987,7 +988,7 @@ print('-------------------------------------------------------------')
 
 # ## Get document sentiment
 
-# In[26]:
+# In[27]:
 
 
 print('------------------ Get document sentiment  --------------------')
