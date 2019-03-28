@@ -1,7 +1,7 @@
 # nucleus-api
 Nucleus text analytics APIs from SumUp Analytics. Example and documentation: https://github.com/SumUpAnalytics/nucleus-sdk
 
-- Package version: v1.4.4
+- Package version: v1.4.5
 
 
 ## Requirements.
@@ -40,7 +40,7 @@ import nucleus_api
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://localhost:5000*
+All URIs are relative to **configuration.host**
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -55,6 +55,7 @@ Class | Method | HTTP request | Description
 *NucleusApi* | [**post_doc_recommend_api**](docs/NucleusApi.md#post_doc_recommend_api) | **POST** /documents/document_recommend | 
 *NucleusApi* | [**post_doc_sentiment_api**](docs/NucleusApi.md#post_doc_sentiment_api) | **POST** /documents/document_sentiment | 
 *NucleusApi* | [**post_doc_summary_api**](docs/NucleusApi.md#post_doc_summary_api) | **POST** /documents/document_summary | 
+*NucleusApi* | [**post_example_job**](docs/NucleusApi.md#post_example_job) | **POST** /jobs/start_example_job | 
 *NucleusApi* | [**post_rename_dataset**](docs/NucleusApi.md#post_rename_dataset) | **POST** /datasets/rename_dataset | 
 *NucleusApi* | [**post_topic_api**](docs/NucleusApi.md#post_topic_api) | **POST** /topics/topics | 
 *NucleusApi* | [**post_topic_consensus_api**](docs/NucleusApi.md#post_topic_consensus_api) | **POST** /topics/topic_consensus | 
@@ -93,6 +94,9 @@ Class | Method | HTTP request | Description
  - [DocumentSummaryL2Model](docs/DocumentSummaryL2Model.md)
  - [DocumentSummaryModel](docs/DocumentSummaryModel.md)
  - [DocumentSummaryRespModel](docs/DocumentSummaryRespModel.md)
+ - [ExampleJobInnerResponse](docs/ExampleJobInnerResponse.md)
+ - [ExampleJobResponse](docs/ExampleJobResponse.md)
+ - [JobRespModel](docs/JobRespModel.md)
  - [ListDatasetsModel](docs/ListDatasetsModel.md)
  - [NestedAuthorConnect](docs/NestedAuthorConnect.md)
  - [NestedAuthorConnect0](docs/NestedAuthorConnect0.md)
@@ -124,7 +128,6 @@ Class | Method | HTTP request | Description
  - [UploadFileRespModel](docs/UploadFileRespModel.md)
  - [UploadURLModel](docs/UploadURLModel.md)
  - [UploadUrlRespModel](docs/UploadUrlRespModel.md)
-
 
 ## Guideline for Calibration
 [Guideline for Calibration](examples/Guidelines%20for%20Calibrating%20Nucleus%20APIs.pdf) is available in examples/ directory.

@@ -1,10 +1,10 @@
-# UploadUrlRespModel
+# JsonPropertyModel
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**job_id** | **str** | If the job is taking too long, job_id is returned, GET /jobs can then be used to poll for results | [optional] 
-**result** | [**UrlPropertyModel**](UrlPropertyModel.md) |  | [optional] 
+**n_documents** | **int** | Number of documents in the dataset | [optional] 
+**size** | **int** | Size in bytes of the JSON record | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

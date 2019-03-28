@@ -40,6 +40,10 @@ configuration = nucleus_api.Configuration()
 configuration.host = 'UPDATE-WITH-API-SERVER-HOSTNAME'
 configuration.api_key['x-api-key'] = 'UPDATE-WITH-API-KEY'
 
+configuration.host = 'http://localhost:5000'
+configuration.api_key['x-api-key'] = '18SVi_WBUr1VUPB1H-SWuw'
+
+
 # Create API instance
 api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
 
@@ -59,7 +63,8 @@ metadata = {"time": "1/2/2018",
 
 try:
     api_response = api_instance.post_upload_file(file, dataset)
-    print(api_response.result, 'has been added to dataset', dataset)
+    fp = api_response.result
+    print(fp.filename, '(', fp.size, 'bytes) has been added to dataset', dataset,)
     #print('api_response=', api_response)   # raw API response    
 except ApiException as e:
     print("Exception when calling DatasetsApi->post_upload_file: %s\n" % e)
@@ -72,19 +77,21 @@ print('-------------------------------------------------------------')
 # In[3]:
 
 
-print('--------- Append all files from local folder to dataset -----------')
+print('--------- Append all files from local folder to dataset in parallel -----------')
 folder = 'fomc-minutes'         
+dataset = 'dataset_test'# str | Destination dataset where the file will be inserted.
 
-dataset = 'dataset_test'              # str | Destination dataset where the file will be inserted.
-
+# get all files from folder recursively
+file_iters = []
 for root, dirs, files in os.walk(folder):
-    file_iters = []
     for file in files:
         if Path(file).suffix == '.pdf':
             file_iters.append(os.path.join(root, file))
-        
-    nucleus_helper.import_files(api_instance, dataset, file_iters, processes=4)
 
+file_props = nucleus_helper.import_files(api_instance, dataset, file_iters, processes=4)
+for fp in file_props:
+    print(fp.filename, '(', fp.size, 'bytes) has been added to dataset', dataset)
+    
 print('-------------------------------------------------------------')
 
 
@@ -109,10 +116,13 @@ payload = nucleus_api.UploadURLModel(
 try:
     api_response = api_instance.post_upload_url(payload)
     #print('api_response=', api_response)   # raw API response
+    url_prop = api_response.result
+    print(url_prop.file_url, '(', url_prop.size, ' bytes) has been added to dataset', dataset)
+
 except ApiException as e:
     print("Exception when calling DatasetsApi->post_upload_url: %s\n" % e)
     
-print(api_response.result, 'has been added to dataset', dataset)
+
 print('-------------------------------------------------------------')
 
 
@@ -131,7 +141,10 @@ file_urls = [
     'https://s3-us-west-2.amazonaws.com/sumup-public/nucleus-sdk/quarles20181109d.docx'
 ]
 
-nucleus_helper.import_urls(api_instance, dataset, file_urls, processes=4)
+url_props = nucleus_helper.import_urls(api_instance, dataset, file_urls, processes=4)
+
+for up in url_props:
+    print(up.file_url, '(', up.size, ' bytes) has been added to dataset', dataset)
     
 
 print('-------------------------------------------------------------')
@@ -150,7 +163,15 @@ dataset = 'trump_tweets'
 with open(csv_file, encoding='utf-8-sig') as csvfile:
     reader = csv.DictReader(csvfile)
     #print(list(reader))
-    nucleus_helper.import_jsons(api_instance, dataset, reader, processes=1)
+    json_props = nucleus_helper.import_jsons(api_instance, dataset, reader, processes=1)
+    
+    total_size = 0
+    total_jsons = 0
+    for jp in json_props:
+        total_size += jp.size
+        total_jsons += 1
+        
+    print(total_jsons, 'JSON records (', total_size, 'bytes) appended to', dataset)
 
 print('-------------------------------------------------------------')
 
@@ -214,22 +235,22 @@ print('-------------------------------------------------------------')
 # In[9]:
 
 
-print('--------------------- Delete document -----------------------')
-dataset = 'dataset_test'
+#print('--------------------- Delete document -----------------------')
+#dataset = 'dataset_test'
 
-docid = '1'
-payload = nucleus_api.Deletedocumentmodel(dataset=dataset,
-                                             docid=docid) # Deletedocumentmodel | 
+#docid = '1'
+#payload = nucleus_api.Deletedocumentmodel(dataset=dataset,
+#                                          docid=docid) # Deletedocumentmodel | 
 
-try:
-    api_response = api_instance.post_delete_document(payload)
-except ApiException as e:
-    print("Exception when calling DatasetsApi->post_delete_document: %s\n" % e)
+#try:
+#    api_response = api_instance.post_delete_document(payload)
+#except ApiException as e:
+#    print("Exception when calling DatasetsApi->post_delete_document: %s\n" % e)
 
 
-print('Document', docid, 'from dataset', dataset, 'has been deleted.')
-# print(api_response)     # raw API response
-print('-------------------------------------------------------------')
+#print('Document', docid, 'from dataset', dataset, 'has been deleted.')
+## print(api_response)     # raw API response
+#print('-------------------------------------------------------------')
 
 
 # ## Delete dataset
@@ -245,7 +266,7 @@ payload = nucleus_api.Deletedatasetmodel(dataset=dataset) # Deletedatasetmodel |
 
 try:
     api_response = api_instance.post_delete_dataset(payload)
-    #print(api_response)
+    print('Dataset', api_response, 'has been deleted')
 except ApiException as e:
     print("Exception when calling DatasetsApi->post_delete_dataset: %s\n" % e)
     
@@ -592,7 +613,7 @@ excluded_docs = [''] # str | List of document IDs that should be excluded from t
 custom_dict_file = {} # file | Custom sentiment dictionary JSON file. Example, {"field1": value1, ..., "fieldN": valueN} (optional)
 
 metadata_selection ="" # dict | JSON object specifying metadata-based queries on the dataset, of type {"metadata_field": "selected_values"} (optional)
-time_period = "6M"     # str | Time period selection. Choices: ["1M","3M","6M","12M","3Y","5Y",""] (optional)
+time_period = "12M"     # str | Time period selection. Choices: ["1M","3M","6M","12M","3Y","5Y",""] (optional)
 period_start = "" # str | Start date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS"
 period_end = "" # str | End date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS"
 api_response = None
@@ -631,7 +652,7 @@ if api_response != None:
                 'sentiment': np.array(res.sentiment, dtype=np.float32)})
 
         selected_topics = range(len(historical_metrics)) 
-        topic_charts_historical(historical_metrics, selected_topics, True)
+        nucleus_helper.topic_charts_historical(historical_metrics, selected_topics, True)
     else:
         print('Printing historical metrics data...')
         print('NOTE: historical metrics data can be plotted when running the example in Jupyter Notebook')
@@ -750,15 +771,29 @@ print('-------------------------------------------------------------')
 
 
 dataset = 'trump_tweets' # str | Dataset name.
-doc_titles = ['D_Trump2018_8_18_1_47']   # str | The title of the documents to retrieve. Example: ["title1", "title2", ..., "titleN"]  (optional)
-doc_ids = ['3397215194896514820', '776902852041351634']      # str | The docid of the documents to retrieve. Example: ["docid1", "docid2", ..., "docidN"]  (optional)
+
+# doc_titles, doc_ids, and metadata_selection below are filters to narrow down 
+# documents to be retrieved.
+# The information of all documents will be retrived when no filters are provided.
+
+# doc_titles: list of strings
+# The titles of the documents to retrieve. Example: ["title1", "title2", ..., "titleN"]  (optional)
+# doc_titles = ['D_Trump2018_8_18_1_47']   
+doc_titles = []
+# doc_ids: list of strings
+# The docid of the documents to retrieve. Example: ["docid1", "docid2", ..., "docidN"]  (optional)
+# doc_ids = ['3397215194896514820', '776902852041351634']
+doc_ids = []
+
+# metadata_selection = {"author": "D_Trump16"} # dict | A selector off metadata. Example: {"field": "value"}  (optional)
+metadata_selection = ''
 
 try:
     payload = nucleus_api.DocInfo(
         dataset=dataset, 
         doc_titles=doc_titles, 
         doc_ids=doc_ids,
-        metadata_selection='')
+        metadata_selection=metadata_selection)
     api_response = api_instance.post_doc_info(payload)
 except ApiException as e:
     print("Exception when calling post_doc_info: %s\n" % e)
