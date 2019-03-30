@@ -24,7 +24,7 @@ Those APIs enable end-users to perform the following tasks:
 * Selective documents deletion
 * Dataset deletion and renaming
 
-11 languages are currently supported by those APIs: English, Mandarin, Japanese, 
+12 languages are currently supported by those APIs: English, Mandarin (both Simplified and Traditional writing), Japanese, 
 Portuguese, Spanish, German, Russian, Italian, French, Arabic, Farsi.
 
 The core task, topic modeling, has been benchmarked against Scikit-Learn, Gensim 
