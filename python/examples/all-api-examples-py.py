@@ -64,8 +64,7 @@ metadata = {"time": "1/2/2018",
 try:
     api_response = api_instance.post_upload_file(file, dataset)
     fp = api_response.result
-    print(fp.filename, '(', fp.size, 'bytes) has been added to dataset', dataset,)
-    #print('api_response=', api_response)   # raw API response    
+    print(fp.filename, '(', fp.size, 'bytes) has been added to dataset', dataset,)   
 except ApiException as e:
     print("Exception when calling DatasetsApi->post_upload_file: %s\n" % e)
 
@@ -122,7 +121,6 @@ try:
 except ApiException as e:
     print("Exception when calling DatasetsApi->post_upload_url: %s\n" % e)
     
-
 print('-------------------------------------------------------------')
 
 
@@ -146,7 +144,6 @@ url_props = nucleus_helper.import_urls(api_instance, dataset, file_urls, process
 for up in url_props:
     print(up.file_url, '(', up.size, ' bytes) has been added to dataset', dataset)
     
-
 print('-------------------------------------------------------------')
 
 
@@ -162,7 +159,6 @@ dataset = 'trump_tweets'
 
 with open(csv_file, encoding='utf-8-sig') as csvfile:
     reader = csv.DictReader(csvfile)
-    #print(list(reader))
     json_props = nucleus_helper.import_jsons(api_instance, dataset, reader, processes=1)
     
     total_size = 0
@@ -192,7 +188,6 @@ list_datasets = api_response.result
 print(len(list_datasets), 'datasets in the database:')
 for ds in list_datasets:
     print('    ', ds)
-
     
 print('-------------------------------------------------------------')
 
@@ -216,7 +211,6 @@ try:
                                     metadata_selection=metadata_selection, 
                                     time_period=time_period)
     api_response = api_instance.post_dataset_info(payload)
-    #print('api_response=', api_response) # raw API response
 except ApiException as e:
     print("Exception when calling DatasetsApi->post_dataset_info: %s\n" % e)
 
@@ -226,6 +220,28 @@ print('    Number of documents:', api_response.result.num_documents)
 print('    Time range:', datetime.datetime.fromtimestamp(float(api_response.result.time_range[0])),
              'to', datetime.datetime.fromtimestamp(float(api_response.result.time_range[1])))
 
+print('-------------------------------------------------------------')
+
+
+# ## Tag documents in a dataset with a provided list of entities
+
+# In[28]:
+
+
+print('---------------- Tag dataset ------------------------')
+
+try:
+    payload = nucleus_api.DatasetTaggingModel(dataset='dataset_test', 
+                                        query='Trump OR Clinton', 
+                                        metadata_selection='', 
+                                        time_period='')
+    api_response = api_instance.post_dataset_tagging(payload)
+except ApiException as e:
+    print("Exception when calling DatasetsApi->post_dataset_tagging: %s\n" % e)
+    
+print('Information about dataset', dataset)
+print('    Entity Tagged:', api_response.result.entity_tagged)
+print('    Docids tagged with Entity:', api_response.result.docids)
 
 print('-------------------------------------------------------------')
 
@@ -307,9 +323,7 @@ try:
 except ApiException as e:
     print("Exception when calling TopicsApi->post_topic_api: %s\n" % e)
     
-#print(api_response)
-i = 1
-for res in api_response.result:
+for i, res in enumerate(api_response.result):
     print('Topic', i, 'keywords:')
     print('    Keywords:', res.topic)
     keywords_weight_str = ";".join(str(x) for x in res.keywords_weight)
@@ -329,7 +343,6 @@ for res in api_response.result:
     print('    Document exposures:', doc_topic_exposure_sel_str)
 
     print('---------------')
-    i = i + 1
     
 print('-------------------------------------------------------------')
 
@@ -361,9 +374,7 @@ try:
 except ApiException as e:
     print("Exception when calling TopicsApi->post_topic_api: %s\n" % e)
     
-#print(api_response)
-i = 1
-for res in api_response.result:
+for i, res in enumerate(api_response.result):
     print('Topic', i, 'keywords:')
     print('    Keywords:', res.topic)
     keywords_weight_str = ";".join(str(x) for x in res.keywords_weight)
@@ -383,7 +394,6 @@ for res in api_response.result:
     print('    Document exposures:', doc_topic_exposure_sel_str)
 
     print('---------------')
-    i = i + 1
     
 print('-------------------------------------------------------------')
 
@@ -411,9 +421,7 @@ try:
 except ApiException as e:
     print("Exception when calling TopicsApi->post_topic_api: %s\n" % e)
     
-#print(api_response)
-i = 1
-for res in api_response.result:
+for i, res in enumerate(api_response.result):
     print('Topic', i, 'keywords:')
     print('    Keywords:', res.topic)
     keywords_weight_str = ";".join(str(x) for x in res.keywords_weight)
@@ -433,7 +441,6 @@ for res in api_response.result:
     print('    Document exposures:', doc_topic_exposure_sel_str)
 
     print('---------------')
-    i = i + 1
     
 print('-------------------------------------------------------------')
 
@@ -476,10 +483,8 @@ try:
 except ApiException as e:
     print("Exception when calling TopicsApi->post_topic_summary_api: %s\n" % e)
 
-#pprint(api_response)  # raw API response
 if api_response != None:
-    i = 1
-    for res in api_response.result:
+    for i, res in enumerate(api_response.result):
         print('Topic', i, 'summary:')
         print('    Keywords:', res.topic)
         for j in range(len(res.summary)):
@@ -491,7 +496,6 @@ if api_response != None:
             print('        Time:', datetime.datetime.fromtimestamp(float(res.summary[j].attribute['time'])))
         
         print('---------------')
-        i = i + 1
     
 print('-------------------------------------------------------------')
 
@@ -529,8 +533,7 @@ try:
 except ApiException as e:
     print("Exception when calling TopicsApi->post_topic_sentiment_api: %s\n" % e)
 
-i = 1
-for res in api_response.result:
+for i, res in enumerate(api_response.result):
     print('Topic', i, 'sentiment:')
     print('    Keywords:', res.topic)
     print('    Sentiment:', res.sentiment)
@@ -544,9 +547,7 @@ for res in api_response.result:
     print('    Document Scores:', doc_score_str)
     
     print('---------------')
-    i = i + 1
     
-#pprint(api_response)
 print('-------------------------------------------------------------')
 
 
@@ -581,17 +582,14 @@ try:
 except ApiException as e:
     print("Exception when calling TopicsApi->post_topic_consensus_api: %s\n" % e)
     
-i = 1
-for res in api_response.result:
+for i, res in enumerate(api_response.result):
     print('Topic', i, 'consensus:')
     print('    Keywords:', res.topic)
     print('    Consensus:', res.consensus)
     print('    Strength:', res.strength)
     
     print('---------------')
-    i = i + 1
     
-#pprint(api_response) # raw API response
 print('-------------------------------------------------------------')
 
 
@@ -635,7 +633,6 @@ except ApiException as e:
     print("Exception when calling TopicsApi->post_topic_historical_analysis_api: %s\n" % e)
 
 if api_response != None:
-    #print('api_response=', api_response)
     results = api_response.result
 
     # chart the historical metrics when running in Jupyter Notebook
@@ -643,7 +640,7 @@ if api_response != None:
         print('Plotting historical metrics data...')
         historical_metrics = []
         for res in results:
-            # conctruct a list of historical metrics dictionaries for charting
+            # construct a list of historical metrics dictionaries for charting
             historical_metrics.append({
                 'topic'    : res.topic,
                 'time_stamps' : np.array(res.time_stamps),
@@ -656,15 +653,14 @@ if api_response != None:
     else:
         print('Printing historical metrics data...')
         print('NOTE: historical metrics data can be plotted when running the example in Jupyter Notebook')
-        i = 1
-        for res in results:
+
+        for i, res in enumerate(results):
             print('Topic', i, res.topic)
             print('    Timestamps:', res.time_stamps)
             print('    Strength:', res.strength)
             print('    Consensus:', res.consensus)
             print('    Sentiment:', res.sentiment)
             print('----------------')
-            i = i + 1
 
 print('-------------------------------------------------------------')
 
@@ -709,7 +705,6 @@ for nc in res.niche_connection:
     print('    Topic:', nc.topic)
     print('    Authors:', " ".join(str(x) for x in nc.authors))  
     
-#pprint(api_response)   # raw API response
 print('-------------------------------------------------------------')
 
 
@@ -749,17 +744,13 @@ try:
 except ApiException as e:
     print("Exception when calling TopicsApi->post_topic_delta_api: %s\n" % e)
 
-i = 1
-for res in api_response.result:
+for i, res in enumerate(api_response.result):
     print('Topic', i, 'changes in exposure:')
     print('    Keywords:', res.topic)
     print('    Document ID:', res.doc_id_t0, res.doc_id_t1)
     print('    Per Source Change in Exposure:', res.doc_topic_exposure_delta)
     print('---------------')
-    i = i + 1
     
-    
-#pprint(api_response)  # raw API response
 print('-------------------------------------------------------------')
 
 
@@ -806,8 +797,6 @@ for res in api_response.result:
 
     print('---------------')
     
-    
-#pprint(api_response)  # raw response from API server
 print('-------------------------------------------------------------')
 
 
@@ -834,8 +823,6 @@ for res in api_response.result:
 
     print('---------------')
 
-
-#pprint(api_response) # raw response from API server
 print('-------------------------------------------------------------')
 
 
@@ -864,8 +851,6 @@ for res in api_response.result:
 
     print('---------------')
 
-
-#pprint(api_response) # raw response from API server
 print('-------------------------------------------------------------')
 
 
@@ -893,8 +878,6 @@ for res in api_response.result:
 
     print('---------------')
 
-
-#pprint(api_response) # raw response from API server
 print('-------------------------------------------------------------')
 
 
@@ -924,25 +907,20 @@ try:
 except ApiException as e:
     print("Exception when calling DocumentsApi->post_doc_recommend_api: %s\n" % e)
     
-i = 1
-for res in api_response.result:
+for i, res in enumerate(api_response.result):
     print('Document recommendations for topic', i, ':')
     print('    Keywords:', res.topic)
 
-    j = 1
-    for doc in res.recommendations:
+    for j, doc in enumerate(res.recommendations):
         print('    Recommendation', j, ':')
         print('        Document ID:', doc.sourceid)
         print('        Title:', doc.title)
         print('        Attribute:', doc.attribute)
         print('        Author:', doc.attribute['author'])
         print('        Time:', datetime.datetime.fromtimestamp(float(doc.attribute['time'])))
-        j = j + 1
     
     print('---------------')
-    i = i + 1
     
-#pprint(api_response)   # raw API response
 print('-------------------------------------------------------------')
 
 
@@ -975,8 +953,6 @@ try:
     print('Summary for', api_response.result.doc_title)
     for sent in api_response.result.summary.sentences:
         print('    *', sent)
-
-    #pprint(api_response)   # raw API response
     
 except ApiException as e:
     print("Exception when calling DocumentsApi->post_doc_summary_api: %s\n" % e)
@@ -1013,7 +989,6 @@ file_params = {
 
 result = nucleus_helper.summarize_file_url(api_instance, file_params)
 
-#print(result)   
 print('Summary for', result.doc_title, ':')
 for sent in result.summary.sentences:
     print('    *', sent)
@@ -1045,8 +1020,6 @@ try:
     
     print('Sentiment for', api_response.result.doc_title)
     print(api_response.result.sentiment)
-
-    #pprint(api_response)   # raw API response
     
 except ApiException as e:
     print("Exception when calling DocumentsApi->post_doc_sentiment_api: %s\n" % e)
