@@ -1,8 +1,8 @@
-# **import_files**
-> import_files(api_instance, dataset, file_iter, processes=4)
+# **upload_files**
+> upload_files(api_instance, dataset, file_iter, processes=4)
 
 
-Import files to dataset in parallel
+Upload files to dataset in parallel
 
 ### Example
 ```python
@@ -19,7 +19,7 @@ api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
 
 dataset = 'test'
 file_iter = ['file1', 'file2', 'file3', 'file4']
-nucleus_helper.import_files(api_instance, dataset, file_iter, processes=4)
+nucleus_helper.upload_files(api_instance, dataset, file_iter, processes=4)
 
 ```
 
