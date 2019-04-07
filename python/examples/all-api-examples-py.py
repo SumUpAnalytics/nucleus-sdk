@@ -128,7 +128,6 @@ print('-------------------------------------------------------------')
 
 # In[5]:
 
-
 print('------------ Append file from URL to dataset ---------------')
 
 dataset = 'dataset_test'
@@ -150,7 +149,6 @@ print('-------------------------------------------------------------')
 # ## Append jsons from csv to dataset in parallel
 
 # In[6]:
-
 
 # This dataset will be used to test all topics and documents APIs
 print('----------- Append json from CSV to dataset -----------------')
@@ -176,7 +174,6 @@ print('-------------------------------------------------------------')
 
 # In[7]:
 
-
 print('---------------- List available datasets ---------------------')
 try:
     api_response = api_instance.get_list_datasets()
@@ -195,7 +192,6 @@ print('-------------------------------------------------------------')
 # ## Get dataset information
 
 # In[8]:
-
 
 print('--------------- Get dataset information -------------------')
 dataset = 'dataset_test' # str | Dataset name.
@@ -303,8 +299,9 @@ print('-------------------------------------------------------------')
 # In[11]:
 
 
-print('------------- Get list of topics from dataset --------------')
 dataset = 'trump_tweets'
+print('------------- Get list of topics from dataset {}--------------'.format(dataset))
+
 #query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
 query = ''
 custom_stop_words = ["real","hillary"] # str | List of stop words. (optional)
@@ -321,21 +318,24 @@ try:
                                 time_period=time_period)
     api_response = api_instance.post_topic_api(payload)        
 except ApiException as e:
-    print("Exception when calling TopicsApi->post_topic_api: %s\n" % e)
-    
-for i, res in enumerate(api_response.result):
+    api_error = json.loads(e.body)
+    print('ERROR:', api_error['message'])
+
+doc_ids = api_response.result.doc_ids
+topics = api_response.result.topics
+for i, res in enumerate(topics):
     print('Topic', i, 'keywords:')
-    print('    Keywords:', res.topic)
+    print('    Keywords:', res.keywords)
     keywords_weight_str = ";".join(str(x) for x in res.keywords_weight)
     print('    Keyword weights:', keywords_weight_str)
     print('    Strength:', res.strength)
-    doc_topic_exposure_sel = []  # list of non-zero doc_topic_exposure
+    doc_topic_exposure_sel = []  # list of non-zero doc_topic_exposures
     doc_id_sel = []        # list of doc ids matching doc_topic_exposure_sel
-    for j in range(len(res.doc_topic_exposure)):
-        doc_topic_exp = float(res.doc_topic_exposure[j])
+    for j in range(len(res.doc_topic_exposures)):
+        doc_topic_exp = float(res.doc_topic_exposures[j])
         if doc_topic_exp != 0:
             doc_topic_exposure_sel.append(doc_topic_exp)
-            doc_id_sel.append(res.doc_id[j])
+            doc_id_sel.append(doc_ids[j])
     
     doc_id_sel_str = ' '.join(str(x) for x in doc_id_sel)
     doc_topic_exposure_sel_str = ' '.join(str(x) for x in doc_topic_exposure_sel)
@@ -352,15 +352,16 @@ print('-------------------------------------------------------------')
 # In[12]:
 
 
-print('------------- Get list of topics from dataset --------------')
 dataset = 'trump_tweets'
+print('------------- Get list of topics from dataset {}--------------'.format(dataset))
+
 #query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
 query = ''
 custom_stop_words = ["real","hillary"] # str | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
 metadata_selection = "" # dict | JSON object specifying metadata-based queries on the dataset, of type {"metadata_field": "selected_values"} (optional)
-period_start = "2016-10-15 04:30:00" # str | Start date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS"
-period_end = "2019-01-01 12:00:05" # str | End date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS"
+period_start = "2016-10-15" # str | Start date for the period to analyze within the dataset. Format: "YYYY-MM-DD"
+period_end = "2019-01-01" # str | End date for the period to analyze within the dataset. Format: "YYYY-MM-DD"
 
 try:
     payload = nucleus_api.Topics(dataset=dataset,                                
@@ -372,21 +373,24 @@ try:
                                 period_end=period_end)
     api_response = api_instance.post_topic_api(payload)        
 except ApiException as e:
-    print("Exception when calling TopicsApi->post_topic_api: %s\n" % e)
+    api_error = json.loads(e.body)
+    print('ERROR:', api_error['message'])
     
-for i, res in enumerate(api_response.result):
+doc_ids = api_response.result.doc_ids
+topics = api_response.result.topics
+for i, res in enumerate(topics):
     print('Topic', i, 'keywords:')
-    print('    Keywords:', res.topic)
+    print('    Keywords:', res.keywords)
     keywords_weight_str = ";".join(str(x) for x in res.keywords_weight)
     print('    Keyword weights:', keywords_weight_str)
     print('    Strength:', res.strength)
     doc_topic_exposure_sel = []  # list of non-zero doc_topic_exposure
     doc_id_sel = []        # list of doc ids matching doc_topic_exposure_sel
-    for j in range(len(res.doc_topic_exposure)):
-        doc_topic_exp = float(res.doc_topic_exposure[j])
+    for j in range(len(res.doc_topic_exposures)):
+        doc_topic_exp = float(res.doc_topic_exposures[j])
         if doc_topic_exp != 0:
             doc_topic_exposure_sel.append(doc_topic_exp)
-            doc_id_sel.append(res.doc_id[j])
+            doc_id_sel.append(doc_ids[j])
     
     doc_id_sel_str = ' '.join(str(x) for x in doc_id_sel)
     doc_topic_exposure_sel_str = ' '.join(str(x) for x in doc_topic_exposure_sel)
@@ -394,7 +398,7 @@ for i, res in enumerate(api_response.result):
     print('    Document exposures:', doc_topic_exposure_sel_str)
 
     print('---------------')
-    
+
 print('-------------------------------------------------------------')
 
 
@@ -403,8 +407,9 @@ print('-------------------------------------------------------------')
 # In[13]:
 
 
-print('------------- Get list of topics from dataset --------------')
 dataset = 'trump_tweets'
+print('------------- Get list of topics from dataset {}--------------'.format(dataset))
+
 #query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
 query = ''
 custom_stop_words = ["real","hillary"] # str | List of stop words. (optional)
@@ -419,21 +424,25 @@ try:
                                 metadata_selection=metadata_selection)
     api_response = api_instance.post_topic_api(payload)        
 except ApiException as e:
-    print("Exception when calling TopicsApi->post_topic_api: %s\n" % e)
+    api_error = json.loads(e.body)
+    print('ERROR:', api_error['message'])
     
-for i, res in enumerate(api_response.result):
+#print(api_response)
+doc_ids = api_response.result.doc_ids
+topics = api_response.result.topics
+for i, res in enumerate(topics):
     print('Topic', i, 'keywords:')
-    print('    Keywords:', res.topic)
+    print('    Keywords:', res.keywords)
     keywords_weight_str = ";".join(str(x) for x in res.keywords_weight)
     print('    Keyword weights:', keywords_weight_str)
     print('    Strength:', res.strength)
     doc_topic_exposure_sel = []  # list of non-zero doc_topic_exposure
     doc_id_sel = []        # list of doc ids matching doc_topic_exposure_sel
-    for j in range(len(res.doc_topic_exposure)):
-        doc_topic_exp = float(res.doc_topic_exposure[j])
+    for j in range(len(res.doc_topic_exposures)):
+        doc_topic_exp = float(res.doc_topic_exposures[j])
         if doc_topic_exp != 0:
             doc_topic_exposure_sel.append(doc_topic_exp)
-            doc_id_sel.append(res.doc_id[j])
+            doc_id_sel.append(doc_ids[j])
     
     doc_id_sel_str = ' '.join(str(x) for x in doc_id_sel)
     doc_topic_exposure_sel_str = ' '.join(str(x) for x in doc_topic_exposure_sel)
@@ -486,7 +495,7 @@ except ApiException as e:
 if api_response != None:
     for i, res in enumerate(api_response.result):
         print('Topic', i, 'summary:')
-        print('    Keywords:', res.topic)
+        print('    Keywords:', res.keywords)
         for j in range(len(res.summary)):
             print(res.summary[j])
             print('    Document ID:', res.summary[j].sourceid)
@@ -505,8 +514,9 @@ print('-------------------------------------------------------------')
 # In[15]:
 
 
-print('---------------- Get topic sentiment ------------------------')
-dataset = 'trump_tweets' # str | Dataset name.
+dataset = 'trump_tweets' # str | Dataset name
+print('---------------- Get topic sentiment for {} ------------------------'.format(dataset))
+
 #query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
 query = ''
 custom_stop_words = ["real","hillary"] # str | List of stop words. (optional)
@@ -531,20 +541,22 @@ try:
     api_response = api_instance.post_topic_sentiment_api(payload)
     
 except ApiException as e:
-    print("Exception when calling TopicsApi->post_topic_sentiment_api: %s\n" % e)
+    api_error = json.loads(e.body)
+    print('ERROR:', api_error['message'])
 
-for i, res in enumerate(api_response.result):
+print(api_response)
+for i,res in enumerate(api_response.result):
     print('Topic', i, 'sentiment:')
-    print('    Keywords:', res.topic)
+    print('    Keywords:', res.keywords)
     print('    Sentiment:', res.sentiment)
     print('    Strength:', res.strength)
     
-    doc_id_str = ' '.join(str(x) for x in res.doc_id)
-    doc_sentiment_str = ' '.join(str(x) for x in res.doc_sentiment)
-    doc_score_str = ' '.join(str(x) for x in res.doc_score)
+    doc_id_str = ' '.join(str(x) for x in res.doc_ids)
+    doc_sentiment_str = ' '.join(str(x) for x in res.doc_sentiments)
+    doc_score_str = ' '.join(str(x) for x in res.doc_topic_exposures)
     print('    Document IDs:', doc_id_str)
     print('    Document Sentiments:', doc_sentiment_str)
-    print('    Document Scores:', doc_score_str)
+    print('    Document Exposures:', doc_score_str)
     
     print('---------------')
     
@@ -556,8 +568,9 @@ print('-------------------------------------------------------------')
 # In[16]:
 
 
-print('---------------- Get topic consensus ------------------------')
 dataset = 'trump_tweets' # str | Dataset name.
+print('---------------- Get topic consensus for {} ------------------------'.format(dataset))
+
 query = '' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
 custom_stop_words = ["real","hillary"] # str | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
@@ -580,11 +593,12 @@ try:
         custom_dict_file=custom_dict_file)
     api_response = api_instance.post_topic_consensus_api(payload)
 except ApiException as e:
-    print("Exception when calling TopicsApi->post_topic_consensus_api: %s\n" % e)
+    api_error = json.loads(e.body)
+    print('ERROR:', api_error['message'])
     
 for i, res in enumerate(api_response.result):
     print('Topic', i, 'consensus:')
-    print('    Keywords:', res.topic)
+    print('    Keywords:', res.keywords)
     print('    Consensus:', res.consensus)
     print('    Strength:', res.strength)
     
@@ -598,10 +612,10 @@ print('-------------------------------------------------------------')
 # In[17]:
 
 
-print('------------ Get topic historical analysis ----------------')
-
 dataset = 'trump_tweets'   # str | Dataset name.
-update_period = 'd' # str | Frequency at which the historical anlaysis is performed. choices=["d","m","H","M"] (default to d)
+print('------------ Get topic historical analysis for {} ----------------'.format(dataset))
+
+update_period = 'm' # str | Frequency at which the historical anlaysis is performed. choices=["d","m","H","M"] (default to d)
 query = '' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
 custom_stop_words = ["real","hillary"] # str | List of stop words (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
@@ -630,37 +644,37 @@ try:
         custom_dict_file=custom_dict_file)
     api_response = api_instance.post_topic_historical_analysis_api(payload)
 except ApiException as e:
-    print("Exception when calling TopicsApi->post_topic_historical_analysis_api: %s\n" % e)
+    api_error = json.loads(e.body)
+    print('ERROR:', api_error['message'])
+    print(e)
 
-if api_response != None:
-    results = api_response.result
+print('Printing historical metrics data...')
+print('NOTE: historical metrics data can be plotted when running the example in Jupyter Notebook')
 
-    # chart the historical metrics when running in Jupyter Notebook
-    if running_notebook:
-        print('Plotting historical metrics data...')
-        historical_metrics = []
-        for res in results:
-            # construct a list of historical metrics dictionaries for charting
-            historical_metrics.append({
-                'topic'    : res.topic,
-                'time_stamps' : np.array(res.time_stamps),
-                'strength' : np.array(res.strength, dtype=np.float32),
-                'consensus': np.array(res.consensus, dtype=np.float32), 
-                'sentiment': np.array(res.sentiment, dtype=np.float32)})
+for i,res in enumerate(api_response.result):
+    print('Topic', i, res.keywords)
+    print('    Timestamps:', res.time_stamps)
+    print('    Strengths:', res.strengths)
+    print('    Consensuses:', res.consensuses)
+    print('    Sentiments:', res.sentiments)
+    print('----------------')
+            
 
-        selected_topics = range(len(historical_metrics)) 
-        nucleus_helper.topic_charts_historical(historical_metrics, selected_topics, True)
-    else:
-        print('Printing historical metrics data...')
-        print('NOTE: historical metrics data can be plotted when running the example in Jupyter Notebook')
+# chart the historical metrics when running in Jupyter Notebook
+if running_notebook:
+    print('Plotting historical metrics data...')
+    historical_metrics = []
+    for res in api_response.result:
+        # conctruct a list of historical metrics dictionaries for charting
+        historical_metrics.append({
+            'topic'    : res.keywords,
+            'time_stamps' : np.array(res.time_stamps),
+            'strength' : np.array(res.strengths, dtype=np.float32),
+            'consensus': np.array(res.consensuses, dtype=np.float32), 
+            'sentiment': np.array(res.sentiments, dtype=np.float32)})
 
-        for i, res in enumerate(results):
-            print('Topic', i, res.topic)
-            print('    Timestamps:', res.time_stamps)
-            print('    Strength:', res.strength)
-            print('    Consensus:', res.consensus)
-            print('    Sentiment:', res.sentiment)
-            print('----------------')
+    selected_topics = range(len(historical_metrics)) 
+    #nucleus_helper.topic_charts_historical(historical_metrics, selected_topics, True)
 
 print('-------------------------------------------------------------')
 
@@ -696,14 +710,159 @@ except ApiException as e:
 
 res = api_response.result
 print('Mainstream connections:')
-for mc in res.mainstream_connection:
-    print('    Topic:', mc.topic)
+for mc in res.mainstream_connections:
+    print('    Topic:', mc.keywords)
     print('    Authors:', " ".join(str(x) for x in mc.authors))
     
 print('Niche connections:')
-for nc in res.niche_connection:
-    print('    Topic:', nc.topic)
+for nc in res.niche_connections:
+    print('    Topic:', nc.keywords)
     print('    Authors:', " ".join(str(x) for x in nc.authors))  
+    
+print('-------------------------------------------------------------')
+
+
+# # Get topic transfer
+
+# In[29]:
+dataset0 = 'trump_tweets'
+print('------------------- Get topic transfer for {} -----------------------'.format(dataset))
+
+#dataset1 = dataset # str | Validation dataset (optional if period_0 and period_1 dates provided)
+#query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
+query = ''
+custom_stop_words = [""] # str | List of stop words. (optional)
+num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
+num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
+metadata_selection = "" # dict | JSON object specifying metadata-based queries on the dataset, of type {"metadata_field": "selected_values"} (optional)
+period_0_start = '2018-08-12' # Not needed if you provide a validation dataset in the "dataset1" variable 
+period_0_end = '2018-08-15' # Not needed if you provide a validation dataset in the "dataset1" variable
+period_1_start = '2018-08-16' # Not needed if you provide a validation dataset in the "dataset1" variable
+period_1_end = '2018-08-19' # Not needed if you provide a validation dataset in the "dataset1" variable
+excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
+
+try:
+    payload = nucleus_api.TopicTransferModel(dataset0=dataset0, 
+                                            query=query, 
+                                            custom_stop_words=custom_stop_words, 
+                                            num_topics=num_topics, 
+                                            num_keywords=num_keywords,
+                                            period_0_start=period_0_start,
+                                            period_0_end=period_0_end,
+                                            period_1_start=period_1_start,
+                                            period_1_end=period_1_end,
+                                            metadata_selection=metadata_selection)
+    api_response = api_instance.post_topic_transfer_api(payload)
+except ApiException as e:
+    api_error = json.loads(e.body)
+    print('ERROR:', api_error['message'])
+
+doc_ids_t1 = api_response.result.doc_ids_t1
+topics = api_response.result.topics
+for i,res in enumerate(topics):
+    print('Topic', i, 'exposure within validation dataset:')
+    print('    Keywords:', res.keywords)
+    print('    Strength:', res.strength)
+    print('    Document IDs:', doc_ids_t1)
+    print('    Exposure per Doc in Validation Dataset:', res.doc_topic_exposures_t1)
+    print('---------------')
+    
+print('-------------------------------------------------------------')
+
+
+# # Get topic sentiment transfer
+
+# In[30]:
+dataset0 = 'trump_tweets'
+print('------------------- Get topic sentiment transfer for {} -----------------------'.format(dataset))
+
+#dataset1 = dataset # str | Validation dataset (optional if period_0 and period_1 dates provided)
+#query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
+query = ''
+custom_stop_words = [""] # str | List of stop words. (optional)
+num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
+num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
+metadata_selection = "" # dict | JSON object specifying metadata-based queries on the dataset, of type {"metadata_field": "selected_values"} (optional)
+period_0_start = '2018-08-12' # Not needed if you provide a validation dataset in the "dataset1" variable 
+period_0_end = '2018-08-15' # Not needed if you provide a validation dataset in the "dataset1" variable
+period_1_start = '2018-08-16' # Not needed if you provide a validation dataset in the "dataset1" variable
+period_1_end = '2018-08-19' # Not needed if you provide a validation dataset in the "dataset1" variable
+excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
+custom_dict_file = {"great": 1.0, "awful": -1.0, "clinton":-1.0, "trump":1.0} # file | Custom sentiment dictionary JSON file. Example, {"field1": value1, ..., "fieldN": valueN} (optional)
+
+try:
+    payload = nucleus_api.TopicSentimentTransferModel(dataset0=dataset0, 
+                                            query=query, 
+                                            custom_stop_words=custom_stop_words, 
+                                            num_topics=num_topics, 
+                                            num_keywords=num_keywords,
+                                            period_0_start=period_0_start,
+                                            period_0_end=period_0_end,
+                                            period_1_start=period_1_start,
+                                            period_1_end=period_1_end,
+                                            metadata_selection=metadata_selection,
+                                            custom_dict_file=custom_dict_file)
+    api_response = api_instance.post_topic_sentiment_transfer_api(payload)
+except ApiException as e:
+    api_error = json.loads(e.body)
+    print('ERROR:', api_error['message'])
+
+topics = api_response.result
+for i,res in enumerate(topics):
+    print('Topic', i, 'exposure within validation dataset:')
+    print('    Keywords:', res.keywords)
+    print('    Strength:', res.strength)
+    print('    Sentiment:', res.sentiment)
+    print('    Document IDs:', res.doc_ids_t1)
+    print('    Sentiment per Doc in Validation Dataset:', res.doc_sentiments_t1)
+    print('---------------')
+    
+print('-------------------------------------------------------------')
+
+
+# # Get topic consensus transfer
+
+# In[31]:
+dataset0 = 'trump_tweets'
+print('------------------- Get topic consensus transfer for {} -----------------------'.format(dataset))
+
+#dataset1 = dataset # str | Validation dataset (optional if period_0 and period_1 dates provided)
+#query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
+query = ''
+custom_stop_words = [""] # str | List of stop words. (optional)
+num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
+num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
+metadata_selection = "" # dict | JSON object specifying metadata-based queries on the dataset, of type {"metadata_field": "selected_values"} (optional)
+period_0_start = '2018-08-12' # Not needed if you provide a validation dataset in the "dataset1" variable 
+period_0_end = '2018-08-15' # Not needed if you provide a validation dataset in the "dataset1" variable
+period_1_start = '2018-08-16' # Not needed if you provide a validation dataset in the "dataset1" variable
+period_1_end = '2018-08-19' # Not needed if you provide a validation dataset in the "dataset1" variable
+excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
+custom_dict_file = {"great": 1.0, "awful": -1.0, "clinton":-1.0, "trump":1.0} # file | Custom sentiment dictionary JSON file. Example, {"field1": value1, ..., "fieldN": valueN} (optional)
+
+try:
+    payload = nucleus_api.TopicConsensusTransferModel(dataset0=dataset0, 
+                                            query=query, 
+                                            custom_stop_words=custom_stop_words, 
+                                            num_topics=num_topics, 
+                                            num_keywords=num_keywords,
+                                            period_0_start=period_0_start,
+                                            period_0_end=period_0_end,
+                                            period_1_start=period_1_start,
+                                            period_1_end=period_1_end,
+                                            metadata_selection=metadata_selection,
+                                            custom_dict_file=custom_dict_file)
+    api_response = api_instance.post_topic_consensus_transfer_api(payload)
+except ApiException as e:
+    api_error = json.loads(e.body)
+    print('ERROR:', api_error['message'])
+
+topics = api_response.result
+for i,res in enumerate(topics):
+    print('Topic', i, 'exposure within validation dataset:')
+    print('    Keywords:', res.keywords)
+    print('    Consensus:', res.consensus)
+    print('---------------')
     
 print('-------------------------------------------------------------')
 
@@ -711,10 +870,9 @@ print('-------------------------------------------------------------')
 # # Get topic delta
 
 # In[19]:
-
-
-print('------------------- Get topic deltas -----------------------')
-dataset = 'trump_tweets' 
+dataset = 'trump_tweets'
+print('------------------- Get topic deltas for {} -----------------------'.format(dataset))
+ 
 #dataset = dataset # str | Dataset name.
 #query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
 query = ''
@@ -722,10 +880,10 @@ custom_stop_words = [""] # str | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
 num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
 metadata_selection ="" # dict | JSON object specifying metadata-based queries on the dataset, of type {"metadata_field": "selected_values"} (optional)
-period_0_start = '2018-08-12 00:00:00'
-period_0_end = '2018-08-15 13:00:00'
-period_1_start = '2018-08-16 00:00:00'
-period_1_end = '2018-08-19 00:00:00'
+period_0_start = '2018-08-12'
+period_0_end = '2018-08-15'
+period_1_start = '2018-08-16'
+period_1_end = '2018-08-19'
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
 
 try:
@@ -740,15 +898,19 @@ try:
         period_1_start=period_1_start,
         period_1_end=period_1_end,
         metadata_selection=metadata_selection)
-    api_response = api_instance.post_topic_delta_api(payload)        
+    api_response = api_instance.post_topic_delta_api(payload)
 except ApiException as e:
-    print("Exception when calling TopicsApi->post_topic_delta_api: %s\n" % e)
+    api_error = json.loads(e.body)
+    print('ERROR:', api_error['message'])
 
-for i, res in enumerate(api_response.result):
+doc_ids_t0 = api_response.result.doc_ids_t0
+doc_ids_t1 = api_response.result.doc_ids_t1
+topics = api_response.result.topics
+for i,res in enumerate(topics):
     print('Topic', i, 'changes in exposure:')
-    print('    Keywords:', res.topic)
-    print('    Document ID:', res.doc_id_t0, res.doc_id_t1)
-    print('    Per Source Change in Exposure:', res.doc_topic_exposure_delta)
+    print('    Keywords:', res.keywords)
+    print('    Document ID:', doc_ids_t0, doc_ids_t1)
+    print('    Per Source Change in Exposure:', res.doc_topic_exposure_deltas)
     print('---------------')
     
 print('-------------------------------------------------------------')
@@ -759,7 +921,6 @@ print('-------------------------------------------------------------')
 # ## Get document information without content
 
 # In[20]:
-
 
 dataset = 'trump_tweets' # str | Dataset name.
 
@@ -780,11 +941,10 @@ doc_ids = []
 metadata_selection = ''
 
 try:
-    payload = nucleus_api.DocInfo(
-        dataset=dataset, 
-        doc_titles=doc_titles, 
-        doc_ids=doc_ids,
-        metadata_selection=metadata_selection)
+    payload = nucleus_api.DocInfo(dataset=dataset, 
+                                doc_titles=doc_titles, 
+                                doc_ids=doc_ids,
+                                metadata_selection=metadata_selection)
     api_response = api_instance.post_doc_info(payload)
 except ApiException as e:
     print("Exception when calling post_doc_info: %s\n" % e)
@@ -803,7 +963,6 @@ print('-------------------------------------------------------------')
 # ## Display document info with a metadata selection
 
 # In[21]:
-
 
 dataset = 'trump_tweets' # str | Dataset name.
 metadata_selection = {"author": "D_Trump16"}      # dict | A selector off metadata. Example: {"field": "value"}  (optional)
@@ -829,7 +988,6 @@ print('-------------------------------------------------------------')
 # ## Display document details
 
 # In[22]:
-
 
 dataset = 'trump_tweets' # str | Dataset name.
 #doc_titles = ['D_Trump2018_8_18_1_47']   # str | The title of the documents to retrieve. Example: ["title1", "title2", ..., "titleN"]  (optional)
@@ -858,7 +1016,6 @@ print('-------------------------------------------------------------')
 
 # In[23]:
 
-
 dataset = 'trump_tweets' # str | Dataset name.
 metadata_selection = {"author": "D_Trump16"}      # dict | A selector off metadata. Example: {"field": "value"}  (optional)
 
@@ -885,7 +1042,6 @@ print('-------------------------------------------------------------')
 
 # In[24]:
 
-
 print('------------- Get document recommendations -----------------')
 
 dataset = 'trump_tweets' # str | Dataset name.
@@ -897,19 +1053,18 @@ num_keywords = 8 # int | Number of keywords per topic that is extracted from the
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
 
 try:
-    payload = nucleus_api.DocumentRecommendModel(
-        dataset=dataset, 
-        query=query, 
-        custom_stop_words=custom_stop_words, 
-        num_topics=num_topics, 
-        num_keywords=num_keywords)
+    payload = nucleus_api.DocumentRecommendModel(dataset=dataset, 
+                                                query=query, 
+                                                custom_stop_words=custom_stop_words, 
+                                                num_topics=num_topics, 
+                                                num_keywords=num_keywords)
     api_response = api_instance.post_doc_recommend_api(payload)
 except ApiException as e:
     print("Exception when calling DocumentsApi->post_doc_recommend_api: %s\n" % e)
     
 for i, res in enumerate(api_response.result):
     print('Document recommendations for topic', i, ':')
-    print('    Keywords:', res.topic)
+    print('    Keywords:', res.keywords)
 
     for j, doc in enumerate(res.recommendations):
         print('    Recommendation', j, ':')
@@ -928,7 +1083,6 @@ print('-------------------------------------------------------------')
 
 # In[25]:
 
-
 print('------------------ Get document summary  --------------------')
 
 dataset = 'trump_tweets' # str | Dataset name.
@@ -940,14 +1094,13 @@ short_sentence_length = 0 # int | The sentence length below which a sentence is 
 long_sentence_length = 40 # int | The sentence length beyond which a sentence is excluded from summarization (optional) (default to 40)
 
 try:
-    payload = nucleus_api.DocumentSummaryModel(
-        dataset=dataset, 
-        doc_title=doc_title, 
-        custom_stop_words=custom_stop_words, 
-        summary_length=summary_length, 
-        context_amount=context_amount,
-        short_sentence_length=short_sentence_length,
-        long_sentence_length=long_sentence_length)
+    payload = nucleus_api.DocumentSummaryModel(dataset=dataset, 
+                                            doc_title=doc_title, 
+                                            custom_stop_words=custom_stop_words, 
+                                            summary_length=summary_length, 
+                                            context_amount=context_amount,
+                                            short_sentence_length=short_sentence_length,
+                                            long_sentence_length=long_sentence_length)
     api_response = api_instance.post_doc_summary_api(payload)
     
     print('Summary for', api_response.result.doc_title)
@@ -956,7 +1109,6 @@ try:
     
 except ApiException as e:
     print("Exception when calling DocumentsApi->post_doc_summary_api: %s\n" % e)
-
 
 print('-------------------------------------------------------------')
 
@@ -1000,7 +1152,6 @@ print('-------------------------------------------------------------')
 
 # In[27]:
 
-
 print('------------------ Get document sentiment  --------------------')
 
 dataset = 'trump_tweets' # str | Dataset name.
@@ -1010,12 +1161,11 @@ num_topics = 8 # int | Number of topics to be extracted from the document. (opti
 num_keywords = 8 # int | Number of keywords per topic that is extracted from the document. (optional) (default to 8)
 
 try:
-    payload = nucleus_api.DocumentSentimentModel(
-        dataset=dataset, 
-        doc_title=doc_title, 
-        custom_stop_words=custom_stop_words, 
-        num_topics=num_topics, 
-        num_keywords=num_keywords)
+    payload = nucleus_api.DocumentSentimentModel(dataset=dataset, 
+                                                doc_title=doc_title, 
+                                                custom_stop_words=custom_stop_words, 
+                                                num_topics=num_topics, 
+                                                num_keywords=num_keywords)
     api_response = api_instance.post_doc_sentiment_api(payload)
     
     print('Sentiment for', api_response.result.doc_title)
@@ -1024,12 +1174,7 @@ try:
 except ApiException as e:
     print("Exception when calling DocumentsApi->post_doc_sentiment_api: %s\n" % e)
 
-
 print('-------------------------------------------------------------')
 
 
 # In[ ]:
-
-
-
-
