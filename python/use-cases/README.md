@@ -3,6 +3,8 @@ Notebooks illustrating possible use cases of the Nucleus APIs
 
 1. Equity Trading
  - Single Names Screen
+ - Stocks' Sentiment
+ - Consensus in Sell-side Research
 
  
 2. Fixed Income Trading
@@ -23,4 +25,4 @@ Notebooks illustrating possible use cases of the Nucleus APIs
 
 
 6. Transfer Learning 
-- Topic Transfer in Time-Ordered and Time-Unrelated Datasets
+- Topic Transfer in Time-Ordered and Time-Agnostic Datasets
