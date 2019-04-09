@@ -3,6 +3,7 @@ Notebooks illustrating possible use cases of the Nucleus APIs
 
 1. Equity Trading
  - Single Names Screen
+ - Single Names Long-Short Active
 
  
 2. Fixed Income Trading
@@ -20,3 +21,7 @@ Notebooks illustrating possible use cases of the Nucleus APIs
  
 5. Entity Tagging
 - Enrichening a Corpus with Metadata thanks to Dataset Tagging
+
+
+6. Transfer Learning 
+- Topic Transfer in Time-Ordered and Time-Unrelated Datasets
