@@ -3,7 +3,6 @@ Notebooks illustrating possible use cases of the Nucleus APIs
 
 1. Equity Trading
  - Single Names Screen
- - Single Names Long-Short Active
 
  
 2. Fixed Income Trading
