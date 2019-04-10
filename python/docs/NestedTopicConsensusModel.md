@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**topic** | **str** | Topic keywords | [optional] 
+**keywords** | **str** | Topic keywords | [optional] 
 **strength** | **str** | Topic strength | [optional] 
 **consensus** | **str** | Topic consensus | [optional] 
 

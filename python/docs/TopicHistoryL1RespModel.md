@@ -1,10 +1,13 @@
-# TopicRespModel
+# TopicHistoryL1RespModel
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**job_id** | **str** | If the job is taking too long, job_id is returned, GET /jobs can then be used to poll for results | [optional] 
-**result** | [**TopicL1RespModel**](TopicL1RespModel.md) |  | [optional] 
+**keywords** | **str** | Topic keywords | [optional] 
+**strengths** | **list[str]** |  | [optional] 
+**sentiments** | **list[str]** |  | [optional] 
+**consensuses** | **list[str]** |  | [optional] 
+**time_stamps** | **list[str]** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

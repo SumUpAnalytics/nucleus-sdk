@@ -1,11 +1,11 @@
-# NestedDocRecModel
+# NestedTopicConsensusTransferModel
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**title** | **str** | Document title | [optional] 
-**sourceid** | **str** | Document ID | [optional] 
-**attribute** | **object** | JSON containing document metadata key:value pairs (eg. author, time..) | [optional] 
+**keywords** | **str** | Topic keywords | [optional] 
+**strength** | **str** | Topic strength on the validation dataset | [optional] 
+**consensus** | **str** | Topic consensus on the validation dataset | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
