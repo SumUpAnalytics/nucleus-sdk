@@ -371,6 +371,61 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **post_dataset_tagging**
+> DatasetTaggingRespModel post_dataset_tagging(payload)
+
+
+
+Tag documents containig specified entities within a dataset.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import nucleus_api
+from nucleus_api.rest import ApiException
+from pprint import pprint
+
+# Configure API host and key authorization: apikey
+configuration = nucleus_api.Configuration()
+configuration.host = 'API_HOST_HERE'
+configuration.api_key['x-api-key'] = 'API_KEY_HERE'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['x-api-key'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
+payload = nucleus_api.DatasetTagging() # DatasetTagging | 
+
+try:
+    api_response = api_instance.post_dataset_tagging(payload)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling NucleusApi->post_dataset_tagging: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**DatasetTagging**](DatasetTagging.md)|  | 
+
+### Return type
+
+[**DatasetTaggingRespModel**](DatasetTaggingRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **post_delete_dataset**
 > DeleteDatasetRespModel post_delete_dataset(payload)
 
@@ -868,6 +923,61 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **post_legacy**
+> LegacyResponseModel post_legacy(payload)
+
+
+
+Recommendation of documents on given topics that have been extracted from a given dataset.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import nucleus_api
+from nucleus_api.rest import ApiException
+from pprint import pprint
+
+# Configure API host and key authorization: apikey
+configuration = nucleus_api.Configuration()
+configuration.host = 'API_HOST_HERE'
+configuration.api_key['x-api-key'] = 'API_KEY_HERE'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['x-api-key'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
+payload = nucleus_api.ApiCall() # ApiCall | 
+
+try:
+    api_response = api_instance.post_legacy(payload)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling NucleusApi->post_legacy: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**ApiCall**](ApiCall.md)|  | 
+
+### Return type
+
+[**LegacyResponseModel**](LegacyResponseModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **post_rename_dataset**
 > RenameDatasetRespModel post_rename_dataset(payload)
 
@@ -1088,6 +1198,61 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **post_topic_consensus_transfer_api**
+> TopicConsensusTransferRespModel post_topic_consensus_transfer_api(payload)
+
+
+
+Get exposures of documents in a validation dataset to topics extracted from a reference dataset.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import nucleus_api
+from nucleus_api.rest import ApiException
+from pprint import pprint
+
+# Configure API host and key authorization: apikey
+configuration = nucleus_api.Configuration()
+configuration.host = 'API_HOST_HERE'
+configuration.api_key['x-api-key'] = 'API_KEY_HERE'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['x-api-key'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
+payload = nucleus_api.TopicConsensusTransferModel() # TopicConsensusTransferModel | 
+
+try:
+    api_response = api_instance.post_topic_consensus_transfer_api(payload)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling NucleusApi->post_topic_consensus_transfer_api: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**TopicConsensusTransferModel**](TopicConsensusTransferModel.md)|  | 
+
+### Return type
+
+[**TopicConsensusTransferRespModel**](TopicConsensusTransferRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **post_topic_delta_api**
 > TopicDeltaRespModel post_topic_delta_api(payload)
 
@@ -1253,6 +1418,61 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **post_topic_sentiment_transfer_api**
+> TopicSentimentTransferRespModel post_topic_sentiment_transfer_api(payload)
+
+
+
+Get sentiment exposures of documents in a validation dataset to topics extracted from a reference dataset.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import nucleus_api
+from nucleus_api.rest import ApiException
+from pprint import pprint
+
+# Configure API host and key authorization: apikey
+configuration = nucleus_api.Configuration()
+configuration.host = 'API_HOST_HERE'
+configuration.api_key['x-api-key'] = 'API_KEY_HERE'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['x-api-key'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
+payload = nucleus_api.TopicSentimentTransferModel() # TopicSentimentTransferModel | 
+
+try:
+    api_response = api_instance.post_topic_sentiment_transfer_api(payload)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling NucleusApi->post_topic_sentiment_transfer_api: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**TopicSentimentTransferModel**](TopicSentimentTransferModel.md)|  | 
+
+### Return type
+
+[**TopicSentimentTransferRespModel**](TopicSentimentTransferRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **post_topic_summary_api**
 > TopicSummaryRespModel post_topic_summary_api(payload)
 
@@ -1296,6 +1516,61 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**TopicSummaryRespModel**](TopicSummaryRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **post_topic_transfer_api**
+> TopicTransferRespModel post_topic_transfer_api(payload)
+
+
+
+Get exposures of documents in a validation dataset to topics extracted from a reference dataset.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import nucleus_api
+from nucleus_api.rest import ApiException
+from pprint import pprint
+
+# Configure API host and key authorization: apikey
+configuration = nucleus_api.Configuration()
+configuration.host = 'API_HOST_HERE'
+configuration.api_key['x-api-key'] = 'API_KEY_HERE'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['x-api-key'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
+payload = nucleus_api.TopicTransferModel() # TopicTransferModel | 
+
+try:
+    api_response = api_instance.post_topic_transfer_api(payload)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling NucleusApi->post_topic_transfer_api: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**TopicTransferModel**](TopicTransferModel.md)|  | 
+
+### Return type
+
+[**TopicTransferRespModel**](TopicTransferRespModel.md)
 
 ### Authorization
 
