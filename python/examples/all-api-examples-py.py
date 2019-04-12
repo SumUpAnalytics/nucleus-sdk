@@ -165,9 +165,7 @@ document = {
     "time": "2019-01-01",
     "content": "This is a test json content field"
 }
-document = {'time': datetime.datetime(2019, 4, 5, 22, 4, 31, 417723), 
-            'title': '0', 
-            'content': ['if only mitt romney could turn the olympic torch on the newspaper headlines in london hes the party pooper in the daily mail nowhere man in the times of london and mitt the twit in the sun this was not the storyline romney and his team wanted when they journeyed overseas for a trip designed to burnish the gop contenders foreign policy credentials romney has yet to publicly acknowledge the outrage he set off in london when he appeared to question the citys disconcerting problems in gearing up for the olympic games in an interview with cnns piers morgan on thursday romney chuckled when he was asked about the criticism romneys olympics false start well im delighted to see the kind of support that has been around the torch for instance i watched last night on bbc an entire program about the torch being run across great britain and the kind of crowds i guess millions of people that turned out to see the torch thats what you hope to see romney told morgan asked about the controversy on nbcs today show romney again sidestepped the question but declared london prepared after being here a couple of days it looks to me like london is ready romney said the uproar in britain reached its crescendo thursday evening when london mayor boris johnson whipped up a crowd of revelers at a preolympics celebration with a taunt for the republican presidential candidate johnson is a tory theoretically putting him near romney on the same conservative end of the political spectrum theres this guy called mitt romney who wants to know if we are ready are we ready yes we are johnson shouted at what sounded like a political rally for president obama meanwhile on twitter the hashtag romneyshambles was trending on both sides of the atlantic for instance'], 'author': 'CNN'}
+
 payload = nucleus_api.Appendjsonparams(dataset=dataset,
                                        document=document)
 
@@ -1220,14 +1218,16 @@ print('---------------- Tag dataset ------------------------')
 
 try:
     payload = nucleus_api.DatasetTagging(dataset=dataset, 
-                                        query='new york city OR big apple OR NYC OR New York OR NY', 
+                                        query='new york city OR big apple OR NYC OR New York', 
                                         metadata_selection='', 
                                         time_period='',
                                         period_start='2010-01-01',
                                         period_end='2019-04-30')
     api_response = api_instance.post_dataset_tagging(payload)
+    print(api_response)
     print('    Entities tagged:', api_response.result.entities_tagged)
     print('    Docids tagged with the entities:', api_response.result.doc_ids)
+    print('    Entities count:', api_response.result.entities_count)
 except ApiException as e:
     api_error = json.loads(e.body)
     print('ERROR:', api_error['message'])
