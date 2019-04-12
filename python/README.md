@@ -37,8 +37,8 @@ import nucleus_api
 in examples / (examples) directory.
 
 ##  Documentation for Helper Functions
-[**upload_files**](HelperFunc.md#upload_files)
-[**upload_jsons**](HelperFunc.md#upload_jsons)
+[**upload_files**](HelperFunc.md#upload_files)  
+[**upload_jsons**](HelperFunc.md#upload_jsons)  
 [**upload_urls**](HelperFunc.md#upload_urls)
 [**summarize_file_url**](HelperFunc.md#summarize_file_url)  
 
