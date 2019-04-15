@@ -38,3 +38,10 @@ Python SDK is available in [*python*](python) directory.
 
 ## Javascript SDK
 Javascript SDK is available in [*javascript*](javascript) directory.
+
+## Note to Jupyter Notebook users
+We strongly recommend that rapid testing done in Jupyter Notebook be limited to 1,000 documents being uploaded through our APIs from within the notebook.
+
+Jupyter Notebooks suffer from file descriptor leakage and this will cause your tests on large datasets being uploaded from within these notebooks to error out with a message such as 'Too many open files'.
+
+Once your rapid testing is done in notebook, best is to move to scripts to perform testing and exploration on much larger corpuses.
