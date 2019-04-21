@@ -184,8 +184,8 @@ except ApiException as e:
 
 # This dataset will be used to test all topics and documents APIs
 csv_file = 'trump-tweets-100.csv'
-dataset = 'trump_tweets1'
-print('----------- Append json from CSV {} to dataset {}-----------------'.format(csv_file, dataset))
+dataset = 'trump_tweets'
+print('------- Append json from CSV {} to dataset {}-------------'.format(csv_file, dataset))
 
 with open(csv_file, encoding='utf-8-sig') as csvfile:
     reader = csv.DictReader(csvfile)
@@ -217,7 +217,7 @@ list_datasets = api_response.result
 
 print(len(list_datasets), 'datasets in the database:')
 for ds in list_datasets:
-    print('    ', ds)
+    print('    ', ds.name)
     
 print('-------------------------------------------------------------')
 
@@ -744,7 +744,7 @@ print('-------------------------------------------------------------')
 
 
 dataset0 = 'trump_tweets'
-print('------------------- Get topic transfer for {} -----------------------'.format(dataset))
+print('--------------- Topic transfer from {} ------------------'.format(dataset0))
 
 dataset1 = None # str | Validation dataset (optional if period_0 and period_1 dates provided)
 #query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
@@ -762,6 +762,70 @@ excluded_docs = '' # str | List of document IDs that should be excluded from the
 try:
     payload = nucleus_api.TopicTransferModel(dataset0=dataset0,
                                              dataset1=dataset1,
+                                             query=query, 
+                                             custom_stop_words=custom_stop_words, 
+                                             num_topics=num_topics, 
+                                             num_keywords=num_keywords,
+                                             period_0_start=period_0_start,
+                                             period_0_end=period_0_end,
+                                             period_1_start=period_1_start,
+                                             period_1_end=period_1_end,
+                                             metadata_selection=metadata_selection)
+    api_response = api_instance.post_topic_transfer_api(payload)
+    api_ok = True
+except ApiException as e:
+    print(e)
+    api_error = json.loads(e.body)
+    print('ERROR:', api_error['message'])
+    api_ok = False
+
+print(api_response)
+
+if api_ok:
+    doc_ids_t1 = api_response.result.doc_ids_t1
+    topics = api_response.result.topics
+    for i,res in enumerate(topics):
+        print('Topic', i, 'exposure within validation dataset:')
+        print('    Keywords:', res.keywords)
+        print('    Strength:', res.strength)
+        print('    Document IDs:', doc_ids_t1)
+        print('    Exposure per Doc in Validation Dataset:', res.doc_topic_exposures_t1)
+        print('---------------')
+    
+print('-------------------------------------------------------------')
+
+
+# ## Get topic transfer when topics are exogenously imposed
+
+# In[ ]:
+
+
+dataset0 = 'trump_tweets'
+print('--------------- Get topic transfer from {} -------------------'.format(dataset0))
+
+dataset1 = None # str | Validation dataset (optional if period_0 and period_1 dates provided)
+fixed_topics = [{"keywords": ["north korea", "nuclear weapons", "real estate"], "weights": [0.5, 0.3, 0.2]},
+               {"keywords": ["America", "jobs", "stock market"], "weights": [0.3, 0.3, 0.3]}] # The weights are optional
+query = ''
+custom_stop_words = [""] # str | List of stop words. (optional)
+num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
+num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
+metadata_selection = "" # dict | JSON object specifying metadata-based queries on the dataset, of type {"metadata_field": "selected_values"} (optional)
+period_0_start = '2017-01-01' # Not needed if you provide a validation dataset in the "dataset1" variable 
+period_0_end = '2017-12-31' # Not needed if you provide a validation dataset in the "dataset1" variable
+period_1_start = '2018-01-01' # Not needed if you provide a validation dataset in the "dataset1" variable
+period_1_end = '2018-08-18' # Not needed if you provide a validation dataset in the "dataset1" variable
+period_0_start = '2018-08-12' # Not needed if you provide a validation dataset in the "dataset1" variable 
+period_0_end = '2018-08-16' # Not needed if you provide a validation dataset in the "dataset1" variable
+period_1_start = '2018-08-14' # Not needed if you provide a validation dataset in the "dataset1" variable
+period_1_end = '2018-08-18' # Not needed if you provide a validation dataset in the "dataset1" variable
+
+excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
+
+try:
+    payload = nucleus_api.TopicTransferModel(dataset0=dataset0,
+                                             dataset1=dataset1,
+                                             fixed_topics=fixed_topics,
                                              query=query, 
                                              custom_stop_words=custom_stop_words, 
                                              num_topics=num_topics, 
@@ -803,6 +867,7 @@ print('------------------- Get topic sentiment transfer for {} -----------------
 
 #dataset1 = dataset # str | Validation dataset (optional if period_0 and period_1 dates provided)
 #query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
+#fixed_topic is also an available input argument
 query = ''
 custom_stop_words = [""] # str | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
@@ -860,6 +925,7 @@ print('------------------- Get topic consensus transfer for {} -----------------
 
 dataset1 = None # str | Validation dataset (optional if period_0 and period_1 dates provided)
 #query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
+#fixed_topic is also an available input argument
 query = ''
 custom_stop_words = [""] # str | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)

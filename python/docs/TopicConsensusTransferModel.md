@@ -5,6 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **dataset0** | **str** | Name of reference dataset, on which topics are extracted. | 
 **dataset1** | **str** | Alternative 1: Name of validation dataset, on which topics are applied. Only pass in this argument if the validation dataset has been separately created. | [optional] 
+**fixed_topics** | **object** | JSON object specifying the topics that are exogenously fixed, of type {\&quot;keywords\&quot;: [\&quot;keyword_1\&quot;, \&quot;keyword_2\&quot;, \&quot;keyword_3\&quot;], \&quot;weights\&quot;: [weight_1, weight_2, weight_3]} | [optional] 
 **query** | **str** | Dataset-language-specific fulltext query, using mysql MATCH boolean query format. Example: \&quot;(word1 OR word2) AND (word3 OR word4)\&quot;  | [optional] 
 **custom_stop_words** | **list[str]** |  | [optional] 
 **num_topics** | **int** | Number of topics to be extracted from the dataset and summarized. | [optional] 
