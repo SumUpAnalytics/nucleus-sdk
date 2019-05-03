@@ -1,7 +1,7 @@
 # nucleus-api
 Nucleus text analytics APIs from SumUp Analytics. Example and documentation: https://github.com/SumUpAnalytics/nucleus-sdk
 
-- Package version: v2.0.0
+- Package version: v2.0.2
 
 
 ## Requirements.
