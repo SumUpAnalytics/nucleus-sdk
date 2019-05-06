@@ -7,27 +7,32 @@ SumUp Analytics, Inc and subject to Terms of Services available at www.sumup.ai.
 Copyright SumUp Analytics Inc, 2019.
 
 Those APIs enable end-users to perform the following tasks:
-1. Analytics
+# 1. Analytics
+## a. Document-level
+* Sentiment analysis
+* Per-document Summarization
+
+## b. Topic-level
 * Topic modeling
 * Topic transfer learning for propagation analysis of prevalence, sentiment and consensus
-* Sentiment analysis at the Topic and Document level
-* Consensus analysis at the Topic level
+* Sentiment analysis
+* Consensus analysis
 * Named Entity tagging (strict match)
-* Summarization at the Topic and Document level
-* Content recommendation at the Topic level
-* Historical analysis of prevalence, sentiment and consensus at the Topic level
+* Cross-documents Summarization
+* Content recommendation
+* Historical analysis of prevalence, sentiment and consensus
 * Author connectivity analysis
 * Topic exposure variation, as building block for time-series predictive modeling
 
-2. Dataset Management
+# 2. Dataset Management
 * Dataset creation (whole pre-processing pipeline)
 * Metadata-based documents' selection
 * Document rendering
 * Dataset management
 
 
-12 languages are currently supported by those APIs: English, Chinese (Simplified and Traditional), Japanese, 
-Portuguese, Spanish, German, Russian, Italian, French, Arabic, Farsi.
+13 languages are currently supported by those APIs: English, Chinese (Simplified and Traditional), Japanese, 
+Portuguese, Spanish, German, Russian, Italian, French, Arabic, Farsi, Hindi.
 
 The core task, topic modeling, has been benchmarked against Scikit-Learn, Gensim 
 and AWS Comprehend topic models and delivers 100x speed-up with 2x accuracy on a 
