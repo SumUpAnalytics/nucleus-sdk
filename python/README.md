@@ -42,36 +42,50 @@ in examples / (examples) directory.
 [**upload_urls**](HelperFunc.md#upload_urls)
 [**summarize_file_url**](HelperFunc.md#summarize_file_url)  
 
-## Documentation for API Endpoints
+## Documentation for APIs
 
-All URIs are relative to *https://localhost:5000*
+All URIs are relative to *configuration.host*
 
+### Dataset Management APIs
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*NucleusApi* | [**get_list_datasets**](docs/NucleusApi.md#get_list_datasets) | **GET** /datasets | 
 *NucleusApi* | [**post_append_json_to_dataset**](docs/NucleusApi.md#post_append_json_to_dataset) | **POST** /datasets/append_json_to_dataset | 
-*NucleusApi* | [**post_author_connectivity_api**](docs/NucleusApi.md#post_author_connectivity_api) | **POST** /topics/author_connectivity | 
+*NucleusApi* | [**post_upload_file**](docs/NucleusApi.md#post_upload_file) | **POST** /datasets/upload_file | 
+*NucleusApi* | [**post_upload_url**](docs/NucleusApi.md#post_upload_url) | **POST** /datasets/import_file_from_url | 
+*NucleusApi* | [**get_list_datasets**](docs/NucleusApi.md#get_list_datasets) | **GET** /datasets | 
 *NucleusApi* | [**post_dataset_info**](docs/NucleusApi.md#post_dataset_info) | **POST** /datasets/dataset_info | 
-*NucleusApi* | [**post_dataset_tagging**](docs/NucleusApi.md#post_dataset_tagging) | **POST** /datasets/dataset_tagging | 
 *NucleusApi* | [**post_delete_dataset**](docs/NucleusApi.md#post_delete_dataset) | **POST** /datasets/delete_dataset | 
 *NucleusApi* | [**post_delete_document**](docs/NucleusApi.md#post_delete_document) | **POST** /datasets/delete_document | 
+*NucleusApi* | [**post_rename_dataset**](docs/NucleusApi.md#post_rename_dataset) | **POST** /datasets/rename_dataset | 
+
+### Topics Analysis APIs
+Class | Method | HTTP request | Description
+------------ | ------------- | ------------- | -------------
+*NucleusApi* | [**post_topic_api**](docs/NucleusApi.md#post_topic_api) | **POST** /topics/topics | 
+*NucleusApi* | [**post_topic_consensus_api**](docs/NucleusApi.md#post_topic_consensus_api) | **POST** /topics/topic_consensus | 
+*NucleusApi* | [**post_topic_sentiment_api**](docs/NucleusApi.md#post_topic_sentiment_api) | **POST** /topics/topic_sentiment | 
+*NucleusApi* | [**post_topic_summary_api**](docs/NucleusApi.md#post_topic_summary_api) | **POST** /topics/topic_summary | 
+
+### Document Analysis APIs
+Class | Method | HTTP request | Description
+------------ | ------------- | ------------- | -------------
 *NucleusApi* | [**post_doc_display**](docs/NucleusApi.md#post_doc_display) | **POST** /documents/document_display | 
 *NucleusApi* | [**post_doc_info**](docs/NucleusApi.md#post_doc_info) | **POST** /documents/document_info | 
 *NucleusApi* | [**post_doc_recommend_api**](docs/NucleusApi.md#post_doc_recommend_api) | **POST** /documents/document_recommend | 
 *NucleusApi* | [**post_doc_sentiment_api**](docs/NucleusApi.md#post_doc_sentiment_api) | **POST** /documents/document_sentiment | 
 *NucleusApi* | [**post_doc_summary_api**](docs/NucleusApi.md#post_doc_summary_api) | **POST** /documents/document_summary | 
-*NucleusApi* | [**post_rename_dataset**](docs/NucleusApi.md#post_rename_dataset) | **POST** /datasets/rename_dataset | 
-*NucleusApi* | [**post_topic_api**](docs/NucleusApi.md#post_topic_api) | **POST** /topics/topics | 
-*NucleusApi* | [**post_topic_consensus_api**](docs/NucleusApi.md#post_topic_consensus_api) | **POST** /topics/topic_consensus | 
+
+### Advanced APIs
+Class | Method | HTTP request | Description
+------------ | ------------- | ------------- | -------------
+*NucleusApi* | [**post_author_connectivity_api**](docs/NucleusApi.md#post_author_connectivity_api) | **POST** /topics/author_connectivity | 
+*NucleusApi* | [**post_dataset_tagging**](docs/NucleusApi.md#post_dataset_tagging) | **POST** /datasets/dataset_tagging | 
+*NucleusApi* | [**post_topic_transfer_api**](docs/NucleusApi.md#post_topic_transfer_api) | **POST** /topics/topic_transfer | 
+*NucleusApi* | [**post_topic_sentiment_transfer_api**](docs/NucleusApi.md#post_topic_sentiment_transfer_api) | **POST** /topics/topic_sentiment_transfer | 
 *NucleusApi* | [**post_topic_consensus_transfer_api**](docs/NucleusApi.md#post_topic_consensus_transfer_api) | **POST** /topics/topic_consensus_transfer | 
 *NucleusApi* | [**post_topic_delta_api**](docs/NucleusApi.md#post_topic_delta_api) | **POST** /topics/topic_delta | 
 *NucleusApi* | [**post_topic_historical_analysis_api**](docs/NucleusApi.md#post_topic_historical_analysis_api) | **POST** /topics/topic_historical | 
-*NucleusApi* | [**post_topic_sentiment_api**](docs/NucleusApi.md#post_topic_sentiment_api) | **POST** /topics/topic_sentiment | 
-*NucleusApi* | [**post_topic_sentiment_transfer_api**](docs/NucleusApi.md#post_topic_sentiment_transfer_api) | **POST** /topics/topic_sentiment_transfer | 
-*NucleusApi* | [**post_topic_summary_api**](docs/NucleusApi.md#post_topic_summary_api) | **POST** /topics/topic_summary | 
-*NucleusApi* | [**post_topic_transfer_api**](docs/NucleusApi.md#post_topic_transfer_api) | **POST** /topics/topic_transfer | 
-*NucleusApi* | [**post_upload_file**](docs/NucleusApi.md#post_upload_file) | **POST** /datasets/upload_file | 
-*NucleusApi* | [**post_upload_url**](docs/NucleusApi.md#post_upload_url) | **POST** /datasets/import_file_from_url | 
+
 
 ## Documentation For Models
 
