@@ -39,7 +39,7 @@ in examples / (examples) directory.
 ##  Documentation for Helper Functions
 [**upload_files**](HelperFunc.md#upload_files)  
 [**upload_jsons**](HelperFunc.md#upload_jsons)  
-[**upload_urls**](HelperFunc.md#upload_urls)
+[**upload_urls**](HelperFunc.md#upload_urls)  
 [**summarize_file_url**](HelperFunc.md#summarize_file_url)  
 
 ## Documentation for APIs
@@ -47,8 +47,8 @@ in examples / (examples) directory.
 All URIs are relative to *configuration.host*
 
 ### Dataset Management APIs
-Class | Method | HTTP request | Description
------------- | ------------- | ------------- | -------------
+Class | Method | HTTP request 
+------------ | ------------- | ------------- 
 *NucleusApi* | [**post_append_json_to_dataset**](docs/NucleusApi.md#post_append_json_to_dataset) | **POST** /datasets/append_json_to_dataset | 
 *NucleusApi* | [**post_upload_file**](docs/NucleusApi.md#post_upload_file) | **POST** /datasets/upload_file | 
 *NucleusApi* | [**post_upload_url**](docs/NucleusApi.md#post_upload_url) | **POST** /datasets/import_file_from_url | 
@@ -59,16 +59,16 @@ Class | Method | HTTP request | Description
 *NucleusApi* | [**post_rename_dataset**](docs/NucleusApi.md#post_rename_dataset) | **POST** /datasets/rename_dataset | 
 
 ### Topics Analysis APIs
-Class | Method | HTTP request | Description
------------- | ------------- | ------------- | -------------
+Class | Method | HTTP request 
+------------ | ------------- | ------------- 
 *NucleusApi* | [**post_topic_api**](docs/NucleusApi.md#post_topic_api) | **POST** /topics/topics | 
 *NucleusApi* | [**post_topic_consensus_api**](docs/NucleusApi.md#post_topic_consensus_api) | **POST** /topics/topic_consensus | 
 *NucleusApi* | [**post_topic_sentiment_api**](docs/NucleusApi.md#post_topic_sentiment_api) | **POST** /topics/topic_sentiment | 
 *NucleusApi* | [**post_topic_summary_api**](docs/NucleusApi.md#post_topic_summary_api) | **POST** /topics/topic_summary | 
 
 ### Document Analysis APIs
-Class | Method | HTTP request | Description
------------- | ------------- | ------------- | -------------
+Class | Method | HTTP request 
+------------ | ------------- | ------------- 
 *NucleusApi* | [**post_doc_display**](docs/NucleusApi.md#post_doc_display) | **POST** /documents/document_display | 
 *NucleusApi* | [**post_doc_info**](docs/NucleusApi.md#post_doc_info) | **POST** /documents/document_info | 
 *NucleusApi* | [**post_doc_recommend_api**](docs/NucleusApi.md#post_doc_recommend_api) | **POST** /documents/document_recommend | 
@@ -76,8 +76,8 @@ Class | Method | HTTP request | Description
 *NucleusApi* | [**post_doc_summary_api**](docs/NucleusApi.md#post_doc_summary_api) | **POST** /documents/document_summary | 
 
 ### Advanced APIs
-Class | Method | HTTP request | Description
------------- | ------------- | ------------- | -------------
+Class | Method | HTTP request 
+------------ | ------------- | ------------- 
 *NucleusApi* | [**post_author_connectivity_api**](docs/NucleusApi.md#post_author_connectivity_api) | **POST** /topics/author_connectivity | 
 *NucleusApi* | [**post_dataset_tagging**](docs/NucleusApi.md#post_dataset_tagging) | **POST** /datasets/dataset_tagging | 
 *NucleusApi* | [**post_topic_transfer_api**](docs/NucleusApi.md#post_topic_transfer_api) | **POST** /topics/topic_transfer | 
