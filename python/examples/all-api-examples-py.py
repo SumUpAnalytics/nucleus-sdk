@@ -465,6 +465,59 @@ for i, res in enumerate(topics):
 print('-------------------------------------------------------------')
 
 
+# ## Get list of topics from dataset without removing redundant content
+
+# In[ ]:
+
+
+dataset = 'trump_tweets'
+print('------------- Get list of topics from dataset {}--------------'.format(dataset))
+
+#query = '("Trump" OR "president")' # str | Fulltext query, using mysql MATCH boolean query format. Example, (\"word1\" OR \"word2\") AND (\"word3\" OR \"word4\") (optional)
+query = ''
+custom_stop_words = ["real","hillary"] # str | List of stop words. (optional)
+num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
+metadata_selection = "" # dict | JSON object specifying metadata-based queries on the dataset, of type {"metadata_field": "selected_values"} (optional)
+remove_redundancies = False # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
+
+try:
+    payload = nucleus_api.Topics(dataset=dataset,                                
+                                query=query,                   
+                                custom_stop_words=custom_stop_words,     
+                                num_topics=num_topics,
+                                metadata_selection=metadata_selection,
+                                remove_redundancies=remove_redundancies)
+    api_response = api_instance.post_topic_api(payload)        
+except ApiException as e:
+    api_error = json.loads(e.body)
+    print('ERROR:', api_error['message'])
+    
+doc_ids = api_response.result.doc_ids
+topics = api_response.result.topics
+for i, res in enumerate(topics):
+    print('Topic', i, 'keywords:')
+    print('    Keywords:', res.keywords)
+    keywords_weight_str = ";".join(str(x) for x in res.keywords_weight)
+    print('    Keyword weights:', keywords_weight_str)
+    print('    Strength:', res.strength)
+    doc_topic_exposure_sel = []  # list of non-zero doc_topic_exposure
+    doc_id_sel = []        # list of doc ids matching doc_topic_exposure_sel
+    for j in range(len(res.doc_topic_exposures)):
+        doc_topic_exp = float(res.doc_topic_exposures[j])
+        if doc_topic_exp != 0:
+            doc_topic_exposure_sel.append(doc_topic_exp)
+            doc_id_sel.append(doc_ids[j])
+    
+    doc_id_sel_str = ' '.join(str(x) for x in doc_id_sel)
+    doc_topic_exposure_sel_str = ' '.join(str(x) for x in doc_topic_exposure_sel)
+    print('    Document IDs:', doc_id_sel_str)
+    print('    Document exposures:', doc_topic_exposure_sel_str)
+
+    print('---------------')
+    
+print('-------------------------------------------------------------')
+
+
 # ## Get topic summary
 
 # In[ ]:
@@ -482,6 +535,7 @@ summary_length = 6 # int | The maximum number of bullet points a user wants to s
 context_amount = 0 # int | The number of sentences surrounding key summary sentences in the documents that they come from. (optional) (default to 0)
 num_docs = 20 # int | The maximum number of key documents to use for summarization. (optional) (default to 20)
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
+remove_redundancies = True # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
 
 metadata_selection ="" # dict | JSON object specifying metadata-based queries on the dataset, of type {"metadata_field": "selected_values"} (optional)
 time_period = ""     # str | Time period selection. Choices: ["1M","3M","6M","12M","3Y","5Y",""]  (optional)
@@ -539,6 +593,7 @@ num_topics = 8 # int | Number of topics to be extracted from the dataset. (optio
 num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
 custom_dict_file = {"great": 1.0, "awful": -1.0, "clinton":-1.0, "trump":1.0} # file | Custom sentiment dictionary JSON file. Example, {"field1": value1, ..., "fieldN": valueN} (optional)
+remove_redundancies = True # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
 
 metadata_selection ="" # dict | JSON object specifying metadata-based queries on the dataset, of type {"metadata_field": "selected_values"} (optional)
 time_period = ""     # str | Time period selection. Choices: ["1M","3M","6M","12M","3Y","5Y",""] (optional)
@@ -591,6 +646,7 @@ num_topics = 8 # int | Number of topics to be extracted from the dataset. (optio
 num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
 excluded_docs = [''] # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
 custom_dict_file = {"great": 1.0, "awful": -1.0, "clinton":-1.0, "trump":1.0} # file | Custom sentiment dictionary JSON file. Example, {"field1": value1, ..., "fieldN": valueN} (optional)
+remove_redundancies = True # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
 
 metadata_selection ="" # dict | JSON object specifying metadata-based queries on the dataset, of type {"metadata_field": "selected_values"} (optional)
 time_period = ""     # str | Time period selection. Choices: ["1M","3M","6M","12M","3Y","5Y",""] (optional)
@@ -637,6 +693,7 @@ num_keywords = 8 # int | Number of keywords per topic that is extracted from the
 inc_step = 1 # int | Number of increments of the udpate period in between two historical computations. (optional) (default to 1)
 excluded_docs = [''] # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
 custom_dict_file = {} # file | Custom sentiment dictionary JSON file. Example, {"field1": value1, ..., "fieldN": valueN} (optional)
+remove_redundancies = True # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
 
 metadata_selection ="" # dict | JSON object specifying metadata-based queries on the dataset, of type {"metadata_field": "selected_values"} (optional)
 time_period = "12M"     # str | Time period selection. Choices: ["1M","3M","6M","12M","3Y","5Y",""] (optional)
@@ -758,6 +815,7 @@ period_0_end = '2018-08-16' # Not needed if you provide a validation dataset in 
 period_1_start = '2018-08-14' # Not needed if you provide a validation dataset in the "dataset1" variable
 period_1_end = '2018-08-18' # Not needed if you provide a validation dataset in the "dataset1" variable
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
+remove_redundancies = True # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
 
 try:
     payload = nucleus_api.TopicTransferModel(dataset0=dataset0,
@@ -821,6 +879,7 @@ period_1_start = '2018-08-14' # Not needed if you provide a validation dataset i
 period_1_end = '2018-08-18' # Not needed if you provide a validation dataset in the "dataset1" variable
 
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
+remove_redundancies = True # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
 
 try:
     payload = nucleus_api.TopicTransferModel(dataset0=dataset0,
@@ -879,6 +938,7 @@ period_1_start = '2018-08-14' # Not needed if you provide a validation dataset i
 period_1_end = '2018-08-18' # Not needed if you provide a validation dataset in the "dataset1" variable
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
 custom_dict_file = {"great": 1.0, "awful": -1.0, "clinton":-1.0, "trump":1.0} # file | Custom sentiment dictionary JSON file. Example, {"field1": value1, ..., "fieldN": valueN} (optional)
+remove_redundancies = True # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
 
 try:
     payload = nucleus_api.TopicSentimentTransferModel(
@@ -937,6 +997,7 @@ period_1_start = '2018-08-14' # Not needed if you provide a validation dataset i
 period_1_end = '2019-08-18' # Not needed if you provide a validation dataset in the "dataset1" variable
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
 custom_dict_file = {"great": 1.0, "awful": -1.0, "clinton":-1.0, "trump":1.0} # file | Custom sentiment dictionary JSON file. Example, {"field1": value1, ..., "fieldN": valueN} (optional)
+remove_redundancies = True # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
 
 try:
     payload = nucleus_api.TopicConsensusTransferModel(
@@ -990,6 +1051,7 @@ period_0_end = '2018-08-15'
 period_1_start = '2018-08-16'
 period_1_end = '2018-08-19'
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
+remove_redundancies = True # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
 
 try:
     payload = nucleus_api.TopicDeltaModel(
@@ -1176,6 +1238,7 @@ custom_stop_words = ["real","hillary"] # str | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
 num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
+remove_redundancies = True # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
 
 try:
     payload = nucleus_api.DocumentRecommendModel(dataset=dataset, 
