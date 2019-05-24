@@ -48,8 +48,8 @@ All methods are in *NucleusApi* class
 All URIs are relative to *configuration.host*
 
 ### Dataset Management APIs
-Method | HTTP request 
------------- | ------------- | ------------- 
+Method | HTTP request  
+------------ | -------------  
 [**post_append_json_to_dataset**](docs/NucleusApi.md#post_append_json_to_dataset) | **POST** /datasets/append_json_to_dataset | 
 [**post_upload_file**](docs/NucleusApi.md#post_upload_file) | **POST** /datasets/upload_file | 
 [**post_upload_url**](docs/NucleusApi.md#post_upload_url) | **POST** /datasets/import_file_from_url | 
@@ -61,7 +61,7 @@ Method | HTTP request
 
 ### Topics Analysis APIs
 Method | HTTP request 
------------- | ------------- | ------------- 
+------------ | -------------  
 [**post_topic_api**](docs/NucleusApi.md#post_topic_api) | **POST** /topics/topics | 
 [**post_topic_consensus_api**](docs/NucleusApi.md#post_topic_consensus_api) | **POST** /topics/topic_consensus | 
 [**post_topic_sentiment_api**](docs/NucleusApi.md#post_topic_sentiment_api) | **POST** /topics/topic_sentiment | 
@@ -69,7 +69,7 @@ Method | HTTP request
 
 ### Document Analysis APIs
 Method | HTTP request 
------------- | ------------- | ------------- 
+------------ | -------------  
 [**post_doc_display**](docs/NucleusApi.md#post_doc_display) | **POST** /documents/document_display | 
 [**post_doc_info**](docs/NucleusApi.md#post_doc_info) | **POST** /documents/document_info | 
 [**post_doc_recommend_api**](docs/NucleusApi.md#post_doc_recommend_api) | **POST** /documents/document_recommend | 
@@ -86,6 +86,9 @@ Method | HTTP request
 [**post_topic_consensus_transfer_api**](docs/NucleusApi.md#post_topic_consensus_transfer_api) | **POST** /topics/topic_consensus_transfer | 
 [**post_topic_delta_api**](docs/NucleusApi.md#post_topic_delta_api) | **POST** /topics/topic_delta | 
 [**post_topic_historical_analysis_api**](docs/NucleusApi.md#post_topic_historical_analysis_api) | **POST** /topics/topic_historical | 
+[**post_topic_contrast_api**](docs/NucleusApi.md#post_topic_contrast_api) | **POST** /topics/topic_contrast | 
+[**post_doc_classify_api**](docs/NucleusApi.md#post_doc_classify_api) | **POST** /documents/document_classify | 
+[**post_document_contrast_summary_api**](docs/NucleusApi.md#post_document_contrast_summary_api) | **POST** /documents/document_contrasted_summary | 
 
 
 ## Documentation For Models

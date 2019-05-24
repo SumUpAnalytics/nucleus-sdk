@@ -316,6 +316,116 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **post_available_sec_filings**
+> AvailableFilingsResponseModel post_available_sec_filings(payload)
+
+
+
+Get information about the available sec filings. If no input is passed, returns the list of all available tickers. If tickers are passed, returns the list of available document types for these tickers. If documt types are also passed, returns the list of available secions for the selected tickers/filing types
+
+### Example
+```python
+from __future__ import print_function
+import time
+import nucleus_api
+from nucleus_api.rest import ApiException
+from pprint import pprint
+
+# Configure API host and key authorization: apikey
+configuration = nucleus_api.Configuration()
+configuration.host = 'API_HOST_HERE'
+configuration.api_key['x-api-key'] = 'API_KEY_HERE'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['x-api-key'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
+payload = nucleus_api.EdgarFields() # EdgarFields | 
+
+try:
+    api_response = api_instance.post_available_sec_filings(payload)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling NucleusApi->post_available_sec_filings: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**EdgarFields**](EdgarFields.md)|  | 
+
+### Return type
+
+[**AvailableFilingsResponseModel**](AvailableFilingsResponseModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **post_create_dataset_from_sec_filings**
+> CreateSecDatasetResponseModel post_create_dataset_from_sec_filings(payload)
+
+
+
+Creates a new dataset and populates it with sec filings matching the specified tickers/form types.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import nucleus_api
+from nucleus_api.rest import ApiException
+from pprint import pprint
+
+# Configure API host and key authorization: apikey
+configuration = nucleus_api.Configuration()
+configuration.host = 'API_HOST_HERE'
+configuration.api_key['x-api-key'] = 'API_KEY_HERE'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['x-api-key'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
+payload = nucleus_api.EdgarQuery() # EdgarQuery | 
+
+try:
+    api_response = api_instance.post_create_dataset_from_sec_filings(payload)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling NucleusApi->post_create_dataset_from_sec_filings: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**EdgarQuery**](EdgarQuery.md)|  | 
+
+### Return type
+
+[**CreateSecDatasetResponseModel**](CreateSecDatasetResponseModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **post_dataset_info**
 > DatasetInfoRespModel post_dataset_info(payload)
 
@@ -591,6 +701,61 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **post_doc_classify_api**
+> DocClassifyRespModel post_doc_classify_api(payload)
+
+
+
+Document one-layer classifier on a chosen dataset.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import nucleus_api
+from nucleus_api.rest import ApiException
+from pprint import pprint
+
+# Configure API host and key authorization: apikey
+configuration = nucleus_api.Configuration()
+configuration.host = 'API_HOST_HERE'
+configuration.api_key['x-api-key'] = 'API_KEY_HERE'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['x-api-key'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
+payload = nucleus_api.DocClassifyModel() # DocClassifyModel | 
+
+try:
+    api_response = api_instance.post_doc_classify_api(payload)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling NucleusApi->post_doc_classify_api: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**DocClassifyModel**](DocClassifyModel.md)|  | 
+
+### Return type
+
+[**DocClassifyRespModel**](DocClassifyRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **post_doc_display**
 > DocDisplayRespModel post_doc_display(payload)
 
@@ -651,7 +816,7 @@ Name | Type | Description  | Notes
 
 
 
-Document metadata retrieval.
+Retrieve metadata of documents matching the provided filter (limited to 10000 documents).
 
 ### Example
 ```python
@@ -854,6 +1019,61 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**DocumentSummaryRespModel**](DocumentSummaryRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **post_document_contrast_summary_api**
+> DocumentContrastSummaryRespModel post_document_contrast_summary_api(payload)
+
+
+
+Document contrasted summarization.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import nucleus_api
+from nucleus_api.rest import ApiException
+from pprint import pprint
+
+# Configure API host and key authorization: apikey
+configuration = nucleus_api.Configuration()
+configuration.host = 'API_HOST_HERE'
+configuration.api_key['x-api-key'] = 'API_KEY_HERE'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['x-api-key'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
+payload = nucleus_api.DocumentContrastSummaryModel() # DocumentContrastSummaryModel | 
+
+try:
+    api_response = api_instance.post_document_contrast_summary_api(payload)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling NucleusApi->post_document_contrast_summary_api: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**DocumentContrastSummaryModel**](DocumentContrastSummaryModel.md)|  | 
+
+### Return type
+
+[**DocumentContrastSummaryRespModel**](DocumentContrastSummaryRespModel.md)
 
 ### Authorization
 
@@ -1241,6 +1461,61 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**TopicConsensusTransferRespModel**](TopicConsensusTransferRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **post_topic_contrast_api**
+> TopicContrastRespModel post_topic_contrast_api(payload)
+
+
+
+Contrasting topic extraction on a chosen dataset.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import nucleus_api
+from nucleus_api.rest import ApiException
+from pprint import pprint
+
+# Configure API host and key authorization: apikey
+configuration = nucleus_api.Configuration()
+configuration.host = 'API_HOST_HERE'
+configuration.api_key['x-api-key'] = 'API_KEY_HERE'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['x-api-key'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
+payload = nucleus_api.TopicContrastModel() # TopicContrastModel | 
+
+try:
+    api_response = api_instance.post_topic_contrast_api(payload)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling NucleusApi->post_topic_contrast_api: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**TopicContrastModel**](TopicContrastModel.md)|  | 
+
+### Return type
+
+[**TopicContrastRespModel**](TopicContrastRespModel.md)
 
 ### Authorization
 

@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **period_1_start** | **str** | Start date for the final-period dataset. Format: \&quot;YYYY-MM-DD HH:MM:SS\&quot;  | 
 **period_1_end** | **str** | End date for the final-period dataset. Format: \&quot;YYYY-MM-DD HH:MM:SS\&quot;  | 
 **excluded_docs** | **list[str]** |  | [optional] 
+**remove_redundancies** | **bool** | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. | [optional] [default to True]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
