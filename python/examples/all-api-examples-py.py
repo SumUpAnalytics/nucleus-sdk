@@ -1037,7 +1037,7 @@ print('-------------------------------------------------------------')
 
 
 dataset = 'trump_tweets' # str | Dataset name.
-metadata_selection = {"content": "korea"} # dict | The metadata selection defining the two categories of documents to contrast and summarize against each other
+metadata_selection = {"content": "Trump"} # dict | The metadata selection defining the two categories of documents to contrast and summarize against each other
 print('------------------ Get contrasted topic for content about {} in {}  --------------------'.format([x for x in  metadata_selection.values()], dataset))
 
 query = '' # str | Dataset-language-specific fulltext query, using mysql MATCH boolean query format (optional)
@@ -1047,7 +1047,7 @@ period_start = '2018-08-12' # str | Alternative 2: start of period over which th
 period_end = '2018-08-15' # str | Alternative 2: start of period over which the analysis is conducted (optional)
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
 syntax_variables = True # bool | Specifies whether to take into account syntax aspects of each category of documents to help with contrasting them (optional) (default to False)
-compression = 0.002 # float | Parameter controlling the breadth of the contrasted summary. Contained between 0 and 1, the smaller it is, the more contrasting terms will be captured, with decreasing weight. (optional) (default to 0.000002)
+compression = 0.002 # float | Parameter controlling the breadth of the contrasted topic. Contained between 0 and 1, the smaller it is, the more contrasting terms will be captured, with decreasing weight. (optional) (default to 0.000002)
 remove_redundancies = True # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
 
 try:
@@ -1055,10 +1055,9 @@ try:
                                             metadata_selection=metadata_selection)
     api_response = api_instance.post_topic_contrast_api(payload)
     
-    for res in enumerate(api_response.result):
-        print('Contrasted Topic')
-        print('    Keywords:', api_response.result.keywords)
-        print('    Keywords Weights:', api_response.result.weights)
+    print('Contrasted Topic')
+    print('    Keywords:', api_response.result.keywords)
+    print('    Keywords Weight:', api_response.result.keywords_weight)
     
 except ApiException as e:
     api_error = json.loads(e.body)
@@ -1346,7 +1345,7 @@ print('-------------------------------------------------------------')
 
 
 dataset = 'trump_tweets' # str | Dataset name.
-metadata_selection = {"content": "korea"} # dict | The metadata selection defining the two categories of documents to contrast and summarize against each other
+metadata_selection = {"content": "Trump"} # dict | The metadata selection defining the two categories of documents to contrast and summarize against each other
 print('------------------ Get contrasted summary for content about {} in {}  --------------------'.format([x for x in  metadata_selection.values()], dataset))
 
 query = '' # str | Dataset-language-specific fulltext query, using mysql MATCH boolean query format (optional)
@@ -1366,12 +1365,14 @@ remove_redundancies = True # bool | If True, this option removes quasi-duplicate
 try:
     payload = nucleus_api.DocumentContrastSummaryModel(dataset=dataset, 
                                                         metadata_selection=metadata_selection)
-    api_response = api_instance.post_doc_contrast_summary_api(payload)
+    api_response = api_instance.post_document_contrast_summary_api(payload)
     
     print('Summary for', [x for x in  metadata_selection.values()])
     for sent in api_response.result.class_1_content.sentences:
         print('    *', sent)
-    
+    print('======')
+    for sent in api_response.result.class_2_content.sentences:
+        print('    *', sent)    
 except ApiException as e:
     api_error = json.loads(e.body)
     print('ERROR:', api_error['message'])
@@ -1418,8 +1419,11 @@ print('-------------------------------------------------------------')
 
 
 dataset = 'trump_tweets' # str | Dataset name.
-fixed_topics = {"keywords": ["kim jong", "nuclear program", "real estate"], "weights": [0.5, 0.25, 0.25]} # dict | The contrasting topic used to separate the two categories of documents
-metadata_selection = {"content": "korea"} # dict | The metadata selection defining the two categories of documents that a document can be classified into
+fixed_topics = {"keywords": ["america", "jobs", "economy"], "weights": [0.5, 0.25, 0.25]} # dict | The contrasting topic used to separate the two categories of documents
+
+# Here we want to classify documents that talk about Trump vs documents that don't talk about Trump based on their exposure to the topic [america, jobs, economy]
+# A more natural classification task for the algo is to define metadata-based categories such as metadata_selection = {"document_category": ["speech", "press release"]}
+metadata_selection = {"content": "Trump"} # dict | The metadata selection defining the two categories of documents that a document can be classified into
 print('------------------ Classify documents in {}  --------------------'.format(dataset))
 
 query = '' # str | Dataset-language-specific fulltext query, using mysql MATCH boolean query format (optional)
@@ -1429,28 +1433,27 @@ period_start = '2018-08-12' # str | Alternative 2: start of period over which th
 period_end = '2018-08-15' # str | Alternative 2: start of period over which the analysis is conducted (optional)
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
 syntax_variables = True # bool | If True, the classifier will include syntax-related variables on top of content variables (optional) (default to False)
-validation_phase = True # bool | If True, the classifier assumes that the dataset provided is labeled with the 2 classes and will use that to compute accuracy/precision/recall (optional) (default to False)
+validation_phase = False # bool | If True, the classifier assumes that the dataset provided is labeled with the 2 classes and will use that to compute accuracy/precision/recall (optional) (default to False)
 threshold = 0 # float | Threshold value for a document exposure to the contrastic topic, above which the document is assigned to class 1 specified through metadata_selection. (optional) (default to 0)
 remove_redundancies = True # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
 
 try:
-    payload = nucleus_api.DocumentClassifyModel(dataset=dataset,
-                                                fixed_topics=fixed_topics,
-                                                metadata_selection=metadata_selection)
-    api_response = api_instance.post_document_classify_api(payload)
+    payload = nucleus_api.DocClassifyModel(dataset=dataset,
+                                            fixed_topics=fixed_topics,
+                                            metadata_selection=metadata_selection)
+    api_response = api_instance.post_doc_classify_api(payload)
     
-    for res in enumerate(api_response.result):
-        print('Detailed Results')
-        print('    Docids:', api_response.result.detailed_results.docids)
-        print('    Exposure:', api_response.result.detailed_results.exposures)
-        print('    Estimated Category:', api_response.result.detailed_results.estimated_class)
-        print('    Actual Category:', api_response.result.detailed_results.true_class)
-        print('\n')
-        if validation_phase:
-            print('Perf Metrics')
-            print('    Accuracy:', api_response.result.perf_metrics.hit_rate)
-            print('    Recall:', api_response.result.perf_metrics.recall)
-            print('    Precision:', api_response.result.perf_metrics.precision)
+    print('Detailed Results')
+    print('    Docids:', api_response.result.detailed_results.docids)
+    print('    Exposure:', api_response.result.detailed_results.exposures)
+    print('    Estimated Category:', api_response.result.detailed_results.estimated_class)
+    print('    Actual Category:', api_response.result.detailed_results.true_class)
+    print('\n')
+    if validation_phase:
+        print('Perf Metrics')
+        print('    Accuracy:', api_response.result.perf_metrics.hit_rate)
+        print('    Recall:', api_response.result.perf_metrics.recall)
+        print('    Precision:', api_response.result.perf_metrics.precision)
             
 except ApiException as e:
     api_error = json.loads(e.body)
