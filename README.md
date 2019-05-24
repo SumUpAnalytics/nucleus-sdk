@@ -7,14 +7,14 @@ SumUp Analytics, Inc and subject to Terms of Services available at www.sumup.ai.
 Copyright SumUp Analytics Inc, 2019.
 
 Those APIs enable end-users to perform the following tasks:
-# 1. Analytics
-## a. Document-level
+## 1. Analytics
+### a. Document-level
 * Sentiment analysis
 * Per-document Summarization
 * Per-document Contrasted Summarization
 * Document classification in user-controlled sub-categories
 
-## b. Topic-level
+### b. Topic-level
 * Topic modeling
 * Topic transfer learning for propagation analysis of prevalence, sentiment and consensus
 * Sentiment analysis
@@ -27,7 +27,7 @@ Those APIs enable end-users to perform the following tasks:
 * Content recommendation
 * Topic exposure variation, as building block for time-series predictive modeling
 
-# 2. Dataset Management
+## 2. Dataset Management
 * Dataset creation (whole pre-processing pipeline)
 * Metadata-based documents' selection
 * Document rendering
