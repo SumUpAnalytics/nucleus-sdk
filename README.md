@@ -11,6 +11,8 @@ Those APIs enable end-users to perform the following tasks:
 ## a. Document-level
 * Sentiment analysis
 * Per-document Summarization
+* Per-document Contrasted Summarization
+* Document classification in user-controlled sub-categories
 
 ## b. Topic-level
 * Topic modeling
@@ -18,10 +20,11 @@ Those APIs enable end-users to perform the following tasks:
 * Sentiment analysis
 * Consensus analysis
 * Named Entity tagging (strict match)
-* Cross-documents Summarization
-* Content recommendation
+* Cross-documents Topic Summarization
 * Historical analysis of prevalence, sentiment and consensus
 * Author connectivity analysis
+* Contrasted topic modeling: topic best separating two sub-categories of documents in a corpus
+* Content recommendation
 * Topic exposure variation, as building block for time-series predictive modeling
 
 # 2. Dataset Management
