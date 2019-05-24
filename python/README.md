@@ -171,6 +171,17 @@ Method | HTTP request
  - [TopicHistoryModel](docs/TopicHistoryModel.md)
  - [TopicHistoryRespModel](docs/TopicHistoryRespModel.md)
  - [TopicHistoryL1RespModel](docs/TopicHistoryL1RespModel.md)
+ - [TopicContrastL1RespModel](docs/TopicContrastL1RespModel.md)
+ - [TopicContrastModel](docs/TopicContrastModel.md)
+ - [TopicContrastRespModel](docs/TopicContrastRespModel.md)
+ - [DocClassifyL1RespModel](docs/DocClassifyL1RespModel.md)
+ - [DocClassifyL2RespModel](docs/DocClassifyL2RespModel.md)
+ - [DocClassifyModel](docs/DocClassifyModel.md)
+ - [DocClassifyRespModel](docs/DocClassifyRespModel.md)
+ - [DocumentContrastSummaryL1Model](docs/DocumentContrastSummaryL1Model.md)
+ - [DocumentContrastSummaryL2Model](docs/DocumentContrastSummaryL2Model.md)
+ - [DocumentContrastSummaryModel](docs/DocumentContrastSummaryModel.md)
+ - [DocumentContrastSummaryRespModel](docs/DocumentContrastSummaryRespModel.md)
 
 
 Copyright 2019 SumUp Analytics, Inc
