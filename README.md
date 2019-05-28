@@ -28,7 +28,7 @@ Those APIs enable end-users to perform the following tasks:
 * Topic exposure variation, as building block for time-series predictive modeling
 
 ## 2. Dataset Management
-* Dataset creation (whole pre-processing pipeline)
+* Dataset creation (whole pre-processing pipeline: extraction, cleaning, segmentation, tokenization)
 * Metadata-based documents' selection
 * Document rendering
 * Dataset management
@@ -40,7 +40,7 @@ Portuguese, Spanish, German, Russian, Italian, French, Arabic, Farsi, Hindi.
 The core task, topic modeling, has been benchmarked against Scikit-Learn, Gensim 
 and AWS Comprehend topic models and delivers 100x speed-up with 2x accuracy on a 
 wide range of dataset sizes, complexity and languages. More details can be found 
-at www.sumup.ai in Nucleus Solution Brief (https://www.sumup.ai/SumUp%20Real-Time%20Text%20Analytics%20Solution%20Brief.pdf)
+at www.sumup.ai in Nucleus Solution Brief (https://app.hubspot.com/documents/5812509/view/44612668?accessId=9bf45e)
 
 ## Python SDK
 Python SDK is available in [*python*](python) directory.
