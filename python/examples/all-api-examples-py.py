@@ -202,6 +202,80 @@ with open(csv_file, encoding='utf-8-sig') as csvfile:
 print('-------------------------------------------------------------')
 
 
+# ## Creating a dataset using embedded datafeeds: Central Banks
+
+# In[ ]:
+
+print('---- Leverage the PBOC feed from Nucleus ----')
+# central_banks_LANGUAGE with LANGUAGE in {english, chinese, japanese, german, portuguese, spanish, russian, french, italian}
+# document_category in {speech, press release, publication, formal research}
+# bank in {federal_reserve, bank_of_canada, banco_de_mexico, bank_of_brazil, ecb, bank_of_england, bundesbank, bank_of_france, bank_of_italy, bank_of_spain, russian_fed, people_bank_of_china, bank_of_japan, bank_of_australia,
+# atlanta_fed, boston_fed, chicago_fed, cleveland_fed, dallas_fed, kansas_city_fed, minneapolis_fed, new_york_fed, philadelphia_fed, richmond_fed, san_francisco_fed, st_louis_fed}
+
+dataset = 'sumup/central_banks_chinese'# embedded datafeeds in Nucleus.
+metadata_selection = {'bank': 'people_bank_of_china', 'document_category': ('speech', 'press release', 'publication')}
+print('-------------------------------------------------------------')
+
+
+# ## Creating a dataset using embedded datafeeds: News RSS
+
+# In[ ]:
+
+print('---- Leverage the RSS AI feed from Nucleus ----')
+# rss_feed_FIELD with FIELD in {ai, finance, economics, crypto, news, culture}
+dataset = 'sumup/rss_feed_ai'# embedded datafeeds in Nucleus.
+print('-------------------------------------------------------------')
+
+# ## Creating a dataset using embedded datafeeds: SEC
+
+# In[ ]:
+
+print('---- Leverage the SEC feed from Nucleus ----')
+# Users can choose tickers, filing_types and sections, optionally. They can also specify certain time ranges.
+# For tickers, filing_types and sections, you can see what is available with the following API:
+
+#Get list of all companies available:
+payload = nucleus_api.EdgarFields(tickers=[], 
+                                filing_types=[], 
+                                sections=[])
+api_response = api_instance.post_available_sec_filings(payload)
+
+#Get list of all filing types available for google
+payload = nucleus_api.EdgarFields(tickers=["GOOG"], 
+                                filing_types=[], 
+                                sections=[])
+api_response = api_instance.post_available_sec_filings(payload)
+
+#Get list of sections available for google 10-K
+payload = nucleus_api.EdgarFields(tickers=["GOOG"], 
+                                filing_types=["10-K"], 
+                                sections=[])
+api_response = api_instance.post_available_sec_filings(payload)
+
+print('-----------------------------------------')
+# Then you can build your custom dataset as follows:
+my_dataset = "dataset_name" 
+period_start = "2018-01-01" 
+period_end= "2019-06-01"
+
+#Dataset is the MD&A section for BABA
+payload = nucleus_api.EdgarQuery(destination_dataset=my_dataset,
+                                tickers=["BABA"], 
+                                filing_types=["20-F"], 
+                                sections=["Quantitative and Qualitative Disclosures about Market Risk"])
+
+#Dataset is all 8Ks for NFLX in the last 18 months
+payload = nucleus_api.EdgarQuery(destination_dataset=my_dataset,
+                                tickers=["NFLX"], 
+                                filing_types=["8-K"], 
+                                sections=[],
+                                period_start=period_start,
+                                period_end=period_end)
+
+api_response = api_instance.post_create_dataset_from_sec_filings(payload)
+print('-------------------------------------------------------------')
+
+
 # ## List available datasets
 
 # In[ ]:
