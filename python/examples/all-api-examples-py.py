@@ -40,6 +40,7 @@ configuration = nucleus_api.Configuration()
 configuration.host = 'UPDATE-WITH-API-SERVER-HOSTNAME'
 configuration.api_key['x-api-key'] = 'UPDATE-WITH-API-KEY'
 
+
 # Create API instance
 api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
 
@@ -160,6 +161,9 @@ print('-------------------------------------------------------------')
 dataset = 'dataset_test'
 print('----------- Append json from to dataset {}-----------------'.format(dataset))
 
+# The fields "title", "time", and "content" are mandatory in the JSON record.
+# Users can add any custom fields to the JSON record and all the information 
+# will be saved as metadata for the document.
 document = {
     "title": "This a test json title field",
     "time": "2019-01-01",
@@ -177,12 +181,15 @@ except ApiException as e:
     print('ERROR:', api_error['message'])
 
 
-# ## Append jsons from csv to dataset in parallel
+# ## Append JSONs from csv to dataset in parallel
 
 # In[ ]:
 
 
 # This dataset will be used to test all topics and documents APIs
+# The CSV file must have "title", "time", and "content" columns.
+# Users can add any column to CSV and all the information 
+# will be saved as metadata for the document.
 csv_file = 'trump-tweets-100.csv'
 dataset = 'trump_tweets'
 print('------- Append json from CSV {} to dataset {}-------------'.format(csv_file, dataset))
@@ -204,31 +211,52 @@ print('-------------------------------------------------------------')
 
 # ## Creating a dataset using embedded datafeeds: Central Banks
 
+# ### Central Banks
+
 # In[ ]:
+
 
 print('---- Leverage the PBOC feed from Nucleus ----')
-# central_banks_LANGUAGE with LANGUAGE in {english, chinese, japanese, german, portuguese, spanish, russian, french, italian}
+# central_banks_LANGUAGE with LANGUAGE in {english, chinese, japanese, 
+#     german, portuguese, spanish, russian, french, italian}
 # document_category in {speech, press release, publication, formal research}
-# bank in {federal_reserve, bank_of_canada, banco_de_mexico, bank_of_brazil, ecb, bank_of_england, bundesbank, bank_of_france, bank_of_italy, bank_of_spain, russian_fed, people_bank_of_china, bank_of_japan, bank_of_australia,
-# atlanta_fed, boston_fed, chicago_fed, cleveland_fed, dallas_fed, kansas_city_fed, minneapolis_fed, new_york_fed, philadelphia_fed, richmond_fed, san_francisco_fed, st_louis_fed}
+# bank in {federal_reserve, bank_of_canada, banco_de_mexico, bank_of_brazil,
+#     ecb, bank_of_england, bundesbank, bank_of_france, bank_of_italy, 
+#     bank_of_spain, russian_fed, people_bank_of_china, bank_of_japan, 
+#     bank_of_australia, atlanta_fed, boston_fed, chicago_fed, cleveland_fed, 
+#     dallas_fed, kansas_city_fed, minneapolis_fed, new_york_fed, 
+#     philadelphia_fed, richmond_fed, san_francisco_fed, st_louis_fed}
 
-dataset = 'sumup/central_banks_chinese'# embedded datafeeds in Nucleus.
-metadata_selection = {'bank': 'people_bank_of_china', 'document_category': ('speech', 'press release', 'publication')}
-print('-------------------------------------------------------------')
+dataset_central_bank = 'sumup/central_banks_chinese'# embedded datafeeds in Nucleus.
+metadata_selection_central_bank = {
+    'bank': 'people_bank_of_china', 
+    'document_category': ('speech', 'press release', 'publication')}
+period_start_central_bank = '2019-01-01'
+period_end_central_bank = '2019-05-31'
 
 
-# ## Creating a dataset using embedded datafeeds: News RSS
+# ### News RSS
 
 # In[ ]:
+
 
 print('---- Leverage the RSS AI feed from Nucleus ----')
 # rss_feed_FIELD with FIELD in {ai, finance, economics, crypto, news, culture}
 dataset = 'sumup/rss_feed_ai'# embedded datafeeds in Nucleus.
-print('-------------------------------------------------------------')
 
-# ## Creating a dataset using embedded datafeeds: SEC
+
+# ### SEC Filings
+
+# #### Get list of all companies available
 
 # In[ ]:
+
+
+api_response
+
+
+# In[ ]:
+
 
 print('---- Leverage the SEC feed from Nucleus ----')
 # Users can choose tickers, filing_types and sections, optionally. They can also specify certain time ranges.
@@ -236,23 +264,67 @@ print('---- Leverage the SEC feed from Nucleus ----')
 
 #Get list of all companies available:
 payload = nucleus_api.EdgarFields(tickers=[], 
+                                  filing_types=[], 
+                                  sections=[])
+
+try:
+    api_response = api_instance.post_available_sec_filings(payload)
+    api_ok = True
+except ApiException as e:
+    api_error = json.loads(e.body)
+    print('ERROR:', api_error['message'])
+    api_ok = False
+    
+
+if api_ok:
+    print('SEC filings selected:')
+    print('    Company count:', len(api_response.result['tickers']))
+    print('    Date range:', api_response.result['date_range'])
+
+
+# #### Get list of all filing types for a company
+
+# In[ ]:
+
+
+payload = nucleus_api.EdgarFields(tickers=["IBM"], 
                                 filing_types=[], 
                                 sections=[])
-api_response = api_instance.post_available_sec_filings(payload)
 
-#Get list of all filing types available for google
-payload = nucleus_api.EdgarFields(tickers=["GOOG"], 
-                                filing_types=[], 
-                                sections=[])
-api_response = api_instance.post_available_sec_filings(payload)
+try:
+    api_response = api_instance.post_available_sec_filings(payload)
+    api_ok = True
+except ApiException as e:
+    api_error = json.loads(e.body)
+    print('ERROR:', api_error['message'])
+    api_ok = False
 
-#Get list of sections available for google 10-K
-payload = nucleus_api.EdgarFields(tickers=["GOOG"], 
-                                filing_types=["10-K"], 
-                                sections=[])
-api_response = api_instance.post_available_sec_filings(payload)
+if api_ok:
+    print('SEC filings for:', api_response.result['tickers'])
+    print('    Types:', api_response.result['filing_types'])
+    print('    Count:', api_response.result['count'])
+    print('    Date ranges:', api_response.result['date_range'])
 
+
+# #### Get a list of sections in a filing
+
+# In[ ]:
+
+
+#Get list of sections available in 10-K
+payload = nucleus_api.EdgarFields(tickers=["IBM"], 
+                                  filing_types=["10-K"],
+                                  sections=[])
+
+
+api_response = api_instance.post_available_sec_filings(payload)
+print(api_response)
 print('-----------------------------------------')
+
+
+# In[ ]:
+
+
 # Then you can build your custom dataset as follows:
 my_dataset = "dataset_name" 
 period_start = "2018-01-01" 
@@ -273,7 +345,6 @@ payload = nucleus_api.EdgarQuery(destination_dataset=my_dataset,
                                 period_end=period_end)
 
 api_response = api_instance.post_create_dataset_from_sec_filings(payload)
-print('-------------------------------------------------------------')
 
 
 # ## List available datasets
@@ -298,6 +369,8 @@ print('-------------------------------------------------------------')
 
 # ## Get dataset information
 
+# ### User dataset
+
 # In[ ]:
 
 
@@ -315,6 +388,41 @@ try:
                                     query=query, 
                                     metadata_selection=metadata_selection, 
                                     time_period=time_period)
+    api_response = api_instance.post_dataset_info(payload)
+    print('Information about dataset', dataset)
+    print('    Language:', api_response.result.detected_language)
+    print('    Number of documents:', api_response.result.num_documents)
+    print('    Time range:', datetime.datetime.fromtimestamp(float(api_response.result.time_range[0])),
+             'to', datetime.datetime.fromtimestamp(float(api_response.result.time_range[1])))
+except ApiException as e:
+    api_error = json.loads(e.body)
+    print('ERROR:', api_error['message'])
+
+print('-------------------------------------------------------------')
+
+
+# ### Central banks
+
+# In[ ]:
+
+
+dataset = dataset_central_bank # str | Dataset name.
+print('--------------- Get dataset information from {}-------------------'.format(dataset))
+
+query = '' # str | Fulltext query, using mysql MATCH boolean query format. (optional)
+metadata_selection = metadata_selection_central_bank # str | json object of {\"metadata_field\":[\"selected_values\"]} (optional)
+time_period = '6M' # str | Time period selection (optional)
+#period_start = period_start_central_bank  # str | Start date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS"
+#period_end = period_end_central_bank # str | End date for the period to analyze within the dataset. Format: "YYYY-MM-DD HH:MM:SS"
+
+try:
+    payload = nucleus_api.DatasetInfo(dataset=dataset, 
+                                    #query=query, 
+                                    #metadata_selection=metadata_selection, 
+                                    time_period=time_period,
+                                    #period_start=period_start,
+                                    #period_end=period_end
+                                     )
     api_response = api_instance.post_dataset_info(payload)
     print('Information about dataset', dataset)
     print('    Language:', api_response.result.detected_language)
@@ -609,7 +717,7 @@ summary_length = 6 # int | The maximum number of bullet points a user wants to s
 context_amount = 0 # int | The number of sentences surrounding key summary sentences in the documents that they come from. (optional) (default to 0)
 num_docs = 20 # int | The maximum number of key documents to use for summarization. (optional) (default to 20)
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
-remove_redundancies = True # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
+remove_redundancies = False # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
 
 metadata_selection ="" # dict | JSON object specifying metadata-based queries on the dataset, of type {"metadata_field": "selected_values"} (optional)
 time_period = ""     # str | Time period selection. Choices: ["1M","3M","6M","12M","3Y","5Y",""]  (optional)
@@ -667,7 +775,7 @@ num_topics = 8 # int | Number of topics to be extracted from the dataset. (optio
 num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
 custom_dict_file = {"great": 1.0, "awful": -1.0, "clinton":-1.0, "trump":1.0} # file | Custom sentiment dictionary JSON file. Example, {"field1": value1, ..., "fieldN": valueN} (optional)
-remove_redundancies = True # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
+remove_redundancies = False # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
 
 metadata_selection ="" # dict | JSON object specifying metadata-based queries on the dataset, of type {"metadata_field": "selected_values"} (optional)
 time_period = ""     # str | Time period selection. Choices: ["1M","3M","6M","12M","3Y","5Y",""] (optional)
@@ -720,7 +828,7 @@ num_topics = 8 # int | Number of topics to be extracted from the dataset. (optio
 num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
 excluded_docs = [''] # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
 custom_dict_file = {"great": 1.0, "awful": -1.0, "clinton":-1.0, "trump":1.0} # file | Custom sentiment dictionary JSON file. Example, {"field1": value1, ..., "fieldN": valueN} (optional)
-remove_redundancies = True # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
+remove_redundancies = False # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
 
 metadata_selection ="" # dict | JSON object specifying metadata-based queries on the dataset, of type {"metadata_field": "selected_values"} (optional)
 time_period = ""     # str | Time period selection. Choices: ["1M","3M","6M","12M","3Y","5Y",""] (optional)
@@ -767,7 +875,7 @@ num_keywords = 8 # int | Number of keywords per topic that is extracted from the
 inc_step = 1 # int | Number of increments of the udpate period in between two historical computations. (optional) (default to 1)
 excluded_docs = [''] # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
 custom_dict_file = {} # file | Custom sentiment dictionary JSON file. Example, {"field1": value1, ..., "fieldN": valueN} (optional)
-remove_redundancies = True # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
+remove_redundancies = False # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
 
 metadata_selection ="" # dict | JSON object specifying metadata-based queries on the dataset, of type {"metadata_field": "selected_values"} (optional)
 time_period = "12M"     # str | Time period selection. Choices: ["1M","3M","6M","12M","3Y","5Y",""] (optional)
@@ -889,7 +997,7 @@ period_0_end = '2018-08-16' # Not needed if you provide a validation dataset in 
 period_1_start = '2018-08-14' # Not needed if you provide a validation dataset in the "dataset1" variable
 period_1_end = '2018-08-18' # Not needed if you provide a validation dataset in the "dataset1" variable
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
-remove_redundancies = True # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
+remove_redundancies = False # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
 
 try:
     payload = nucleus_api.TopicTransferModel(dataset0=dataset0,
@@ -953,7 +1061,7 @@ period_1_start = '2018-08-14' # Not needed if you provide a validation dataset i
 period_1_end = '2018-08-18' # Not needed if you provide a validation dataset in the "dataset1" variable
 
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
-remove_redundancies = True # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
+remove_redundancies = False # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
 
 try:
     payload = nucleus_api.TopicTransferModel(dataset0=dataset0,
@@ -1012,7 +1120,7 @@ period_1_start = '2018-08-14' # Not needed if you provide a validation dataset i
 period_1_end = '2018-08-18' # Not needed if you provide a validation dataset in the "dataset1" variable
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
 custom_dict_file = {"great": 1.0, "awful": -1.0, "clinton":-1.0, "trump":1.0} # file | Custom sentiment dictionary JSON file. Example, {"field1": value1, ..., "fieldN": valueN} (optional)
-remove_redundancies = True # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
+remove_redundancies = False # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
 
 try:
     payload = nucleus_api.TopicSentimentTransferModel(
@@ -1071,7 +1179,7 @@ period_1_start = '2018-08-14' # Not needed if you provide a validation dataset i
 period_1_end = '2019-08-18' # Not needed if you provide a validation dataset in the "dataset1" variable
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
 custom_dict_file = {"great": 1.0, "awful": -1.0, "clinton":-1.0, "trump":1.0} # file | Custom sentiment dictionary JSON file. Example, {"field1": value1, ..., "fieldN": valueN} (optional)
-remove_redundancies = True # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
+remove_redundancies = False # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
 
 try:
     payload = nucleus_api.TopicConsensusTransferModel(
@@ -1160,7 +1268,7 @@ period_0_end = '2018-08-15'
 period_1_start = '2018-08-16'
 period_1_end = '2018-08-19'
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
-remove_redundancies = True # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
+remove_redundancies = False # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
 
 try:
     payload = nucleus_api.TopicDeltaModel(
@@ -1347,7 +1455,7 @@ custom_stop_words = ["real","hillary"] # str | List of stop words. (optional)
 num_topics = 8 # int | Number of topics to be extracted from the dataset. (optional) (default to 8)
 num_keywords = 8 # int | Number of keywords per topic that is extracted from the dataset. (optional) (default to 8)
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
-remove_redundancies = True # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
+remove_redundancies = False # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
 
 try:
     payload = nucleus_api.DocumentRecommendModel(dataset=dataset, 
@@ -1536,7 +1644,7 @@ except ApiException as e:
 print('-------------------------------------------------------------')
 
 
-# ## Tag documents with a list of entities
+# ## Tag documents
 
 # In[ ]:
 
