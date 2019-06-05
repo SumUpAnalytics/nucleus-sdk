@@ -1,10 +1,12 @@
-# CreateSecDatasetResponseModel
+# DocClassifyL2DRRespModel
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**result** | **object** | The JSON containing results | [optional] 
-**job_id** | **str** | If the job is taking too long, job_id is returned, GET /jobs can then be used to poll for results | [optional] 
+**docids** | **list[int]** |  | [optional] 
+**exposures** | **list[float]** |  | [optional] 
+**true_class** | **list[str]** |  | [optional] 
+**estimated_class** | **list[str]** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

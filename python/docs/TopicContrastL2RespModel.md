@@ -1,10 +1,11 @@
-# CreateSecDatasetResponseModel
+# TopicContrastL2RespModel
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**result** | **object** | The JSON containing results | [optional] 
-**job_id** | **str** | If the job is taking too long, job_id is returned, GET /jobs can then be used to poll for results | [optional] 
+**hit_rate** | **str** | Accuracy of topic contrast API | [optional] 
+**recall** | **str** | Recall of topic contrast API | [optional] 
+**precision** | **str** | Precision of topic contrast API | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

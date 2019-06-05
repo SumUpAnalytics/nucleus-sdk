@@ -371,6 +371,61 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **post_bulk_insert_json**
+> BulkInsertRespModel post_bulk_insert_json(payload)
+
+
+
+Add many document to a dataset, in JSON form. Bulk insertion is much faster than making one api call for each document.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import nucleus_api
+from nucleus_api.rest import ApiException
+from pprint import pprint
+
+# Configure API host and key authorization: apikey
+configuration = nucleus_api.Configuration()
+configuration.host = 'API_HOST_HERE'
+configuration.api_key['x-api-key'] = 'API_KEY_HERE'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['x-api-key'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
+payload = nucleus_api.BulkInsertParams() # BulkInsertParams | 
+
+try:
+    api_response = api_instance.post_bulk_insert_json(payload)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling NucleusApi->post_bulk_insert_json: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**BulkInsertParams**](BulkInsertParams.md)|  | 
+
+### Return type
+
+[**BulkInsertRespModel**](BulkInsertRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **post_create_dataset_from_sec_filings**
 > CreateSecDatasetResponseModel post_create_dataset_from_sec_filings(payload)
 

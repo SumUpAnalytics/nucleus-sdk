@@ -1,10 +1,11 @@
-# CreateSecDatasetResponseModel
+# BulkInsertParams
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**result** | **object** | The JSON containing results | [optional] 
-**job_id** | **str** | If the job is taking too long, job_id is returned, GET /jobs can then be used to poll for results | [optional] 
+**dataset** | **str** | Name of the dataset. | 
+**language** | **str** | If you want to override language detection. | [optional] 
+**documents** | [**list[Document]**](Document.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
