@@ -58,6 +58,8 @@ Method | HTTP request
 [**post_delete_dataset**](docs/NucleusApi.md#post_delete_dataset) | **POST** /datasets/delete_dataset | 
 [**post_delete_document**](docs/NucleusApi.md#post_delete_document) | **POST** /datasets/delete_document | 
 [**post_rename_dataset**](docs/NucleusApi.md#post_rename_dataset) | **POST** /datasets/rename_dataset | 
+[**post_available_sec_filings**](docs/NucleusApi.md#post_available_sec_filings) | **POST** /feeds/available_sec_filings | 
+[**post_create_dataset_from_sec_filings**](docs/NucleusApi.md#post_create_dataset_from_sec_filings) | **POST** /feeds/create_dataset_from_sec_filings | 
 
 ### Topics Analysis APIs
 Method | HTTP request 
@@ -95,6 +97,9 @@ Method | HTTP request
 ### Dataset Management Models
  - [AppendJsonRespModel](docs/AppendJsonRespModel.md)
  - [Appendjsonparams](docs/Appendjsonparams.md)
+ - [AvailableFilingsResponseModel](docs/AvailableFilingsResponseModel.md)
+ - [EdgarFields](docs/EdgarFields.md)
+ - [EdgarQuery](docs/EdgarQuery.md)
  - [UploadFileRespModel](docs/UploadFileRespModel.md)
  - [UploadURLModel](docs/UploadURLModel.md)
  - [UploadUrlRespModel](docs/UploadUrlRespModel.md)
@@ -172,6 +177,7 @@ Method | HTTP request
  - [TopicHistoryRespModel](docs/TopicHistoryRespModel.md)
  - [TopicHistoryL1RespModel](docs/TopicHistoryL1RespModel.md)
  - [TopicContrastL1RespModel](docs/TopicContrastL1RespModel.md)
+ - [TopicContrastL2RespModel](docs/TopicContrastL2RespModel.md)
  - [TopicContrastModel](docs/TopicContrastModel.md)
  - [TopicContrastRespModel](docs/TopicContrastRespModel.md)
  - [DocClassifyL1RespModel](docs/DocClassifyL1RespModel.md)
