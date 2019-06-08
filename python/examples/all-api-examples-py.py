@@ -1230,7 +1230,7 @@ period_end = '2018-08-15' # str | Alternative 2: start of period over which the 
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
 syntax_variables = True # bool | Specifies whether to take into account syntax aspects of each category of documents to help with contrasting them (optional) (default to False)
 compression = 0.002 # float | Parameter controlling the breadth of the contrasted topic. Contained between 0 and 1, the smaller it is, the more contrasting terms will be captured, with decreasing weight. (optional) (default to 0.000002)
-remove_redundancies = True # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
+remove_redundancies = False # bool | If True, this option removes quasi-duplicates from the analysis and retain only one copy of it. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default False)
 
 try:
     payload = nucleus_api.TopicContrastModel(dataset=dataset, 
@@ -1268,7 +1268,7 @@ period_0_end = '2018-08-15'
 period_1_start = '2018-08-16'
 period_1_end = '2018-08-19'
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
-remove_redundancies = False # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
+remove_redundancies = False # bool | If True, this option removes quasi-duplicates from the analysis and retain only one copy of it. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default False)
 
 try:
     payload = nucleus_api.TopicDeltaModel(
@@ -1542,7 +1542,7 @@ period_end = '2018-08-15' # str | Alternative 2: start of period over which the 
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
 syntax_variables = True # bool | Specifies whether to take into account syntax aspects of each category of documents to help with contrasting them (optional) (default to False)
 compression = 0.002 # float | Parameter controlling the breadth of the contrasted summary. Contained between 0 and 1, the smaller it is, the more contrasting terms will be captured, with decreasing weight. (optional) (default to 0.000002)
-remove_redundancies = True # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
+remove_redundancies = False # bool | If True, this option removes quasi-duplicates from the analysis and retain only one copy of it. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default False)
 
 try:
     payload = nucleus_api.DocumentContrastSummaryModel(dataset=dataset, 
@@ -1617,7 +1617,7 @@ excluded_docs = '' # str | List of document IDs that should be excluded from the
 syntax_variables = True # bool | If True, the classifier will include syntax-related variables on top of content variables (optional) (default to False)
 validation_phase = False # bool | If True, the classifier assumes that the dataset provided is labeled with the 2 classes and will use that to compute accuracy/precision/recall (optional) (default to False)
 threshold = 0 # float | Threshold value for a document exposure to the contrastic topic, above which the document is assigned to class 1 specified through metadata_selection. (optional) (default to 0)
-remove_redundancies = True # bool | If True, this option removes quasi-duplicates from the analysis. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default True)
+remove_redundancies = False # bool | If True, this option removes quasi-duplicates from the analysis and retain only one copy of it. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default False)
 
 try:
     payload = nucleus_api.DocClassifyModel(dataset=dataset,
