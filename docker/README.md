@@ -18,4 +18,4 @@ docker load --input nucleus-image.tgz
 ```
 
 # Connect to Nucleus Rest API server
-In your script using Nucleus APIs, set the API host to "http://localhost:50000"
+In your script or notebook, set the API host to "http://localhost:50000"
