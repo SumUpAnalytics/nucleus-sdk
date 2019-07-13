@@ -1586,8 +1586,6 @@ try:
     print('Sentiment for', api_response.result.doc_title)
     print(api_response.result.sentiment)
 
-except ValueError as e:
-    print('ERROR:', e)
 except ApiException as e:
     api_error = json.loads(e.body)
     print('ERROR:', api_error['message'])
