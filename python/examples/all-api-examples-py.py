@@ -1219,7 +1219,7 @@ print('-------------------------------------------------------------')
 
 
 dataset = 'trump_tweets' # str | Dataset name.
-metadata_selection = {"content": "Trump"} # dict | The metadata selection defining the two categories of documents to contrast and summarize against each other
+metadata_selection_contrast = {"content": "Trump"} # dict | The metadata selection defining the two categories of documents to contrast and summarize against each other
 print('------------------ Get contrasted topic for content about {} in {}  --------------------'.format([x for x in  metadata_selection.values()], dataset))
 
 query = '' # str | Dataset-language-specific fulltext query, using mysql MATCH boolean query format (optional)
@@ -1229,12 +1229,12 @@ period_start = '2018-08-12' # str | Alternative 2: start of period over which th
 period_end = '2018-08-15' # str | Alternative 2: start of period over which the analysis is conducted (optional)
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
 syntax_variables = True # bool | Specifies whether to take into account syntax aspects of each category of documents to help with contrasting them (optional) (default to False)
-compression = 0.002 # float | Parameter controlling the breadth of the contrasted topic. Contained between 0 and 1, the smaller it is, the more contrasting terms will be captured, with decreasing weight. (optional) (default to 0.000002)
+num_keywords = 20 # integer | Number of keywords for the contrasted topic that is extracted from the dataset. (optional) (default to 50)
 remove_redundancies = False # bool | If True, this option removes quasi-duplicates from the analysis and retain only one copy of it. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default False)
 
 try:
     payload = nucleus_api.TopicContrastModel(dataset=dataset, 
-                                            metadata_selection=metadata_selection)
+                                            metadata_selection_contrast=metadata_selection_contrast)
     api_response = api_instance.post_topic_contrast_api(payload)
     
     print('Contrasted Topic')
@@ -1527,7 +1527,7 @@ print('-------------------------------------------------------------')
 
 
 dataset = 'trump_tweets' # str | Dataset name.
-metadata_selection = {"content": "Trump"} # dict | The metadata selection defining the two categories of documents to contrast and summarize against each other
+metadata_selection_contrast = {"content": "Trump"} # dict | The metadata selection defining the two categories of documents to contrast and summarize against each other
 print('------------------ Get contrasted summary for content about {} in {}  --------------------'.format([x for x in  metadata_selection.values()], dataset))
 
 query = '' # str | Dataset-language-specific fulltext query, using mysql MATCH boolean query format (optional)
@@ -1541,15 +1541,15 @@ period_start = '2018-08-12' # str | Alternative 2: start of period over which th
 period_end = '2018-08-15' # str | Alternative 2: start of period over which the analysis is conducted (optional)
 excluded_docs = '' # str | List of document IDs that should be excluded from the analysis. Example, ["docid1", "docid2", ..., "docidN"]  (optional)
 syntax_variables = True # bool | Specifies whether to take into account syntax aspects of each category of documents to help with contrasting them (optional) (default to False)
-compression = 0.002 # float | Parameter controlling the breadth of the contrasted summary. Contained between 0 and 1, the smaller it is, the more contrasting terms will be captured, with decreasing weight. (optional) (default to 0.000002)
+num_keywords = 20 # integer | Number of keywords for the contrasted topic that is extracted from the dataset. (optional) (default to 50)
 remove_redundancies = False # bool | If True, this option removes quasi-duplicates from the analysis and retain only one copy of it. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default False)
 
 try:
     payload = nucleus_api.DocumentContrastSummaryModel(dataset=dataset, 
-                                                        metadata_selection=metadata_selection)
+                                                        metadata_selection_contrast=metadata_selection_contrast)
     api_response = api_instance.post_document_contrast_summary_api(payload)
     
-    print('Summary for', [x for x in  metadata_selection.values()])
+    print('Summary for', [x for x in  metadata_selection_contrast.values()])
     for sent in api_response.result.class_1_content.sentences:
         print('    *', sent)
     print('======')
@@ -1603,7 +1603,7 @@ fixed_topics = {"keywords": ["america", "jobs", "economy"], "weights": [0.5, 0.2
 
 # Here we want to classify documents that talk about Trump vs documents that don't talk about Trump based on their exposure to the topic [america, jobs, economy]
 # A more natural classification task for the algo is to define metadata-based categories such as metadata_selection = {"document_category": ["speech", "press release"]}
-metadata_selection = {"content": "Trump"} # dict | The metadata selection defining the two categories of documents that a document can be classified into
+metadata_selection_contrast = {"content": "Trump"} # dict | The metadata selection defining the two categories of documents that a document can be classified into
 print('------------------ Classify documents in {}  --------------------'.format(dataset))
 
 query = '' # str | Dataset-language-specific fulltext query, using mysql MATCH boolean query format (optional)
@@ -1620,7 +1620,7 @@ remove_redundancies = False # bool | If True, this option removes quasi-duplicat
 try:
     payload = nucleus_api.DocClassifyModel(dataset=dataset,
                                             fixed_topics=fixed_topics,
-                                            metadata_selection=metadata_selection)
+                                            metadata_selection_contrast=metadata_selection_contrast)
     api_response = api_instance.post_doc_classify_api(payload)
     
     print('Detailed Results')
