@@ -4,7 +4,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **docids** | **list[int]** |  | [optional] 
-**exposures** | **list[float]** |  | [optional] 
 **true_class** | **list[str]** |  | [optional] 
 **estimated_class** | **list[str]** |  | [optional] 
 

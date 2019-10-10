@@ -1,11 +1,12 @@
-# DatasetModel
+# SmartAlertsL2RespModel
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** | Unique identifier of the dataset | [optional] 
-**date_modified** | **datetime** | Datetime of last insertion or deletion of documents | [optional] 
-**time_range** | **list[datetime]** |  | [optional] 
+**title** | **str** | Document title | [optional] 
+**contrasted_summary** | **list[str]** |  | [optional] 
+**url** | **str** | Document URL | [optional] 
+**docid** | **str** | Document ID | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -1,11 +1,10 @@
-# DatasetModel
+# DocumentNoveltyRespModel
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**name** | **str** | Unique identifier of the dataset | [optional] 
-**date_modified** | **datetime** | Datetime of last insertion or deletion of documents | [optional] 
-**time_range** | **list[datetime]** |  | [optional] 
+**job_id** | **str** | If the job is taking too long, job_id is returned, GET /jobs can then be used to poll for results | [optional] 
+**result** | [**DocumentNoveltyL1Model**](DocumentNoveltyL1Model.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

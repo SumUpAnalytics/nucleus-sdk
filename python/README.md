@@ -1,9 +1,6 @@
 # nucleus-api
 Nucleus text analytics APIs from SumUp Analytics. Example and documentation: https://github.com/SumUpAnalytics/nucleus-sdk
 
-- Package version: v2.4.0
-
-
 ## Requirements.
 
 Python 3.5 or 3.6 is set up in a virtual environment. More details: https://docs.python.org/3/tutorial/venv.html. 
@@ -91,6 +88,8 @@ Method | HTTP request
 [**post_topic_contrast_api**](docs/NucleusApi.md#post_topic_contrast_api) | **POST** /topics/topic_contrast | 
 [**post_doc_classify_api**](docs/NucleusApi.md#post_doc_classify_api) | **POST** /documents/document_classify | 
 [**post_document_contrast_summary_api**](docs/NucleusApi.md#post_document_contrast_summary_api) | **POST** /documents/document_contrasted_summary | 
+[**post_doc_new_words_api**](docs/NucleusApi.md#post_doc_new_words_api) | **POST** /documents/document_new_words | 
+[**post_doc_novelty_api**](docs/NucleusApi.md#post_doc_novelty_api) | **POST** /documents/document_novelty | 
 
 
 ## Documentation For Models
@@ -188,7 +187,12 @@ Method | HTTP request
  - [DocumentContrastSummaryL2Model](docs/DocumentContrastSummaryL2Model.md)
  - [DocumentContrastSummaryModel](docs/DocumentContrastSummaryModel.md)
  - [DocumentContrastSummaryRespModel](docs/DocumentContrastSummaryRespModel.md)
-
+ - [DocumentNewWordsL1Model](docs/DocumentNewWordsL1Model.md)
+ - [DocumentNewWordsModel](docs/DocumentNewWordsModel.md)
+ - [DocumentNewWordsRespModel](docs/DocumentNewWordsRespModel.md)
+ - [DocumentNoveltyL1Model](docs/DocumentNoveltyL1Model.md)
+ - [DocumentNoveltyModel](docs/DocumentNoveltyModel.md)
+ - [DocumentNoveltyRespModel](docs/DocumentNoveltyRespModel.md)
 
 Copyright 2019 SumUp Analytics, Inc
 

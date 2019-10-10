@@ -481,6 +481,61 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **post_custom_tracker_api**
+> CustomTrackerRespModel post_custom_tracker_api(payload)
+
+
+
+Get custom tracker on chosen dataset and queries.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import nucleus_api
+from nucleus_api.rest import ApiException
+from pprint import pprint
+
+# Configure API host and key authorization: apikey
+configuration = nucleus_api.Configuration()
+configuration.host = 'API_HOST_HERE'
+configuration.api_key['x-api-key'] = 'API_KEY_HERE'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['x-api-key'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
+payload = nucleus_api.CustomTrackerModel() # CustomTrackerModel | 
+
+try:
+    api_response = api_instance.post_custom_tracker_api(payload)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling NucleusApi->post_custom_tracker_api: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**CustomTrackerModel**](CustomTrackerModel.md)|  | 
+
+### Return type
+
+[**CustomTrackerRespModel**](CustomTrackerRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **post_dataset_info**
 > DatasetInfoRespModel post_dataset_info(payload)
 
@@ -651,7 +706,7 @@ Name | Type | Description  | Notes
 
 
 
-Delete a document from a dataset.
+Delete documents from a dataset.
 
 ### Example
 ```python
@@ -909,6 +964,116 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**DocInfoRespModel**](DocInfoRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **post_doc_new_words_api**
+> DocumentNewWordsRespModel post_doc_new_words_api(payload)
+
+
+
+Document new words.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import nucleus_api
+from nucleus_api.rest import ApiException
+from pprint import pprint
+
+# Configure API host and key authorization: apikey
+configuration = nucleus_api.Configuration()
+configuration.host = 'API_HOST_HERE'
+configuration.api_key['x-api-key'] = 'API_KEY_HERE'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['x-api-key'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
+payload = nucleus_api.DocumentNewWordsModel() # DocumentNewWordsModel | 
+
+try:
+    api_response = api_instance.post_doc_new_words_api(payload)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling NucleusApi->post_doc_new_words_api: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**DocumentNewWordsModel**](DocumentNewWordsModel.md)|  | 
+
+### Return type
+
+[**DocumentNewWordsRespModel**](DocumentNewWordsRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **post_doc_novelty_api**
+> DocumentNoveltyRespModel post_doc_novelty_api(payload)
+
+
+
+Document novelty.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import nucleus_api
+from nucleus_api.rest import ApiException
+from pprint import pprint
+
+# Configure API host and key authorization: apikey
+configuration = nucleus_api.Configuration()
+configuration.host = 'API_HOST_HERE'
+configuration.api_key['x-api-key'] = 'API_KEY_HERE'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['x-api-key'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
+payload = nucleus_api.DocumentNoveltyModel() # DocumentNoveltyModel | 
+
+try:
+    api_response = api_instance.post_doc_novelty_api(payload)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling NucleusApi->post_doc_novelty_api: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**DocumentNoveltyModel**](DocumentNoveltyModel.md)|  | 
+
+### Return type
+
+[**DocumentNoveltyRespModel**](DocumentNoveltyRespModel.md)
 
 ### Authorization
 
@@ -1198,6 +1363,61 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **post_key_authors_api**
+> KeyAuthorsRespModel post_key_authors_api(payload)
+
+
+
+Get key authors on chosen dataset and queries.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import nucleus_api
+from nucleus_api.rest import ApiException
+from pprint import pprint
+
+# Configure API host and key authorization: apikey
+configuration = nucleus_api.Configuration()
+configuration.host = 'API_HOST_HERE'
+configuration.api_key['x-api-key'] = 'API_KEY_HERE'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['x-api-key'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
+payload = nucleus_api.KeyAuthorsModel() # KeyAuthorsModel | 
+
+try:
+    api_response = api_instance.post_key_authors_api(payload)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling NucleusApi->post_key_authors_api: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**KeyAuthorsModel**](KeyAuthorsModel.md)|  | 
+
+### Return type
+
+[**KeyAuthorsRespModel**](KeyAuthorsRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **post_legacy**
 > LegacyResponseModel post_legacy(payload)
 
@@ -1351,6 +1571,61 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**SaveFilterRespModel**](SaveFilterRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **post_smart_alerts_api**
+> SmartAlertsRespModel post_smart_alerts_api(payload)
+
+
+
+Get smart alerts on chosen dataset and queries.
+
+### Example
+```python
+from __future__ import print_function
+import time
+import nucleus_api
+from nucleus_api.rest import ApiException
+from pprint import pprint
+
+# Configure API host and key authorization: apikey
+configuration = nucleus_api.Configuration()
+configuration.host = 'API_HOST_HERE'
+configuration.api_key['x-api-key'] = 'API_KEY_HERE'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['x-api-key'] = 'Bearer'
+
+# create an instance of the API class
+api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
+payload = nucleus_api.SmartAlertsModel() # SmartAlertsModel | 
+
+try:
+    api_response = api_instance.post_smart_alerts_api(payload)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling NucleusApi->post_smart_alerts_api: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**SmartAlertsModel**](SmartAlertsModel.md)|  | 
+
+### Return type
+
+[**SmartAlertsRespModel**](SmartAlertsRespModel.md)
 
 ### Authorization
 
@@ -1914,7 +2189,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **post_upload_file**
-> UploadFileRespModel post_upload_file(file, dataset, metadata=metadata, filename=filename)
+> UploadFileRespModel post_upload_file(file, dataset, metadata=metadata, filename=filename, time=time)
 
 
 
@@ -1940,9 +2215,10 @@ file = '/path/to/file.txt' # file |
 dataset = 'dataset_example' # str | Destination dataset where the file will be inserted.
 metadata = 'metadata_example' # str | Optional json containing additional document metadata. Eg: {\"time\":\"01/01/2001\",\"author\":\"me\"} (optional)
 filename = 'filename_example' # str | Specify the filename if you want to override the original filename (Nucleus guesses the file type from the file name extension) (optional)
+time = 'time_example' # str | Specify the timestamp of the document (defaults to current timestamp) (optional)
 
 try:
-    api_response = api_instance.post_upload_file(file, dataset, metadata=metadata, filename=filename)
+    api_response = api_instance.post_upload_file(file, dataset, metadata=metadata, filename=filename, time=time)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling NucleusApi->post_upload_file: %s\n" % e)
@@ -1956,6 +2232,7 @@ Name | Type | Description  | Notes
  **dataset** | **str**| Destination dataset where the file will be inserted. | 
  **metadata** | **str**| Optional json containing additional document metadata. Eg: {\&quot;time\&quot;:\&quot;01/01/2001\&quot;,\&quot;author\&quot;:\&quot;me\&quot;} | [optional] 
  **filename** | **str**| Specify the filename if you want to override the original filename (Nucleus guesses the file type from the file name extension) | [optional] 
+ **time** | **str**| Specify the timestamp of the document (defaults to current timestamp) | [optional] 
 
 ### Return type
 
