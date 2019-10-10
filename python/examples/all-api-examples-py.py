@@ -40,7 +40,6 @@ configuration = nucleus_api.Configuration()
 configuration.host = 'UPDATE-WITH-API-SERVER-HOSTNAME'
 configuration.api_key['x-api-key'] = 'UPDATE-WITH-API-KEY'
 
-
 # Create API instance
 api_instance = nucleus_api.NucleusApi(nucleus_api.ApiClient(configuration))
 
@@ -252,12 +251,6 @@ dataset = 'sumup/rss_feed_ai'# embedded datafeeds in Nucleus.
 # In[ ]:
 
 
-api_response
-
-
-# In[ ]:
-
-
 print('---- Leverage the SEC feed from Nucleus ----')
 # Users can choose tickers, filing_types and sections, optionally. They can also specify certain time ranges.
 # For tickers, filing_types and sections, you can see what is available with the following API:
@@ -316,35 +309,70 @@ payload = nucleus_api.EdgarFields(tickers=["IBM"],
                                   filing_types=["10-K"],
                                   sections=[])
 
+try:
+    api_response = api_response = api_instance.post_available_sec_filings(payload)
+    api_ok = True
+except ApiException as e:
+    api_error = json.loads(e.body)
+    print('ERROR:', api_error['message'])
+    api_ok = False
+    
+if api_ok:
+    print('Sections in {} filings for {}'.format(api_response.result['filing_types'], api_response.result['tickers']))
+    for section in api_response.result['sections']:
+        print('    {}'.format(section))
 
-api_response = api_instance.post_available_sec_filings(payload)
-print(api_response)
-print('-----------------------------------------')
+
+# #### Build custom datasets from SEC filings
+
+# In[ ]:
+
+
+dataset = "dataset_sec1" 
+
+#Dataset from a particular section for a ticker
+payload = nucleus_api.EdgarQuery(destination_dataset=dataset,
+                                 tickers=["BABA"], 
+                                 filing_types=["20-F"], 
+                                 sections=["Quantitative and Qualitative Disclosures about Market Risk"])
+
+try:
+    api_response = api_instance.post_create_dataset_from_sec_filings(payload)
+    api_ok = True
+except ApiException as e:
+    api_error = json.loads(e.body)
+    print('ERROR:', api_error['message'])
+    api_ok = False
+    
+if api_ok:
+    print('Dataset {} created successfully from SEC filings'.format(api_response.result['destination_dataset']))
 
 
 # In[ ]:
 
 
-# Then you can build your custom dataset as follows:
-my_dataset = "dataset_name" 
+dataset = "dataset_sec2" 
 period_start = "2018-01-01" 
 period_end= "2019-06-01"
 
-#Dataset is the MD&A section for BABA
-payload = nucleus_api.EdgarQuery(destination_dataset=my_dataset,
-                                tickers=["BABA"], 
-                                filing_types=["20-F"], 
-                                sections=["Quantitative and Qualitative Disclosures about Market Risk"])
-
-#Dataset is all 8Ks for NFLX in the last 18 months
-payload = nucleus_api.EdgarQuery(destination_dataset=my_dataset,
+#Dataset is all 8Ks for  the last 18 months
+payload = nucleus_api.EdgarQuery(destination_dataset=dataset,
                                 tickers=["NFLX"], 
                                 filing_types=["8-K"], 
                                 sections=[],
                                 period_start=period_start,
                                 period_end=period_end)
 
-api_response = api_instance.post_create_dataset_from_sec_filings(payload)
+try:
+    api_response = api_instance.post_create_dataset_from_sec_filings(payload)
+    api_ok = True
+except ApiException as e:
+    api_error = json.loads(e.body)
+    print('ERROR:', api_error['message'])
+    api_ok = False
+    
+if api_ok:
+    print('Dataset {} created successfully from SEC filings'.format(api_response.result['destination_dataset']))
 
 
 # ## List available datasets
@@ -374,7 +402,7 @@ print('-------------------------------------------------------------')
 # In[ ]:
 
 
-dataset = 'dataset_test' # str | Dataset name.
+dataset = 'dataset_sec2' # str | Dataset name.
 print('--------------- Get dataset information from {}-------------------'.format(dataset))
 
 query = '' # str | Fulltext query, using mysql MATCH boolean query format. (optional)
@@ -1219,7 +1247,7 @@ print('-------------------------------------------------------------')
 
 
 dataset = 'trump_tweets' # str | Dataset name.
-metadata_selection_contrast = {"content": "Trump"} # dict | The metadata selection defining the two categories of documents to contrast and summarize against each other
+metadata_selection = {} # dict | Specifies metadata-based queries on the dataset, of type {"metadata_field": "selected_values"}. (optional)
 print('------------------ Get contrasted topic for content about {} in {}  --------------------'.format([x for x in  metadata_selection.values()], dataset))
 
 query = '' # str | Dataset-language-specific fulltext query, using mysql MATCH boolean query format (optional)
@@ -1231,6 +1259,7 @@ excluded_docs = '' # str | List of document IDs that should be excluded from the
 syntax_variables = True # bool | Specifies whether to take into account syntax aspects of each category of documents to help with contrasting them (optional) (default to False)
 num_keywords = 20 # integer | Number of keywords for the contrasted topic that is extracted from the dataset. (optional) (default to 50)
 remove_redundancies = False # bool | If True, this option removes quasi-duplicates from the analysis and retain only one copy of it. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default False)
+metadata_selection_contrast = {"content": "Trump"} # dict | Specifies the two categories of documents to contrast against each other
 
 try:
     payload = nucleus_api.TopicContrastModel(dataset=dataset, 
@@ -1527,7 +1556,7 @@ print('-------------------------------------------------------------')
 
 
 dataset = 'trump_tweets' # str | Dataset name.
-metadata_selection_contrast = {"content": "Trump"} # dict | The metadata selection defining the two categories of documents to contrast and summarize against each other
+metadata_selection = {} # dict | Specifies metadata-based queries on the dataset, of type {"metadata_field": "selected_values"}. (optional)
 print('------------------ Get contrasted summary for content about {} in {}  --------------------'.format([x for x in  metadata_selection.values()], dataset))
 
 query = '' # str | Dataset-language-specific fulltext query, using mysql MATCH boolean query format (optional)
@@ -1543,6 +1572,7 @@ excluded_docs = '' # str | List of document IDs that should be excluded from the
 syntax_variables = True # bool | Specifies whether to take into account syntax aspects of each category of documents to help with contrasting them (optional) (default to False)
 num_keywords = 20 # integer | Number of keywords for the contrasted topic that is extracted from the dataset. (optional) (default to 50)
 remove_redundancies = False # bool | If True, this option removes quasi-duplicates from the analysis and retain only one copy of it. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default False)
+metadata_selection_contrast = {"content": "Trump"} # dict | Specifies the two categories of documents to contrast against each other
 
 try:
     payload = nucleus_api.DocumentContrastSummaryModel(dataset=dataset, 
@@ -1603,7 +1633,7 @@ fixed_topics = {"keywords": ["america", "jobs", "economy"], "weights": [0.5, 0.2
 
 # Here we want to classify documents that talk about Trump vs documents that don't talk about Trump based on their exposure to the topic [america, jobs, economy]
 # A more natural classification task for the algo is to define metadata-based categories such as metadata_selection = {"document_category": ["speech", "press release"]}
-metadata_selection_contrast = {"content": "Trump"} # dict | The metadata selection defining the two categories of documents that a document can be classified into
+metadata_selection = {} # dict | Specifies metadata-based queries on the dataset, of type {"metadata_field": "selected_values"}. (optional)
 print('------------------ Classify documents in {}  --------------------'.format(dataset))
 
 query = '' # str | Dataset-language-specific fulltext query, using mysql MATCH boolean query format (optional)
@@ -1616,6 +1646,7 @@ syntax_variables = True # bool | If True, the classifier will include syntax-rel
 validation_phase = False # bool | If True, the classifier assumes that the dataset provided is labeled with the 2 classes and will use that to compute accuracy/precision/recall (optional) (default to False)
 threshold = 0 # float | Threshold value for a document exposure to the contrastic topic, above which the document is assigned to class 1 specified through metadata_selection. (optional) (default to 0)
 remove_redundancies = False # bool | If True, this option removes quasi-duplicates from the analysis and retain only one copy of it. A quasi-duplicate would have the same NLP representation, but not necessarily the exact same text. (optional) (default False)
+metadata_selection_contrast = {"content": "Trump"} # dict | Specifies the two categories of documents to contrast against each other
 
 try:
     payload = nucleus_api.DocClassifyModel(dataset=dataset,
