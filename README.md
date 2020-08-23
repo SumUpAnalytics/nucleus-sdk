@@ -1,52 +1,52 @@
 # Nucleus SDK
-Nucleus SDK with instructions and examples on how to use Nucleus APIs
+Instructions and examples on how to use the Nucleus SDK. This GitHub repository is meant to complement the official Nucleus SDK Documentation available at www.sumup.ai/apis/#nucleus-documentation
 
 ## Overview
-Nucleus SDK is a suite of high-performance text-analytics APIs developed by 
-SumUp Analytics, Inc and subject to Terms of Services available at www.sumup.ai. 
-Copyright SumUp Analytics Inc, 2019.
+Nucleus is the Intelligent Text Data Platform developed and commercialized by SumUp Analytics.
+The Nucleus SDK is one of Nucleus' end-points, aiming at users needing a flexible and high-performance access to integrate into existing workflows and applications.
 
-Those APIs enable end-users to perform the following tasks:
-## 1. Analytics
-### a. Document-level
-* Sentiment analysis
-* Per-document Summarization
-* Per-document Contrasted Summarization
-* Document classification in user-controlled sub-categories
+It is subject to Terms of Services available at www.sumup.ai. 
 
-### b. Topic-level
-* Topic modeling
-* Topic transfer learning for propagation analysis of prevalence, sentiment and consensus
-* Sentiment analysis
-* Consensus analysis
-* Named Entity tagging (strict match)
-* Cross-documents Topic Summarization
-* Historical analysis of prevalence, sentiment and consensus
-* Author connectivity analysis
-* Contrasted topic modeling: topic best separating two sub-categories of documents in a corpus
-* Content recommendation
-* Topic exposure variation, as building block for time-series predictive modeling
+Copyright SumUp Analytics Inc, 2018 - present.
 
-## 2. Dataset Management
-* Dataset creation (whole pre-processing pipeline: extraction, cleaning, segmentation, tokenization)
-* Metadata-based documents' selection
-* Document rendering
-* Dataset management
-
-
-13 languages are currently supported by those APIs: English, Chinese (Simplified and Traditional), Japanese, 
+## Capabilities
+Nucleus currently natively supports 13 languages: English, Chinese (Simplified and Traditional), Japanese, 
 Portuguese, Spanish, German, Russian, Italian, French, Arabic, Farsi, Hindi.
 
-The core task, topic modeling, has been benchmarked against Scikit-Learn, Gensim 
-and AWS Comprehend topic models and delivers 100x speed-up with 2x accuracy on a 
-wide range of dataset sizes, complexity and languages. More details can be found 
-at www.sumup.ai in Nucleus Solution Brief (https://app.hubspot.com/documents/5812509/view/44612668?accessId=9bf45e)
+Nucleus currently supports the following document formats: JSON, PDF, TXT/RTF, DOCX, HTML, XML, CSV.
 
-## Python SDK
-Python SDK is available in [*python*](python) directory.
+The SDK enables users to perform the following tasks:
+### 1. Processing
+* Data transformation & representation
+* Metadata filtering
+* Search
+* Local repositories synchronization
+* Resources management
 
-## Javascript SDK
-Javascript SDK is available in [*javascript*](javascript) directory.
+### 2. Core Analytics
+* Topic extraction
+* Summarization
+* Sentiment & consensus
+* Topic importance
+* Historical analysis
+* Content recommendation
+* Assisted data labeling
+
+### 3. Advanced Analytics
+* Contrast analysis
+* Novelty analysis
+* Key contributors' analysis
+* Transfer learning
+* Content classification
+* Authors network analysis
+* Streaming analytics
+
+## Available SDKs
+### 1. Python SDK
+A Python SDK is available in [*python*](python) directory.
+
+### 2. Javascript SDK
+A Javascript SDK is available in [*javascript*](javascript) directory.
 
 ## Note to Jupyter Notebook users
 We strongly recommend that rapid testing done in Jupyter Notebook be limited to 
@@ -57,4 +57,12 @@ tests on large datasets being uploaded from within these notebooks to error out
 with a message such as 'Too many open files'.
 
 Once your rapid testing is done in notebook, best is to move to scripts to perform 
-testing and exploration on much larger corpuses.
+testing and exploration on much larger corpora.
+
+## Benchmarks
+The core task, topic modeling, has been benchmarked against Scikit-Learn, Gensim 
+and AWS Comprehend topic models and delivers 100x speed-up with 2x accuracy on a 
+wide range of dataset sizes, complexity and languages. More details can be found 
+at www.sumup.ai in Nucleus Solution Brief (https://app.hubspot.com/documents/5812509/view/44612668?accessId=9bf45e)
+
+Other benchmarks and performance studies are available on SumUp Analytics' blog: www.sumup.ai/blog
