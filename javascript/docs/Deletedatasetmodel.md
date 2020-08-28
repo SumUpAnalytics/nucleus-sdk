@@ -1,8 +1,8 @@
-# NucleusApi.Deletedatasetmodel
+# NucleusApi.DeleteDatasetModel
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**dataset** | **String** | Name of the dataset. | 
+**dataset** | **String** | Dataset name | 
 
 

@@ -3,9 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**docids** | **[Number]** |  | [optional] 
-**exposures** | **[Number]** |  | [optional] 
-**true_class** | **[String]** |  | [optional] 
-**estimated_class** | **[String]** |  | [optional] 
+**doc_ids** | **[Number]** | List of document IDs (e.g [\&quot;doc_id1\&quot;, \&quot;doc_id2\&quot;]) | [optional] 
+**true_class** | **[String]** | Actual class of each document, if running validation phase and thus such class is known on the labeled data | [optional] 
+**estimated_class** | **[String]** | Class of each document as estimated by the document classification algorithm | [optional] 
 
 

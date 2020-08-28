@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**job_id** | **String** | If the job is taking too long, job_id is returned, GET /jobs can then be used to poll for results | [optional] 
+**job_id** | **String** | If the job is taking too long, job_id is returned, GET /jobs can then be used to poll for results. | [optional] 
 **user_email** | **String** | Email | [optional] 
 **first_name** | **String** | First name | [optional] 
 **last_name** | **String** | Last name | [optional] 
@@ -16,5 +16,6 @@ Name | Type | Description | Notes
 **license_id** | **String** | License ID | [optional] 
 **license_type** | **String** | License type | [optional] 
 **expiry** | **String** | License expiration date | [optional] 
+**role** | **String** | User role: admin or user | [optional] 
 
 

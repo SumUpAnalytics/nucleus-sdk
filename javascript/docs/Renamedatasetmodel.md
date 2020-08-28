@@ -1,4 +1,4 @@
-# NucleusApi.Renamedatasetmodel
+# NucleusApi.RenameDatasetModel
 
 ## Properties
 Name | Type | Description | Notes

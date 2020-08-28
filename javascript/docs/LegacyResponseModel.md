@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**results** | **String** | The JSON stringified results | [optional] 
-**job_id** | **String** | If the job is taking too long, job_id is returned, GET /jobs can then be used to poll for results | [optional] 
+**job_id** | **String** |  | [optional] [default to &#39;If the job is taking too long, job_id is returned, GET /jobs can then be used to poll for results.&#39;]
+**result** | **Object** | Json results from the underlying legacy api. | [optional] 
 
 

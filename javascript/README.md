@@ -1,10 +1,11 @@
 # nucleus_api
 
 NucleusApi - JavaScript client for nucleus_api
-Nucleus text analytics APIs from SumUp Analytics. Example and documentation: https://github.com/SumUpAnalytics/nucleus-sdk
+Nucleus text analytics APIs from SumUp Analytics. Example and documentation: https://www.sumup.ai/apis/#nucleus-documentation
 
-- API version: v2.4.0
-- Package version: v2.4.0
+- API version: v4.0.9
+- Package version: v4.0.9
+For more information, please visit [https://www.sumup.ai](https://www.sumup.ai)
 
 ## Installation
 
@@ -89,28 +90,44 @@ Class | Method | HTTP request | Description
 *NucleusApi.NucleusApi* | [**getJob**](docs/NucleusApi.md#getJob) | **GET** /jobs | 
 *NucleusApi.NucleusApi* | [**getListDatasets**](docs/NucleusApi.md#getListDatasets) | **GET** /datasets | 
 *NucleusApi.NucleusApi* | [**getListFilters**](docs/NucleusApi.md#getListFilters) | **GET** /filters | 
+*NucleusApi.NucleusApi* | [**getListForensics**](docs/NucleusApi.md#getListForensics) | **GET** /forensics | 
 *NucleusApi.NucleusApi* | [**getUser**](docs/NucleusApi.md#getUser) | **GET** /users | 
+*NucleusApi.NucleusApi* | [**postAdminAddUser**](docs/NucleusApi.md#postAdminAddUser) | **POST** /admin/add_user | 
+*NucleusApi.NucleusApi* | [**postAdminDeleteUser**](docs/NucleusApi.md#postAdminDeleteUser) | **POST** /admin/delete_user | 
+*NucleusApi.NucleusApi* | [**postAdminList**](docs/NucleusApi.md#postAdminList) | **POST** /admin/list | 
+*NucleusApi.NucleusApi* | [**postAdminManageDataset**](docs/NucleusApi.md#postAdminManageDataset) | **POST** /admin/manage_dataset | 
+*NucleusApi.NucleusApi* | [**postAdminUpdateUser**](docs/NucleusApi.md#postAdminUpdateUser) | **POST** /admin/update_user | 
 *NucleusApi.NucleusApi* | [**postAppendJsonToDataset**](docs/NucleusApi.md#postAppendJsonToDataset) | **POST** /datasets/append_json_to_dataset | 
 *NucleusApi.NucleusApi* | [**postAuthorConnectivityApi**](docs/NucleusApi.md#postAuthorConnectivityApi) | **POST** /topics/author_connectivity | 
 *NucleusApi.NucleusApi* | [**postAvailableSecFilings**](docs/NucleusApi.md#postAvailableSecFilings) | **POST** /feeds/available_sec_filings | 
 *NucleusApi.NucleusApi* | [**postBulkInsertJson**](docs/NucleusApi.md#postBulkInsertJson) | **POST** /datasets/bulk_insert_json | 
 *NucleusApi.NucleusApi* | [**postCreateDatasetFromSecFilings**](docs/NucleusApi.md#postCreateDatasetFromSecFilings) | **POST** /feeds/create_dataset_from_sec_filings | 
+*NucleusApi.NucleusApi* | [**postCustomTrackerApi**](docs/NucleusApi.md#postCustomTrackerApi) | **POST** /dashboard/custom_tracker | 
 *NucleusApi.NucleusApi* | [**postDatasetInfo**](docs/NucleusApi.md#postDatasetInfo) | **POST** /datasets/dataset_info | 
 *NucleusApi.NucleusApi* | [**postDatasetTagging**](docs/NucleusApi.md#postDatasetTagging) | **POST** /datasets/dataset_tagging | 
 *NucleusApi.NucleusApi* | [**postDeleteDataset**](docs/NucleusApi.md#postDeleteDataset) | **POST** /datasets/delete_dataset | 
 *NucleusApi.NucleusApi* | [**postDeleteDocument**](docs/NucleusApi.md#postDeleteDocument) | **POST** /datasets/delete_document | 
 *NucleusApi.NucleusApi* | [**postDeleteFilter**](docs/NucleusApi.md#postDeleteFilter) | **POST** /filters/delete_filter | 
+*NucleusApi.NucleusApi* | [**postDeleteForensic**](docs/NucleusApi.md#postDeleteForensic) | **POST** /forensics/delete_forensic | 
 *NucleusApi.NucleusApi* | [**postDocClassifyApi**](docs/NucleusApi.md#postDocClassifyApi) | **POST** /documents/document_classify | 
 *NucleusApi.NucleusApi* | [**postDocDisplay**](docs/NucleusApi.md#postDocDisplay) | **POST** /documents/document_display | 
 *NucleusApi.NucleusApi* | [**postDocInfo**](docs/NucleusApi.md#postDocInfo) | **POST** /documents/document_info | 
+*NucleusApi.NucleusApi* | [**postDocNewWordsApi**](docs/NucleusApi.md#postDocNewWordsApi) | **POST** /documents/document_new_words | 
+*NucleusApi.NucleusApi* | [**postDocNoveltyApi**](docs/NucleusApi.md#postDocNoveltyApi) | **POST** /documents/document_novelty | 
 *NucleusApi.NucleusApi* | [**postDocRecommendApi**](docs/NucleusApi.md#postDocRecommendApi) | **POST** /documents/document_recommend | 
 *NucleusApi.NucleusApi* | [**postDocSentimentApi**](docs/NucleusApi.md#postDocSentimentApi) | **POST** /documents/document_sentiment | 
 *NucleusApi.NucleusApi* | [**postDocSummaryApi**](docs/NucleusApi.md#postDocSummaryApi) | **POST** /documents/document_summary | 
 *NucleusApi.NucleusApi* | [**postDocumentContrastSummaryApi**](docs/NucleusApi.md#postDocumentContrastSummaryApi) | **POST** /documents/document_contrasted_summary | 
 *NucleusApi.NucleusApi* | [**postExampleJob**](docs/NucleusApi.md#postExampleJob) | **POST** /jobs/start_example_job | 
+*NucleusApi.NucleusApi* | [**postKeyAuthorsApi**](docs/NucleusApi.md#postKeyAuthorsApi) | **POST** /dashboard/key_authors | 
 *NucleusApi.NucleusApi* | [**postLegacy**](docs/NucleusApi.md#postLegacy) | **POST** /legacy | 
+*NucleusApi.NucleusApi* | [**postMetadataAutocomplete**](docs/NucleusApi.md#postMetadataAutocomplete) | **POST** /datasets/metadata_autocomplete | 
+*NucleusApi.NucleusApi* | [**postMetadataHistogram**](docs/NucleusApi.md#postMetadataHistogram) | **POST** /datasets/metadata_histogram | 
 *NucleusApi.NucleusApi* | [**postRenameDataset**](docs/NucleusApi.md#postRenameDataset) | **POST** /datasets/rename_dataset | 
 *NucleusApi.NucleusApi* | [**postSaveFilter**](docs/NucleusApi.md#postSaveFilter) | **POST** /filters/save_filter | 
+*NucleusApi.NucleusApi* | [**postSaveForensic**](docs/NucleusApi.md#postSaveForensic) | **POST** /forensics/save_forensic | 
+*NucleusApi.NucleusApi* | [**postSetupConnector**](docs/NucleusApi.md#postSetupConnector) | **POST** /connectors/setup_connector | 
+*NucleusApi.NucleusApi* | [**postSmartAlertsApi**](docs/NucleusApi.md#postSmartAlertsApi) | **POST** /dashboard/smart_alerts | 
 *NucleusApi.NucleusApi* | [**postTopicApi**](docs/NucleusApi.md#postTopicApi) | **POST** /topics/topics | 
 *NucleusApi.NucleusApi* | [**postTopicConsensusApi**](docs/NucleusApi.md#postTopicConsensusApi) | **POST** /topics/topic_consensus | 
 *NucleusApi.NucleusApi* | [**postTopicConsensusTransferApi**](docs/NucleusApi.md#postTopicConsensusTransferApi) | **POST** /topics/topic_consensus_transfer | 
@@ -121,13 +138,24 @@ Class | Method | HTTP request | Description
 *NucleusApi.NucleusApi* | [**postTopicSentimentTransferApi**](docs/NucleusApi.md#postTopicSentimentTransferApi) | **POST** /topics/topic_sentiment_transfer | 
 *NucleusApi.NucleusApi* | [**postTopicSummaryApi**](docs/NucleusApi.md#postTopicSummaryApi) | **POST** /topics/topic_summary | 
 *NucleusApi.NucleusApi* | [**postTopicTransferApi**](docs/NucleusApi.md#postTopicTransferApi) | **POST** /topics/topic_transfer | 
+*NucleusApi.NucleusApi* | [**postUpdateDatasetMetadata**](docs/NucleusApi.md#postUpdateDatasetMetadata) | **POST** /datasets/update_dataset_metadata | 
+*NucleusApi.NucleusApi* | [**postUpdateForensic**](docs/NucleusApi.md#postUpdateForensic) | **POST** /forensics/update_forensic | 
 *NucleusApi.NucleusApi* | [**postUploadFile**](docs/NucleusApi.md#postUploadFile) | **POST** /datasets/upload_file | 
-*NucleusApi.NucleusApi* | [**postUploadUrl**](docs/NucleusApi.md#postUploadUrl) | **POST** /datasets/import_file_from_url | 
-*NucleusApi.NucleusApi* | [**postUser**](docs/NucleusApi.md#postUser) | **POST** /users | 
+*NucleusApi.NucleusApi* | [**postUploadUrl**](docs/NucleusApi.md#postUploadUrl) | **POST** /datasets/upload_url | 
 
 
 ## Documentation for Models
 
+ - [NucleusApi.AdminAddUserModel](docs/AdminAddUserModel.md)
+ - [NucleusApi.AdminAddUserRespModel](docs/AdminAddUserRespModel.md)
+ - [NucleusApi.AdminDeleteUserModel](docs/AdminDeleteUserModel.md)
+ - [NucleusApi.AdminDeleteUserRespModel](docs/AdminDeleteUserRespModel.md)
+ - [NucleusApi.AdminListModel](docs/AdminListModel.md)
+ - [NucleusApi.AdminListRespModel](docs/AdminListRespModel.md)
+ - [NucleusApi.AdminManageDatasetModel](docs/AdminManageDatasetModel.md)
+ - [NucleusApi.AdminManageDatasetRespModel](docs/AdminManageDatasetRespModel.md)
+ - [NucleusApi.AdminUpdateUserModel](docs/AdminUpdateUserModel.md)
+ - [NucleusApi.AdminUpdateUserRespModel](docs/AdminUpdateUserRespModel.md)
  - [NucleusApi.ApiCall](docs/ApiCall.md)
  - [NucleusApi.AppendJsonRespModel](docs/AppendJsonRespModel.md)
  - [NucleusApi.Appendjsonparams](docs/Appendjsonparams.md)
@@ -139,19 +167,24 @@ Class | Method | HTTP request | Description
  - [NucleusApi.BulkInsertParams](docs/BulkInsertParams.md)
  - [NucleusApi.BulkInsertRespModel](docs/BulkInsertRespModel.md)
  - [NucleusApi.CreateSecDatasetResponseModel](docs/CreateSecDatasetResponseModel.md)
+ - [NucleusApi.CustomTrackerL1RespModel](docs/CustomTrackerL1RespModel.md)
+ - [NucleusApi.CustomTrackerModel](docs/CustomTrackerModel.md)
+ - [NucleusApi.CustomTrackerRespModel](docs/CustomTrackerRespModel.md)
  - [NucleusApi.DatasetInfo](docs/DatasetInfo.md)
  - [NucleusApi.DatasetInfoModel](docs/DatasetInfoModel.md)
  - [NucleusApi.DatasetInfoRespModel](docs/DatasetInfoRespModel.md)
- - [NucleusApi.DatasetModel](docs/DatasetModel.md)
+ - [NucleusApi.DatasetRespModel](docs/DatasetRespModel.md)
  - [NucleusApi.DatasetTagging](docs/DatasetTagging.md)
  - [NucleusApi.DatasetTaggingL1RespModel](docs/DatasetTaggingL1RespModel.md)
  - [NucleusApi.DatasetTaggingRespModel](docs/DatasetTaggingRespModel.md)
+ - [NucleusApi.DeleteDatasetModel](docs/DeleteDatasetModel.md)
  - [NucleusApi.DeleteDatasetRespModel](docs/DeleteDatasetRespModel.md)
+ - [NucleusApi.DeleteDocumentModel](docs/DeleteDocumentModel.md)
  - [NucleusApi.DeleteDocumentRespModel](docs/DeleteDocumentRespModel.md)
  - [NucleusApi.DeleteFilterModel](docs/DeleteFilterModel.md)
  - [NucleusApi.DeleteFilterRespModel](docs/DeleteFilterRespModel.md)
- - [NucleusApi.Deletedatasetmodel](docs/Deletedatasetmodel.md)
- - [NucleusApi.Deletedocumentmodel](docs/Deletedocumentmodel.md)
+ - [NucleusApi.DeleteForensicModel](docs/DeleteForensicModel.md)
+ - [NucleusApi.DeleteForensicRespModel](docs/DeleteForensicRespModel.md)
  - [NucleusApi.DocClassifyL1RespModel](docs/DocClassifyL1RespModel.md)
  - [NucleusApi.DocClassifyL2DRRespModel](docs/DocClassifyL2DRRespModel.md)
  - [NucleusApi.DocClassifyL2PMRespModel](docs/DocClassifyL2PMRespModel.md)
@@ -161,12 +194,19 @@ Class | Method | HTTP request | Description
  - [NucleusApi.DocDisplayL1RespModel](docs/DocDisplayL1RespModel.md)
  - [NucleusApi.DocDisplayRespModel](docs/DocDisplayRespModel.md)
  - [NucleusApi.DocInfo](docs/DocInfo.md)
+ - [NucleusApi.DocInfoRespL1Model](docs/DocInfoRespL1Model.md)
  - [NucleusApi.DocInfoRespModel](docs/DocInfoRespModel.md)
  - [NucleusApi.Document](docs/Document.md)
  - [NucleusApi.DocumentContrastSummaryL1Model](docs/DocumentContrastSummaryL1Model.md)
  - [NucleusApi.DocumentContrastSummaryL2Model](docs/DocumentContrastSummaryL2Model.md)
  - [NucleusApi.DocumentContrastSummaryModel](docs/DocumentContrastSummaryModel.md)
  - [NucleusApi.DocumentContrastSummaryRespModel](docs/DocumentContrastSummaryRespModel.md)
+ - [NucleusApi.DocumentNewWordsL1Model](docs/DocumentNewWordsL1Model.md)
+ - [NucleusApi.DocumentNewWordsModel](docs/DocumentNewWordsModel.md)
+ - [NucleusApi.DocumentNewWordsRespModel](docs/DocumentNewWordsRespModel.md)
+ - [NucleusApi.DocumentNoveltyL1Model](docs/DocumentNoveltyL1Model.md)
+ - [NucleusApi.DocumentNoveltyModel](docs/DocumentNoveltyModel.md)
+ - [NucleusApi.DocumentNoveltyRespModel](docs/DocumentNoveltyRespModel.md)
  - [NucleusApi.DocumentRecommendL1RespModel](docs/DocumentRecommendL1RespModel.md)
  - [NucleusApi.DocumentRecommendL2RespModel](docs/DocumentRecommendL2RespModel.md)
  - [NucleusApi.DocumentRecommendModel](docs/DocumentRecommendModel.md)
@@ -185,27 +225,43 @@ Class | Method | HTTP request | Description
  - [NucleusApi.ExampleJobResponse](docs/ExampleJobResponse.md)
  - [NucleusApi.FilePropertyModel](docs/FilePropertyModel.md)
  - [NucleusApi.FilterModel](docs/FilterModel.md)
+ - [NucleusApi.ForensicModel](docs/ForensicModel.md)
  - [NucleusApi.JobRespModel](docs/JobRespModel.md)
- - [NucleusApi.JobStatusRespModel](docs/JobStatusRespModel.md)
  - [NucleusApi.JsonPropertyModel](docs/JsonPropertyModel.md)
+ - [NucleusApi.KeyAuthorsL1RespModel](docs/KeyAuthorsL1RespModel.md)
+ - [NucleusApi.KeyAuthorsL2RespModel](docs/KeyAuthorsL2RespModel.md)
+ - [NucleusApi.KeyAuthorsModel](docs/KeyAuthorsModel.md)
+ - [NucleusApi.KeyAuthorsRespModel](docs/KeyAuthorsRespModel.md)
  - [NucleusApi.LegacyResponseModel](docs/LegacyResponseModel.md)
- - [NucleusApi.ListDatasetsModel](docs/ListDatasetsModel.md)
+ - [NucleusApi.ListDatasetsRespModel](docs/ListDatasetsRespModel.md)
  - [NucleusApi.ListFiltersModel](docs/ListFiltersModel.md)
- - [NucleusApi.NestedDocInfoModel](docs/NestedDocInfoModel.md)
+ - [NucleusApi.ListForensicsL1RespModel](docs/ListForensicsL1RespModel.md)
+ - [NucleusApi.ListForensicsRespModel](docs/ListForensicsRespModel.md)
+ - [NucleusApi.MetadataAutocomplete](docs/MetadataAutocomplete.md)
+ - [NucleusApi.MetadataAutocompleteRespModel](docs/MetadataAutocompleteRespModel.md)
+ - [NucleusApi.MetadataHistogram](docs/MetadataHistogram.md)
+ - [NucleusApi.MetadataHistogramRespModel](docs/MetadataHistogramRespModel.md)
  - [NucleusApi.NestedTopicConsensusModel](docs/NestedTopicConsensusModel.md)
  - [NucleusApi.NestedTopicConsensusTransferModel](docs/NestedTopicConsensusTransferModel.md)
  - [NucleusApi.NestedTopicSentimentTransferModel](docs/NestedTopicSentimentTransferModel.md)
- - [NucleusApi.PostUserRespModel](docs/PostUserRespModel.md)
+ - [NucleusApi.RenameDatasetModel](docs/RenameDatasetModel.md)
  - [NucleusApi.RenameDatasetRespModel](docs/RenameDatasetRespModel.md)
- - [NucleusApi.Renamedatasetmodel](docs/Renamedatasetmodel.md)
  - [NucleusApi.SaveFilterModel](docs/SaveFilterModel.md)
  - [NucleusApi.SaveFilterRespModel](docs/SaveFilterRespModel.md)
+ - [NucleusApi.SaveForensicRespModel](docs/SaveForensicRespModel.md)
+ - [NucleusApi.SetupConnectorModel](docs/SetupConnectorModel.md)
+ - [NucleusApi.SetupConnectorRespModel](docs/SetupConnectorRespModel.md)
+ - [NucleusApi.SmartAlertsL1RespModel](docs/SmartAlertsL1RespModel.md)
+ - [NucleusApi.SmartAlertsL2RespModel](docs/SmartAlertsL2RespModel.md)
+ - [NucleusApi.SmartAlertsModel](docs/SmartAlertsModel.md)
+ - [NucleusApi.SmartAlertsRespModel](docs/SmartAlertsRespModel.md)
  - [NucleusApi.TopicConsensusModel](docs/TopicConsensusModel.md)
  - [NucleusApi.TopicConsensusRespModel](docs/TopicConsensusRespModel.md)
  - [NucleusApi.TopicConsensusTransferModel](docs/TopicConsensusTransferModel.md)
  - [NucleusApi.TopicConsensusTransferRespModel](docs/TopicConsensusTransferRespModel.md)
  - [NucleusApi.TopicContrastL1RespModel](docs/TopicContrastL1RespModel.md)
- - [NucleusApi.TopicContrastL2RespModel](docs/TopicContrastL2RespModel.md)
+ - [NucleusApi.TopicContrastL21RespModel](docs/TopicContrastL21RespModel.md)
+ - [NucleusApi.TopicContrastL22RespModel](docs/TopicContrastL22RespModel.md)
  - [NucleusApi.TopicContrastModel](docs/TopicContrastModel.md)
  - [NucleusApi.TopicContrastRespModel](docs/TopicContrastRespModel.md)
  - [NucleusApi.TopicDeltaL1RespModel](docs/TopicDeltaL1RespModel.md)
@@ -232,11 +288,14 @@ Class | Method | HTTP request | Description
  - [NucleusApi.TopicTransferModel](docs/TopicTransferModel.md)
  - [NucleusApi.TopicTransferRespModel](docs/TopicTransferRespModel.md)
  - [NucleusApi.Topics](docs/Topics.md)
+ - [NucleusApi.UpdateDatasetMetadataModel](docs/UpdateDatasetMetadataModel.md)
+ - [NucleusApi.UpdateDatasetMetadataRespModel](docs/UpdateDatasetMetadataRespModel.md)
+ - [NucleusApi.UpdateForensicModel](docs/UpdateForensicModel.md)
+ - [NucleusApi.UpdateForensicsL1RespModel](docs/UpdateForensicsL1RespModel.md)
  - [NucleusApi.UploadFileRespModel](docs/UploadFileRespModel.md)
  - [NucleusApi.UploadURLModel](docs/UploadURLModel.md)
  - [NucleusApi.UploadUrlRespModel](docs/UploadUrlRespModel.md)
  - [NucleusApi.UrlPropertyModel](docs/UrlPropertyModel.md)
- - [NucleusApi.User](docs/User.md)
  - [NucleusApi.UserModel](docs/UserModel.md)
 
 
@@ -250,4 +309,4 @@ Class | Method | HTTP request | Description
 - **Location**: HTTP header
 
 
-Copyright 2019 SumUp Analytics, Inc
+Copyright 2018-2020 SumUp Analytics, Inc

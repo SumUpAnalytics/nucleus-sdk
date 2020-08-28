@@ -5,6 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **doc_title** | **String** | Document title | [optional] 
 **sentiment** | **String** | Document sentiment | [optional] 
-**sourceid** | **String** | Document ID | [optional] 
+**doc_id** | **String** | Document ID | [optional] 
+**doc_count** | **Number** | Document count | [optional] 
 
 

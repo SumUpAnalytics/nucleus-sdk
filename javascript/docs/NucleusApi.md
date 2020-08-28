@@ -7,28 +7,44 @@ Method | HTTP request | Description
 [**getJob**](NucleusApi.md#getJob) | **GET** /jobs | 
 [**getListDatasets**](NucleusApi.md#getListDatasets) | **GET** /datasets | 
 [**getListFilters**](NucleusApi.md#getListFilters) | **GET** /filters | 
+[**getListForensics**](NucleusApi.md#getListForensics) | **GET** /forensics | 
 [**getUser**](NucleusApi.md#getUser) | **GET** /users | 
+[**postAdminAddUser**](NucleusApi.md#postAdminAddUser) | **POST** /admin/add_user | 
+[**postAdminDeleteUser**](NucleusApi.md#postAdminDeleteUser) | **POST** /admin/delete_user | 
+[**postAdminList**](NucleusApi.md#postAdminList) | **POST** /admin/list | 
+[**postAdminManageDataset**](NucleusApi.md#postAdminManageDataset) | **POST** /admin/manage_dataset | 
+[**postAdminUpdateUser**](NucleusApi.md#postAdminUpdateUser) | **POST** /admin/update_user | 
 [**postAppendJsonToDataset**](NucleusApi.md#postAppendJsonToDataset) | **POST** /datasets/append_json_to_dataset | 
 [**postAuthorConnectivityApi**](NucleusApi.md#postAuthorConnectivityApi) | **POST** /topics/author_connectivity | 
 [**postAvailableSecFilings**](NucleusApi.md#postAvailableSecFilings) | **POST** /feeds/available_sec_filings | 
 [**postBulkInsertJson**](NucleusApi.md#postBulkInsertJson) | **POST** /datasets/bulk_insert_json | 
 [**postCreateDatasetFromSecFilings**](NucleusApi.md#postCreateDatasetFromSecFilings) | **POST** /feeds/create_dataset_from_sec_filings | 
+[**postCustomTrackerApi**](NucleusApi.md#postCustomTrackerApi) | **POST** /dashboard/custom_tracker | 
 [**postDatasetInfo**](NucleusApi.md#postDatasetInfo) | **POST** /datasets/dataset_info | 
 [**postDatasetTagging**](NucleusApi.md#postDatasetTagging) | **POST** /datasets/dataset_tagging | 
 [**postDeleteDataset**](NucleusApi.md#postDeleteDataset) | **POST** /datasets/delete_dataset | 
 [**postDeleteDocument**](NucleusApi.md#postDeleteDocument) | **POST** /datasets/delete_document | 
 [**postDeleteFilter**](NucleusApi.md#postDeleteFilter) | **POST** /filters/delete_filter | 
+[**postDeleteForensic**](NucleusApi.md#postDeleteForensic) | **POST** /forensics/delete_forensic | 
 [**postDocClassifyApi**](NucleusApi.md#postDocClassifyApi) | **POST** /documents/document_classify | 
 [**postDocDisplay**](NucleusApi.md#postDocDisplay) | **POST** /documents/document_display | 
 [**postDocInfo**](NucleusApi.md#postDocInfo) | **POST** /documents/document_info | 
+[**postDocNewWordsApi**](NucleusApi.md#postDocNewWordsApi) | **POST** /documents/document_new_words | 
+[**postDocNoveltyApi**](NucleusApi.md#postDocNoveltyApi) | **POST** /documents/document_novelty | 
 [**postDocRecommendApi**](NucleusApi.md#postDocRecommendApi) | **POST** /documents/document_recommend | 
 [**postDocSentimentApi**](NucleusApi.md#postDocSentimentApi) | **POST** /documents/document_sentiment | 
 [**postDocSummaryApi**](NucleusApi.md#postDocSummaryApi) | **POST** /documents/document_summary | 
 [**postDocumentContrastSummaryApi**](NucleusApi.md#postDocumentContrastSummaryApi) | **POST** /documents/document_contrasted_summary | 
 [**postExampleJob**](NucleusApi.md#postExampleJob) | **POST** /jobs/start_example_job | 
+[**postKeyAuthorsApi**](NucleusApi.md#postKeyAuthorsApi) | **POST** /dashboard/key_authors | 
 [**postLegacy**](NucleusApi.md#postLegacy) | **POST** /legacy | 
+[**postMetadataAutocomplete**](NucleusApi.md#postMetadataAutocomplete) | **POST** /datasets/metadata_autocomplete | 
+[**postMetadataHistogram**](NucleusApi.md#postMetadataHistogram) | **POST** /datasets/metadata_histogram | 
 [**postRenameDataset**](NucleusApi.md#postRenameDataset) | **POST** /datasets/rename_dataset | 
 [**postSaveFilter**](NucleusApi.md#postSaveFilter) | **POST** /filters/save_filter | 
+[**postSaveForensic**](NucleusApi.md#postSaveForensic) | **POST** /forensics/save_forensic | 
+[**postSetupConnector**](NucleusApi.md#postSetupConnector) | **POST** /connectors/setup_connector | 
+[**postSmartAlertsApi**](NucleusApi.md#postSmartAlertsApi) | **POST** /dashboard/smart_alerts | 
 [**postTopicApi**](NucleusApi.md#postTopicApi) | **POST** /topics/topics | 
 [**postTopicConsensusApi**](NucleusApi.md#postTopicConsensusApi) | **POST** /topics/topic_consensus | 
 [**postTopicConsensusTransferApi**](NucleusApi.md#postTopicConsensusTransferApi) | **POST** /topics/topic_consensus_transfer | 
@@ -39,9 +55,10 @@ Method | HTTP request | Description
 [**postTopicSentimentTransferApi**](NucleusApi.md#postTopicSentimentTransferApi) | **POST** /topics/topic_sentiment_transfer | 
 [**postTopicSummaryApi**](NucleusApi.md#postTopicSummaryApi) | **POST** /topics/topic_summary | 
 [**postTopicTransferApi**](NucleusApi.md#postTopicTransferApi) | **POST** /topics/topic_transfer | 
+[**postUpdateDatasetMetadata**](NucleusApi.md#postUpdateDatasetMetadata) | **POST** /datasets/update_dataset_metadata | 
+[**postUpdateForensic**](NucleusApi.md#postUpdateForensic) | **POST** /forensics/update_forensic | 
 [**postUploadFile**](NucleusApi.md#postUploadFile) | **POST** /datasets/upload_file | 
-[**postUploadUrl**](NucleusApi.md#postUploadUrl) | **POST** /datasets/import_file_from_url | 
-[**postUser**](NucleusApi.md#postUser) | **POST** /users | 
+[**postUploadUrl**](NucleusApi.md#postUploadUrl) | **POST** /datasets/upload_url | 
 
 
 <a name="getJob"></a>
@@ -99,7 +116,7 @@ Name | Type | Description  | Notes
 
 <a name="getListDatasets"></a>
 # **getListDatasets**
-> ListDatasetsModel getListDatasets()
+> ListDatasetsRespModel getListDatasets()
 
 
 
@@ -133,7 +150,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**ListDatasetsModel**](ListDatasetsModel.md)
+[**ListDatasetsRespModel**](ListDatasetsRespModel.md)
 
 ### Authorization
 
@@ -191,6 +208,53 @@ This endpoint does not need any parameter.
  - **Content-Type**: text/html
  - **Accept**: application/json
 
+<a name="getListForensics"></a>
+# **getListForensics**
+> ListForensicsRespModel getListForensics()
+
+
+
+List forensic modules owned by the user
+
+### Example
+```javascript
+var NucleusApi = require('nucleus_api');
+var defaultClient = NucleusApi.ApiClient.instance;
+
+// Configure API key authorization: apikey
+var apikey = defaultClient.authentications['apikey'];
+apikey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apikey.apiKeyPrefix = 'Token';
+
+var apiInstance = new NucleusApi.NucleusApi();
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+apiInstance.getListForensics(callback);
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**ListForensicsRespModel**](ListForensicsRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: text/html
+ - **Accept**: application/json
+
 <a name="getUser"></a>
 # **getUser**
 > UserModel getUser(user_email, password)
@@ -238,6 +302,271 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: text/html
+ - **Accept**: application/json
+
+<a name="postAdminAddUser"></a>
+# **postAdminAddUser**
+> AdminAddUserRespModel postAdminAddUser(payload)
+
+
+
+Add a new user
+
+### Example
+```javascript
+var NucleusApi = require('nucleus_api');
+var defaultClient = NucleusApi.ApiClient.instance;
+
+// Configure API key authorization: apikey
+var apikey = defaultClient.authentications['apikey'];
+apikey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apikey.apiKeyPrefix = 'Token';
+
+var apiInstance = new NucleusApi.NucleusApi();
+
+var payload = new NucleusApi.AdminAddUserModel(); // AdminAddUserModel | 
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+apiInstance.postAdminAddUser(payload, callback);
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**AdminAddUserModel**](AdminAddUserModel.md)|  | 
+
+### Return type
+
+[**AdminAddUserRespModel**](AdminAddUserRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="postAdminDeleteUser"></a>
+# **postAdminDeleteUser**
+> AdminDeleteUserRespModel postAdminDeleteUser(payload)
+
+
+
+Delete user
+
+### Example
+```javascript
+var NucleusApi = require('nucleus_api');
+var defaultClient = NucleusApi.ApiClient.instance;
+
+// Configure API key authorization: apikey
+var apikey = defaultClient.authentications['apikey'];
+apikey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apikey.apiKeyPrefix = 'Token';
+
+var apiInstance = new NucleusApi.NucleusApi();
+
+var payload = new NucleusApi.AdminDeleteUserModel(); // AdminDeleteUserModel | 
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+apiInstance.postAdminDeleteUser(payload, callback);
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**AdminDeleteUserModel**](AdminDeleteUserModel.md)|  | 
+
+### Return type
+
+[**AdminDeleteUserRespModel**](AdminDeleteUserRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="postAdminList"></a>
+# **postAdminList**
+> AdminListRespModel postAdminList(payload)
+
+
+
+List users, datasets, resources, etc
+
+### Example
+```javascript
+var NucleusApi = require('nucleus_api');
+var defaultClient = NucleusApi.ApiClient.instance;
+
+// Configure API key authorization: apikey
+var apikey = defaultClient.authentications['apikey'];
+apikey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apikey.apiKeyPrefix = 'Token';
+
+var apiInstance = new NucleusApi.NucleusApi();
+
+var payload = new NucleusApi.AdminListModel(); // AdminListModel | 
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+apiInstance.postAdminList(payload, callback);
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**AdminListModel**](AdminListModel.md)|  | 
+
+### Return type
+
+[**AdminListRespModel**](AdminListRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="postAdminManageDataset"></a>
+# **postAdminManageDataset**
+> AdminManageDatasetRespModel postAdminManageDataset(payload)
+
+
+
+Manage a dataset
+
+### Example
+```javascript
+var NucleusApi = require('nucleus_api');
+var defaultClient = NucleusApi.ApiClient.instance;
+
+// Configure API key authorization: apikey
+var apikey = defaultClient.authentications['apikey'];
+apikey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apikey.apiKeyPrefix = 'Token';
+
+var apiInstance = new NucleusApi.NucleusApi();
+
+var payload = new NucleusApi.AdminManageDatasetModel(); // AdminManageDatasetModel | 
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+apiInstance.postAdminManageDataset(payload, callback);
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**AdminManageDatasetModel**](AdminManageDatasetModel.md)|  | 
+
+### Return type
+
+[**AdminManageDatasetRespModel**](AdminManageDatasetRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="postAdminUpdateUser"></a>
+# **postAdminUpdateUser**
+> AdminUpdateUserRespModel postAdminUpdateUser(payload)
+
+
+
+Update information for a user
+
+### Example
+```javascript
+var NucleusApi = require('nucleus_api');
+var defaultClient = NucleusApi.ApiClient.instance;
+
+// Configure API key authorization: apikey
+var apikey = defaultClient.authentications['apikey'];
+apikey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apikey.apiKeyPrefix = 'Token';
+
+var apiInstance = new NucleusApi.NucleusApi();
+
+var payload = new NucleusApi.AdminUpdateUserModel(); // AdminUpdateUserModel | 
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+apiInstance.postAdminUpdateUser(payload, callback);
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**AdminUpdateUserModel**](AdminUpdateUserModel.md)|  | 
+
+### Return type
+
+[**AdminUpdateUserRespModel**](AdminUpdateUserRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="postAppendJsonToDataset"></a>
@@ -352,7 +681,7 @@ Name | Type | Description  | Notes
 
 
 
-Get information about the available sec filings. If no input is passed, returns the list of all available tickers. If tickers are passed, returns the list of available document types for these tickers. If documt types are also passed, returns the list of available secions for the selected tickers/filing types
+Get information about the available sec filings. If no input is passed, returns the list of all available tickers. If tickers are passed, returns the list of available document types for these tickers. If document types are also passed, returns the list of available sections for the selected tickers/filing types
 
 ### Example
 ```javascript
@@ -405,7 +734,7 @@ Name | Type | Description  | Notes
 
 
 
-Add many document to a dataset, in JSON form. Bulk insertion is much faster than making one api call for each document.
+Add many documents to a dataset, in JSON form. Bulk insertion is much faster than making one API call for each document.
 
 ### Example
 ```javascript
@@ -495,6 +824,59 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**CreateSecDatasetResponseModel**](CreateSecDatasetResponseModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="postCustomTrackerApi"></a>
+# **postCustomTrackerApi**
+> CustomTrackerRespModel postCustomTrackerApi(payload)
+
+
+
+Get custom tracker on chosen dataset and queries.
+
+### Example
+```javascript
+var NucleusApi = require('nucleus_api');
+var defaultClient = NucleusApi.ApiClient.instance;
+
+// Configure API key authorization: apikey
+var apikey = defaultClient.authentications['apikey'];
+apikey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apikey.apiKeyPrefix = 'Token';
+
+var apiInstance = new NucleusApi.NucleusApi();
+
+var payload = new NucleusApi.CustomTrackerModel(); // CustomTrackerModel | 
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+apiInstance.postCustomTrackerApi(payload, callback);
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**CustomTrackerModel**](CustomTrackerModel.md)|  | 
+
+### Return type
+
+[**CustomTrackerRespModel**](CustomTrackerRespModel.md)
 
 ### Authorization
 
@@ -632,7 +1014,7 @@ apikey.apiKey = 'YOUR API KEY';
 
 var apiInstance = new NucleusApi.NucleusApi();
 
-var payload = new NucleusApi.Deletedatasetmodel(); // Deletedatasetmodel | 
+var payload = new NucleusApi.DeleteDatasetModel(); // DeleteDatasetModel | 
 
 
 var callback = function(error, data, response) {
@@ -649,7 +1031,7 @@ apiInstance.postDeleteDataset(payload, callback);
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **payload** | [**Deletedatasetmodel**](Deletedatasetmodel.md)|  | 
+ **payload** | [**DeleteDatasetModel**](DeleteDatasetModel.md)|  | 
 
 ### Return type
 
@@ -670,7 +1052,7 @@ Name | Type | Description  | Notes
 
 
 
-Delete a document from a dataset.
+Delete documents from a dataset.
 
 ### Example
 ```javascript
@@ -685,7 +1067,7 @@ apikey.apiKey = 'YOUR API KEY';
 
 var apiInstance = new NucleusApi.NucleusApi();
 
-var payload = new NucleusApi.Deletedocumentmodel(); // Deletedocumentmodel | 
+var payload = new NucleusApi.DeleteDocumentModel(); // DeleteDocumentModel | 
 
 
 var callback = function(error, data, response) {
@@ -702,7 +1084,7 @@ apiInstance.postDeleteDocument(payload, callback);
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **payload** | [**Deletedocumentmodel**](Deletedocumentmodel.md)|  | 
+ **payload** | [**DeleteDocumentModel**](DeleteDocumentModel.md)|  | 
 
 ### Return type
 
@@ -760,6 +1142,59 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**DeleteFilterRespModel**](DeleteFilterRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="postDeleteForensic"></a>
+# **postDeleteForensic**
+> DeleteForensicRespModel postDeleteForensic(payload)
+
+
+
+Delete forensic module
+
+### Example
+```javascript
+var NucleusApi = require('nucleus_api');
+var defaultClient = NucleusApi.ApiClient.instance;
+
+// Configure API key authorization: apikey
+var apikey = defaultClient.authentications['apikey'];
+apikey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apikey.apiKeyPrefix = 'Token';
+
+var apiInstance = new NucleusApi.NucleusApi();
+
+var payload = new NucleusApi.DeleteForensicModel(); // DeleteForensicModel | 
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+apiInstance.postDeleteForensic(payload, callback);
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**DeleteForensicModel**](DeleteForensicModel.md)|  | 
+
+### Return type
+
+[**DeleteForensicRespModel**](DeleteForensicRespModel.md)
 
 ### Authorization
 
@@ -919,6 +1354,112 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**DocInfoRespModel**](DocInfoRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="postDocNewWordsApi"></a>
+# **postDocNewWordsApi**
+> DocumentNewWordsRespModel postDocNewWordsApi(payload)
+
+
+
+Document new words.
+
+### Example
+```javascript
+var NucleusApi = require('nucleus_api');
+var defaultClient = NucleusApi.ApiClient.instance;
+
+// Configure API key authorization: apikey
+var apikey = defaultClient.authentications['apikey'];
+apikey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apikey.apiKeyPrefix = 'Token';
+
+var apiInstance = new NucleusApi.NucleusApi();
+
+var payload = new NucleusApi.DocumentNewWordsModel(); // DocumentNewWordsModel | 
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+apiInstance.postDocNewWordsApi(payload, callback);
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**DocumentNewWordsModel**](DocumentNewWordsModel.md)|  | 
+
+### Return type
+
+[**DocumentNewWordsRespModel**](DocumentNewWordsRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="postDocNoveltyApi"></a>
+# **postDocNoveltyApi**
+> DocumentNoveltyRespModel postDocNoveltyApi(payload)
+
+
+
+Document novelty.
+
+### Example
+```javascript
+var NucleusApi = require('nucleus_api');
+var defaultClient = NucleusApi.ApiClient.instance;
+
+// Configure API key authorization: apikey
+var apikey = defaultClient.authentications['apikey'];
+apikey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apikey.apiKeyPrefix = 'Token';
+
+var apiInstance = new NucleusApi.NucleusApi();
+
+var payload = new NucleusApi.DocumentNoveltyModel(); // DocumentNoveltyModel | 
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+apiInstance.postDocNoveltyApi(payload, callback);
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**DocumentNoveltyModel**](DocumentNoveltyModel.md)|  | 
+
+### Return type
+
+[**DocumentNoveltyRespModel**](DocumentNoveltyRespModel.md)
 
 ### Authorization
 
@@ -1197,6 +1738,59 @@ Name | Type | Description  | Notes
  - **Content-Type**: text/html
  - **Accept**: application/json
 
+<a name="postKeyAuthorsApi"></a>
+# **postKeyAuthorsApi**
+> KeyAuthorsRespModel postKeyAuthorsApi(payload)
+
+
+
+Get key authors on chosen dataset and queries.
+
+### Example
+```javascript
+var NucleusApi = require('nucleus_api');
+var defaultClient = NucleusApi.ApiClient.instance;
+
+// Configure API key authorization: apikey
+var apikey = defaultClient.authentications['apikey'];
+apikey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apikey.apiKeyPrefix = 'Token';
+
+var apiInstance = new NucleusApi.NucleusApi();
+
+var payload = new NucleusApi.KeyAuthorsModel(); // KeyAuthorsModel | 
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+apiInstance.postKeyAuthorsApi(payload, callback);
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**KeyAuthorsModel**](KeyAuthorsModel.md)|  | 
+
+### Return type
+
+[**KeyAuthorsRespModel**](KeyAuthorsRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
 <a name="postLegacy"></a>
 # **postLegacy**
 > LegacyResponseModel postLegacy(payload)
@@ -1250,6 +1844,112 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+<a name="postMetadataAutocomplete"></a>
+# **postMetadataAutocomplete**
+> MetadataAutocompleteRespModel postMetadataAutocomplete(payload)
+
+
+
+Retrieve available values for a certain metadata column, matching a query.
+
+### Example
+```javascript
+var NucleusApi = require('nucleus_api');
+var defaultClient = NucleusApi.ApiClient.instance;
+
+// Configure API key authorization: apikey
+var apikey = defaultClient.authentications['apikey'];
+apikey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apikey.apiKeyPrefix = 'Token';
+
+var apiInstance = new NucleusApi.NucleusApi();
+
+var payload = new NucleusApi.MetadataAutocomplete(); // MetadataAutocomplete | 
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+apiInstance.postMetadataAutocomplete(payload, callback);
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**MetadataAutocomplete**](MetadataAutocomplete.md)|  | 
+
+### Return type
+
+[**MetadataAutocompleteRespModel**](MetadataAutocompleteRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="postMetadataHistogram"></a>
+# **postMetadataHistogram**
+> MetadataHistogramRespModel postMetadataHistogram(payload)
+
+
+
+Return document count for each distinct value of the given metadata column.
+
+### Example
+```javascript
+var NucleusApi = require('nucleus_api');
+var defaultClient = NucleusApi.ApiClient.instance;
+
+// Configure API key authorization: apikey
+var apikey = defaultClient.authentications['apikey'];
+apikey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apikey.apiKeyPrefix = 'Token';
+
+var apiInstance = new NucleusApi.NucleusApi();
+
+var payload = new NucleusApi.MetadataHistogram(); // MetadataHistogram | 
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+apiInstance.postMetadataHistogram(payload, callback);
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**MetadataHistogram**](MetadataHistogram.md)|  | 
+
+### Return type
+
+[**MetadataHistogramRespModel**](MetadataHistogramRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
 <a name="postRenameDataset"></a>
 # **postRenameDataset**
 > RenameDatasetRespModel postRenameDataset(payload)
@@ -1271,7 +1971,7 @@ apikey.apiKey = 'YOUR API KEY';
 
 var apiInstance = new NucleusApi.NucleusApi();
 
-var payload = new NucleusApi.Renamedatasetmodel(); // Renamedatasetmodel | 
+var payload = new NucleusApi.RenameDatasetModel(); // RenameDatasetModel | 
 
 
 var callback = function(error, data, response) {
@@ -1288,7 +1988,7 @@ apiInstance.postRenameDataset(payload, callback);
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **payload** | [**Renamedatasetmodel**](Renamedatasetmodel.md)|  | 
+ **payload** | [**RenameDatasetModel**](RenameDatasetModel.md)|  | 
 
 ### Return type
 
@@ -1309,7 +2009,7 @@ Name | Type | Description  | Notes
 
 
 
-Save a filter representing a subsect of a dataset (time range, query, metadata..).
+Save a filter representing a subset of a dataset (time range, query, metadata..).
 
 ### Example
 ```javascript
@@ -1346,6 +2046,165 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**SaveFilterRespModel**](SaveFilterRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="postSaveForensic"></a>
+# **postSaveForensic**
+> SaveForensicRespModel postSaveForensic(payload)
+
+
+
+Save forensic module
+
+### Example
+```javascript
+var NucleusApi = require('nucleus_api');
+var defaultClient = NucleusApi.ApiClient.instance;
+
+// Configure API key authorization: apikey
+var apikey = defaultClient.authentications['apikey'];
+apikey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apikey.apiKeyPrefix = 'Token';
+
+var apiInstance = new NucleusApi.NucleusApi();
+
+var payload = new NucleusApi.ForensicModel(); // ForensicModel | 
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+apiInstance.postSaveForensic(payload, callback);
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**ForensicModel**](ForensicModel.md)|  | 
+
+### Return type
+
+[**SaveForensicRespModel**](SaveForensicRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="postSetupConnector"></a>
+# **postSetupConnector**
+> SetupConnectorRespModel postSetupConnector(payload)
+
+
+
+Set up a connector to regularly ingest data into the specified dataset.
+
+### Example
+```javascript
+var NucleusApi = require('nucleus_api');
+var defaultClient = NucleusApi.ApiClient.instance;
+
+// Configure API key authorization: apikey
+var apikey = defaultClient.authentications['apikey'];
+apikey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apikey.apiKeyPrefix = 'Token';
+
+var apiInstance = new NucleusApi.NucleusApi();
+
+var payload = new NucleusApi.SetupConnectorModel(); // SetupConnectorModel | 
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+apiInstance.postSetupConnector(payload, callback);
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**SetupConnectorModel**](SetupConnectorModel.md)|  | 
+
+### Return type
+
+[**SetupConnectorRespModel**](SetupConnectorRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="postSmartAlertsApi"></a>
+# **postSmartAlertsApi**
+> SmartAlertsRespModel postSmartAlertsApi(payload)
+
+
+
+Get smart alerts on chosen dataset and queries.
+
+### Example
+```javascript
+var NucleusApi = require('nucleus_api');
+var defaultClient = NucleusApi.ApiClient.instance;
+
+// Configure API key authorization: apikey
+var apikey = defaultClient.authentications['apikey'];
+apikey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apikey.apiKeyPrefix = 'Token';
+
+var apiInstance = new NucleusApi.NucleusApi();
+
+var payload = new NucleusApi.SmartAlertsModel(); // SmartAlertsModel | 
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+apiInstance.postSmartAlertsApi(payload, callback);
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**SmartAlertsModel**](SmartAlertsModel.md)|  | 
+
+### Return type
+
+[**SmartAlertsRespModel**](SmartAlertsRespModel.md)
 
 ### Authorization
 
@@ -1886,11 +2745,13 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-<a name="postUploadFile"></a>
-# **postUploadFile**
-> UploadFileRespModel postUploadFile(file, dataset, opts)
+<a name="postUpdateDatasetMetadata"></a>
+# **postUpdateDatasetMetadata**
+> UpdateDatasetMetadataRespModel postUpdateDatasetMetadata(payload)
 
 
+
+Update dataset metadata
 
 ### Example
 ```javascript
@@ -1905,13 +2766,121 @@ apikey.apiKey = 'YOUR API KEY';
 
 var apiInstance = new NucleusApi.NucleusApi();
 
-var file = "/path/to/file.txt"; // File | 
+var payload = new NucleusApi.UpdateDatasetMetadataModel(); // UpdateDatasetMetadataModel | 
 
-var dataset = "dataset_example"; // String | Destination dataset where the file will be inserted.
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+apiInstance.postUpdateDatasetMetadata(payload, callback);
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**UpdateDatasetMetadataModel**](UpdateDatasetMetadataModel.md)|  | 
+
+### Return type
+
+[**UpdateDatasetMetadataRespModel**](UpdateDatasetMetadataRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="postUpdateForensic"></a>
+# **postUpdateForensic**
+> SaveForensicRespModel postUpdateForensic(payload)
+
+
+
+Update forensic module
+
+### Example
+```javascript
+var NucleusApi = require('nucleus_api');
+var defaultClient = NucleusApi.ApiClient.instance;
+
+// Configure API key authorization: apikey
+var apikey = defaultClient.authentications['apikey'];
+apikey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apikey.apiKeyPrefix = 'Token';
+
+var apiInstance = new NucleusApi.NucleusApi();
+
+var payload = new NucleusApi.UpdateForensicModel(); // UpdateForensicModel | 
+
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+apiInstance.postUpdateForensic(payload, callback);
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **payload** | [**UpdateForensicModel**](UpdateForensicModel.md)|  | 
+
+### Return type
+
+[**SaveForensicRespModel**](SaveForensicRespModel.md)
+
+### Authorization
+
+[apikey](../README.md#apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="postUploadFile"></a>
+# **postUploadFile**
+> UploadFileRespModel postUploadFile(file, dataset, opts)
+
+
+
+Upload a file to the specified dataset. If the dataset does not exist, it will be created. The \&quot;ngram\&quot; setting for the dataset can be specified with \&quot;metadata.tokenization_ngram\&quot;. e.g. metadata &#x3D; {\&quot;tokenization_ngram\&quot;: 1}. If the dataset exists, the file will be appended to it. &lt;br /&gt;If the file extension is .csv, .tsv, .xls, or .xlsx, it must contain column headers \&quot;title\&quot;, \&quot;content\&quot; and \&quot;time\&quot;. Each row in the spreadsheet will be processed as a single document. &lt;br /&gt;Otherwise, the file will be processed as a single document.
+
+### Example
+```javascript
+var NucleusApi = require('nucleus_api');
+var defaultClient = NucleusApi.ApiClient.instance;
+
+// Configure API key authorization: apikey
+var apikey = defaultClient.authentications['apikey'];
+apikey.apiKey = 'YOUR API KEY';
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//apikey.apiKeyPrefix = 'Token';
+
+var apiInstance = new NucleusApi.NucleusApi();
+
+var file = "/path/to/file.txt"; // File | File to be uploaded
+
+var dataset = "dataset_example"; // String | Dataset name
 
 var opts = { 
-  'metadata': "metadata_example", // String | Optional json containing additional document metadata. Eg: {\"time\":\"01/01/2001\",\"author\":\"me\"}
-  'filename': "filename_example" // String | Specify the filename if you want to override the original filename (Nucleus guesses the file type from the file name extension)
+  'filename': "filename_example", // String | Specify the filename if you want to override the original filename.Nucleus guesses the file type from the file name extension.
+  'time': "time_example", // String | Document publication time
+  'metadata': "metadata_example", // String | JSON containing document metadata(e.g. {\"author\": author, \"time\": \"2020-01-01\"}. Metadata values are case-sensitive.
+  'dateformat': "dateformat_example" // String | Specify the date format in the document to help date parsing. For example, if the date is \"Tue Jun 12 00:30:00 +0000 2018\", set dateformat to \"%a %b %d %H:%M:%S %z %Y\". If dateformat is not set, Nucleus guesses the date format with different methods.
 };
 
 var callback = function(error, data, response) {
@@ -1928,10 +2897,12 @@ apiInstance.postUploadFile(file, dataset, opts, callback);
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **file** | **File**|  | 
- **dataset** | **String**| Destination dataset where the file will be inserted. | 
- **metadata** | **String**| Optional json containing additional document metadata. Eg: {\&quot;time\&quot;:\&quot;01/01/2001\&quot;,\&quot;author\&quot;:\&quot;me\&quot;} | [optional] 
- **filename** | **String**| Specify the filename if you want to override the original filename (Nucleus guesses the file type from the file name extension) | [optional] 
+ **file** | **File**| File to be uploaded | 
+ **dataset** | **String**| Dataset name | 
+ **filename** | **String**| Specify the filename if you want to override the original filename.Nucleus guesses the file type from the file name extension. | [optional] 
+ **time** | **String**| Document publication time | [optional] 
+ **metadata** | **String**| JSON containing document metadata(e.g. {\&quot;author\&quot;: author, \&quot;time\&quot;: \&quot;2020-01-01\&quot;}. Metadata values are case-sensitive. | [optional] 
+ **dateformat** | **String**| Specify the date format in the document to help date parsing. For example, if the date is \&quot;Tue Jun 12 00:30:00 +0000 2018\&quot;, set dateformat to \&quot;%a %b %d %H:%M:%S %z %Y\&quot;. If dateformat is not set, Nucleus guesses the date format with different methods. | [optional] 
 
 ### Return type
 
@@ -1987,59 +2958,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**UploadUrlRespModel**](UploadUrlRespModel.md)
-
-### Authorization
-
-[apikey](../README.md#apikey)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-<a name="postUser"></a>
-# **postUser**
-> PostUserRespModel postUser(payload)
-
-
-
-Use this API to register a new user. Email and password are required, all other fields optional.
-
-### Example
-```javascript
-var NucleusApi = require('nucleus_api');
-var defaultClient = NucleusApi.ApiClient.instance;
-
-// Configure API key authorization: apikey
-var apikey = defaultClient.authentications['apikey'];
-apikey.apiKey = 'YOUR API KEY';
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//apikey.apiKeyPrefix = 'Token';
-
-var apiInstance = new NucleusApi.NucleusApi();
-
-var payload = new NucleusApi.User(); // User | 
-
-
-var callback = function(error, data, response) {
-  if (error) {
-    console.error(error);
-  } else {
-    console.log('API called successfully. Returned data: ' + data);
-  }
-};
-apiInstance.postUser(payload, callback);
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **payload** | [**User**](User.md)|  | 
-
-### Return type
-
-[**PostUserRespModel**](PostUserRespModel.md)
 
 ### Authorization
 

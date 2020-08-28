@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**sentences** | **[String]** |  | [optional] 
-**sourceid** | **String** | The ID of the document the sentence comes from | [optional] 
+**sentences** | **[String]** | Sentences belonging to the summary | [optional] 
+**doc_id** | **String** | Document ID | [optional] 
 
 

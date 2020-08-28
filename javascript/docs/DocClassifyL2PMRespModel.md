@@ -3,8 +3,10 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**hit_rate** | **String** | Accuracy of topic contrast API | [optional] 
-**recall** | **String** | Recall of topic contrast API | [optional] 
-**precision** | **String** | Precision of topic contrast API | [optional] 
+**accuracy** | **Number** | Accuracy of the classifier | [optional] 
+**recall** | **Number** | Recall of the classifier | [optional] 
+**precision** | **Number** | Precision of the classifier | [optional] 
+**f1** | **Number** | F1 of the classifier | [optional] 
+**balanced_accuracy** | **Number** | Balanced Accuracy of the classifier | [optional] 
 
 

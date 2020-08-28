@@ -1,9 +1,9 @@
-# NucleusApi.Deletedocumentmodel
+# NucleusApi.DeleteDocumentModel
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**dataset** | **String** | Name of the dataset. | 
-**docid** | **String** | ID of the document to be deleted. | 
+**dataset** | **String** | Dataset name | 
+**doc_ids** | **[String]** | List of document IDs (e.g [\&quot;doc_id1\&quot;, \&quot;doc_id2\&quot;]) | 
 
 
