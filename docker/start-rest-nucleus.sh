@@ -24,17 +24,16 @@ if [ "$nucleus_api_server" != "" ]; then
     exit 2
 fi
 
-# create nucleus-mysql-data volume if not already created
-nucleus_mysql_data=$(docker volume ls -q | grep -w nucleus-mysql-data)
-#echo $nucleus_mysql_data
-if [ "$nucleus_mysql_data" = "nucleus-mysql-data" ]; then
-    echo "Found docker volume nucleus-mysql-data as persistent storage for Nucleus data"
+# create nucleus-data volume if not already created
+nucleus_data=$(docker volume ls -q | grep -w nucleus-data)
+if [ "$nucleus_data" = "nucleus-data" ]; then
+    echo "Found docker volume nucleus-data as persistent storage for Nucleus data"
 else
-    echo "Create docker volume nucleus-mysql-data as persistent storage for Nucleus data"
-    docker volume create nucleus-mysql-data
+    echo "Create docker volume nucleus-data as persistent storage for Nucleus data"
+    docker volume create nucleus-data
 fi 
 
 # start a new container, copy the license file to the container and start api server
-docker run -d --name nucleus-api-server -e "PYTHONIOENCODING=utf8" -e MYSQL_ROOT_HOST=% -v nucleus-mysql-data:/var/lib/mysql -p 50000:5000 nucleus:$ver
-docker cp $license_file nucleus-api-server:/usr/local/lib/python3.5/dist-packages/nucleus/resources/nucleus.lic
+docker run -d --name nucleus-api-server -e "LANG=C.UTF-8" -p 50000:5000 nucleus:$ver
+docker cp $license_file nucleus-api-server:/usr/local/lib/python3.6/dist-packages/nucleus/resources/nucleus.lic
 docker exec -it nucleus-api-server rest_nucleus
