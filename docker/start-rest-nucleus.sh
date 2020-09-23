@@ -1,6 +1,6 @@
 #set -x
 
-ver="0.0.4"
+ver="1.1.1"
 if [ "$#" -lt 1 ]; then
     echo "Usage: ./start-rest-nucleus.sh license-file [nucleus-docker-image-version]"
     exit 1
